@@ -1,0 +1,1 @@
+meantone_fifth <- function(frac=1/4) just_p5 - (syntonic_comma * frac)
