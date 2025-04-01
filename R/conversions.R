@@ -1,4 +1,4 @@
-#' Convert Between Octave Measurements
+#' Convert between octave measurements
 #'
 #' By default the period of a scale (normally the octave)
 #' has a size of 12 units (semitones). But it can be useful
@@ -25,14 +25,14 @@
 convert <- function(x, edo1, edo2) x*(edo2/edo1)
 
 #' @export
-coord_to_edo <- function(set, edo=globaledo) {
+coord_to_edo <- function(set, edo=12) {
   card <- length(set)
   new_origin <- edoo(card, edo=edo)
   return(set-new_origin)
 }
 
 #' @export
-coord_from_edo <- function(set, edo=globaledo) {
+coord_from_edo <- function(set, edo=12) {
   card <- length(set)
   new_origin <- edoo(card, edo=edo)
   return(set+new_origin)

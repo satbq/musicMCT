@@ -2,7 +2,7 @@
 % Please edit documentation in R/conversions.R
 \name{convert}
 \alias{convert}
-\title{Convert Between Octave Measurements}
+\title{Convert between octave measurements}
 \usage{
 convert(x, edo1, edo2)
 }
