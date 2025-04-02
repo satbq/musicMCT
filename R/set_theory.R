@@ -19,6 +19,27 @@ sc <- function(card, num) {
   return(res)
 }
 
+#' Forte number from set class
+#' 
+#' Given a pitch-class set (in 12edo only), look up Forte 1973's catalog 
+#' number for the corresponding set class.
+#'
+#' @inheritParams tnprime
+#' @returns Character string in the form n-x where n is the number of notes
+#'   in the set and x is the ordinal position in Forte's list.
+#' @examples
+#' fortenum(c(0,4,7))
+#' fortenum(c(0,3,7))
+#' fortenum(c(4,8,11))
+#' @export
+fortenum <- function(set) {
+  condensed_set <- unique(set)
+  card <- length(condensed_set)
+  strset <- toString(primeform(condensed_set, edo=12))
+  val <- which(fortenums[[card]]==strset)
+  return(paste0(card, "-", val))
+}
+
 #' Transposition class of a given pc-set
 #' 
 #' Uses Rahn's algorithm to calculate the best normal order for the 
@@ -49,4 +70,166 @@ tnprime <- function(set, edo=12) {
   }
 
   return(modes[,1])
+}
+
+#' Transposition and Inversion
+#'
+#' @description
+#' Calculate the classic operations on pitch-class sets \eqn{T_n} and 
+#' \eqn{T_n I}. That is, `tn` adds a constant to all elements in a set
+#' modulo the octave, and `tni` essentially multiplies a set by `-1` (modulo 
+#' the octave) and then adds a constant (modulo the octave). If `sorted` is
+#' `TRUE` (as is default), the resulting set is listed in ascending order,
+#' but sometimes it can be useful to track transformational voice leadings,
+#' in which case you should set `sorted` to `FALSE`.
+#'
+#' `startzero` transposes a set so that its first element is `0`.
+#' (Note that this is different from [tnprime] because it doesn't attempt
+#' to find the most compact form of the set. See examples for the contrast.)
+#'
+#' Sometimes you just want to invert a set and you don't care what the
+#' index is. `charm` is a quick way to do this, giving a name to
+#' the transposition-class of \eqn{T_0 I} of the set.
+#' (The name `charm` is a reference to "strange" and "charm" quarks in 
+#' particle physics: I like these as names for the "a" and "b" forms of
+#' a set class, i.e. the strange common triad is 3-11a = (0, 3, 7) 
+#' and the charm common triad is 3-11b = (0, 4, 7). The name of the function
+#' `charm` means that if you input a strange set, you get out a charm set,
+#' but NB also vice versa.)
+#' 
+#' @inheritParams tnprime
+#' @param n Numeric value (not necessarily an integer!) representing the 
+#'   index of transposition or inversion.
+#' @param sorted Do you want the result to be in ascending order? Boolean,
+#'   defaults to `TRUE`.
+#' @returns Numeric vector of same length as `set`
+#' @examples
+#' c_major <- c(0, 4, 7)
+#' tn(c_major, 2)
+#' tn(c_major, -10)
+#' tni(c_major, 7)
+#' tni(c_major, 7, sorted=FALSE)
+#' tn(c(0, 1, 6, 7), 6)
+#' tn(c(0, 1, 6, 7), 6, sorted=FALSE)
+#'
+#' ##### Difference between startzero and tnprime
+#' e_maj7 <- c(4, 8, 11, 3)
+#' startzero(e_maj7)
+#' tnprime(e_maj7)
+#' isTRUE(all.equal(tnprime(e_maj7), charm(e_maj7))) # True because inversionally symmetrical
+#' 
+#' ##### Derive minimal voice leading from ionian to lydian
+#' ionian <- c(0, 2, 4, 5, 7, 9, 11)
+#' lydian <- rotate(tn(ionian, 7, sorted=FALSE), 3)
+#' lydian - ionian
+#' @export
+tn <- function(set, n, edo=12, sorted=TRUE) {
+  res <- ((set%%edo) + (n%%edo)) %% edo
+  if (sorted == FALSE) { return(res) }
+  return(sort(res))
+}
+
+#' @rdname tn
+#' @export
+tni <- function(set, n, edo=12, sorted=TRUE) {
+  res <- ((n%%edo) - (set%%edo)) %% edo
+  if (sorted == FALSE) { return(res) }
+  return(sort(res))
+}
+
+#' @rdname tn
+#' @export
+startzero <- function(set, edo=12, sorted=TRUE) tn(set, -set[1], edo, sorted)
+
+#' @rdname tn
+#' @export
+charm <- function(set, edo=12, sorted=TRUE) {
+  return(tnprime(tni(set, 0, edo, sorted), edo))
+}
+
+setcompare <- function(x,y) {
+  card <- length(x)
+  if ( length(y) != card ) { print("Cardinality mismatch"); return(NA) }
+
+  modes <- cbind(x,y)
+
+  for (i in card:1) {
+    if (class(modes)[1]=="numeric") {return(modes)}
+    top <- min(modes[i,])
+    index <- which(modes[i,] == top)
+    modes <- modes[,index]
+  }
+
+  return(modes[,1])
+}
+
+#' Prime form of a set using Rahn's algorithm
+#'
+#' Takes a set (in any order, inversion, and transposition) and returns the
+#' canonical ("prime") form that represents the \eqn{T_n /T_n I}-type to which the
+#' set belongs. Uses the algorithm from Rahn 1980 rather than Forte 1973.
+#'
+#' In principle this should work for sets in continous pitch-class space,
+#' not just those in a mod k universe. But watch out for rounding errors:
+#' if you can manage to work with integer values, that's probably safer.
+#' Otherwise, try rounding your set to various decimal places to test for
+#' consistency of result.
+#'
+#' @inheritParams tnprime
+#' @returns Numeric vector of same length as `set`
+#' @examples
+#' primeform(c(0, 3, 4, 8))
+#' primeform(c(0, 1, 3, 7, 8))
+#' primeform(c(0, 3, 6, 9, 12, 14), edo=16)
+#' @export
+primeform <- function(set, edo=12) {
+  if (length(set)==1) { return(0) }
+  upset <- startzero(tnprime(set, edo), edo)
+  downset <- startzero(tnprime(tni(set, 0, edo), edo), edo)
+  winner <- setcompare(upset, downset)
+  return(winner)
+}
+
+#' Test for inversional symmetry
+#'
+#' Is the pc-set **i**nversionally **sym**metrical? That is, does it map onto itself
+#' under \eqn{T_n I} for some appropriate \eqn{n}? This is evaluated by asking
+#' whether, for some appropriate rotations, the step-interval series of the
+#' given set is equal to the step-interval series of the set's inversion.
+#' This is designed to work for sets in continuous pc-space, not just
+#' integers mod k. As usual for working with real values, this depends
+#' on your rounding tolerance (`rounder`).
+#'
+#' Note that this calculates abstract pitch-class symmetry, not potential
+#' symmetry in pitch space. (See the second example.)
+#'
+#' @inheritParams tnprime
+#' @inheritParams fpunique
+#' @returns `TRUE` if the set is inversionally symmetrical, `FALSE` otherwise
+#' @examples
+#' #### Mod 12
+#' isym(c(0, 1, 5, 8))
+#' isym(c(0, 2, 4, 8))
+#'
+#' #### Continuous Values
+#' qcm_fifth <- meantone_fifth()
+#' qcm_dia <- sort(((0:6)*qcm_fifth)%%12))
+#' just_dia <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
+#' isym(qcm_dia)
+#' isym(just_dia)
+#' 
+#' #### Rounding matters:
+#' isym(qcm_dia, rounder=15)
+
+#' @export
+isym <- function(set, edo=12, rounder=10) {
+  card <- length(set)
+  setword <- asword(set, edo, rounder)
+  invsetword <- rev(setword)
+
+  for (i in 1:card) {
+    invmode <- rotate(invsetword,i)
+    if ( isTRUE(all.equal(setword,invmode)) ) { return(TRUE) }
+  }
+  return(FALSE)
 }

@@ -16,7 +16,7 @@ Defaults to \code{1}. May be negative.}
 unchanged. If set to \code{TRUE}, elements moved from the head to the tail
 of the vector are increased in value by \code{edo}.}
 
-\item{edo}{Size of the octave. Defaults to \code{12}.}
+\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
 }
 \value{
 (Rotated) vector of same length as x

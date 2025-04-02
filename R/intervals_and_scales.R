@@ -34,7 +34,7 @@ meantone_fifth <- function(frac=1/4) just_p5 - (syntonic_comma * frac)
 #'	or `"delta"`. Defaults to `"alpha"`
 #' @param weights Numeric vector of length 3 assigning the number of steps that correspond 
 #'	to 3:2, 5:4, and 6:5, respectively. Overrides `name` if specificied.
-#' @param edo Size of the octave. Defaults to `12`.
+#' @param edo Number of steps in an octave. Defaults to `12`.
 #' @returns Single numeric value containing the step size for the desired scale
 #' @examples
 #' alpha_scale <- (0:31) * carlos_step()
