@@ -37,7 +37,7 @@ isym(c(0, 2, 4, 8))
 
 #### Continuous Values
 qcm_fifth <- meantone_fifth()
-qcm_dia <- sort(((0:6)*qcm_fifth)\%\%12))
+qcm_dia <- sort(((0:6)*qcm_fifth)\%\%12)
 just_dia <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
 isym(qcm_dia)
 isym(just_dia)

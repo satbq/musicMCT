@@ -19,6 +19,8 @@ sc <- function(card, num) {
   return(res)
 }
 
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("fortenums"))
+
 #' Forte number from set class
 #' 
 #' Given a pitch-class set (in 12edo only), look up Forte 1973's catalog 
@@ -213,7 +215,7 @@ primeform <- function(set, edo=12) {
 #'
 #' #### Continuous Values
 #' qcm_fifth <- meantone_fifth()
-#' qcm_dia <- sort(((0:6)*qcm_fifth)%%12))
+#' qcm_dia <- sort(((0:6)*qcm_fifth)%%12)
 #' just_dia <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
 #' isym(qcm_dia)
 #' isym(just_dia)
@@ -232,4 +234,66 @@ isym <- function(set, edo=12, rounder=10) {
     if ( isTRUE(all.equal(setword,invmode)) ) { return(TRUE) }
   }
   return(FALSE)
+}
+
+#' Interval-class vector
+#'
+#' The classic summary of a set's dyadic subset content from pitch-class set theory.
+#' The name `ivec` is short for **i**nterval-calss **vec**tor.
+#' 
+#' @inheritParams tnprime
+#' @returns Numeric vector of length `floor(edo/2)`
+#' @examples
+#' ivec(c(0,1,4,6))
+#' ivec(c(0,1,3,7))
+#' 
+#' #### Z-related sextuple in 24edo:
+#' sextuple <- matrix(
+#'   c(0, 1, 2, 6, 8, 10, 13, 16,
+#'   0, 1, 3, 7, 9, 11, 12, 17,
+#'   0, 1, 6, 8, 10, 13, 14, 16,
+#'   0, 1, 7, 9, 11, 12, 15, 17,
+#'   0, 1, 2, 4, 8, 10, 13, 18,
+#'   0, 2, 3, 4, 8, 10, 15, 18), nrow=6, byrow=TRUE)
+#' apply(sextuple, 1, ivec, edo=24) # The ic-vectors are the 6 identical columns of the output matrix
+#' @export
+ivec <- function(set, edo=12) {
+  set <- set%%edo
+  set <- unique(set)
+  vec <- rep(edo+1,edo/2)
+  ivs <- outer(set, set, "-")
+  ivs2 <- (edo - ivs)
+  lowers <- ivs
+  lowers[which(ivs > ivs2)] <- ivs2[which(ivs > ivs2)]
+  nonzero <- lowers[lowers > 0]
+
+  for (i in 1:(edo/2)) {
+    vec[i] <- sum(nonzero == i)
+  }
+
+  return(vec)
+}
+
+#' Set class complement
+#'
+#' Find the complement of a set class in a given mod k universe. Complements
+#' have traditionally been recognized in pitch-class set theory as sharing
+#' many properties with each other. This is true to *some* extent when 
+#' considering scales in continuous pc-space, but sometimes it is not! 
+#' Therefore whenever you're exploring an odd property that a scale has, it
+#' can be useful to check that scale's complement (if you've come across the
+#' scale in some mod k context, of course).
+#'
+#' @inheritParams tnprime
+#' @returns Numeric vector representing a set of length `edo - n` where `n` is
+#'   the length of the input `set`
+#' @examples
+#' diatonic19 <- c(0, 3, 6, 9, 11, 14, 17)
+#' chromatic19 <- scComp(diatonic19, edo=19)
+#' icvecs_19 <- rbind(ivec(diatonic19, edo=19), ivec(chromatic19, edo=19))
+#' rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
+#' icvecs_19
+#' export
+scComp <- function(set,edo=12) {
+  return(primeform(setdiff(0:(edo-1),set),edo))
 }

@@ -35,9 +35,8 @@
 #' brightnessgraph(c(0,1,4,9,11),edo=15)
 #'
 #' #### A more complicated graph
-#' werck_ratios <- c(1, 256/243, 64*sqrt(2)/81, 32/27,
-#'                   (256/243)*2^(1/4), 4/3, 1024/729, (8/9)*2^(3/4),
-#'                   128/81, (1024/729)*2^(1/4), 16/9, (128/81)*2^(1/4))
+#' werck_ratios <- c(1, 256/243, 64*sqrt(2)/81, 32/27, (256/243)*2^(1/4), 4/3, 
+#'   1024/729, (8/9)*2^(3/4), 128/81, (1024/729)*2^(1/4), 16/9, (128/81)*2^(1/4))
 #' werckmeister_3 <- 12 * log2(werck_ratios)
 #' brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
 #' 
@@ -121,7 +120,7 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
   }
   pitch_labels <- apply(apply(pitch_labels,2, round, digits=numdigits), 2, paste, collapse=", ")
 
-  label_matrix <- cbind(as.character(as.roman(1:card)),
+  label_matrix <- cbind(as.character(utils::as.roman(1:card)),
                         rep(" (",card),
                         round(sums,digits=numdigits),
                         rep(")",card),

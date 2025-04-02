@@ -29,7 +29,7 @@ rotate <- function(x, n=1, transpose_up=FALSE, edo=12) {
     x[1:n] <- x[1:n] + edo
   }
 
-  res <- c( tail(x,len-n), head(x,n) )
+  res <- c( utils::tail(x,len-n), utils::head(x,n) )
 
   return(res)
 }
