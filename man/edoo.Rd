@@ -9,7 +9,7 @@ edoo(card, edo = 12)
 \arguments{
 \item{card}{Number of notes in the scale. Numeric.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
 Numeric vector of length \code{card} representing a scale of \code{card} notes.

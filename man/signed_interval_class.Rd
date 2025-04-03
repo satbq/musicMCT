@@ -9,7 +9,7 @@ signed_interval_class(x, edo = 12)
 \arguments{
 \item{x}{Single numeric value, representing an ordered pitch-class interval}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
 Single numeric value

@@ -21,7 +21,7 @@ charm(set, edo = 12, sorted = TRUE)
 \item{n}{Numeric value (not necessarily an integer!) representing the
 index of transposition or inversion.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}

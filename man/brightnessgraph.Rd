@@ -25,7 +25,7 @@ brightnessgraph(
 
 \item{fixed_do}{Boolean: should the graph use only the fixed pitches of the input set? Defaults to \code{FALSE}.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer) representing tolerance:
 number of decimal places to round to.}

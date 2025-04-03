@@ -4,13 +4,7 @@
 \alias{colornum}
 \title{Color number}
 \usage{
-colornum(
-  set,
-  ineqmat = NULL,
-  edo = 12,
-  rounder = 10,
-  signvector_list = representative_signvectors
-)
+colornum(set, ineqmat = NULL, signvector_list = NULL, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -20,29 +14,32 @@ you want to use the standard hyperplane arrangement of MCT. But you can
 enter a different matrix that contains normal vectors for any hyperplane
 arrangement in the same format as the standard ineqmats.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{signvector_list}{A list of signvectors to use as the reference by
+which \code{colornum} assigns a value. Defaults to \code{NULL} and will attempt to
+use \code{representative_signvectors}, which needs to be downloaded and assigned
+separately from the package musicMCT.}
+
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer) representing tolerance:
 number of decimal places to round to.}
-
-\item{signvector_list}{A list of signvectors to use as the reference by
-which \code{colornum} assigns a value; defaults to \code{representative_signvectors}.
-You would only change this if you have defined your own hyperplane
-arrangement and cataloged all its faces; if so, your signvector_list
-should have the same internal structure as representative_signvectors.}
 }
 \value{
-Single non-negative integer (the color number)
+Single non-negative integer (the color number) if a \code{signvector_list}
+is specified or \code{representative_signvectors} is loaded; otherwise \code{NULL}
 }
 \description{
 As described on p. 28 of "Modal Color Theory," it's convenient to have a
-systematic labeling system (color numbers) to refer to the distinct colors
+systematic labeling system ("color numbers") to refer to the distinct colors
 in the hyperplane arrangements. This serves a similar function as Forte's
 set class numbers do in traditional pitch-class set theory. Color numbers
 are defined with reference to a complete list of the possible sign vectors
 for each cardinality, so they depend on the extensive prior computation
-that is stored in the object \code{representative_signvectors}. Color numbers
-are currently only defined for scales with 7 or fewer notes.
+that is stored in the object \code{representative_signvectors}. (This is a large
+file that cannot be included in the package musicMCT itself; it needs to be
+downloaded separately, saved in your working directory, and loaded by entering
+\code{representative_signvectors <- readRDS("representative_signvectors.rds")}.
+Color numbers are currently only defined for scales with 7 or fewer notes.
 }
 \details{
 Note that the perfectly even "white" scale is number \code{0} for every cardinality

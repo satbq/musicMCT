@@ -10,7 +10,7 @@ realize_setword(setword, edo = 12, reconvert = TRUE)
 \item{setword}{A numeric vector (intended to be integers) of ranked step
 sizes; should be the same length as desired output set.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{reconvert}{Boolean. Should the result be expressed measured in
 terms of semitones (or a different mod k step if edo is not set to 12)?}

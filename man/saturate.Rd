@@ -16,7 +16,7 @@ If r < 0, the result is an "involution" of the set.}
 
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
 \code{saturate} returns another scale (a numeric vector of

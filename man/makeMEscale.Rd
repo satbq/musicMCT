@@ -9,7 +9,7 @@ makeMEscale(card, edo = 12, floor = TRUE)
 \arguments{
 \item{card}{Number of notes in the scale. Numeric.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{floor}{Boolean determining how to quantize. Defaults to \code{TRUE} causing the
 quantization to round down. If \code{FALSE} rounds to the nearest value.}

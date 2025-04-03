@@ -13,7 +13,7 @@ or \code{"delta"}. Defaults to \code{"alpha"}}
 \item{weights}{Numeric vector of length 3 assigning the number of steps that correspond
 to 3:2, 5:4, and 6:5, respectively. Overrides \code{name} if specificied.}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
 Single numeric value containing the step size for the desired scale

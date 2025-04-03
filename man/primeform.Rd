@@ -9,7 +9,7 @@ primeform(set, edo = 12)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
 Numeric vector of same length as \code{set}

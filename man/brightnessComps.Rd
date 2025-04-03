@@ -9,7 +9,7 @@ brightnessComps(set, edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{edo}{Number of steps in an octave. Defaults to \code{12}.}
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer) representing tolerance:
 number of decimal places to round to.}
