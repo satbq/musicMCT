@@ -41,7 +41,7 @@
 #' brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
 #' 
 #' @returns `NULL` and plots a brightness graph in the graphic device
-
+#' @export
 brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
                             edo=12, rounder=10) {
    card <- length(set)

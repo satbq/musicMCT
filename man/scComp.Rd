@@ -30,5 +30,4 @@ chromatic19 <- scComp(diatonic19, edo=19)
 icvecs_19 <- rbind(ivec(diatonic19, edo=19), ivec(chromatic19, edo=19))
 rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
 icvecs_19
-export
 }

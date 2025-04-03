@@ -293,7 +293,7 @@ ivec <- function(set, edo=12) {
 #' icvecs_19 <- rbind(ivec(diatonic19, edo=19), ivec(chromatic19, edo=19))
 #' rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
 #' icvecs_19
-#' export
+#' @export
 scComp <- function(set,edo=12) {
   return(primeform(setdiff(0:(edo-1),set),edo))
 }

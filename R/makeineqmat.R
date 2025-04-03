@@ -86,6 +86,8 @@ makeineqmat <- function(card) {
   return(res)
 }
 
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("ineqmats"))
+
 #' @rdname makeineqmat
 #' @export
 getineqmat <- function(card) {

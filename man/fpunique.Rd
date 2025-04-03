@@ -34,7 +34,8 @@ results, especially if you have done several operations in a row which
 may have introduced rounding errors.
 }
 \examples{
-just_dia <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
+just_dia <- c(0, musicMCT:::just_wt, musicMCT:::just_maj3, musicMCT:::just_p4, 
+  musicMCT:::just_p5, 12-musicMCT:::just_min3, 12-musicMCT:::just_st)
 intervals_in_just_dia <- sort(as.vector(sim(just_dia)))
 failed_unique_intervals <- unique(intervals_in_just_dia)
 fpunique_intervals <- fpunique(intervals_in_just_dia)

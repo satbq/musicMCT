@@ -46,7 +46,7 @@ colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10
 
   if (is.null(signvector_list)) {
     if (exists("representative_signvectors")) {
-      signvector_list <- representative_signvectors
+      signvector_list <- get("representative_signvectors")
     } else {
         return(NULL)
     }
