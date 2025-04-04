@@ -17,8 +17,8 @@ quantize_color(
 \item{set}{Numeric vector of pitch-classes in the set}
 
 \item{nmax}{Integer, essentially a limit to how far the function should search before giving up.
-Although every color should have a rational representation in some mod k universe, for some colors
-that k must be very high. Increasing nmax makes \code{quantize_color} run longer but might be necessary
+Although every real color should have a rational representation in some mod k universe, for some colors
+that k must be very high. Increasing nmax makes the function run longer but might be necessary
 if small chromatic universes don't produce a result. Defaults to \code{12}.}
 
 \item{reconvert}{Boolean. Should the scale be converted to 12edo? Defaults to \code{FALSE}.}

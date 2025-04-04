@@ -1,0 +1,9 @@
+! sample_pentachord.scl
+A 5-note scale of color 1026 with 4 degrees of freedom. Period: 1200 cents. Ratio: 0.5; evenness: 1.5 (wrt. 12 steps to period); on 0 hyperplanes.
+5
+! 
+ 240.00000000000
+ 330.00000000000
+ 645.00000000000
+ 810.00000000000
+1200.00000000000
