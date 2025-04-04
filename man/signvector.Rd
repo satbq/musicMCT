@@ -40,8 +40,7 @@ signvector(c(0,1,6))
 # Just and equal-tempered diatonic scales have different sign vectors because they have 
 # different internal structures (e.g. 12edo dia is generated but just dia is not). 
 dia_12edo <- c(0, 2, 4, 5, 7, 9, 11)
-just_dia <- c(0, musicMCT:::just_wt, musicMCT:::just_maj3, musicMCT:::just_p4, 
-  musicMCT:::just_p5, 12-musicMCT:::just_min3, 12-musicMCT:::just_st)
+just_dia <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
 isTRUE( all.equal( signvector(dia_12edo), signvector(just_dia) ) )
 
 }

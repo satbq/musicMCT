@@ -2,7 +2,7 @@ Package: musicMCT
 Title: Analysis of Musical Scale Structure
 Version: 0.0.0.9000
 Authors@R: 
-    person("Paul", "Sherrill", , "paul.sherrill@utah.edu", role = c("aut", "cre"), comment = c(ORCID = "0009-0002-3617-016X"))
+    person("Paul", "Sherrill", , "paul.sherrill@utah.edu", role = c("aut", "cre","cph"), comment = c(ORCID = "0009-0002-3617-016X"))
 Description: Functions and data to enable the analysis of musical scales (modes, grooves, etc.) in the vein of the author's article "Modal Color Theory." Offers basic functionality for conventional musical pitch class set theory (as developed by Allan Forte, David Lewin, etc.) as well as the continuous geometries of Callender, Quinn, & Tymoczko. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.) as described in Sherrill 2025.
 License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
