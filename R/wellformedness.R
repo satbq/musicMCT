@@ -59,3 +59,57 @@ iswellformed <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10
 
   return(FALSE)
 }
+
+equivocate <- function(setword, lowerbound, windowsize) {
+  highest <- max(setword)
+  toMatch <- lowerbound:(lowerbound+(windowsize-1))
+  toMatch <- unique(((toMatch-1)%%highest)+1)
+  replacement_positions <- which(setword %in% toMatch)
+  result <- replace(setword, replacement_positions, 1)
+  result <- replace(result, -replacement_positions, 2)
+  return(result)
+}
+
+#' Is a scale n-wise wellformed?
+#'
+#' David Clampitt's 1997 dissertation ("Pairwise Well-Formed Scales: 
+#' Structural and Transformational Properties," SUNY Buffalo) offers
+#' a generalization of the notion of well-formedness from 1-dimensional
+#' structures with a single generator to 2-dimensional structures that 
+#' mediate between two well-formed scales. Ongoing research suggests that
+#' this can be extended further to "n-wise" or "general" well-formedness,
+#' though n-wise well-formed scales are increasingly rare as n grows larger.
+#'
+#' @inheritParams iswellformed
+#' @returns Boolean: is the set n-wise well formed?
+#'
+#' @examples
+#' meantone_diatonic <- c(0,2,4,5,7,9,11)
+#' just_diatonic <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
+#' some_weird_thing <- convert(c(0, 1, 3, 6, 8, 12, 14), 17, 12)
+#' example_scales <- cbind(meantone_diatonic, just_diatonic, some_weird_thing)
+#'
+#' apply(example_scales, 2, howfree)
+#' apply(example_scales, 2, isgwf)
+#'
+#' @export
+isgwf <- function(set, setword=NULL,allowdegen=FALSE,edo=12,rounder=10) {
+# Note that this requires that the "letters" of a setword are consecutive integers,
+# such that max(letters) == len(unique(letters)). That is, a word on 3 letters should have the letters 1, 2, and 3.
+  if ( is.null(setword) ) { setword <- asword(set, edo, rounder) }
+  if (anyNA(setword)) { return(FALSE) }
+
+  highest <- max(setword)
+  equiv_parameters <- expand.grid(1:highest, 1:(highest-1))
+
+  equiv_wrap <- function(params, setword) equivocate(setword, params[1], params[2])
+  reduced_words <- apply(equiv_parameters, 1, equiv_wrap, setword=setword)
+
+  iswf_wrap <- function(setword, allowdegen, edo, rounder)  {
+    return(iswellformed(NULL, setword, allowdegen, edo, rounder))
+  }
+
+  tests <- apply(reduced_words,2, iswf_wrap, allowdegen=allowdegen, edo=edo, rounder=rounder)
+
+  return(as.logical(prod(tests)))
+}
