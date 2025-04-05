@@ -2,7 +2,7 @@
 % Please edit documentation in R/signvector.R
 \name{signvector}
 \alias{signvector}
-\title{Locate a scale relative to a hyperplane arrangement}
+\title{Detect a scale's location relative to a hyperplane arrangement}
 \usage{
 signvector(set, ineqmat = NULL, edo = 12, rounder = 10)
 }

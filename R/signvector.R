@@ -1,4 +1,4 @@
-#' Locate a scale relative to a hyperplane arrangement
+#' Detect a scale's location relative to a hyperplane arrangement
 #'
 #' As "Modal Color Theory" describes (pp. 25-26), each distinct scalar "color" is determined
 #' by its relationships to the hyperplanes that define the space. For any scale, this
@@ -59,9 +59,10 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #' @returns Single numeric value for `countsvzeroes` and a numeric vector
 #'   for `whichsvzeroes`
 #' @examples
-#' # Sort 12edo heptachords by how many sign vector zeroes they have
+#' # Sort 12edo heptachords by how many sign vector zeroes they have (from high to low)
 #' heptas12 <- unique(apply(utils::combn(12,7),2,primeform),MARGIN=2)
 #' heptas12_svzeroes <- apply(heptas12, 2, countsvzeroes)
+#' colnames(heptas12) <- apply(heptas12, 2, fortenum)
 #' heptas12[,order(heptas12_svzeroes, decreasing=TRUE)]
 #'
 #' # Multiple hexachords on the same flat but of different colors

@@ -15,5 +15,7 @@ Imports:
     igraph,
     utils,
     stats
-
-
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

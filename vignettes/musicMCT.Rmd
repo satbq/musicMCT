@@ -1,0 +1,304 @@
+---
+title: "musicMCT"
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{musicMCT}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(musicMCT)
+```
+
+# Introduction
+
+The goal of `musicMCT` is to provide computational tools for the study
+of musical scales. It includes functions that will probably be familiar to
+music theorists from pitch-class set theory in the vein of Allen Forte's
+*The Structure of Atonal Music* (1973). For instance, we can calculate the 
+**i**nterval-class **vec**tor of the diatonic scale (Forte's **s**et **c**lass 7-35)
+as follows:
+
+```{r}
+ivec(sc(7,35))
+```
+
+The top line of the block above is what you would input to R; the bottom line is the
+output of the function. Ignore the "[1]" which just indicates that you're
+seeing the first line of the output. The ic-vector is 2 5 4 3 6 1 as we'd expect.
+
+The main purpose of the package is not to reproduce traditional pc-set theory
+but to let us explore the geometry of musical scales described in "Modal Color Theory" 
+(Sherrill 2025, *Journal of Music Theory* 69/1: 1-49). As that article explains, 
+seven-note scales live in a 6-dimensional geometry populated by 1,824,229 qualitatively 
+distinct scalar structures. I'm happy to calculate an [ivec()] by hand, but we're
+going to need computers to really explore such a complicated heptachord space!
+
+This vignette will introduce many of the main functions of `musicMCT` that serve
+this purpose, especially as they relate to the concerns of the *JMT* article. The
+problem that we'll discuss is not of deep signifiance, but I hope a toy example
+will teach you how to use this software and give you a sense of the kinds of
+questions that deeper study might get into.
+
+
+# How acoustic is the "acoustic scale"?
+## 1. Introducing the main characters
+
+A familiar object from the theory of 20th-century music is the scale (C, D, E,
+F-sharp, G, A, B-flat). This is the fourth mode of melodic minor. We can verify
+that fact by defining the melodic minor scale for R and then calling [sim()],
+the package's function for finding the modes of a scale:
+
+```{r}
+melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
+sim(melodic_minor)
+```
+
+Note the syntax used to define a scale in R: we'll be using it a lot! Pitch-classes
+are represened by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
+(12 **e**qual **d**ivisions of the **o**ctave), these are all integers. Later
+we'll see that it's easy to work with integers in any k edo. But the values that define
+our scales don't have to be integers at all: Modal Color Theory works in continuous 
+pitch-class space.
+
+The function [sim()] above computes the **s**calar **i**nterval **m**atrix of a set 
+(as defined by [Tymoczko 2008](https://doi.org/10.1111/j.1468-2249.2008.00257.x)), which 
+presents to us the modes of a scale as the columns of the matrix. Our input, the melodic
+minor scale, is in the first column, and the scale we want to study can be read from the fourth
+column of the SIM:
+
+```{r}
+sim(melodic_minor)[,4]
+```
+
+Just to flex our muscles in R, let's pretend that we've forgotten how to interpet pitch-class integers
+and that we therefore need to verify that those numbers do correspond to the 
+notes (C, D, E, F-sharp, G, A, B-flat). We'll do that by checking the **v**oice **l**eading from
+C major to this scale:
+
+```{r}
+c_major <- c(0, 2, 4, 5, 7, 9, 11)
+minimizeVL(c_major, sim(melodic_minor)[,4])
+```
+
+As [Tymoczko 2007](https://www.mtosmt.org/issues/mto.05.11.4/mto.05.11.4.tymoczko.pdf) points
+out, key signatures are essentially just voice leadings from the C major scale to another heptachord,
+and here we've found a voice leading that raises the fourth step (F) a semitone while lowering the seventh step (B).
+So the numbers (0, 2, 4, 6, 7, 9, 10) do indeed correspond to the scale (C, D, E, F-sharp, G, A, B-flat).
+
+Now, this scale is sometimes called the "acoustic" scale because in some sense it is
+close to a seven-note chunk of the overtone series. Our task in this vignette is to use `musicMCT`
+to see how real that similarity is. Let's agree to call these two scales the "acoustic" and "overtone" scales, respectively.
+
+The overtone scale is defined by taking the 7th through 13th harmonics of the overtone series as a scale
+(noting that the 14th harmonic is an octave above the 7th). We'll convert that into semitone measurements
+as follows:
+
+```{r}
+overtones <- 7:13
+frequency_ratios <- overtones / 7
+semitone_values <- 12 * log2(frequency_ratios)
+overtone_scale <- sim(semitone_values)[,2]
+print(overtone_scale)
+```
+
+Let's find the voice leading from the overtone scale to the acoustic scale, since voice leading distance
+offers an approximate measure of musical similarity (as [Callender, Quinn, and 
+Tymoczko 2008](https://doi.org/10.1126/science.1153021) argue):
+
+```{r}
+acoustic_scale <- sim(melodic_minor)[,4]
+minimizeVL(overtone_scale, acoustic_scale)
+```
+
+Intuitions about voice leading distances can be tricky, but this initially doesn't seem like a 
+big distance between the two scales. The average amount that each voice has to move is about 23
+cents (a quarter of a semitone). On the other hand, our voice leading from C major to
+C acoustic was also pretty small: the average distance an individual voice had to move there was
+about 29 cents (2/7 of a semitone). Thus, by one measure, the `acoustic_scale` is about as good of
+an approximation of `c_major` as it is of the `overtone_scale`!
+
+We need better tools than mere voice-leading distance to think about scale similarity. One is the
+idea of quantization, which we'll address in the next section. We'll see that it doesn't tell
+the whole story either.
+
+## 2. A few supporting characters
+
+The normal justification for calling the `acoustic_scale` "acoustic" is that it's what you
+get if you simply round the values of the `overtone_scale` to the nearest integer (in 12edo):
+
+```{r}
+round(overtone_scale, digits=0)
+```
+
+Wait a second, that's not even the acoustic scale! It has two consecutive semitones (6, 7, 8), and
+actually represents sc7-33, the "whole-tone plus one" scale. What's going on here?!
+
+[Tymoczko (2013, 130)](https://doi.org/10.1080/17459737.2013.818724) explains that there's really 
+no such thing as *the* quantization of the `overtone_scale`. There are 7 different quantizations. The
+rounding above unfairly privileges C (`0`) as a note that's guaranteed not to have to move. If we treat 
+all the notes of the scale more equally, sometimes a different note gets to stay fixed. Let's try it.
+
+If the scale's tonic starts on a 12edo integer, it won't change when we quantize the scale. If we transpose
+the whole scale up 1 semitone by using [tn()], we should expect to get essentially the same quantization as when the
+scale starts on 0, just with 1 added to every value: 
+
+```{r}
+round(overtone_scale, digits=0)
+round(tn(overtone_scale, 1), digits=0)
+```
+
+To find the other possible quantizations, we need to explore the range of transpositions where the scale's
+tonic is some value ``0 < x < 1``. If we divide that span into cents, we should be able to find the
+other quantizations:
+
+```{r}
+amounts_to_transpose <- (0:99)/100
+transposed_scales <- sapply(amounts_to_transpose, tn, set=overtone_scale)
+quantized_scales <- apply(transposed_scales, 2, round, digits=0)
+unique_quantizations <- unique(quantized_scales, MARGIN=2)
+print(unique_quantizations)
+```
+
+We're almost there, but some of the scales start on 0 and some on 1. The eighth column is just ${T_1}$ of 
+the first. So let's make them all start on zero to double-check that they're truly unique:
+
+```{r}
+unique_quantizations_from_0 <- apply(unique_quantizations, 2, startzero)
+final_quantizations <- unique(unique_quantizations_from_0, MARGIN=2)
+colnames(final_quantizations) <- apply(final_quantizations, 2, fortenum)
+print(final_quantizations)
+```
+
+And thus we really do get exactly the seven quantizations that Tymoczko predicts. Of these seven, is there any reason
+to think that the `acoustic_scale` is a better quantization than the other possibilities? Tymoczko proposes one
+perspective: of the 100 scales in `transposed_scales`, how *many* of them quantize to each of the seven `final_quantizations`?
+This is possible to answer too (though here I'm going to gloss over the details of the code that gets these numbers):
+
+```{r, echo=FALSE}
+quantization_labels <- apply(final_quantizations, 2, fortenum)
+quantization_weights <- diff(which(duplicated(quantized_scales, MARGIN=2)==FALSE))
+quantization_weights[1] <- quantization_weights[1] + 1
+names(quantization_weights) <- quantization_labels
+print(quantization_weights)
+```
+
+That is, the WT-plus-1 scale that we first quantized to accounted for about 11% of the range of quantizations, whereas
+there are two *different* ways to quantize the `overtone_scale` to some mode of melodic minor. The first, which is
+the `acoustic_scale` proper, accounts on its own for 37% of all the quantizations--definitely the lion's share of them.
+
+This lends some credence to the weight of tradition, suggesting that the `acoustic_scale` might be a preferable
+quantization of the `overtone_scale` even if it isn't the *only* quantization.
+
+
+## But what about scale structure?
+
+So far we've used some of the computational tools of `musicMCT` but we haven't really applied the concepts
+of Modal Color Theory. That's because we've been treating the scales' continuous voice-leading space as 
+essentially undifferentiaed, whereas the central argument of MCT is that there are discrete regions in the geometry
+that correspond to *qualitative* differences in scale structure.
+
+MCT models scale structure by comparing intervals that belong to the same generic size. For instance, a big part of the
+character of the familiar major scale lies in the fact that most of its steps have the same size, except for $\hat{3}$-$\hat{4}$
+and $\hat{7}$-$\hat{1}$ which are smaller (but match each other). MCT breaks this down into individual comparisons: is the step
+$\hat{1}$-$\hat{2}$ bigger or smaller than the step $\hat{2}$-$\hat{3}$? Is the skip $\hat{1}$-$\hat{3}$ bigger or smaller than
+the skip $\hat{3}$-$\hat{5}$? And so on.
+
+How long before we have exhausted all the potential comparisons that we could make? Each comparison corresponds to a hyperplane
+in the geometry, and `musicMCT` offers a complete list of all the hyperplanes in a matrix called an `ineqmat` (for "inequality matrix").
+The relevant matrix for four-note scales looks like this:
+
+```{r}
+getineqmat(4)
+```
+
+Each row of the matrix represents a different pairwise interval comparison: for tetrachords, we apparently need to consider 8
+different comparisons to have a complete accounting of a scale structure. Two scales have the same structure (or belong to the same
+"color") if they answer all 8 comparisons in the same way. `musicMCT` summarizes this information in a scale's [signvector()]. For
+instance, let's consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248). Here are their sign vectors:
+
+```{r}
+signvector(sc(4,6))
+signvector(sc(4,24))
+```
+
+These vectors are the same, so MCT considers the tetrachords to have the same scalar structure. For instance, both start with two identical steps
+(0-1-2 and 0-2-4) and then have a larger leap (2-7 and 4-8).
+
+For heptachords, the relevant `ineqmat` has 42 rows, so the space of scale structures is considerably more complicated. Generally 
+you wouldn't learn a lot from simply trying to read sign vectors--`musicMCT` has more human-readable functions that will help you
+interpret them--but let's take a gander at them for the acoustic and overtone scales:
+
+```{r}
+signvector(acoustic_scale)
+signvector(overtone_scale)
+```
+
+One visually apparent difference between these is that the `acoustic_scale` has many more values of `0` in its sign vector than the `overtone_scale` 
+does. In fact, the latter has only a *single* `0`: all the rest of its values are `1` or `-1`. What does this tell us about
+the structure of the two scales?
+
+Each entry in a sign vector is a comparison between two intervals in a scale: both `1` and `-1` mean that one interval is bigger than
+the other, whereas a `0` means that the two intervals are identical. For instance, the first `0` in the sign vector for 0127 and 0248
+is what encodes the fact that both of them have a first step that equals their second step.
+
+In other words, we can see that the `acoustic_scale` is considerably more *regular* than the `overtone_scale`, in the sense that it has 
+many specific interval sizes that repeat inside it (like the 5 whole tones that dominate its generic steps, and the 4 perfect fifths
+that are the majority of its generic fifths). This contrast between the scales isn't too surprising. The `acoustic_scale` is constrained
+to twelve-tone equal temperament, so there are only so many intervals that it could possibly be made up of. By contrast, the `overtone_scale`
+is defined in continuous pitch-class space so it has a lot more variety to choose from. Moreover, given the logarithmic relationship between
+frequency ratios and pitch intervals, each successive step in the overtone series is smaller than the previous, so it makes sense
+that the `overtone_scale` would have a lot of intervallic variety. If anything, it's more surprising that it repeats *any* intervals.
+
+We can learn what interval it does repeat by putting together the information from the signvector with the `ineqmat` for heptachords. We could
+manually count which entry of the sign vector is a 0, but `musicMCT` also has a function for that:
+
+```{r}
+whichsvzeroes(overtone_scale)
+```
+
+We can now look at the row of the heptachordal `ineqmat` to see what interval comparison it defines:
+
+```{r}
+getineqmat(7)[whichsvzeroes(overtone_scale),]
+```
+
+This tells us that the fourth above $\hat{5}$ equals the fourth below $\hat{5}$ in size. (See page 43 of "Modal Color Theory" for a discussion
+of how to read the rows of an `ineqmat` like this.) And, sure enough, this is true:
+
+```{r}
+signed_interval_class(overtone_scale[5]-overtone_scale[1])
+signed_interval_class(overtone_scale[5]-overtone_scale[2])
+```
+
+If the `acoustic_scale` is to be an approximation of the `overtone_scale`, we might want it to retain this repeated interval, which it does:
+the perfect fourth from D to G matches the perfect fourth from G to C. We could also verify that by checking that the 38th entry of its sign vector
+is also 0:
+
+```{r}
+signvector(acoustic_scale)[38]
+```
+
+In fact, why don't we consider all seven of the distinct quantizations from the previous section?
+
+```{r}
+all_signvectors <- apply(final_quantizations, 2, signvector)
+all_signvectors[38,]
+```
+
+Most of them do match the `overtone_scale` on this point, except for sc7-31 and sc7-28. Note that these are also the scales that
+barely occurred at all as quantizations: each accounts for only about 2% of all the quantizations according to the table at the
+end of the previous section.
+
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+brightnessgraph(acoustic_scale)
+```

@@ -46,9 +46,10 @@ that the scale lies on, which is a more general kind of scalar structure
 than color (as determined by the entire sign vector).
 }
 \examples{
-# Sort 12edo heptachords by how many sign vector zeroes they have
+# Sort 12edo heptachords by how many sign vector zeroes they have (from high to low)
 heptas12 <- unique(apply(utils::combn(12,7),2,primeform),MARGIN=2)
 heptas12_svzeroes <- apply(heptas12, 2, countsvzeroes)
+colnames(heptas12) <- apply(heptas12, 2, fortenum)
 heptas12[,order(heptas12_svzeroes, decreasing=TRUE)]
 
 # Multiple hexachords on the same flat but of different colors
