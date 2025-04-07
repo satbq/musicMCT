@@ -1,8 +1,8 @@
 ---
-title: "musicMCT"
-output: rmarkdown::pdf_document
+title: "Introduction to musicMCT"
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{musicMCT}
+  %\VignetteIndexEntry{Introduction to musicMCT}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,7 +40,7 @@ but to let us explore the geometry of musical scales described in "Modal Color T
 (Sherrill 2025, *Journal of Music Theory* 69/1: 1-49). As that article explains, 
 seven-note scales live in a 6-dimensional geometry populated by 1,824,229 qualitatively 
 distinct scalar structures. I'm happy to calculate an [ivec()] by hand, but we're
-going to need computers to really explore such a complicated heptachord space!
+going to need computers to really explore such a complicated space!
 
 This vignette will introduce many of the main functions of `musicMCT` that serve
 this purpose, especially as they relate to the concerns of the *JMT* article. The
@@ -98,7 +98,7 @@ Now, this scale is sometimes called the "acoustic" scale because in some sense i
 close to a seven-note chunk of the overtone series. Our task in this vignette is to use `musicMCT`
 to see how real that similarity is. Let's agree to call these two scales the "acoustic" and "overtone" scales, respectively.
 
-The overtone scale is defined by taking the 7th through 13th harmonics of the overtone series as a scale
+The overtone scale is defined by treating the 7th through 13th harmonics of the overtone series as a scale
 (noting that the 14th harmonic is an octave above the 7th). We'll convert that into semitone measurements
 as follows:
 
@@ -140,12 +140,12 @@ round(overtone_scale, digits=0)
 ```
 
 Wait a second, that's not even the acoustic scale! It has two consecutive semitones (6, 7, 8), and
-actually represents sc7-33, the "whole-tone plus one" scale. What's going on here?!
+actually represents sc7-33, the "whole-tone plus one" scale. What's going on here!?
 
 [Tymoczko (2013, 130)](https://doi.org/10.1080/17459737.2013.818724) explains that there's really 
 no such thing as *the* quantization of the `overtone_scale`. There are 7 different quantizations. The
-rounding above unfairly privileges C (`0`) as a note that's guaranteed not to have to move. If we treat 
-all the notes of the scale more equally, sometimes a different note gets to stay fixed. Let's try it.
+rounding above unfairly privileges C (`0`) as a note that's guaranteed not to move. If we treat 
+all the degrees of the scale more equally, sometimes a different note gets to stay fixed. Let's try it.
 
 If the scale's tonic starts on a 12edo integer, it won't change when we quantize the scale. If we transpose
 the whole scale up 1 semitone by using [tn()], we should expect to get essentially the same quantization as when the
@@ -199,11 +199,11 @@ This lends some credence to the weight of tradition, suggesting that the `acoust
 quantization of the `overtone_scale` even if it isn't the *only* quantization.
 
 
-## But what about scale structure?
+## 3. But what about scale structure?
 
 So far we've used some of the computational tools of `musicMCT` but we haven't really applied the concepts
 of Modal Color Theory. That's because we've been treating the scales' continuous voice-leading space as 
-essentially undifferentiaed, whereas the central argument of MCT is that there are discrete regions in the geometry
+essentially undifferentiated, whereas the central argument of MCT is that there are discrete regions in the geometry
 that correspond to *qualitative* differences in scale structure.
 
 MCT models scale structure by comparing intervals that belong to the same generic size. For instance, a big part of the
@@ -234,7 +234,7 @@ These vectors are the same, so MCT considers the tetrachords to have the same sc
 (0-1-2 and 0-2-4) and then have a larger leap (2-7 and 4-8).
 
 For heptachords, the relevant `ineqmat` has 42 rows, so the space of scale structures is considerably more complicated. Generally 
-you wouldn't learn a lot from simply trying to read sign vectors--`musicMCT` has more human-readable functions that will help you
+you wouldn't learn a lot from trying to read sign vectors directly--`musicMCT` has more human-readable functions that will help you
 interpret them--but let's take a gander at them for the acoustic and overtone scales:
 
 ```{r}
@@ -250,13 +250,13 @@ Each entry in a sign vector is a comparison between two intervals in a scale: bo
 the other, whereas a `0` means that the two intervals are identical. For instance, the first `0` in the sign vector for 0127 and 0248
 is what encodes the fact that both of them have a first step that equals their second step.
 
-In other words, we can see that the `acoustic_scale` is considerably more *regular* than the `overtone_scale`, in the sense that it has 
+From this, we can see that the `acoustic_scale` is considerably more *regular* than the `overtone_scale`, in the sense that it has 
 many specific interval sizes that repeat inside it (like the 5 whole tones that dominate its generic steps, and the 4 perfect fifths
 that are the majority of its generic fifths). This contrast between the scales isn't too surprising. The `acoustic_scale` is constrained
 to twelve-tone equal temperament, so there are only so many intervals that it could possibly be made up of. By contrast, the `overtone_scale`
-is defined in continuous pitch-class space so it has a lot more variety to choose from. Moreover, given the logarithmic relationship between
+is defined in continuous pitch-class space and has a lot more variety to choose from. Moreover, given the logarithmic relationship between
 frequency ratios and pitch intervals, each successive step in the overtone series is smaller than the previous, so it makes sense
-that the `overtone_scale` would have a lot of intervallic variety. If anything, it's more surprising that it repeats *any* intervals.
+that the `overtone_scale` would have a lot of intervallic variety. If anything, it's surprising that it repeats *any* intervals.
 
 We can learn what interval it does repeat by putting together the information from the signvector with the `ineqmat` for heptachords. We could
 manually count which entry of the sign vector is a 0, but `musicMCT` also has a function for that:
@@ -298,7 +298,268 @@ Most of them do match the `overtone_scale` on this point, except for sc7-31 and 
 barely occurred at all as quantizations: each accounts for only about 2% of all the quantizations according to the table at the
 end of the previous section.
 
+We can do better than looking at *only* position `38` in the signvector. Why don't we compare the entire signvectors at once? There
+are various ways to do this, but one that's simple to calculate is to treat the sign vectors as if they were real vectors in a 
+42-dimensional space and compute their distances:
+
+```{r}
+signvectors_with_overtone_scale <- rbind(signvector(overtone_scale), t(all_signvectors))
+rownames(signvectors_with_overtone_scale)[1] <- "o.s."
+dist(signvectors_with_overtone_scale)
+```
+
+The first column above, labeled "o.s." for `overtone_scale`, represents the distance between the `overtone_scale`'s sign vector
+and the 7 other sign vectors (as labeled on the rows of the matrix). The other columns represent distances among the various
+quantizations.
+
+In a surprise upset, the quantization with the closest signvector to the `overtone_scale` is apparently sc7-27 as represented by
+its mode (0, 2, 4, 5, 7, 8, 9). This doesn't mean that sc7-27 is a *better* quantization than the `acoustic_scale`, just that it's
+one that better reflects the structural irregularity of the `overtone_scale`. The modes of melodic minor simply have too much regularity--
+too many zeroes in their sign vectors--to be very structurally similar to the `overtone_scale`. 
+
+Another scalar property that we might consider is how many degrees of freedom a scale has ("Modal Color Theory," 26-27): how freely can
+one vary its individual scale degrees while maintaining the same overall structure? A minimally constrained heptachord has six degrees of 
+freedom, and we know that the `overtone_scale` has one zero in its sign vector, which ought to make it lose a degree of freedom. (Our choices
+about $\hat{1}$ and $\hat{5}$ ought to determine where $\hat{2}$ goes.) Let's compare the `overtone_scale`'s freedom to its seven quantizations:
+
+```{r}
+howfree(overtone_scale)
+apply(final_quantizations, 2, howfree)
+```
+
+All of these are much less free to vary than the `overtone_scale`! All but sc7-31 can only vary along their line of saturation ("Modal Color Theory,"
+20), and sc7-31 is only a little more flexible. This is a consequence of quantizing to twelve-tone equal temperament, which simply doesn't have
+enough distinct notes to accommodate more flexible heptachords. We can check the degrees of freedom of all 38 heptachordal set classes in 12edo:
+
+```{r}
+all_12_heptachords <- sapply(1:38, sc, card=7)
+heptachord_freedoms <- apply(all_12_heptachords, 2, howfree)
+table(heptachord_freedoms)
+```
+
+This table shows that there are 11 set classes with 1 degree of freedom and 27 set classes with 2 degrees of freedom. None are more free than that.
+If we were looking for an approximation of the `overtone_scale` with similar structural properties (like 5 degrees of freedom), we unwittingly
+set ourselves up to fail by restricting our attention to the twelve-tone chromatic universe.
+
+
+## 4. Looking for better approximations outside of 12edo
+
+If we are willing to quantize to other equal divisions of the octave, we can find much better structural approximations. In particular, `musicMCT`
+has a function that will find a quantized representative of any scalar color, in the lowest n-note equal division of the octave where such a
+quantization exists.
+
+```{r}
+quantized_overtone_color <- quantize_color(overtone_scale)
+```
+
+We should check this quantization in two ways. Let's convert it to twelve-tone equal temperament to get a sense for how objectively close it is
+to the `overtone_scale`, and let's verify that it belongs to the same "color" as the `overtone_scale` by verifying that it has the same sign vector
+as the scale it approximates:
+
+```{r}
+round(overtone_scale, digits=2)
+convert(quantized_overtone_color$set, 30, 12)
+isTRUE(all.equal(signvector(overtone_scale), signvector(quantized_overtone_color$set, edo=30)))
+```
+
+So this quantization does indeed have all the same structural properties as the `overtone_scale`, but its actual pitches place it rather farther 
+away than the `acoustic_scale` was. This just reinforces the point that there's no such thing as one single quantization of a given scale: there
+are only different quantizations that satisfy different equivalences we might choose to care about.
+
+In that spirit, there's yet another way to approximate the `overtone_scale` which we haven't yet considered. This form of approximation uses
+the notion of *adjacency* between colors in the hyperplane arrangement ("Modal Color Theory," 31-34). If two scalar colors are adjacent, one
+is a simplification of the other that preserves some aspects of scalar structure while also enforcing a greater degree of regularity on the
+scale. For instance, the major triad (0, 4, 7) and the minor triad (0, 3, 7) are non-equivalent structures that are both adjacent to the "neutral"
+triad (0, 3.5, 7). The neutral triad has only three sizes of step (3.5 and 5) as opposed to the three step sizes for major and minor (3, 4, and 5).
+It has a similar structure to them, in that its last step (5 semitones from fifth to root) is larger than the others, but it is more regular
+than major and minor because it makes no distinction between its root-third and third-fifth intervals. Another color adjacency which may be familiar
+to music theorists is the relationship between the 5-limit just diatonic scale (Ptolemy's "intense diatonic") and the meantone diatonic scale represented
+by (0, 2, 4, 5, 7, 9, 11) in 12edo. The just and meantone scales are similar in many ways, but the meantone scale elides differences that the just
+diatonic makes, such as the difference between major and minor whole tones. (The meantone diatonic is *named* for this particular elision of difference,
+since it averages out the sizes of the larger and smaller just whole tones.)
+
+With this in mind, let us ask: what more regular colors is the `overtone_scale` adjacent to? We might first compare it to the 12edo quantizations 
+above. `musicMCT` lets us do this with the function [comparesignvecs()], which returns `1` if two sign vectors represent adjacent colors, `0` if 
+two sign vectors are identical, and `-1` if the colors are neither the same nor adjacent.
+
+```{r}
+overtone_sv <- signvector(overtone_scale)
+apply(all_signvectors, 2, comparesignvecs, signvecY=overtone_sv)
+```
+
+Alas, none of our 12edo quantizations are adjacent colors to the `overtone_scale`! This isn't surprising given the table of sign-vector distances
+near the end of the previous section, but it reinforces our conclusion that twelve-tone equal temperament isn't the temperament you'd choose
+if your only goal were to approximate these 7 overtones.
+
+How do we find colors that *are* adjacent to the `overtone_scale`? It isn't as simple as making a minimal change to the sign vector and creating a
+scale to match, since most conceivable sign vectors don't correspond to scales that can actually exist. We could explore various options, but
+ultimately we don't have to: part of MCT is a map of all the colors that exist (for scale sizes up to heptachords) and their adjacency relationships. 
+
+This map involves datasets that are too large to distribute with the `musicMCT` package. Two of them can be downloaded from the [GitHub repository
+modalcolortheory](https://github.com/satbq/modalcolortheory):
+
+* representative_scales.rds (~80 MB) contains a list of all scalar colors for scales of 2-7 notes, with one concrete scale to represent each color
+* representative_signvectors.rds (~10 MB) contains a list of their corresponding sign vectors
+
+Additionally, the adjacency relationships between all these colors have been computed in the file `color_adjacencies.rds` (~130 MB) which is too
+large to host directly on GitHub. It can be downloaded from GoogleDrive [at this link](https://drive.google.com/file/d/1ektff4Hoyg43tB6PewfLNDQyPbWPi6Fi/view?usp=drive_link).
+
+If you wish to work with this data, you should save the files in your working directory, which you can find by calling [getwd()] in R. Then import
+the files into your R session with the following commands:
+
+```{r, eval=FALSE}
+representative_scales <- readRDS("representative_scales.rds")
+representative_signvectors <- readRDS("representative_signvectords.rds")
+color_adjacencies <- readRDS("color_adjacencies.rds")
+```
+
+The file `representative_signvectors` is particularly useful because it enables us to assign a well-defined "color number" to identify each
+color in a MCT hyperplane arrangement ("Modal Color Theory," 28). If you try to lookup a scale's color number without the `representative_signvectors`
+saved, you'll probably get a `NULL` result:
+
+```{r}
+colornum(overtone_scale)
+```
+
+but if you do have the file, you'll discover that the `overtone_scale` belongs to heptachord color `1824025`. From this, we can look up an accounting
+of all colors that are adjacent to it. `color_adjacencies` is structured as a *list* in R, whose top level organization reflects the size of the
+scales you are studying, so `color_adjacencies[[7]]` contains all the information about the geometry of seven-note scales. To find out which scales are
+adjacent to color `1824025`, we want the list element `color_adjacencies[[7]][[1824025]]`. The following code won't work on your device unless you
+have `color_adjacencies` saved and loaded into R, but its objective is to find the most regular scale that the `overtone_scale` is structurally adjacent
+to:
+
+```{r, eval=exists("color_adjacencies") && exists("representative_scales") && exists("representative_signvectors")}	
+os_adjacent_colors <- color_adjacencies[[7]][[colornum(overtone_scale)]]
+os_adjacent_scales <- representative_scales[[7]][, os_adjacent_colors]
+regularity <- apply(os_adjacent_scales, 2, countsvzeroes)
+most_regular_approximation <- os_adjacent_scales[, which.max(regularity)]
+quantize_color(most_regular_approximation)
+```
+
+If that code runs on your device, it should tell you that the most regular quantized approximation of the `overtone_scale` is the scale 
+(0, 2, 4, 6, 8, 10, 11) in 14-tone equal temperament. Converted to familiar semitone measurements, this is the scale (0.00, 1.71, 3.43, 5.14,
+ 6.86, 8.57, 9.43). To understand better how this scale "regularizes" the `overtone_scale`, let's consider the two scales in terms of their
+ranked step sizes:
+
+```{r}
+asword(overtone_scale)
+best_simple_approximation <- convert(c(0, 2, 4, 6, 8, 10, 11), 14, 12)
+asword(best_simple_approximation)
+```
+
+This tells us that the `overtone_scale` starts with its 6th largest step and then ascends through increasingly smaller step sizes, until
+its final step from $\hat{7}$ to $\hat{1}$ uses the scale's largest step size.
+
+Our `best_simple_approximation` reduces most of the variety out of the step sizes: all the steps from its $\hat{1}$ up to $\hat{6}$ are equal.
+The only intervallic variety that this approximation retains is that $\hat{6}$ to $\hat{7}$ is still the smallest step in the scale, and
+$\hat{7}$ to $\hat{1}$ is still the largest step in the scale.
+
+By the logic of color adjacency, this is the most regular scale that simplifies the structure of the `overtone_scale` without contradicting
+any of its structure. By contrast, our original `acoustic_scale` does outright contradict aspects of the `overtone_scale`'s structure. For instance,
+in the `acoustic_scale` the step from $\hat{4}$ to $\hat{5}$ is smaller than the step from $\hat{5}$ to $\hat{6}$, but in the `overtone_scale` $\hat{5}$
+to $\hat{6}$ is smaller (because all its step sizes get progressively smaller until the last one). We can see that contradiction by comparing the 
+10th place of their respective sign vectors:
+
+```{r}
+signvector(overtone_scale)[10]
+signvector(acoustic_scale)[10]
+signvector(best_simple_approximation)[10]
+```
+
+The `acoustic_scale` is definitely the odd one out here. It's also, in terms of voice-leading distance, not clearly closer to the `overtone_scale`
+than our `best_simple_approximation` is:
+
+
+```{r}
+minimizeVL(overtone_scale, acoustic_scale)
+minimizeVL(overtone_scale, best_simple_approximation)
+```
+
+It's not easy to eyeball which one of those is a *smaller* overall voice leading, partially because the answer to that question depends on what
+measure of distance you want to use. (For those who care about such things, the `acoustic_scale` is a closer approximation using the taxicab norm,
+but our `best_simple_approximation` is closer under the Euclidean and Chebyshev norms.)
+
+## 5. A weak conclusion
+
+It would make for a tighter narrative to end with a conclusive declaration that our `best_simple_approximation` really is the best way to quantize
+the `overtone_scale`. But of course things are never that simple! The best approximation for a scale depends on your goals and what you're trying
+to approximate for. The `acoustic_scale` is indeed a decent approximation in some senses, especially if you're limited to the familiar 12 pitch-classes
+of the piano. But hopefully this vignette shows how we might, operating under different priorities, come to other conclusions--and how Modal Color Theory
+and `musicMCT` can guide us in that search.
+
+# Coda: Brightness graphs
+
+We've been doing everything numerically so far, but another tool from "Modal Color Theory"
+
+The most important function is [brightnessgraph()], which lets us visualize the voice-leading relationships between
+a scales modes (and thus to some degree the internal structure of the scale, as described in "Modal Color Theory," 7-11).
+First let's take a look at the `acoustic_scale`:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 brightnessgraph(acoustic_scale)
 ```
+
+The information in this graph is displayed in the same way as Figure 2b of "Modal Color Theory" (p. 8), though you'll notice
+a few differences if you compare the article's figure to the one in this vignette. One difference is trivial: the mode at the bottom
+of our figure here is mode IV whereas it's listed as mode VII in the *JMT* article. That's just because the article treats melodic minor
+as mode I whereas we've asked for the modes of the `acoustic_scale`. (If you replace `acoustic_scale` with `melodic_minor` in the command
+above, you should get an identical graph with the roman numeral labels shifted around.) Either way, the precise pitch values for
+all the nodes are the same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8, 10).
+
+The less trivial difference between the article and graph vignettes is their overall shape. The function [brightnessgraph()] determines
+the vertical position of graph nodes exactly as "Modal Color Theory" describes, but it has less guidance for how to make decisions about
+left-right placement of nodes. It produces graphs that are usually legible but which may not clarify the underlying structure: I tend
+to use the function as a first draft and then construct my own (ideally more revealing) graphs by hand. For instance, the Figure 2b
+of "Modal Color Theory" represents all $T_2$ relationships as vertical arrows, resulting in a graph whose overall shape is a trapezoid.
+[brightnessgraph()] obscures the predominance of $T_2$ in the structure of the scale by making the chain of whole steps bow out to the left
+at the middle, giving the graph a diamond-like shape.
+
+Let's now take a look at the brightness graph for the `overtone_scale`:
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+brightnessgraph(overtone_scale, numdigits=1)
+```
+
+This looks rather haphazard! The graph is less connected (i.e. there are fewer arrows) and the vertical placement of its
+nodes seems haphazard. This reflects the fact that the overtone scale has less regularity as measured by its degrees of freedom
+or the number of zeroes in its [signvector()]. Nevertheless, the graph still has some useful information. Since the height of a
+mode corresponds to its sum brightness, we can see those comparisons at a glance. We can also use sum brightness relationships
+as a proxy for the relative height of individual pitches in the scale: if a pitch serves as the tonic of a very bright mode,
+the pitch itself is very low ("dark") in relation to the scale. Thus, since mode VII is at the top of our graph here, $\hat{7}$ 
+must be the darkest (relatively lowest) pitch of the scale. Conversely, since mode III is at the bottom of the graph, $\hat{3}$
+is the brightest individual note of the scale.
+
+Recall that one of the approximations we tested above was a quantization of the `overtone_scale` to a division of the octave
+into 30 steps. Let's see what the brightness graph of that approximation looks like:
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+brightnessgraph(quantized_overtone_color$set, edo=30)
+```
+
+That's impressively close to the graph for the actual `overtone_scale`! (In truth, we got a little lucky here: many colors offer
+enough room for variation that [brightnessgraph()] doesn't always preserve such visually obvious similarity.) Aside from
+a check that [quantize_color()] works as intended, one other thing to note from this example is that [brightnessgraph()], like
+almost all functions in `musicMCT` makes it convenient to work in other "chromatic cardinalities" (i.e. number of unit steps to
+the octave) besides 12edo. Just be careful not to make direct comparisons between absolute values reckoned in different systems:
+note, for instance, that the sum brightnesses for our 30edo quantization are all around 90 whereas they were about 36 in the 
+brightness graph of the original `overtone_scale`. That's because we've changed our unit of measurement to be 2.5 times smaller,
+so values like distances and sums scale correspondingly.
+
+You might find it instructive to explore the brightness graphs of the remaining `final_quantizations` from above, which show
+considerable variety from one to the next. This gives a glimpse of the range of possible structures for seven note scales. Simply
+change the number `4` in the line of code below to any value from `1` to `7` to check the different scales:
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+brightnessgraph(final_quantizations[,4])
+```
+
+Finally, let's take a look at the brightness graph for our `best_simple_approximation`:
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+brightnessgraph(best_simple_approximation, show_pitches=FALSE)
+```
+
+This feels right to me. At a glance, it's a lot like the graph for the `overtone_scale` but without all the mess. All the modes beneath VII
+are now neatly lined up on a single row at the bottom. That's the visual equivalent of our search for regularity and color adjacency in the 
+previous section. This is something I like about brightness graphs: they summarize, in a picture or two, ideas that one could spend several
+thousand words developing.

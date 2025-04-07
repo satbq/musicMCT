@@ -1,0 +1,33 @@
+---
+title: "visualizing_higher_dimensions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{visualizing_higher_dimensions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(musicMCT)
+```
+
+testing plots
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+numpoints <- 4000
+xs <- runif(numpoints, -4, 4)
+ys <- runif(numpoints, -4, 4)
+sets <- rbind(rep(0,numpoints), xs, ys)
+sets <- apply(sets, 2, coord_from_edo)
+ratios <- apply(sets, 2, ratio)
+plot(xs, ys, col=hsv(ratios), pch=20)
+```
+
+did that work?

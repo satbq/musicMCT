@@ -47,7 +47,8 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #' tend to be on a very high number of hyperplanes compared to all sets of 
 #' a given cardinality. 
 #'
-#' `countsvzeroes` returns this **count** of the number
+#' `musicMCT` offers two convenience functions that return pertinent information
+#' from [signvector()]. `countsvzeroes` returns this **count** of the number
 #' of **s**ign-**v**ector **zeroes**, while `whichsvzeroes` gives a list of
 #' the specific hyperplanes the scale lines on (numbered according to their
 #' position on the given `ineqmat`). The specific information in `whichsvzeroes`

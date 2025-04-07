@@ -37,7 +37,8 @@ degree of symmetry or other forms of regularity such as well-formedness
 tend to be on a very high number of hyperplanes compared to all sets of
 a given cardinality.
 
-\code{countsvzeroes} returns this \strong{count} of the number
+\code{musicMCT} offers two convenience functions that return pertinent information
+from \code{\link[=signvector]{signvector()}}. \code{countsvzeroes} returns this \strong{count} of the number
 of \strong{s}ign-\strong{v}ector \strong{zeroes}, while \code{whichsvzeroes} gives a list of
 the specific hyperplanes the scale lines on (numbered according to their
 position on the given \code{ineqmat}). The specific information in \code{whichsvzeroes}
