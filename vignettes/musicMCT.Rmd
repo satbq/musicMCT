@@ -404,14 +404,12 @@ scale to match, since most conceivable sign vectors don't correspond to scales t
 from scratch, but luckily we don't have to: part of MCT is a map of all the colors that exist (for scale sizes up to heptachords) and their 
 adjacency relationships.
 
-This map involves datasets that are too large to distribute with the `musicMCT` package. Two of them can be downloaded from the [GitHub repository
+This map involves datasets that are too large to distribute with the `musicMCT` package. They can be downloaded from the [GitHub repository
 modalcolortheory](https://github.com/satbq/modalcolortheory):
 
-* representative_scales.rds (~80 MB) contains a list of all scalar colors for scales of 2-7 notes, with one concrete scale to represent each color
-* representative_signvectors.rds (~10 MB) contains a list of their corresponding sign vectors
-
-Additionally, the adjacency relationships between all these colors have been computed in the file `color_adjacencies.rds` (~130 MB) which is too
-large to host directly on GitHub. It can be downloaded from GoogleDrive [at this link](https://drive.google.com/file/d/1ektff4Hoyg43tB6PewfLNDQyPbWPi6Fi/view?usp=drive_link).
+* [representative_scales.rds](https://github.com/satbq/modalcolortheory/blob/main/representative_scales.rds) (~80 MB) contains a list of all scalar colors for scales of 2-7 notes, with one concrete scale to represent each color
+* [representative_signvectors.rds](https://github.com/satbq/modalcolortheory/blob/main/representative_signvectors.rds) (~10 MB) contains a list of their corresponding sign vectors
+* [color_adjacencies.rds](https://github.com/satbq/modalcolortheory/blob/main/color_adjacencies.rds) (~130 MB) contains information about the adjacency relationships between all these colors (in the form of an adjacency list)
 
 If you wish to work with this data, you should save the files in your working directory, which you can find by calling [getwd()] in R. Then import
 the files into your R session with the following commands:
