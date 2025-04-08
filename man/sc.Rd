@@ -25,4 +25,5 @@ data.
 ait1 <- sc(4,15)
 ait2 <- sc(4,29)
 NB_rahn_prime_form <- sc(6,31)
+print(NB_rahn_prime_form)
 }

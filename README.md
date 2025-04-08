@@ -12,12 +12,12 @@ musical scale structure developed in Paul Sherrill, “Modal Color
 Theory,” *Journal of Music Theory* 69/1 (2025): 1-49. The goal of this
 package is to give musicians and music scholars computational tools that
 make it easier to work with this theory. In a nutshell, Modal Color
-Theory models musical scales as points in ageometry. The location of
+Theory models musical scales as points in a geometry. The location of
 those points relative to various hyperplane arrangements tells us a lot
-about the scales’ internal structure and mutual relationships. The shape
-of those hyperplane arrangements gets pretty complex–for the important
-case of seven note scales, the main arrangement has 42 hyperplanes in a
-6d space–so computational tools are very helpful.
+about the scales’ internal structures and mutual relationships. The
+shape of those hyperplane arrangements gets pretty complex–for the
+important case of seven note scales, the main arrangement has 42
+hyperplanes in a 6d space–so computational tools are very helpful.
 
 If you’ve ever wondered why a piece of music uses one scale rather than
 another; if you want to know more about the jazz chord-scale concept of
@@ -32,7 +32,7 @@ You can install the development version of musicMCT from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
+install.packages("pak")
 pak::pak("satbq/musicMCT")
 ```
 
@@ -70,6 +70,11 @@ library(musicMCT)
 just_dia_frequency_ratios <- c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8)
 just_dia <- 12 * log2(just_dia_frequency_ratios)
 
+# This definition of the just diatonic explicitly derives it from the 
+# frequency ratios, which I've done to model that process for you. However,
+# musicMCT also has a convenience function that will give us the 
+# same result much faster: try out j(dia) or j(1,2,3,4,5,6,7) for yourself.
+
 # The modes of the scale are displayed as the columns in this matrix:
 sim(just_dia)
 #>           [,1]     [,2]      [,3]      [,4]     [,5]      [,6]     [,7]
@@ -90,15 +95,15 @@ isgwf(just_dia)
 #> [1] TRUE
 
 # An 15 equal-tempered approximation of just-dia which preserves its "color":
-quantized_just_dia <- quantize_color(just_dia)
-print(quantized_just_dia)
+quantize_color(just_dia)
 #> $set
 #> [1]  0  3  5  6  9 11 14
 #> 
 #> $edo
 #> [1] 15
 
-# Finally, a brightness graph for the scale
+# Finally, a rough brightness graph for the scale. (R can assemble the necessary
+# information, but musicMCT doesn't yet make the graphs pretty!)
 brightnessgraph(just_dia)
 ```
 

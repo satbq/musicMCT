@@ -20,8 +20,7 @@
 #' @returns Numeric array of unique elements (vector if `MARGIN` is 0;
 #'   matrix otherwise)
 #' @examples
-#' just_dia <- c(0, musicMCT:::just_wt, musicMCT:::just_maj3, musicMCT:::just_p4, 
-#'   musicMCT:::just_p5, 12-musicMCT:::just_min3, 12-musicMCT:::just_st)
+#' just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 #' intervals_in_just_dia <- sort(as.vector(sim(just_dia)))
 #' failed_unique_intervals <- unique(intervals_in_just_dia)
 #' fpunique_intervals <- fpunique(intervals_in_just_dia)

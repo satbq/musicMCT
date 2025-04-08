@@ -37,7 +37,7 @@ approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12
 #' # This first command produces a real tetrachord:
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, -1), 4)
 #'
-#' # But this one, which changes only the last entry of the sign vector
+#' # But this one, which changes only the last entry of the previous sign vector
 #' # has no solution so will return a string of `NA` values.
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, 1), 4)
 #'   

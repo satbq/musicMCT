@@ -35,7 +35,7 @@ though n-wise well-formed scales are increasingly rare as n grows larger.
 }
 \examples{
 meantone_diatonic <- c(0,2,4,5,7,9,11)
-just_diatonic <- c(0, just_wt, just_maj3, just_p4, just_p5, 12-just_min3, 12-just_st)
+just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 some_weird_thing <- convert(c(0, 1, 3, 6, 8, 12, 14), 17, 12)
 example_scales <- cbind(meantone_diatonic, just_diatonic, some_weird_thing)
 

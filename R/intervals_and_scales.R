@@ -48,6 +48,9 @@ carlos_step <- function(name="alpha", weights=NULL, edo=12) {
     if (name == "delta") { weights <- c(50, 28, 23) }
   }
 
+  just_p5 <- 12 * log2(3/2)
+  just_maj3 <- 12 * log2(5/4)
+  just_min3 <- 12 * log2(6/5)
   target_intervals <- c(just_p5, just_maj3, just_min3) / edo
 
   return(as.numeric((edo/sum(weights^2)) * weights %*% target_intervals))
@@ -100,6 +103,113 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
   } else {
     res <- primeform(round(edoo(card, edo), digits=0), edo)
   }
+
+  return(res)
+}
+
+
+#' Convenient just intervals and scales
+#'
+#' It's not hard to define a just interval from a frequency ratio: it only
+#' requires an input like `12*log2(freq_ratio)`. That gets pretty tiresome
+#' if you're doing this a lot, though, so for convenience `musicMCT` includes a `j`
+#' function (not related to [Clough and Douthett's J function](https://www.jstor.org/stable/843811)
+#' but it wishes it was). `j` is designed to behave a lot like base R's [c()]
+#' in the way that you'd use it to define a scale (see the examples below).
+#' The inputs that this can take are limited and hard-coded, since there's no
+#' systematic way to define shorthands for every potential just interval.
+#' In general, the logic is that individual digits refer to major intervals up from
+#' the tonic in the 5-limit just diatonic scale. The prefix "m" to a number (e.g. "m3")
+#' gives the equivalent minor version of the interval. (Note that "mt" is the "minor tone"
+#' derived from "t" which is the "major tone": 10/9 versus 9/8.) If you
+#' just want the entire 5-limit diatonic, you can enter "dia".
+#' 
+#' @inheritParams tnprime
+#' @param ... One or more names that will be matched to just intervals. You can 
+#'   enter these as strings, but for convenience sake you needn't. Here are the
+#'   currently accepted inputs, their meaning, and their return value:
+#'   * `1`: perfect 1th (0 semitones)
+#'   * `u`: unison (0 semitones)
+#'   * `synt`: syntonic comma (~.215 semitones)
+#'   * `pyth`: Pythagorean comma (~.235 semitones)
+#'   * `l`: Pythagorean limma (256:243 or ~.9 semitones)
+#'   * `s`: 5-limit just semitone (16:15 or ~1.12 semitones)
+#'   * `a`: Pythagorean apotome (2187:2048 or ~1.14 semitones)
+#'   * `mt`: 5-limit minor tone (10:9 or ~1.82 semitones)
+#'   * `2`: 3-limit whole tone (9:8 or ~2.04 semitones)
+#'   * `t`: 3-limit whole tone (9:8 or ~2.04 semitones)
+#'   * `sept`: 7-limit whole tone (8:7 or ~2.31 semitones)
+#'   * `m3`: 5-limit minor third (6:5 or ~3.16 semitones)
+#'   * `3`: 5-limit major third (5:4 or ~3.86 semitones)
+#'   * `M3`: 5-limit major third (5:4 or ~3.86 semitones)
+#'   * `4`: 3-limit perfect fourth (4:3 or ~4.98 semitones)
+#'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
+#'   * `stt`: 7-limit tritone (7:5 or ~5.83 semitones)
+#'   * `jtt`: 5-limit (45:32 or ~5.90 semitones)
+#'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
+#'   * `5`: 3-limit perfect fifth (3:2 or ~7.02 semitones)
+#'   * `m6`: 5-limit minor sixth (8:5 or ~8.14 semitones)
+#'   * `6`: 5-limit major sixth (5:3 or ~8.84 semitones)
+#'   * `m7`: 5-limit minor seventh (9:5 or ~10.18 semitones)
+#'   * `7`: 5-limit major seventh (16:15 or ~10.88 semitones)
+#'   * `8`: 2-limit perfect octave (2:1 or 12 semitones)
+#'   * `dia`: the complete 5-limit diatonic scale
+#'
+#' @returns Numeric vector representing the input just intervals converted to `edo` unit steps per octave
+#' @examples
+#' major_triad <- j(1,3,5)
+#' isTRUE(all.equal(major_triad, j(u, M3, "5")))
+#'
+#' isTRUE(all.equal(j(dia), j(1,2,3,4,5,6,7)))
+#'
+#' # How far is the twelve-equal major scale from the 5-limit just diatonic?
+#' dist(rbind(c(0,2,4,5,7,9,11), j(dia)))
+#'
+#' # Is 53-equal temperament a good approximation of the 5-limit just diatonic?
+#' j(dia, edo=53)
+#' 
+#' @export
+j <- function(..., edo=12) {
+  input_values <- substitute(...())
+  input_values <- unlist(lapply(input_values,toString))
+  if (length(input_values) == 0) { return(NULL) }
+
+  input_values <- match.arg(arg=input_values,
+            		    choices=c("1", "u", "pyth", "synt", "l", "a", "s", "mt", "2", "t", "sept", "m3", "3", "M3", "4", "stt", "utt", "jtt", "5",
+                                      "m6", "6", "m7", "7", "8", "dia"),
+                            several.ok=TRUE)
+
+  hardcoded_values <- function(string) {
+    if (string=="1") { return(0) }
+    if (string=="u") { return(0) }
+    if (string=="pyth") { return((12 * log2(1.5^12))%%12) }
+    if (string=="synt") { return(((12 * log2(1.5^4))%%12) - (12*log2(5/4))) }
+    if (string=="l") { return(12*log2(256/243)) }
+    if (string=="a") { return(12*log2(2187/2048)) }
+    if (string=="s") { return(12*log2(16/15)) }
+    if (string=="mt") { return(12*log2(10/9)) }
+    if (string=="2") { return(12*log2(9/8)) }
+    if (string=="t") { return(12*log2(9/8)) }
+    if (string=="sept") { return(12*log2(8/7)) }
+    if (string=="m3") { return(12*log2(6/5)) }
+    if (string=="3") { return(12*log2(5/4)) }
+    if (string=="M3") { return(12*log2(5/4)) }
+    if (string=="4") { return(12*log2(4/3)) }
+    if (string=="stt") { return(12*log2(7/5)) }
+    if (string=="utt") { return(12*log2(11/8)) }
+    if (string=="jtt") { return(12*log2(45/32)) }
+    if (string=="5") { return(12*log2(3/2)) }
+    if (string=="m6") { return(12*log2(8/5)) }
+    if (string=="6") { return(12*log2(5/3)) }
+    if (string=="m7") { return(12*log2(9/5)) }
+    if (string=="7") { return(12*log2(15/8)) }
+    if (string=="8") { return(12) }
+    if (string=="dia") { return(12*log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))) }
+  }
+
+  res <- as.vector(unlist(sapply(input_values, hardcoded_values)))
+  names(res) <- NULL
+  res <- convert(res, 12, edo)
 
   return(res)
 }
