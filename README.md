@@ -94,17 +94,12 @@ howfree(just_dia)
 isgwf(just_dia)
 #> [1] TRUE
 
-# An 15 equal-tempered approximation of just-dia which preserves its "color":
-quantize_color(just_dia)
-#> $set
-#> [1]  0  3  5  6  9 11 14
-#> 
-#> $edo
-#> [1] 15
+# A 15 equal-tempered approximation of just-dia which preserves its "color":
+quantized_just_dia <- quantize_color(just_dia)
 
-# Finally, a rough brightness graph for the scale. (R can assemble the necessary
+# Finally, let's see a rough brightness graph for the scale. (R can assemble the necessary
 # information, but musicMCT doesn't yet make the graphs pretty!)
-brightnessgraph(just_dia)
+brightnessgraph(quantized_just_dia$set, edo=quantized_just_dia$edo)
 ```
 
 <img src="man/figures/README-example-1.png" width="75%" />
