@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-The “MCT” in musicMCT stands for “Modal Color Theory,” a theory of
+The “MCT” in musicMCT stands for **Modal Color Theory**, a theory of
 musical scale structure developed in Paul Sherrill, “Modal Color
 Theory,” *Journal of Music Theory* 69/1 (2025): 1-49. The goal of this
 package is to give musicians and music scholars computational tools that
@@ -59,8 +59,8 @@ color_adjacencies <- readRDS("color_adjacencies.rds")
 
 ## Example
 
-For a detailed introduction to using this package, please see
-\[vignette(“musicMCT”, package=“musicMCT”)\].
+For a detailed introduction to using this package, please see the
+vignette “musicMCT”.
 
 As a very quick example, let’s define the most common “just intonation”
 version of the major scale and run a few tests on it:
@@ -69,8 +69,9 @@ version of the major scale and run a few tests on it:
 library(musicMCT)
 just_dia_frequency_ratios <- c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8)
 just_dia <- 12 * log2(just_dia_frequency_ratios)
-modes_of_just_dia <- sim(just_dia)
-print(modes_of_just_dia)
+
+# The modes of the scale are displayed as the columns in this matrix:
+sim(just_dia)
 #>           [,1]     [,2]      [,3]      [,4]     [,5]      [,6]     [,7]
 #> [1,]  0.000000 0.000000  0.000000  0.000000 0.000000  0.000000 0.000000
 #> [2,]  2.039100 1.824037  1.117313  2.039100 1.824037  2.039100 1.117313
@@ -88,7 +89,7 @@ howfree(just_dia)
 isgwf(just_dia)
 #> [1] TRUE
 
-# An equal-tempered approximation of just-dia which preserves its "color":
+# An 15 equal-tempered approximation of just-dia which preserves its "color":
 quantized_just_dia <- quantize_color(just_dia)
 print(quantized_just_dia)
 #> $set
@@ -101,4 +102,4 @@ print(quantized_just_dia)
 brightnessgraph(just_dia)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="75%" />
