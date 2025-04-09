@@ -1,7 +1,7 @@
 url: https://satbq.github.io/musicMCT/
 template:
   bootstrap: 5
-  math-rendering: katex
+  math-rendering: mathjax
 
 
 
