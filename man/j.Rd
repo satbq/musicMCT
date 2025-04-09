@@ -55,8 +55,7 @@ The inputs that this can take are limited and hard-coded, since there's no
 systematic way to define shorthands for every potential just interval.
 In general, the logic is that individual digits refer to major intervals up from
 the tonic in the 5-limit just diatonic scale. The prefix "m" to a number (e.g. "m3")
-gives the equivalent minor version of the interval. (Note that "mt" is the "minor tone"
-derived from "t" which is the "major tone": 10/9 versus 9/8.) If you
+gives the equivalent minor version of the interval. If you
 just want the entire 5-limit diatonic, you can enter "dia".
 }
 \examples{
