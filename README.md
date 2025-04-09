@@ -8,7 +8,7 @@
 <!-- badges: end -->
 
 The “MCT” in musicMCT stands for **Modal Color Theory**, a theory of
-musical scale structure developed in Paul Sherrill, “Modal Color
+musical scale structure developed by Paul Sherrill, “Modal Color
 Theory,” *Journal of Music Theory* 69/1 (2025): 1-49. The goal of this
 package is to give musicians and music scholars computational tools that
 make it easier to work with this theory. In a nutshell, Modal Color
