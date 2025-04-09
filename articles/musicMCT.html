@@ -6,11 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Introduction to musicMCT • musicMCT</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to musicMCT">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to musicMCT">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -239,10 +240,9 @@ should be able to find the other quantizations:</p>
 <span><span class="co">#&gt; [6,]    8    9    9    9    9    9    9    9</span></span>
 <span><span class="co">#&gt; [7,]   10   10   10   10   10   10   11   11</span></span></code></pre></div>
 <p>We’re almost there, but some of the scales start on 0 and some on 1.
-The eighth column is just
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>1</mn></msub><annotation encoding="application/x-tex">{T_1}</annotation></semantics></math>
-of the first. So let’s make them all start on zero to double-check that
-they’re truly unique:</p>
+The eighth column is just <span class="math inline">{T_1}</span> of the
+first. So let’s make them all start on zero to double-check that they’re
+truly unique:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unique_quantizations_from_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">unique_quantizations</span>, <span class="fl">2</span>, <span class="va">startzero</span><span class="op">)</span></span>
 <span><span class="va">final_quantizations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">unique_quantizations_from_0</span>, MARGIN<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
@@ -290,20 +290,9 @@ structure.</p>
 <p>MCT models scale structure by comparing intervals that belong to the
 same generic size. For instance, a big part of the character of the
 familiar major scale lies in the fact that most of its steps have the
-same size, except for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>3</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{3}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>4</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{4}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>7</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{7}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>
-which are smaller (but match each other). MCT breaks this down into
-individual comparisons: is the step
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>2</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{2}</annotation></semantics></math>
-bigger or smaller than the step
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>2</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{2}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>3</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{3}</annotation></semantics></math>?
-Is the skip
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>3</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{3}</annotation></semantics></math>
-bigger or smaller than the skip
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>3</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{3}</annotation></semantics></math>-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>?
-And so on.</p>
+same size, except for <span class="math inline">\hat{3}</span>-<span class="math inline">\hat{4}</span> and <span class="math inline">\hat{7}</span>-<span class="math inline">\hat{1}</span> which are smaller (but match each
+other). MCT breaks this down into individual comparisons: is the step
+<span class="math inline">\hat{1}</span>-<span class="math inline">\hat{2}</span> bigger or smaller than the step <span class="math inline">\hat{2}</span>-<span class="math inline">\hat{3}</span>? Is the skip <span class="math inline">\hat{1}</span>-<span class="math inline">\hat{3}</span> bigger or smaller than the skip <span class="math inline">\hat{3}</span>-<span class="math inline">\hat{5}</span>? And so on.</p>
 <p>How long before we have exhausted all the potential comparisons that
 we could make? Each comparison corresponds to a hyperplane in the
 geometry, and <code>musicMCT</code> offers a complete list of all the
@@ -388,13 +377,9 @@ to see what interval comparison it defines:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/makeineqmat.html">getineqmat</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="../reference/whichsvzeroes.html">whichsvzeroes</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="co">#&gt; [1] -1 -1  0  0  2  0  0 -1</span></span></code></pre></div>
-<p>This tells us that the fourth above
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-equals the fourth below
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-in size. (See page 43 of “Modal Color Theory” for a discussion of how to
-read the rows of an <code>ineqmat</code> like this.) And, sure enough,
-this is true:</p>
+<p>This tells us that the fourth above <span class="math inline">\hat{5}</span> equals the fourth below <span class="math inline">\hat{5}</span> in size. (See page 43 of “Modal Color
+Theory” for a discussion of how to read the rows of an
+<code>ineqmat</code> like this.) And, sure enough, this is true:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signed_interval_class.html">signed_interval_class</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -4.98045</span></span>
@@ -460,14 +445,8 @@ vary its individual scale degrees while maintaining the same overall
 structure? A minimally constrained heptachord has six degrees of
 freedom, and we know that the <code>overtone_scale</code> has one zero
 in its sign vector, which ought to make it lose a degree of freedom.
-(Our choices about
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-ought to determine where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>2</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{2}</annotation></semantics></math>
-goes.) Let’s compare the <code>overtone_scale</code>’s freedom to its
-seven quantizations:</p>
+(Our choices about <span class="math inline">\hat{1}</span> and <span class="math inline">\hat{5}</span> ought to determine where <span class="math inline">\hat{2}</span> goes.) Let’s compare the
+<code>overtone_scale</code>’s freedom to its seven quantizations:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 5</span></span>
@@ -653,46 +632,24 @@ scales in terms of their ranked step sizes:</p>
 <span><span class="co">#&gt; [1] 2 2 2 2 2 1 3</span></span></code></pre></div>
 <p>This tells us that the <code>overtone_scale</code> starts with its
 6th largest step and then ascends through progressively smaller step
-sizes, until its final step from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>7</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{7}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>
-uses the scale’s largest step size.</p>
+sizes, until its final step from <span class="math inline">\hat{7}</span> to <span class="math inline">\hat{1}</span> uses the scale’s largest step
+size.</p>
 <p>Our <code>best_simple_approximation</code> reduces most of that
-variety out of the step sizes: all the steps from its
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>
-up to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>6</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{6}</annotation></semantics></math>
-are equal. The only intervallic variety that this approximation retains
-is that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>6</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{6}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>7</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{7}</annotation></semantics></math>
-is still the smallest step in the scale, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>7</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{7}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>1</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{1}</annotation></semantics></math>
-is still the largest step in the scale.</p>
+variety out of the step sizes: all the steps from its <span class="math inline">\hat{1}</span> up to <span class="math inline">\hat{6}</span> are equal. The only intervallic
+variety that this approximation retains is that <span class="math inline">\hat{6}</span> to <span class="math inline">\hat{7}</span> is still the smallest step in the
+scale, and <span class="math inline">\hat{7}</span> to <span class="math inline">\hat{1}</span> is still the largest step in the
+scale.</p>
 <p>By the logic of color adjacency, this is the most regular scale that
 simplifies the structure of the <code>overtone_scale</code> without
 contradicting any of its structure. By contrast, our original
 <code>acoustic_scale</code> does flatly contradict aspects of the
 <code>overtone_scale</code>’s structure. For instance, in the
-<code>acoustic_scale</code> the step from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>4</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{4}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-is smaller than the step from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>6</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{6}</annotation></semantics></math>,
-but in the <code>overtone_scale</code>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>5</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{5}</annotation></semantics></math>
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>6</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{6}</annotation></semantics></math>
-is smaller (because all its step sizes get smaller until the last one).
-We can see that contradiction by comparing the 10th place of their
-respective sign vectors:</p>
+<code>acoustic_scale</code> the step from <span class="math inline">\hat{4}</span> to <span class="math inline">\hat{5}</span> is smaller than the step from <span class="math inline">\hat{5}</span> to <span class="math inline">\hat{6}</span>, but in the
+<code>overtone_scale</code> <span class="math inline">\hat{5}</span> to
+<span class="math inline">\hat{6}</span> is smaller (because all its
+step sizes get smaller until the last one). We can see that
+contradiction by comparing the 10th place of their respective sign
+vectors:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -779,13 +736,12 @@ left-right placement of nodes. It produces graphs that are usually
 legible but which may not clarify the underlying structure: I tend to
 use the function as a first draft and then construct my own (ideally
 more revealing) graphs by hand. For instance, the Figure 2b of “Modal
-Color Theory” represents all
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>2</mn></msub><annotation encoding="application/x-tex">T_2</annotation></semantics></math>
+Color Theory” represents all <span class="math inline">T_2</span>
 relationships as vertical arrows, resulting in a graph whose overall
 shape is a trapezoid. [brightnessgraph()] obscures the predominance of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mn>2</mn></msub><annotation encoding="application/x-tex">T_2</annotation></semantics></math>
-in the structure of the scale by making the chain of whole steps bow out
-to the left at the middle, giving the graph a diamond-like shape.</p>
+<span class="math inline">T_2</span> in the structure of the scale by
+making the chain of whole steps bow out to the left at the middle,
+giving the graph a diamond-like shape.</p>
 <p>Let’s now take a look at the brightness graph for the
 <code>overtone_scale</code>:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -801,12 +757,10 @@ brightness, we can see those comparisons at a glance. We can also use
 sum brightness relationships as a proxy for the relative height of
 individual pitches in the scale: if a pitch serves as the tonic of a
 very bright mode, the pitch itself is very low (“dark”) in relation to
-the scale. Thus, since mode VII is at the top of our graph here,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>7</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{7}</annotation></semantics></math>
-must be the darkest (relatively lowest) pitch of the scale. Conversely,
-since mode III is at the bottom of the graph,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>3</mn><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{3}</annotation></semantics></math>
-is the brightest individual note of the scale.</p>
+the scale. Thus, since mode VII is at the top of our graph here, <span class="math inline">\hat{7}</span> must be the darkest (relatively
+lowest) pitch of the scale. Conversely, since mode III is at the bottom
+of the graph, <span class="math inline">\hat{3}</span> is the brightest
+individual note of the scale.</p>
 <p>Recall that one of the approximations we tested above was a
 quantization of the <code>overtone_scale</code> to a division of the
 octave into 30 steps. Let’s see what the brightness graph of that
