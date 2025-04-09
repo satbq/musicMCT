@@ -24,16 +24,43 @@ to yourself very loudly. Everyone does it."*
  -- [Geoffrey Hinton](https://www.cs.toronto.edu/~hinton/coursera_slides.html)
 (Lecture 2, Slide 16 from his 2012 Coursera course *Neural Networks for Machine Learning*)
 
+---
+
 testing plots
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+scale_from_genus <- function(vec) {
+ x <- vec[1]
+ y <- vec[2]
+ c(0, x, y, j(4), j(5), j(5)+x, j(5)+y)
+}
+colorfunc <- function(x) tanh(x-min(x))
+
 numpoints <- 4000
-xs <- runif(numpoints, -4, 4)
-ys <- runif(numpoints, -4, 4)
-sets <- rbind(rep(0,numpoints), xs, ys)
-sets <- apply(sets, 2, coord_from_edo)
+xs <- runif(numpoints, 0, 5)
+ys <- runif(numpoints, 0, 5)
+inputs <- rbind(xs, ys)
+inputs <- apply(inputs, 2, sort)
+sets <- apply(inputs, 2, scale_from_genus)
 ratios <- apply(sets, 2, ratio)
-plot(xs, ys, col=hsv(ratios), pch=20)
+par(bg='aliceblue')
+plot(sets[2,], sets[3,], col=hsv(colorfunc(ratios)), pch=20, 
+     xlab="Height of scale degree 2", 
+     ylab="Height of scale degree 3")
+grid(col="gray35")
 ```
 
-did that work?
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+all_signvecs <- apply(sets, 2, signvector)
+all_signvecs_str <- apply(all_signvecs, 2, toString)
+unique_signvecs <- unique(all_signvecs_str)
+signvec_id <- function(signvec) which(unique_signvecs==signvec)
+all_signvec_ids <- sapply(all_signvecs_str, signvec_id)
+all_signvec_ids <- all_signvec_ids/max(all_signvec_ids)
+
+plot(sets[2,], sets[3,], col=hsv(all_signvec_ids), pch=20, 
+     xlab="Height of scale degree 2", 
+     ylab="Height of scale degree 3")
+grid(col="gray35")
+```

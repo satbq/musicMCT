@@ -36,6 +36,13 @@ install.packages("pak")
 pak::pak("satbq/musicMCT")
 ```
 
+If that doesn’t work for you, try:
+
+``` r
+install.packages("remotes")
+remotes::install_github("satbq/musicMCT")
+```
+
 In addition to the package itself, you will probably want to use the
 following large files which contain data about the MCT geometries:
 

@@ -39,7 +39,7 @@ The main purpose of the package, however, is not to reproduce traditional pc-set
 but to let us explore the geometry of musical scales described in "Modal Color Theory" 
 (Sherrill 2025, *Journal of Music Theory* 69/1: 1-49). As that article explains, 
 seven-note scales live in a 6-dimensional geometry populated by 1,824,229 qualitatively 
-distinct scalar structures. I'm happy to calculate an [ivec()] by hand, but we're
+distinct scalar structures. I'm happy to calculate an `ivec()` by hand, but we're
 going to need computers to explore such a complicated space!
 
 This vignette will introduce many of the main functions of `musicMCT` that serve
@@ -54,7 +54,7 @@ questions that deeper study might get into.
 
 A familiar object from the theory of 20th-century music is the scale (C, D, E,
 F-sharp, G, A, B-flat). This is the fourth mode of melodic minor. We can verify
-that fact by defining the melodic minor scale for R and then calling [sim()],
+that fact by defining the melodic minor scale for R and then calling `sim()`,
 the package's function for finding the modes of a scale:
 
 ```{r}
@@ -69,7 +69,7 @@ we'll see that it's easy to work with integers in any k edo. But the values that
 our scales don't have to be integers at all: Modal Color Theory works in continuous 
 pitch-class space.
 
-The function [sim()] above computes the **s**calar **i**nterval **m**atrix of a set 
+The function `sim()` above computes the **s**calar **i**nterval **m**atrix of a set 
 (as defined by [Tymoczko 2008](https://doi.org/10.1111/j.1468-2249.2008.00257.x)), which 
 presents to us the modes of a scale as the columns of the matrix. Our input, the melodic
 minor scale, is in the first column, and the scale we want to study can be read from the fourth
@@ -148,7 +148,7 @@ rounding above unfairly privileges C (`0`) as a note that's guaranteed not to mo
 all the degrees of the scale more equally, sometimes a different note gets to stay fixed. Let's try it.
 
 If the scale's tonic starts on a 12edo integer, it won't change when we quantize the scale. If we transpose
-the whole scale up 1 semitone by using [tn()], we should expect to get essentially the same quantization as when the
+the whole scale up 1 semitone by using `tn()`, we should expect to get essentially the same quantization as when the
 scale starts on 0, just with 1 added to every value: 
 
 ```{r}
@@ -222,7 +222,7 @@ getineqmat(4)
 
 Each row of the matrix represents a different pairwise interval comparison: for tetrachords, we apparently need to consider 8
 different comparisons to have a complete accounting of a scale structure. Two scales have the same structure (or belong to the same
-"color") if they answer all 8 comparisons in the same way. `musicMCT` summarizes this information in a scale's [signvector()]. For
+"color") if they answer all 8 comparisons in the same way. `musicMCT` summarizes this information in a scale's `signvector()`. For
 instance, let's consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248). Here are their sign vectors:
 
 ```{r}
@@ -387,7 +387,7 @@ diatonic makes, such as the difference between major and minor whole tones. (The
 since it averages out the sizes of the larger and smaller just whole tones.)
 
 With this in mind, let us ask: what more regular colors is the `overtone_scale` adjacent to? We might first compare it to the 12edo quantizations 
-above. `musicMCT` lets us do this with the function [comparesignvecs()], which returns `1` if two sign vectors represent adjacent colors, `0` if 
+above. `musicMCT` lets us do this with the function `comparesignvecs()`, which returns `1` if two sign vectors represent adjacent colors, `0` if 
 two sign vectors are identical, and `-1` if the colors are neither the same nor adjacent.
 
 ```{r}
@@ -411,7 +411,7 @@ modalcolortheory](https://github.com/satbq/modalcolortheory):
 * [representative_signvectors.rds](https://github.com/satbq/modalcolortheory/blob/main/representative_signvectors.rds) (~10 MB) contains a list of their corresponding sign vectors
 * [color_adjacencies.rds](https://github.com/satbq/modalcolortheory/blob/main/color_adjacencies.rds) (~130 MB) contains information about the adjacency relationships between all these colors (in the form of an adjacency list)
 
-If you wish to work with this data, you should save the files in your working directory, which you can find by calling [getwd()] in R. Then import
+If you wish to work with this data, you should save the files in your working directory, which you can find by calling `getwd()` in R. Then import
 the files into your R session with the following commands:
 
 ```{r, eval=FALSE}
@@ -489,20 +489,21 @@ but our `best_simple_approximation` is closer under the Euclidean and Chebyshev 
 ## 5. A weak conclusion
 
 It would make for a tighter narrative to end with a conclusive declaration that our `best_simple_approximation` really is the best way to quantize
-the `overtone_scale`. But of course things are never that simple! The best approximation for a scale depends on your goals and what you're trying
-to approximate for. I can't emphasize this point strongly enough, because the attempt to justify certain scale structures as mathematically ideal
-is probably the oldest tradition of Euroepan music theory. By using math to talk about scales, Modal Color Theory may look like it contributes
-to that tradition, when in fact my goal with the theory is to do the opposite. The questions that MCT should be useful for are descriptive ones like
-"If you're using this scale, what can you do with it?" and "If you want to do X, how can we find Y to facilitate it?" [Sami Abu Shumays](https://mtosmt.org/issues/mto.24.30.4/mto.24.30.4.shumays.html) is right to decry as a fallacy "the idea that the tunings of musical scales are the result of mathematical laws, rather than cultural choices that intersect with acoustical realities." My hope for MCT is that its math lets us get
+the `overtone_scale`. But reality isn't so simple! The best approximation for a scale depends on what you're trying
+to approximate for. This needs to be underscored, because the attempt to justify certain scale structures as mathematically ideal
+is probably the oldest tradition of European music theory. By using math to talk about scales, Modal Color Theory may look like it contributes
+to that tradition, when my goal with the theory is to do just the opposite. The questions that MCT should be useful for are descriptive ones like
+"If you're using this scale, what can you do with it?" and "If you want to do X, how can we find some scale Y to facilitate X?" [Sami Abu Shumays](https://mtosmt.org/issues/mto.24.30.4/mto.24.30.4.shumays.html) is right to decry as a fallacy "the idea that the tunings of musical scales are the result of mathematical laws, rather than cultural choices that intersect with acoustical realities." My hope for MCT is that its math lets us get
 deeper insight into the nature of that intersection between cultural choice and acoustical affordance.
 
-In the end, the `acoustic_scale` is actually a pretty decent approximation in many senses, especially if you're limited to the familiar 12 pitch-classes
-of the piano. But hopefully this vignette shows how we might, when musicking with different priorities, come to make other choices--and how `musicMCT` can aid us in that process.
+In the end, the `acoustic_scale` actually is a pretty decent approximation for many purposes, especially if you're limited to the familiar 12 pitch-classes
+of the piano. Hopefully, though, this vignette shows how we might, when musicking with different priorities, come to make other choices--and how `musicMCT` can aid us in that process.
 
 # Coda: Brightness graphs
 
-We've been doing everything numerically so far, but another tool from "Modal Color Theory" is the "brightness graph," which lets us visualize the voice-leading relationships between a scale's modes (and thus to some degree the internal structure of the scale, as described in "Modal Color Theory," 7-11).
-Using `musicMCT` we can make quick mock-ups of brightness graphs with [brightnessgraph()]. First let's take a look at the `acoustic_scale`:
+Up to this point, we've done everything numerically, but "Modal Color Theory" also has some visualization tools. The one I want to introduce here is the "brightness graph," 
+which lets us visualize the voice-leading relationships between a scale's modes (and thus to some degree the internal structure of the scale, as described in "Modal Color 
+Theory," 7-11). Using `musicMCT` we can make quick mock-ups of brightness graphs with `brightnessgraph()`. First let's take a look at the `acoustic_scale`:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 brightnessgraph(acoustic_scale)
@@ -515,12 +516,12 @@ as mode I whereas we've asked for the modes of the `acoustic_scale`. (If you rep
 above, you should get an identical graph with the roman numeral labels shifted around.) Either way, the precise pitch values for
 all the nodes are the same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8, 10).
 
-The less trivial difference between the article and graph vignettes is their overall shape. The function [brightnessgraph()] determines
+The less trivial difference between the article and graph vignettes is their overall shape. The function `brightnessgraph()` determines
 the vertical position of graph nodes exactly as "Modal Color Theory" describes, but it has less guidance for how to make decisions about
 left-right placement of nodes. It produces graphs that are usually legible but which may not clarify the underlying structure: I tend
 to use the function as a first draft and then construct my own (ideally more revealing) graphs by hand. For instance, the Figure 2b
 of "Modal Color Theory" represents all $T_2$ relationships as vertical arrows, resulting in a graph whose overall shape is a trapezoid.
-[brightnessgraph()] obscures the predominance of $T_2$ in the structure of the scale by making the chain of whole steps bow out to the left
+`brightnessgraph()` obscures the predominance of $T_2$ in the structure of the scale by making the chain of whole steps bow out to the left
 at the middle, giving the graph a diamond-like shape.
 
 Let's now take a look at the brightness graph for the `overtone_scale`:
@@ -531,7 +532,7 @@ brightnessgraph(overtone_scale, numdigits=1, show_sums=FALSE)
 
 This looks pretty messy! The graph is less connected (i.e. there are fewer arrows) and the vertical placement of its
 nodes seems haphazard. This reflects the fact that the overtone scale has less regularity as measured by its degrees of freedom
-or the number of zeroes in its [signvector()]. Nevertheless, the graph still has some useful information. Since the height of a
+or the number of zeroes in its `signvector()`. Nevertheless, the graph still has some useful information. Since the height of a
 mode corresponds to its sum brightness, we can see those comparisons at a glance. We can also use sum brightness relationships
 as a proxy for the relative height of individual pitches in the scale: if a pitch serves as the tonic of a very bright mode,
 the pitch itself is very low ("dark") in relation to the scale. Thus, since mode VII is at the top of our graph here, $\hat{7}$ 
@@ -546,8 +547,8 @@ brightnessgraph(quantized_overtone_color$set, edo=30, show_sums=FALSE)
 ```
 
 That's impressively close to the graph for the actual `overtone_scale`! (In truth, we got a little lucky here: many colors offer
-enough room for variation that [brightnessgraph()] doesn't always preserve such visually obvious similarity.) Aside from
-a check that [quantize_color()] works as intended, one other thing to note from this example is that [brightnessgraph()], like
+enough room for variation that `brightnessgraph()` doesn't always preserve such visually obvious similarity.) Aside from
+a check that `quantize_color()` works as intended, one other thing to note from this example is that `brightnessgraph()`, like
 almost all functions in `musicMCT` makes it convenient to work in other "chromatic cardinalities" (i.e. number of unit steps to
 the octave) besides 12edo. Just be careful not to make direct comparisons between absolute values reckoned in different systems:
 note, for instance, that the sum brightnesses for our 30edo quantization are all around 90 whereas they were about 36 in the 

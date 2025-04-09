@@ -16,7 +16,7 @@
 #' by definition.
 #'
 #' The function assumes that you don't need to be reminded of
-#" the cardinality of the set you've entered.
+#' the cardinality of the set you've entered.
 #' That is, there's a color number 2 for every cardinality, so you can get
 #' that value returned by entering a trichord, tetrachord, etc.
 #'
