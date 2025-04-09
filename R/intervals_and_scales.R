@@ -56,7 +56,7 @@ carlos_step <- function(name="alpha", weights=NULL, edo=12) {
   return(as.numeric((edo/sum(weights^2)) * weights %*% target_intervals))
 }
 
-#' Scale that perfectly evenly divides the octave (a "white" scale)
+#' Perfectly even scales (the color white)
 #'
 #' Creates a perfectly even scale that divides the octave into n equal steps.
 #' Such scales serve as the origin for the hyperplane arrangements of Modal Color Theory,
@@ -108,7 +108,7 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 }
 
 
-#' Convenient just intervals and scales
+#' Convenient just-intonation intervals and scales
 #'
 #' It's not hard to define a just interval from a frequency ratio: it only
 #' requires an input like `12*log2(freq_ratio)`. That gets pretty tiresome

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scala.R
 \name{readSCL}
 \alias{readSCL}
-\title{Import a Scala (.scl) file as a scale in R}
+\title{Import a Scala (.scl) file as a scale}
 \usage{
 readSCL(filename, scaleonly = TRUE, edo = 12)
 }

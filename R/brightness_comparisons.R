@@ -1,6 +1,6 @@
 modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, rounder))))
 
-#' Calculate voice-leading brightness relationships for a scale's modes
+#' Voice-leading brightness relationships for a scale's modes
 #'
 #' The essential step in creating the brightness graph of a scale's modes
 #' is to compute the pairwise comparisons between all the modes. Which ones are strictly

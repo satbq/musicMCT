@@ -8,7 +8,7 @@ random_sphere_points <- function(card, numpoints, distance=1) {
   return(apply(points,2,normalize))
 }
 
-#' Random scales uniformly distributed on a hypersphere around an input scale
+#' Random scales uniformly distributed on a hypersphere around an input
 #'
 #' @description
 #' Sometimes you want to explore what other scale structures a given scale

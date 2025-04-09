@@ -2,7 +2,7 @@
 % Please edit documentation in R/saturate.R
 \name{saturate}
 \alias{saturate}
-\title{Hue, color, saturation}
+\title{Modify evenness without changing hue}
 \usage{
 saturate(r, set, edo = 12)
 }

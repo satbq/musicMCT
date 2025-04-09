@@ -2,7 +2,7 @@
 % Please edit documentation in R/wellformedness.R
 \name{isgwf}
 \alias{isgwf}
-\title{Is a scale n-wise wellformed?}
+\title{Is a scale n-wise well formed?}
 \usage{
 isgwf(set, setword = NULL, allowdegen = FALSE, edo = 12, rounder = 10)
 }

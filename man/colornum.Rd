@@ -2,7 +2,7 @@
 % Please edit documentation in R/colornum.R
 \name{colornum}
 \alias{colornum}
-\title{Color number}
+\title{Reference numbers for scale structures}
 \usage{
 colornum(set, ineqmat = NULL, signvector_list = NULL, edo = 12, rounder = 10)
 }

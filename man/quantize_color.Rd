@@ -2,7 +2,7 @@
 % Please edit documentation in R/quantize_color.R
 \name{quantize_color}
 \alias{quantize_color}
-\title{Find a scale mod k of the same color}
+\title{Find a scale mod k that matches a given color}
 \usage{
 quantize_color(
   set,

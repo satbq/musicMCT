@@ -2,7 +2,7 @@
 % Please edit documentation in R/surround_set.R
 \name{surround_set}
 \alias{surround_set}
-\title{Random scales uniformly distributed on a hypersphere around an input scale}
+\title{Random scales uniformly distributed on a hypersphere around an input}
 \usage{
 surround_set(set, magnitude = 2, distance = 1)
 }

@@ -1,4 +1,4 @@
-#' Find a scale mod k of the same color
+#' Find a scale mod k that matches a given color
 #'
 #' Modal Color Theory is useful for analyzing scales in continuous pitch-class
 #' space with irrational values, but sometimes those irrational values can be

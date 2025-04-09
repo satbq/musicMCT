@@ -2,7 +2,7 @@
 % Please edit documentation in R/subsets.R
 \name{diatonicsubsets}
 \alias{diatonicsubsets}
-\title{Varieties (qualities) of the subsets in a scale that match some generic shape}
+\title{Specific varieties of scalar subsets given a generic shape}
 \usage{
 diatonicsubsets(subsetdegrees, set, unique = TRUE, edo = 12, rounder = 10)
 }

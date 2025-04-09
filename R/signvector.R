@@ -91,7 +91,7 @@ countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   return(length(signveczeroes))
 }
 
-#' Distinguish different types of interval equalities for a scale
+#' Distinguish different types of interval equalities
 #'
 #' Not all hyperplanes are made equal. Those which represent "formal tritone"
 #' comparisons and those which are "exceptional" because they check a 

@@ -1,4 +1,4 @@
-#' Hue, color, saturation
+#' Modify evenness without changing hue
 #'
 #' @description
 #' The central concepts in the visual conceit of "Modal Color Theory,"

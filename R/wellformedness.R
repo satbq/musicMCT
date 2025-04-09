@@ -70,7 +70,7 @@ equivocate <- function(setword, lowerbound, windowsize) {
   return(result)
 }
 
-#' Is a scale n-wise wellformed?
+#' Is a scale n-wise well formed?
 #'
 #' David Clampitt's 1997 dissertation ("Pairwise Well-Formed Scales: 
 #' Structural and Transformational Properties," SUNY Buffalo) offers

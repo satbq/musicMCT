@@ -1,4 +1,4 @@
-#' The specific sizes corresponding to each generic interval of a scale
+#' Specific sizes corresponding to each generic interval
 #'
 #' As defined by Clough and Myerson 1986 
 #' (<https://doi.org/10.1080/00029890.1986.11971924>),
@@ -48,7 +48,7 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
 #' @export
 spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,edo,rounder),length)
 
-#' Varieties (qualities) of the subsets in a scale that match some generic shape
+#' Specific varieties of scalar subsets given a generic shape
 #'
 #' Considered mod 7, the traditional triads of a diatonic scale are all instances of the generic
 #' shape (0,2,4). They come in three varieties: major, minor, and diminished. This function lists

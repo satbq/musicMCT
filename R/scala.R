@@ -85,7 +85,7 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
 }
 
 
-#' Import a Scala (.scl) file as a scale in R
+#' Import a Scala (.scl) file as a scale
 #'
 #' This function allows you to import scales that have been defined in the Scala tuning format
 #' (*.scl) into R to analyze with the functions of `musicMCT`. Scales can be defined in .scl files

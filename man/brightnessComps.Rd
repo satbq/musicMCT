@@ -2,7 +2,7 @@
 % Please edit documentation in R/brightness_comparisons.R
 \name{brightnessComps}
 \alias{brightnessComps}
-\title{Calculate voice-leading brightness relationships for a scale's modes}
+\title{Voice-leading brightness relationships for a scale's modes}
 \usage{
 brightnessComps(set, edo = 12, rounder = 10)
 }

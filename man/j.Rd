@@ -2,7 +2,7 @@
 % Please edit documentation in R/intervals_and_scales.R
 \name{j}
 \alias{j}
-\title{Convenient just intervals and scales}
+\title{Convenient just-intonation intervals and scales}
 \usage{
 j(..., edo = 12)
 }

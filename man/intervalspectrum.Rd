@@ -3,7 +3,7 @@
 \name{intervalspectrum}
 \alias{intervalspectrum}
 \alias{spectrumcount}
-\title{The specific sizes corresponding to each generic interval of a scale}
+\title{Specific sizes corresponding to each generic interval}
 \usage{
 intervalspectrum(set, edo = 12, rounder = 10)
 

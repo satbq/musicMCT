@@ -2,7 +2,7 @@
 % Please edit documentation in R/intervals_and_scales.R
 \name{edoo}
 \alias{edoo}
-\title{Scale that perfectly evenly divides the octave (a "white" scale)}
+\title{Perfectly even scales (the color white)}
 \usage{
 edoo(card, edo = 12)
 }

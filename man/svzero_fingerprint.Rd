@@ -2,7 +2,7 @@
 % Please edit documentation in R/signvector.R
 \name{svzero_fingerprint}
 \alias{svzero_fingerprint}
-\title{Distinguish different types of interval equalities for a scale}
+\title{Distinguish different types of interval equalities}
 \usage{
 svzero_fingerprint(set, ineqmat = NULL, edo = 12, rounder = 10)
 }

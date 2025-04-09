@@ -1,4 +1,4 @@
-#' Color number
+#' Reference numbers for scale structures
 #'
 #' As described on p. 28 of "Modal Color Theory," it's convenient to have a
 #' systematic labeling system ("color numbers") to refer to the distinct colors
