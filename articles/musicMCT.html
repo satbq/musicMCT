@@ -89,8 +89,8 @@ scales described in “Modal Color Theory” (Sherrill 2025, <em>Journal of
 Music Theory</em> 69/1: 1-49). As that article explains, seven-note
 scales live in a 6-dimensional geometry populated by 1,824,229
 qualitatively distinct scalar structures. I’m happy to calculate an
-[ivec()] by hand, but we’re going to need computers to explore such a
-complicated space!</p>
+<code><a href="../reference/ivec.html">ivec()</a></code> by hand, but we’re going to need computers to
+explore such a complicated space!</p>
 <p>This vignette will introduce many of the main functions of
 <code>musicMCT</code> that serve this purpose, especially as they relate
 to the concerns of the <em>JMT</em> article. The problem that we’ll
@@ -107,8 +107,8 @@ questions that deeper study might get into.</p>
 <p>A familiar object from the theory of 20th-century music is the scale
 (C, D, E, F-sharp, G, A, B-flat). This is the fourth mode of melodic
 minor. We can verify that fact by defining the melodic minor scale for R
-and then calling [sim()], the package’s function for finding the modes
-of a scale:</p>
+and then calling <code><a href="../reference/sim.html">sim()</a></code>, the package’s function for finding
+the modes of a scale:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">melodic_minor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span></span>
@@ -128,9 +128,9 @@ C-sharp = 1, and so on. For familiar sets in 12edo (12
 it’s easy to work with integers in any k edo. But the values that define
 our scales don’t have to be integers at all: Modal Color Theory works in
 continuous pitch-class space.</p>
-<p>The function [sim()] above computes the <strong>s</strong>calar
-<strong>i</strong>nterval <strong>m</strong>atrix of a set (as defined
-by <a href="https://doi.org/10.1111/j.1468-2249.2008.00257.x" class="external-link">Tymoczko
+<p>The function <code><a href="../reference/sim.html">sim()</a></code> above computes the
+<strong>s</strong>calar <strong>i</strong>nterval
+<strong>m</strong>atrix of a set (as defined by <a href="https://doi.org/10.1111/j.1468-2249.2008.00257.x" class="external-link">Tymoczko
 2008</a>), which presents to us the modes of a scale as the columns of
 the matrix. Our input, the melodic minor scale, is in the first column,
 and the scale we want to study can be read from the fourth column of the
@@ -213,8 +213,9 @@ all the degrees of the scale more equally, sometimes a different note
 gets to stay fixed. Let’s try it.</p>
 <p>If the scale’s tonic starts on a 12edo integer, it won’t change when
 we quantize the scale. If we transpose the whole scale up 1 semitone by
-using [tn()], we should expect to get essentially the same quantization
-as when the scale starts on 0, just with 1 added to every value:</p>
+using <code><a href="../reference/tn.html">tn()</a></code>, we should expect to get essentially the same
+quantization as when the scale starts on 0, just with 1 added to every
+value:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">overtone_scale</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  8 10</span></span>
@@ -315,9 +316,9 @@ comparison: for tetrachords, we apparently need to consider 8 different
 comparisons to have a complete accounting of a scale structure. Two
 scales have the same structure (or belong to the same “color”) if they
 answer all 8 comparisons in the same way. <code>musicMCT</code>
-summarizes this information in a scale’s [signvector()]. For instance,
-let’s consider set classes 4-6 (prime form 0127) and 4-24 (prime form
-0248). Here are their sign vectors:</p>
+summarizes this information in a scale’s <code><a href="../reference/signvector.html">signvector()</a></code>. For
+instance, let’s consider set classes 4-6 (prime form 0127) and 4-24
+(prime form 0248). Here are their sign vectors:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0 -1 -1 -1 -1  0 -1  0</span></span>
@@ -547,10 +548,10 @@ just whole tones.)</p>
 <p>With this in mind, let us ask: what more regular colors is the
 <code>overtone_scale</code> adjacent to? We might first compare it to
 the 12edo quantizations above. <code>musicMCT</code> lets us do this
-with the function [comparesignvecs()], which returns <code>1</code> if
-two sign vectors represent adjacent colors, <code>0</code> if two sign
-vectors are identical, and <code>-1</code> if the colors are neither the
-same nor adjacent.</p>
+with the function <code><a href="../reference/comparesignvecs.html">comparesignvecs()</a></code>, which returns
+<code>1</code> if two sign vectors represent adjacent colors,
+<code>0</code> if two sign vectors are identical, and <code>-1</code> if
+the colors are neither the same nor adjacent.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">overtone_sv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvectors</span>, <span class="fl">2</span>, <span class="va">comparesignvecs</span>, signvecY<span class="op">=</span><span class="va">overtone_sv</span><span class="op">)</span></span>
@@ -586,8 +587,9 @@ with one concrete scale to represent each color</li>
 all these colors (in the form of an adjacency list)</li>
 </ul>
 <p>If you wish to work with this data, you should save the files in your
-working directory, which you can find by calling [getwd()] in R. Then
-import the files into your R session with the following commands:</p>
+working directory, which you can find by calling <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> in
+R. Then import the files into your R session with the following
+commands:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">representative_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_scales.rds"</span><span class="op">)</span></span>
 <span><span class="va">representative_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_signvectords.rds"</span><span class="op">)</span></span>
@@ -683,40 +685,40 @@ Chebyshev norms.)</p>
 </h3>
 <p>It would make for a tighter narrative to end with a conclusive
 declaration that our <code>best_simple_approximation</code> really is
-the best way to quantize the <code>overtone_scale</code>. But of course
-things are never that simple! The best approximation for a scale depends
-on your goals and what you’re trying to approximate for. I can’t
-emphasize this point strongly enough, because the attempt to justify
-certain scale structures as mathematically ideal is probably the oldest
-tradition of Euroepan music theory. By using math to talk about scales,
-Modal Color Theory may look like it contributes to that tradition, when
-in fact my goal with the theory is to do the opposite. The questions
-that MCT should be useful for are descriptive ones like “If you’re using
-this scale, what can you do with it?” and “If you want to do X, how can
-we find Y to facilitate it?” <a href="https://mtosmt.org/issues/mto.24.30.4/mto.24.30.4.shumays.html" class="external-link">Sami
+the best way to quantize the <code>overtone_scale</code>. But reality
+isn’t so simple! The best approximation for a scale depends on what
+you’re trying to approximate for. This needs to be underscored, because
+the attempt to justify certain scale structures as mathematically ideal
+is probably the oldest tradition of European music theory. By using math
+to talk about scales, Modal Color Theory may look like it contributes to
+that tradition, when my goal with the theory is to do just the opposite.
+The questions that MCT should be useful for are descriptive ones like
+“If you’re using this scale, what can you do with it?” and “If you want
+to do X, how can we find some scale Y to facilitate X?” <a href="https://mtosmt.org/issues/mto.24.30.4/mto.24.30.4.shumays.html" class="external-link">Sami
 Abu Shumays</a> is right to decry as a fallacy “the idea that the
 tunings of musical scales are the result of mathematical laws, rather
 than cultural choices that intersect with acoustical realities.” My hope
 for MCT is that its math lets us get deeper insight into the nature of
 that intersection between cultural choice and acoustical affordance.</p>
-<p>In the end, the <code>acoustic_scale</code> is actually a pretty
-decent approximation in many senses, especially if you’re limited to the
-familiar 12 pitch-classes of the piano. But hopefully this vignette
-shows how we might, when musicking with different priorities, come to
-make other choices–and how <code>musicMCT</code> can aid us in that
-process.</p>
+<p>In the end, the <code>acoustic_scale</code> actually is a pretty
+decent approximation for many purposes, especially if you’re limited to
+the familiar 12 pitch-classes of the piano. Hopefully, though, this
+vignette shows how we might, when musicking with different priorities,
+come to make other choices–and how <code>musicMCT</code> can aid us in
+that process.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="coda-brightness-graphs">Coda: Brightness graphs<a class="anchor" aria-label="anchor" href="#coda-brightness-graphs"></a>
 </h2>
-<p>We’ve been doing everything numerically so far, but another tool from
-“Modal Color Theory” is the “brightness graph,” which lets us visualize
-the voice-leading relationships between a scale’s modes (and thus to
-some degree the internal structure of the scale, as described in “Modal
-Color Theory,” 7-11). Using <code>musicMCT</code> we can make quick
-mock-ups of brightness graphs with [brightnessgraph()]. First let’s take
-a look at the <code>acoustic_scale</code>:</p>
+<p>Up to this point, we’ve done everything numerically, but “Modal Color
+Theory” also has some visualization tools. The one I want to introduce
+here is the “brightness graph,” which lets us visualize the
+voice-leading relationships between a scale’s modes (and thus to some
+degree the internal structure of the scale, as described in “Modal Color
+Theory,” 7-11). Using <code>musicMCT</code> we can make quick mock-ups
+of brightness graphs with <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>. First let’s
+take a look at the <code>acoustic_scale</code>:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span></code></pre></div>
 <p><img src="musicMCT_files/figure-html/unnamed-chunk-33-1.png" width="480"></p>
@@ -733,19 +735,19 @@ identical graph with the roman numeral labels shifted around.) Either
 way, the precise pitch values for all the nodes are the same: the bottom
 mode in both graphs is (0, 1, 3, 4, 6, 8, 10).</p>
 <p>The less trivial difference between the article and graph vignettes
-is their overall shape. The function [brightnessgraph()] determines the
-vertical position of graph nodes exactly as “Modal Color Theory”
-describes, but it has less guidance for how to make decisions about
-left-right placement of nodes. It produces graphs that are usually
+is their overall shape. The function <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>
+determines the vertical position of graph nodes exactly as “Modal Color
+Theory” describes, but it has less guidance for how to make decisions
+about left-right placement of nodes. It produces graphs that are usually
 legible but which may not clarify the underlying structure: I tend to
 use the function as a first draft and then construct my own (ideally
 more revealing) graphs by hand. For instance, the Figure 2b of “Modal
 Color Theory” represents all <span class="math inline">\(T_2\)</span>
 relationships as vertical arrows, resulting in a graph whose overall
-shape is a trapezoid. [brightnessgraph()] obscures the predominance of
-<span class="math inline">\(T_2\)</span> in the structure of the scale
-by making the chain of whole steps bow out to the left at the middle,
-giving the graph a diamond-like shape.</p>
+shape is a trapezoid. <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> obscures the
+predominance of <span class="math inline">\(T_2\)</span> in the
+structure of the scale by making the chain of whole steps bow out to the
+left at the middle, giving the graph a diamond-like shape.</p>
 <p>Let’s now take a look at the brightness graph for the
 <code>overtone_scale</code>:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -755,7 +757,7 @@ giving the graph a diamond-like shape.</p>
 fewer arrows) and the vertical placement of its nodes seems haphazard.
 This reflects the fact that the overtone scale has less regularity as
 measured by its degrees of freedom or the number of zeroes in its
-[signvector()]. Nevertheless, the graph still has some useful
+<code><a href="../reference/signvector.html">signvector()</a></code>. Nevertheless, the graph still has some useful
 information. Since the height of a mode corresponds to its sum
 brightness, we can see those comparisons at a glance. We can also use
 sum brightness relationships as a proxy for the relative height of
@@ -774,19 +776,20 @@ approximation looks like:</p>
 <p><img src="musicMCT_files/figure-html/unnamed-chunk-35-1.png" width="480"></p>
 <p>That’s impressively close to the graph for the actual
 <code>overtone_scale</code>! (In truth, we got a little lucky here: many
-colors offer enough room for variation that [brightnessgraph()] doesn’t
-always preserve such visually obvious similarity.) Aside from a check
-that [quantize_color()] works as intended, one other thing to note from
-this example is that [brightnessgraph()], like almost all functions in
-<code>musicMCT</code> makes it convenient to work in other “chromatic
-cardinalities” (i.e. number of unit steps to the octave) besides 12edo.
-Just be careful not to make direct comparisons between absolute values
-reckoned in different systems: note, for instance, that the sum
-brightnesses for our 30edo quantization are all around 90 whereas they
-were about 36 in the brightness graph of the original
-<code>overtone_scale</code>. That’s because we’ve changed our unit of
-measurement to be 2.5 times smaller, so values like distances and sums
-scale correspondingly.</p>
+colors offer enough room for variation that
+<code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> doesn’t always preserve such visually
+obvious similarity.) Aside from a check that
+<code><a href="../reference/quantize_color.html">quantize_color()</a></code> works as intended, one other thing to note
+from this example is that <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>, like almost
+all functions in <code>musicMCT</code> makes it convenient to work in
+other “chromatic cardinalities” (i.e. number of unit steps to the
+octave) besides 12edo. Just be careful not to make direct comparisons
+between absolute values reckoned in different systems: note, for
+instance, that the sum brightnesses for our 30edo quantization are all
+around 90 whereas they were about 36 in the brightness graph of the
+original <code>overtone_scale</code>. That’s because we’ve changed our
+unit of measurement to be 2.5 times smaller, so values like distances
+and sums scale correspondingly.</p>
 <p>You might find it instructive to explore the brightness graphs of the
 remaining <code>final_quantizations</code> from above, which show
 considerable variety from one to the next. This gives a glimpse of the
