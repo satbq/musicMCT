@@ -134,10 +134,14 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 #'   * `pyth`: Pythagorean comma (~.235 semitones)
 #'   * `l`: Pythagorean limma (256:243 or ~.9 semitones)
 #'   * `s`: 5-limit just semitone (16:15 or ~1.12 semitones)
+#'   * `st`: 5-limit just semitone (16:15 or ~1.12 semitones)
+#'   * `m2`: 5-limit just semitone (16:15 or ~1.12 semitones)
+#'   * `h`: 5-limit just semitone (16:15 or ~1.12 semitones)
 #'   * `a`: Pythagorean apotome (2187:2048 or ~1.14 semitones)
 #'   * `mt`: 5-limit minor tone (10:9 or ~1.82 semitones)
 #'   * `2`: 3-limit whole tone (9:8 or ~2.04 semitones)
 #'   * `t`: 3-limit whole tone (9:8 or ~2.04 semitones)
+#'   * `w`: 3-limit whole tone (9:8 or ~2.04 semitones)
 #'   * `sept`: 7-limit whole tone (8:7 or ~2.31 semitones)
 #'   * `m3`: 5-limit minor third (6:5 or ~3.16 semitones)
 #'   * `3`: 5-limit major third (5:4 or ~3.86 semitones)
@@ -175,7 +179,9 @@ j <- function(..., edo=12) {
   if (length(input_values) == 0) { return(NULL) }
 
   input_values <- match.arg(arg=input_values,
-            		    choices=c("1", "u", "pyth", "synt", "l", "a", "s", "mt", "2", "t", "sept", "m3", "3", "M3", "4", "stt", "utt", "jtt", "5",
+            		    choices=c("1", "u", "pyth", "synt", "l", "a", "h", "s", "st", "m2", 
+                                      "mt", "2", "t", "w", "sept", 
+                                      "m3", "3", "M3", "4", "stt", "utt", "jtt", "5",
                                       "m6", "6", "m7", "7", "8", "dia"),
                             several.ok=TRUE)
 
@@ -187,9 +193,13 @@ j <- function(..., edo=12) {
     if (string=="l") { return(12*log2(256/243)) }
     if (string=="a") { return(12*log2(2187/2048)) }
     if (string=="s") { return(12*log2(16/15)) }
+    if (string=="st") { return(12*log2(16/15)) }
+    if (string=="h") { return(12*log2(16/15)) }
+    if (string=="m2") { return(12*log2(16/15)) }
     if (string=="mt") { return(12*log2(10/9)) }
     if (string=="2") { return(12*log2(9/8)) }
     if (string=="t") { return(12*log2(9/8)) }
+    if (string=="w") { return(12*log2(9/8)) }
     if (string=="sept") { return(12*log2(8/7)) }
     if (string=="m3") { return(12*log2(6/5)) }
     if (string=="3") { return(12*log2(5/4)) }
