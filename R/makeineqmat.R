@@ -1,16 +1,3 @@
-makesubmat <- function(card) {
-  submat <- t(outer(0:(card-1), 0:(card-1), paste, sep="-"))
-
-  rotaterow <- function(n,mat) rotate(mat[n,], n-1)
-  submat <- t(sapply(1:card, rotaterow, mat=submat))
-
-  submat <- submat[,card:1]
-  submat[lower.tri(submat)] <- mapply(paste0, "w+", submat[lower.tri(submat)])
-  submat <- submat[,card:1]
-
-  return(submat)
-}
-
 #' Define the hyperplanes for the MCT arrangement of any cardinality
 #'
 #' @description
