@@ -1,3 +1,37 @@
+bg_reduction <- function(set, edo=12, rounder=10) {
+  card <- length(set)
+  scalar_interval_matrix <- sim(set,edo)
+  sums <- colSums(scalar_interval_matrix)
+
+  comparisons <- -1*brightnessComps(set, edo, rounder)
+  comparisons[which(comparisons<0)] <- 0
+
+  # This section, up through the definition of "reduced comparisons," is a hack-y way to approximate the
+  # transitive reduction of the graph of all brightness comparisons. It works by using the idea that two comparable
+  # modes are less likely to have an intermediate node if their sums are pretty close to each other. I'm not
+  # confident the behavior will always be ideal, but any mistakes should involve drawing redundant arrows (e.g.
+  # from phrygian directly to ionian), never removing arrows that are essential.
+  diffs <- outer(sums, sums,'-')
+  diffs <- abs(comparisons * diffs)
+  min_diff <- min(diffs[diffs>10^(-rounder)])
+  diffs <- diffs/min_diff
+  diffs_nonzero <- !!diffs
+  diffs <- 3^(diffs-1)
+  diffs <- diffs_nonzero * diffs
+  weighted_graph <- igraph::graph_from_adjacency_matrix(diffs, weighted=TRUE)
+
+  get_neighbors <- function(i) {
+    suppressWarnings(path_lengths <- unlist(lapply(igraph::shortest_paths(weighted_graph, i, mode="out")[[1]], length)))
+    return(which(path_lengths==2))
+  }
+
+  reduced_comparisons <- matrix(0, nrow=card, ncol=card)
+  for (i in 1:card) {
+    reduced_comparisons[i, get_neighbors(i)] <- 1
+  }
+  return(reduced_comparisons)
+}
+
 #' Visualize brightness relationships among modes of a scale
 #'
 #' @description 
@@ -44,36 +78,12 @@
 #' @export
 brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
                             edo=12, rounder=10) {
-   card <- length(set)
-  sums <- colSums(sim(set,edo))
+  card <- length(set)
+  scalar_interval_matrix <- sim(set,edo)
+  sums <- colSums(scalar_interval_matrix)
   y_coords <- sums
 
-  comparisons <- -1*brightnessComps(set, edo, rounder)
-  comparisons[which(comparisons<0)] <- 0
-
-  # This section, up through the definition of "reduced comparisons," is a hack-y way to approximate the
-  # transitive reduction of the graph of all brightness comparisons. It works by using the idea that two comparable
-  # modes are less likely to have an intermediate node if their sums are pretty close to each other. I'm not
-  # confident the behavior will always be ideal, but any mistakes should involve drawing redundant arrows (e.g.
-  # from phrygian directly to ionian), never removing arrows that are essential.
-  diffs <- outer(sums, sums,'-')
-  diffs <- abs(comparisons * diffs)
-  min_diff <- min(diffs[diffs>10^(-rounder)])
-  diffs <- diffs/min_diff
-  diffs_nonzero <- !!diffs
-  diffs <- 3^(diffs-1)
-  diffs <- diffs_nonzero * diffs
-  weighted_graph <- igraph::graph_from_adjacency_matrix(diffs, weighted=TRUE)
-
-  get_neighbors <- function(i) {
-    suppressWarnings(path_lengths <- unlist(lapply(igraph::shortest_paths(weighted_graph, i, mode="out")[[1]], length)))
-    return(which(path_lengths==2))
-  }
-
-  reduced_comparisons <- matrix(0, nrow=card, ncol=card)
-  for (i in 1:card) {
-    reduced_comparisons[i, get_neighbors(i)] <- 1
-  }
+  reduced_comparisons <- bg_reduction(set=set, edo=edo, rounder=rounder)
 
   # Below determines labels and visual layout for the brightness graph.
 
