@@ -139,7 +139,7 @@ get if you simply round the values of the `overtone_scale` to the nearest intege
 round(overtone_scale, digits=0)
 ```
 
-Wait a second, that's not even the acoustic scale! It has two consecutive semitones (6, 7, 8), and
+Wait a second, that's not even the acoustic scale! It has two consecutive semitones (6, 7, 8) and
 actually represents sc7-33, the "whole-tone plus one" scale. What's going on here!?
 
 [Tymoczko (2013, 130)](https://doi.org/10.1080/17459737.2013.818724) explains that there's really 
@@ -313,7 +313,7 @@ quantizations.
 
 In a surprise upset, the quantization with the closest signvector to the `overtone_scale` is apparently sc7-27 as represented by
 its mode (0, 2, 4, 5, 7, 8, 9). This doesn't mean that sc7-27 is a *better* quantization than the `acoustic_scale`, just that it's
-one that better reflects the structural of the `overtone_scale`. (In particular, it comes closest to capturing the fact that
+one that better reflects the structure of the `overtone_scale`. (In particular, it comes closest to capturing the fact that
 the `overtone_scale`'s step sizes get smaller as you go up the scale. We'll return to this consideration as we approach our
 final approximation at the end of the next section.) The modes of melodic minor simply have too much regularity--
 too many zeroes in their sign vectors--to be very structurally similar to the `overtone_scale`.
