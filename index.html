@@ -56,17 +56,13 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The “MCT” in musicMCT stands for <strong>Modal Color Theory</strong>, a theory of musical scale structure developed by Paul Sherrill, “Modal Color Theory,” <em>Journal of Music Theory</em> 69/1 (2025): 1-49. The goal of this package is to give musicians and music scholars computational tools that make it easier to work with this theory. In a nutshell, Modal Color Theory models musical scales as points in a geometry. The location of those points relative to various hyperplane arrangements tells us a lot about the scales’ internal structures and mutual relationships. The shape of those hyperplane arrangements gets pretty complex–for the important case of seven note scales, the main arrangement has 42 hyperplanes in a 6d space–so computational tools are very helpful.</p>
+<p>The “MCT” in musicMCT stands for <strong>Modal Color Theory</strong>, a theory of musical scale structure developed by Paul Sherrill, “Modal Color Theory,” <em>Journal of Music Theory</em> 69/1 (2025): 1-49. The goal of this package is to give musicians and music scholars computational tools that make it easier to work with this theory. In a nutshell, Modal Color Theory models musical scales as points in a geometry. The location of those points relative to various hyperplane arrangements tells us a lot about the scales’ internal structures and mutual relationships. The shape of those hyperplane arrangements gets pretty complex–for the important case of seven-note scales, the main arrangement has 42 hyperplanes in a 6d space–so computational tools are very helpful.</p>
 <p>If you’ve ever wondered why a piece of music uses one scale rather than another; if you want to know more about the jazz chord-scale concept of lydian being “bright” and locrian being “dark”; if you’ve ever wanted to design your own microtonal scale from scratch; if you’re a theorist who wants a geometrical perspective on concepts like voice leading and maximal evenness: musicMCT might be useful to you!</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of musicMCT from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"satbq/musicMCT"</span><span class="op">)</span></span></code></pre></div>
-<p>If that doesn’t work for you, try:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"satbq/musicMCT"</span><span class="op">)</span></span></code></pre></div>
 <p>In addition to the package itself, you will probably want to use the following large files which contain data about the MCT geometries:</p>
@@ -79,7 +75,7 @@
 <a href="https://github.com/satbq/modalcolortheory/blob/main/color_adjacencies.rds" class="external-link">color_adjacencies.rds</a> (~130 MB) contains information about the adjacency relationships between all these colors (in the form of an adjacency list)</li>
 </ul>
 <p>Download these files, save them to your working directory, and load them with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">representative_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_scales.rds"</span><span class="op">)</span></span>
 <span><span class="va">representative_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_signvectords.rds"</span><span class="op">)</span></span>
 <span><span class="va">color_adjacencies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"color_adjacencies.rds"</span><span class="op">)</span></span></code></pre></div>
@@ -89,7 +85,7 @@
 </h2>
 <p>For a detailed introduction to using this package, please see the vignette “musicMCT”.</p>
 <p>As a very quick example, let’s define the most common “just intonation” version of the major scale and run a few tests on it:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satbq.github.io/musicMCT/">musicMCT</a></span><span class="op">)</span></span>
 <span><span class="va">just_dia_frequency_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">/</span><span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">just_dia</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">just_dia_frequency_ratios</span><span class="op">)</span></span>
