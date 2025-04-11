@@ -26,6 +26,7 @@
 #' @export
 howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   card <- length(set)
+  if (card < 2) { return(0) }
 
   if (is.null(ineqmat)) {
     ineqmat <- getineqmat(card)

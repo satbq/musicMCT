@@ -16,7 +16,7 @@ Theory models musical scales as points in a geometry. The location of
 those points relative to various hyperplane arrangements tells us a lot
 about the scales’ internal structures and mutual relationships. The
 shape of those hyperplane arrangements gets pretty complex–for the
-important case of seven note scales, the main arrangement has 42
+important case of seven-note scales, the main arrangement has 42
 hyperplanes in a 6d space–so computational tools are very helpful.
 
 If you’ve ever wondered why a piece of music uses one scale rather than
@@ -30,13 +30,6 @@ maximal evenness: musicMCT might be useful to you!
 
 You can install the development version of musicMCT from
 [GitHub](https://github.com/) with:
-
-``` r
-install.packages("pak")
-pak::pak("satbq/musicMCT")
-```
-
-If that doesn’t work for you, try:
 
 ``` r
 install.packages("remotes")

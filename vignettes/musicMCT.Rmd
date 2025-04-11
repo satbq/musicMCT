@@ -147,9 +147,8 @@ no such thing as *the* quantization of the `overtone_scale`. There are 7 differe
 rounding above unfairly privileges C (`0`) as a note that's guaranteed not to move. If we treat 
 all the degrees of the scale more equally, sometimes a different note gets to stay fixed. Let's try it.
 
-If the scale's tonic starts on a 12edo integer, it won't change when we quantize the scale. If we transpose
-the whole scale up 1 semitone by using `tn()`, we should expect to get essentially the same quantization as when the
-scale starts on 0, just with 1 added to every value: 
+If the scale's tonic starts on a 12edo integer, it won't change when we quantize the scale. Transposing
+the whole scale up 1 semitone by using `tn()`, we should expect to get essentially the same quantization, just with 1 added to every value: 
 
 ```{r}
 round(overtone_scale, digits=0)
@@ -157,8 +156,8 @@ round(tn(overtone_scale, 1), digits=0)
 ```
 
 To find the other possible quantizations, we need to explore the range of transpositions where the scale's
-tonic is some value ``0 < x < 1``. If we divide that span into cents, we should be able to find the
-other quantizations:
+tonic is some value ``0 < x < 1``. If we transpose the `overtone_scale` so that it starts on every cent (i.e.
+hundredth of a semitone) in that range, that should be a fine enough sampling to encounter every quantization:
 
 ```{r}
 amounts_to_transpose <- (0:99)/100
@@ -181,7 +180,7 @@ print(final_quantizations)
 And thus we really do get exactly the seven quantizations that Tymoczko predicts. Of these seven, is there any reason
 to think that the `acoustic_scale` is a better quantization than the other possibilities? Tymoczko proposes one
 perspective: of the 100 scales in `transposed_scales`, how *many* of them quantize to each of the seven `final_quantizations`?
-This is possible to answer too (though here I'm going to gloss over the details of the code that gets these numbers):
+This is easy to answer too (though here I'm going to gloss over the details of the code that gets these numbers):
 
 ```{r, echo=FALSE}
 quantization_labels <- apply(final_quantizations, 2, fortenum)
@@ -191,11 +190,11 @@ names(quantization_weights) <- quantization_labels
 print(quantization_weights)
 ```
 
-That is, the WT-plus-1 scale that we first quantized to accounted for about 11% of the range of quantizations, whereas
-there are two *different* ways to quantize the `overtone_scale` to some mode of melodic minor. The first, which is
-the `acoustic_scale` proper, accounts on its own for 37% of all the quantizations--definitely the lion's share of them.
+That is, the WT-plus-1 scale that we first quantized to accounts for about 11% of the range of quantizations, whereas there
+are two distinct modes of melodic minor (sc7-34) which together account for 54% of the quantizations. The first mode, which is
+the `acoustic_scale` proper, accounts on its own for 37%--definitely the lion's share of them.
 
-This lends some credence to the weight of tradition, suggesting that the `acoustic_scale` might be a preferable
+This lends credence to conventional view, suggesting that the `acoustic_scale` might be a preferable
 quantization of the `overtone_scale` even if it isn't the *only* quantization.
 
 
@@ -486,7 +485,7 @@ It's not easy to eyeball which one of those is a *smaller* overall voice leading
 measure of distance you want to use. (For those who care about such things, the `acoustic_scale` is a closer approximation using the taxicab norm,
 but our `best_simple_approximation` is closer under the Euclidean and Chebyshev norms.)
 
-## 5. A weak conclusion
+## 5. A tempered conclusion
 
 It would make for a tighter narrative to end with a conclusive declaration that our `best_simple_approximation` really is the best way to quantize
 the `overtone_scale`. But reality isn't so simple! The best approximation for a scale depends on what you're trying

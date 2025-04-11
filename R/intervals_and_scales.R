@@ -13,6 +13,7 @@
 #' @examples
 #' zarlino_fifth <- meantone_fifth(2/7)
 #' zarlino_diatonic <- sort((0:6 * zarlino_fifth) %% 12)
+#' print(zarlino_diatonic)
 #' 
 #' fifth_in_19edo <- convert(11, 19, 12)
 #' meantone_fifth(1/3) - fifth_in_19edo
