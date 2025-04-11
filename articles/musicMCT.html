@@ -202,7 +202,7 @@ the <code>overtone_scale</code> to the nearest integer (in 12edo):</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">overtone_scale</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  8 10</span></span></code></pre></div>
 <p>Wait a second, that’s not even the acoustic scale! It has two
-consecutive semitones (6, 7, 8), and actually represents sc7-33, the
+consecutive semitones (6, 7, 8) and actually represents sc7-33, the
 “whole-tone plus one” scale. What’s going on here!?</p>
 <p><a href="https://doi.org/10.1080/17459737.2013.818724" class="external-link">Tymoczko
 (2013, 130)</a> explains that there’s really no such thing as
@@ -434,7 +434,7 @@ distances among the various quantizations.</p>
 the <code>overtone_scale</code> is apparently sc7-27 as represented by
 its mode (0, 2, 4, 5, 7, 8, 9). This doesn’t mean that sc7-27 is a
 <em>better</em> quantization than the <code>acoustic_scale</code>, just
-that it’s one that better reflects the structural of the
+that it’s one that better reflects the structure of the
 <code>overtone_scale</code>. (In particular, it comes closest to
 capturing the fact that the <code>overtone_scale</code>’s step sizes get
 smaller as you go up the scale. We’ll return to this consideration as we
