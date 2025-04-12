@@ -106,8 +106,8 @@ number of decimal places to round to.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>If <code>reconvert=FALSE</code>, a list of two elements: element 1 is <code>set</code> with a vector of integers
 representing the quantized scale; element 2 is <code>edo</code> representing the number k of unit steps in the
-mod k universe. If <code>reconvert=TRUE</code>, returns a single numeric vector converted to measurement relative
-to 12-tone equal tempered semitones: these generally will not be integers. May also return a vector
+mod k universe. If <code>reconvert=TRUE</code>, returns a single numeric vector measured relative
+to the unit step size input as <code>edo</code>: these generally will not be integers. May also return a vector
 of <code>NA</code>s the same length as <code>set</code> if no suitable quantization was found beneath the limit given by
 <code>nmax</code>.</p>
     </div>
