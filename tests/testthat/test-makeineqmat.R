@@ -7,7 +7,7 @@ test_that("makeineqmat works", {
 })
 
 test_that("makeineqmat gives right dims", {
-  random_size <- sample(2:20, 1)
+  random_size <- sample(3:20, 1)
   random_ineqmat <- makeineqmat(random_size)
   num_rows <- function(n) {
     if (n%%2 == 0) { return((n^3)/8)

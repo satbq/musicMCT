@@ -36,8 +36,8 @@ number of decimal places to round to.}
 \value{
 If \code{reconvert=FALSE}, a list of two elements: element 1 is \code{set} with a vector of integers
 representing the quantized scale; element 2 is \code{edo} representing the number k of unit steps in the
-mod k universe. If \code{reconvert=TRUE}, returns a single numeric vector converted to measurement relative
-to 12-tone equal tempered semitones: these generally will not be integers. May also return a vector
+mod k universe. If \code{reconvert=TRUE}, returns a single numeric vector measured relative
+to the unit step size input as \code{edo}: these generally will not be integers. May also return a vector
 of \code{NA}s the same length as \code{set} if no suitable quantization was found beneath the limit given by
 \code{nmax}.
 }

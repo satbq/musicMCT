@@ -5,6 +5,6 @@ test_that("minimizeVL options behave as expected", {
   expect_equal(minimizeVL(CM, DM, no_ties=TRUE), c(2, 2, 2))
   expect_equal(minimizeVL(CM, DM, method="euclidean"), c(2, 2, 2))
   expect_equal(minimizeVL(CM, DM, edo=10), c(-1, -2, -1))
-  expect_error(minimizeVL(CM, DM, method="Hello"))
+  expect_error(minimizeVL(CM, DM, method="badmethod"))
 })
 
