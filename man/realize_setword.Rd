@@ -7,7 +7,7 @@
 realize_setword(setword, edo = 12, reconvert = TRUE)
 }
 \arguments{
-\item{setword}{A numeric vector (intended to be integers) of ranked step
+\item{setword}{A numeric vector (intended to be nonnegative integers) of ranked step
 sizes; should be the same length as desired output set.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
@@ -27,7 +27,7 @@ Where \code{\link[=asword]{asword()}} takes you from a scale to a ranked list of
 \code{realize_setword} does the opposite: given a list of ranked step sizes,
 it defines a scale with those steps. It does not attempt to define a scale
 that exists in 12-tone equal temperament or another mod k universe, though
-the result will always have integral values in \emph{some} mod k setting. If you
+the result will have integral values in \emph{some} mod k setting. If you
 want that information, set \code{reconvert} to \code{FALSE}.
 }
 \examples{

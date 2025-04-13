@@ -23,10 +23,12 @@
 #' @export
 rotate <- function(x, n=1, transpose_up=FALSE, edo=12) {
   len <- length(x)
+  n_reduced <- n >= len || n < 0 
   n <- n %% length(x)
 
-  if (transpose_up==TRUE && n != 0) {
-    x[1:n] <- x[1:n] + edo
+  if (transpose_up==TRUE) {
+    if (n != 0) { x[1:n] <- x[1:n] + edo }
+    if (n_reduced) warning("transpose_up=TRUE might not give expected results combined with n<0 or >= length(x)")
   }
 
   res <- c( utils::tail(x,len-n), utils::head(x,n) )

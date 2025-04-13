@@ -1,0 +1,16 @@
+! test_mixed_scale.scl
+A 12-note scale with 2 degrees of freedom. Period: 1200 cents. Ratio: 6.001; evenness: 0.184 (wrt. 12 steps to period); on 58 hyperplanes.
+12
+! 
+  90.2249956731
+ 203.9100017308
+ 294.1349974038
+ 5/4
+ 498.0449991346
+ 590.2237155956
+ 3/2
+ 792.1799965385
+ 895.1118577978
+ 996.0899982692
+1088.2687147302
+2

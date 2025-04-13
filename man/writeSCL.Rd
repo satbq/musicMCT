@@ -9,8 +9,8 @@ writeSCL(x, filename, period = 2, ineqmat = NULL, edo = 12, rounder = 10)
 \arguments{
 \item{x}{Numeric vector: the scale to export}
 
-\item{filename}{String (in quotation marks): what to name your Scala file. Will automatically
-match the name of \code{x} if you enter nothing.}
+\item{filename}{String (in quotation marks): what to name your Scala file. Defaults to using
+the name of \code{x} as the file name if you enter nothing.}
 
 \item{period}{The frequency ratio at which your scale repeats; defaults to \code{2} which
 indicates an octave-repeating scale.}

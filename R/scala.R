@@ -14,8 +14,8 @@
 #' @inheritParams fpunique
 #' @inheritParams signvector
 #' @param x Numeric vector: the scale to export
-#' @param filename String (in quotation marks): what to name your Scala file. Will automatically
-#'   match the name of `x` if you enter nothing.
+#' @param filename String (in quotation marks): what to name your Scala file. Defaults to using
+#'   the name of `x` as the file name if you enter nothing.
 #' @param period The frequency ratio at which your scale repeats; defaults to `2` which
 #'   indicates an octave-repeating scale.
 #' @returns Invisible `NULL`
