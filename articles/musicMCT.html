@@ -93,10 +93,10 @@ qualitatively distinct scalar structures. I’m happy to calculate an
 explore such a complicated space!</p>
 <p>This vignette will introduce many of the main functions of
 <code>musicMCT</code> that serve this purpose, especially as they relate
-to the concerns of the <em>JMT</em> article. The problem that we’ll
-discuss is not of deep signifiance, but I hope a toy example will teach
-you how to use this software and give you a sense of the kinds of
-questions that deeper study might get into.</p>
+to the concerns of the <em>Journal of Music Theory</em> article. The
+problem that we’ll discuss is not of deep signifiance, but I hope a toy
+example will teach you how to use this software and give you a sense of
+the kinds of questions that deeper study might get into.</p>
 </div>
 <div class="section level2">
 <h2 id="how-acoustic-is-the-acoustic-scale">How acoustic is the “acoustic scale”?<a class="anchor" aria-label="anchor" href="#how-acoustic-is-the-acoustic-scale"></a>
@@ -728,13 +728,14 @@ take a look at the <code>acoustic_scale</code>:</p>
 differences if you compare the article’s figure to the one in this
 vignette. One difference is trivial: the mode at the bottom of our
 figure here is mode IV whereas it’s listed as mode VII in the
-<em>JMT</em> article. That’s just because the article treats melodic
-minor as mode I whereas we’ve asked for the modes of the
-<code>acoustic_scale</code>. (If you replace <code>acoustic_scale</code>
-with <code>melodic_minor</code> in the command above, you should get an
-identical graph with the roman numeral labels shifted around.) Either
-way, the precise pitch values for all the nodes are the same: the bottom
-mode in both graphs is (0, 1, 3, 4, 6, 8, 10).</p>
+<em>Journal of Music Theory</em> article. That’s just because the
+article treats melodic minor as mode I whereas we’ve asked for the modes
+of the <code>acoustic_scale</code>. (If you replace
+<code>acoustic_scale</code> with <code>melodic_minor</code> in the
+command above, you should get an identical graph with the roman numeral
+labels shifted around.) Either way, the precise pitch values for all the
+nodes are the same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8,
+10).</p>
 <p>The less trivial difference between the article and graph vignettes
 is their overall shape. The function <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>
 determines the vertical position of graph nodes exactly as “Modal Color
