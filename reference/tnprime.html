@@ -51,7 +51,7 @@ all minor triads return (0,3,7).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tnprime</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tnprime</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,6 +64,11 @@ all minor triads return (0,3,7).</p>
 
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
+
+
+<dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
+<dd><p>Numeric (expected integer) representing tolerance:
+number of decimal places to round to.</p></dd>
 
 </dl></div>
     <div class="section level2">
