@@ -135,24 +135,29 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 #'   * `l`: Pythagorean limma (256:243 or ~.9 semitones)
 #'   * `s`: 5-limit just semitone (16:15 or ~1.12 semitones)
 #'   * `st`: 5-limit just semitone (16:15 or ~1.12 semitones)
-#'   * `m2`: 5-limit just semitone (16:15 or ~1.12 semitones)
-#'   * `h`: 5-limit just semitone (16:15 or ~1.12 semitones)
+#'   * `m2`: 5-limit minor second (16:15 or ~1.12 semitones)
+#'   * `h`: half step (16:15 or ~1.12 semitones)
 #'   * `a`: Pythagorean apotome (2187:2048 or ~1.14 semitones)
 #'   * `mt`: 5-limit minor tone (10:9 or ~1.82 semitones)
-#'   * `2`: 3-limit whole tone (9:8 or ~2.04 semitones)
+#'   * `2`: 3-limit major second (9:8 or ~2.04 semitones)
 #'   * `t`: 3-limit whole tone (9:8 or ~2.04 semitones)
-#'   * `w`: 3-limit whole tone (9:8 or ~2.04 semitones)
+#'   * `w`: whole tone (9:8 or ~2.04 semitones)
+#'   * `wt`: whole tone (9:8 or ~2.04 semitones)
 #'   * `sept`: 7-limit whole tone (8:7 or ~2.31 semitones)
+#'   * `sdt`: 3-limit semiditone (32/27 or ~2.94 semitones)
+#'   * `pm3`: Pythagorean minor third (32/27 or ~2.94 semitones)
 #'   * `m3`: 5-limit minor third (6:5 or ~3.16 semitones)
 #'   * `3`: 5-limit major third (5:4 or ~3.86 semitones)
 #'   * `M3`: 5-limit major third (5:4 or ~3.86 semitones)
+#'   * `dt`: 3-limit ditone (81/64 or ~4.08 semitones)
 #'   * `4`: 3-limit perfect fourth (4:3 or ~4.98 semitones)
 #'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
 #'   * `stt`: 7-limit tritone (7:5 or ~5.83 semitones)
-#'   * `jtt`: 5-limit (45:32 or ~5.90 semitones)
+#'   * `jtt`: 5-limit tritone (45:32 or ~5.90 semitones)
 #'   * `5`: 3-limit perfect fifth (3:2 or ~7.02 semitones)
 #'   * `m6`: 5-limit minor sixth (8:5 or ~8.14 semitones)
 #'   * `6`: 5-limit major sixth (5:3 or ~8.84 semitones)
+#'   * `pm7`: Pythagorean minor seventh (16:9 or ~9.96 semitones)
 #'   * `m7`: 5-limit minor seventh (9:5 or ~10.18 semitones)
 #'   * `7`: 5-limit major seventh (15:8 or ~10.88 semitones)
 #'   * `8`: 2-limit perfect octave (2:1 or 12 semitones)
@@ -179,9 +184,9 @@ j <- function(..., edo=12) {
 
   input_values <- match.arg(arg=input_values,
             		    choices=c("1", "u", "pyth", "synt", "l", "a", "h", "s", "st", "m2", 
-                                      "mt", "2", "t", "w", "sept", 
-                                      "m3", "3", "M3", "4", "stt", "utt", "jtt", "5",
-                                      "m6", "6", "m7", "7", "8", "dia"),
+                                      "mt", "2", "t", "w", "wt", "sept", 
+                                      "sdt", "pm3", "m3", "3", "M3", "dt", "4", "stt", "utt", "jtt", "5",
+                                      "m6", "6", "pm7", "m7", "7", "8", "dia"),
                             several.ok=TRUE)
 
   hardcoded_values <- function(string) {
@@ -199,10 +204,14 @@ j <- function(..., edo=12) {
     if (string=="2") { return(12*log2(9/8)) }
     if (string=="t") { return(12*log2(9/8)) }
     if (string=="w") { return(12*log2(9/8)) }
+    if (string=="wt") { return(12*log2(9/8)) }
     if (string=="sept") { return(12*log2(8/7)) }
+    if (string=="sdt") { return(12*log2(32/27)) }
+    if (string=="pm3") { return(12*log2(32/27)) }
     if (string=="m3") { return(12*log2(6/5)) }
     if (string=="3") { return(12*log2(5/4)) }
     if (string=="M3") { return(12*log2(5/4)) }
+    if (string=="dt") { return(12*log2(81/64)) }
     if (string=="4") { return(12*log2(4/3)) }
     if (string=="stt") { return(12*log2(7/5)) }
     if (string=="utt") { return(12*log2(11/8)) }
@@ -210,6 +219,7 @@ j <- function(..., edo=12) {
     if (string=="5") { return(12*log2(3/2)) }
     if (string=="m6") { return(12*log2(8/5)) }
     if (string=="6") { return(12*log2(5/3)) }
+    if (string=="pm7") { return(12*log2(16/9)) }
     if (string=="m7") { return(12*log2(9/5)) }
     if (string=="7") { return(12*log2(15/8)) }
     if (string=="8") { return(12) }

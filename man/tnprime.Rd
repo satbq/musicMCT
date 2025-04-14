@@ -4,12 +4,15 @@
 \alias{tnprime}
 \title{Transposition class of a given pc-set}
 \usage{
-tnprime(set, edo = 12)
+tnprime(set, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 }
 \value{
 Numeric vector of same length as \code{set} representing the set's

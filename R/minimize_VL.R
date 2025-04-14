@@ -35,8 +35,13 @@
 
 minimizeVL <- function(source, goal, method="taxicab", no_ties=FALSE, edo=12) {
   card <- length(source)
+  if (card != length(goal)) { 
+    warning("Goals and source should have the same cardinality. 
+  You might want to double notes in your smaller (multi)set.")
+    return(rep(NA, card)) 
+  }
+
   goal <- goal[order(source)] # Presumes P-equivalence; otherwise not much point
-  if (card != length(source)) { return(rep(NA, card)) }
 
   modes <- sapply(0:(card-1), rotate, x=goal, edo=edo)
   voice_leadings <- t(t(modes)-source)

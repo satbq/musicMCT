@@ -43,6 +43,19 @@ fortenum <- function(set) {
   return(paste0(card, "-", val))
 }
 
+compactest_mode <- function(modes, rounder=10) {
+  tiny <- 10^(-1*rounder)
+  card <- nrow(modes)
+
+  for (i in card:1) {
+    if ("numeric" %in% class(modes)) {return(modes)}
+    top <- min(modes[i,])
+    index <- which(abs(modes[i,] - top) < tiny)
+    modes <- modes[,index]
+  }
+  return(modes)
+}
+
 #' Transposition class of a given pc-set
 #' 
 #' Uses Rahn's algorithm to calculate the best normal order for the 
@@ -52,27 +65,23 @@ fortenum <- function(set) {
 #'
 #' @param set Numeric vector of pitch-classes in the set
 #' @inheritParams edoo
+#' @inheritParams fpunique
 #' @returns Numeric vector of same length as `set` representing the set's
 #'   Tn-prime form
 #' @examples
 #' tnprime(c(2,6,9))
 #' tnprime(c(0,3,6,9,14),edo=16)
 #' @export
-tnprime <- function(set, edo=12) {
+tnprime <- function(set, edo=12, rounder=10) {
   set <- sort(set %% edo)
   card <- length(set)
   if (card == 1) { return(0) }
   if (card == 0) { return(integer(0))}
   modes <- sim(set, edo)
 
-  for (i in card:1) {
-     if (class(modes)[1]=="numeric") {return(modes)}
-     top <- min(modes[i,])
-     index <- which(modes[i,] == top)
-     modes <- modes[,index]
-  }
+  modes <- compactest_mode(modes, rounder=rounder)
 
-  return(modes[,1])
+  return(modes[1:card])
 }
 
 #' Transposition and Inversion
@@ -150,20 +159,15 @@ charm <- function(set, edo=12, sorted=TRUE) {
   return(tnprime(tni(set, 0, edo, sorted), edo))
 }
 
-setcompare <- function(x,y) {
+strange_charm_compare <- function(x, y, rounder=10) {
   card <- length(x)
-  if ( length(y) != card ) { print("Cardinality mismatch"); return(NA) }
+  if ( length(y) != card ) { warning("Cardinality mismatch"); return(NA) }
 
   modes <- cbind(x,y)
 
-  for (i in card:1) {
-    if (class(modes)[1]=="numeric") {return(modes)}
-    top <- min(modes[i,])
-    index <- which(modes[i,] == top)
-    modes <- modes[,index]
-  }
+  modes <- compactest_mode(modes, rounder=rounder)
 
-  return(modes[,1])
+  return(modes[1:card])
 }
 
 #' Prime form of a set using Rahn's algorithm
@@ -179,17 +183,18 @@ setcompare <- function(x,y) {
 #' consistency of result.
 #'
 #' @inheritParams tnprime
+#' @inheritParams fpunique
 #' @returns Numeric vector of same length as `set`
 #' @examples
 #' primeform(c(0, 3, 4, 8))
 #' primeform(c(0, 1, 3, 7, 8))
 #' primeform(c(0, 3, 6, 9, 12, 14), edo=16)
 #' @export
-primeform <- function(set, edo=12) {
+primeform <- function(set, edo=12, rounder=10) {
   if (length(set)==1) { return(0) }
-  upset <- startzero(tnprime(set, edo), edo)
-  downset <- startzero(tnprime(tni(set, 0, edo), edo), edo)
-  winner <- setcompare(upset, downset)
+  upset <- startzero(tnprime(set, edo, rounder), edo)
+  downset <- startzero(tnprime(tni(set, 0, edo), edo, rounder), edo)
+  winner <- strange_charm_compare(upset, downset, rounder)
   return(winner)
 }
 

@@ -35,6 +35,8 @@ test_that("j intervals accurate", {
   expect_equal(j(m3, 3, M3, 4, utt, stt, jtt, 5, m6, 6, m7, 7, 8),
                12*log2(c(6/5, 5/4, 5/4, 4/3, 11/8, 7/5, 45/32, 3/2, 8/5, 5/3,
                          9/5, 15/8, 2)))
+  expect_equal(j(wt, sdt, pm3, dt, pm7),
+               12 * log2(c(9/8, 32/27, 32/27, 81/64, 16/9)))
 })
 
 test_that("j accepts varied inputs", {
