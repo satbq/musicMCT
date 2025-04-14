@@ -26,6 +26,7 @@
 signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   if (is.null(ineqmat)) {
     card <- length(set)
+    if (card < 2) { return(integer(0)) }
     ineqmat <- getineqmat(card)
   }
   set <- c(set, edo)

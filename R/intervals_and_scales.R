@@ -150,12 +150,11 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 #'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
 #'   * `stt`: 7-limit tritone (7:5 or ~5.83 semitones)
 #'   * `jtt`: 5-limit (45:32 or ~5.90 semitones)
-#'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
 #'   * `5`: 3-limit perfect fifth (3:2 or ~7.02 semitones)
 #'   * `m6`: 5-limit minor sixth (8:5 or ~8.14 semitones)
 #'   * `6`: 5-limit major sixth (5:3 or ~8.84 semitones)
 #'   * `m7`: 5-limit minor seventh (9:5 or ~10.18 semitones)
-#'   * `7`: 5-limit major seventh (16:15 or ~10.88 semitones)
+#'   * `7`: 5-limit major seventh (15:8 or ~10.88 semitones)
 #'   * `8`: 2-limit perfect octave (2:1 or 12 semitones)
 #'   * `dia`: the complete 5-limit diatonic scale
 #'

@@ -18,8 +18,9 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    testthat (>= 3.0.0),
+    vdiffr,
     withr,
-    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://satbq.github.io/musicMCT/
 Config/testthat/edition: 3
