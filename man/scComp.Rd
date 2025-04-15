@@ -12,7 +12,7 @@ scComp(set, edo = 12)
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
-Numeric vector representing a set of length \code{edo - n} where \code{n} is
+Numeric vector representing a set class of length \code{edo - n} where \code{n} is
 the length of the input \code{set}
 }
 \description{

@@ -291,7 +291,7 @@ ivec <- function(set, edo=12) {
 #' scale in some mod k context, of course).
 #'
 #' @inheritParams tnprime
-#' @returns Numeric vector representing a set of length `edo - n` where `n` is
+#' @returns Numeric vector representing a set class of length `edo - n` where `n` is
 #'   the length of the input `set`
 #' @examples
 #' diatonic19 <- c(0, 3, 6, 9, 11, 14, 17)
@@ -300,6 +300,5 @@ ivec <- function(set, edo=12) {
 #' rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
 #' icvecs_19
 #' @export
-scComp <- function(set,edo=12) {
-  return(primeform(setdiff(0:(edo-1),set),edo))
-}
+scComp <- function(set,edo=12) primeform(setdiff(0:(edo-1),set),edo)
+
