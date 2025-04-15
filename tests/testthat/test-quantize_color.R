@@ -4,6 +4,8 @@ test_that("quantize_color basic functionality works", {
   expect_equal(quantize_color(just_dia)$set, c(0, 3, 5, 6, 9, 11, 14))
   expect_equal(quantize_color(c(0,4,8,12),edo=14,reconvert=TRUE), c(0,4,8,12))
   expect_equal(quantize_color(convert(c(0,4,8,12),14,12),reconvert=TRUE), c(0,24,48,72)/7)
+  expect_equal(round(quantize_color(c(0,3,7,9,12,13,16), edo=12, reconvert=TRUE), 2),
+               c(0, 2.06, 4.46, 6.17, 8.23, 9.6, 11.66))
 })
 
 test_that("quantize_color nmax parameter behaves as expected", {

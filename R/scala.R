@@ -34,7 +34,7 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
     filename <- paste0(filename, ".scl")
   }
 
-  if (substr(filename,nchar(filename)-4+1,nchar(filename)) != ".scl") {
+  if (substr(filename, nchar(filename)-3, nchar(filename)) != ".scl") {
     filename <- paste0(filename, ".scl")
   }
 

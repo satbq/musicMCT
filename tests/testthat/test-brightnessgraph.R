@@ -8,4 +8,8 @@ test_that("brightness graph images consistent", {
   cmaj_bg <- function() brightnessgraph(c_major_19edo, edo=19)
   vdiffr::expect_doppelganger("Brightness Graph for C major in 19edo",
                                cmaj_bg)
+
+  test_hexachord <- c(0,1,3,6,7,9)
+  hexa_bg <- function() brightnessgraph(test_hexachord, fixed_do=TRUE, show_sums=FALSE)
+  vdiffr::expect_doppelganger("Brightness Graph for sc6-30", hexa_bg)
 })

@@ -26,7 +26,7 @@ currently accepted inputs, their meaning, and their return value:
 \item \code{t}: 3-limit whole tone (9:8 or ~2.04 semitones)
 \item \code{w}: whole tone (9:8 or ~2.04 semitones)
 \item \code{wt}: whole tone (9:8 or ~2.04 semitones)
-\item \code{sept}: 7-limit whole tone (8:7 or ~2.31 semitones)
+\item \code{sept}: 7-limit (septimal) whole tone (8:7 or ~2.31 semitones)
 \item \code{sdt}: 3-limit semiditone (32/27 or ~2.94 semitones)
 \item \code{pm3}: Pythagorean minor third (32/27 or ~2.94 semitones)
 \item \code{m3}: 5-limit minor third (6:5 or ~3.16 semitones)

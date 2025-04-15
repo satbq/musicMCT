@@ -6,4 +6,5 @@ test_that("fpunique works", {
   expect_length(fpunique(sort(sim(just_dia))), 19)
   expect_length(fpunique(sort(sim(just_dia)), rounder=0), 12)
   expect_equal(dim(fpunique(sim(just_atonal), MARGIN=2))[2], 2)
+  expect_equal(dim(fpunique(t(sim(just_atonal)), MARGIN=1))[1], 2)
 })

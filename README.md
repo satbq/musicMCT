@@ -25,7 +25,8 @@ another; if you want to know more about the jazz chord-scale concept of
 lydian being “bright” and locrian being “dark”; if you’ve ever wanted to
 design your own microtonal scale from scratch; if you’re a theorist who
 wants a geometrical perspective on concepts like voice leading and
-maximal evenness: musicMCT might be useful to you!
+maximal evenness; if you’re an ethnomusicologist looking to interpret
+tuning data: musicMCT might be useful to you!
 
 ## Installation
 

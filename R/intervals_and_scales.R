@@ -143,7 +143,7 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 #'   * `t`: 3-limit whole tone (9:8 or ~2.04 semitones)
 #'   * `w`: whole tone (9:8 or ~2.04 semitones)
 #'   * `wt`: whole tone (9:8 or ~2.04 semitones)
-#'   * `sept`: 7-limit whole tone (8:7 or ~2.31 semitones)
+#'   * `sept`: 7-limit (septimal) whole tone (8:7 or ~2.31 semitones)
 #'   * `sdt`: 3-limit semiditone (32/27 or ~2.94 semitones)
 #'   * `pm3`: Pythagorean minor third (32/27 or ~2.94 semitones)
 #'   * `m3`: 5-limit minor third (6:5 or ~3.16 semitones)
@@ -179,56 +179,39 @@ makeMEscale <- function(card, edo=12, floor=TRUE) {
 #' @export
 j <- function(..., edo=12) {
   input_values <- substitute(...())
-  input_values <- unlist(lapply(input_values,toString))
+  input_values <- unlist(lapply(input_values, toString))
   if (length(input_values) == 0) { return(NULL) }
 
-  input_values <- match.arg(arg=input_values,
-            		    choices=c("1", "u", "pyth", "synt", "l", "a", "h", "s", "st", "m2", 
-                                      "mt", "2", "t", "w", "wt", "sept", 
-                                      "sdt", "pm3", "m3", "3", "M3", "dt", "4", "stt", "utt", "jtt", "5",
-                                      "m6", "6", "pm7", "m7", "7", "8", "dia"),
-                            several.ok=TRUE)
+  values_1        <- c(1,   1,   531441/524288, 81/80, 256/243, 2187/2048, 16/15, 16/15, 16/15, 16/15)
+  names(values_1) <- c("1", "u", "pyth",        "synt", "l",    "a",       "h",    "s",  "st",  "m2")
 
-  hardcoded_values <- function(string) {
-    if (string=="1") { return(0) }
-    if (string=="u") { return(0) }
-    if (string=="pyth") { return((12 * log2(1.5^12))%%12) }
-    if (string=="synt") { return(((12 * log2(1.5^4))%%12) - (12*log2(5/4))) }
-    if (string=="l") { return(12*log2(256/243)) }
-    if (string=="a") { return(12*log2(2187/2048)) }
-    if (string=="s") { return(12*log2(16/15)) }
-    if (string=="st") { return(12*log2(16/15)) }
-    if (string=="h") { return(12*log2(16/15)) }
-    if (string=="m2") { return(12*log2(16/15)) }
-    if (string=="mt") { return(12*log2(10/9)) }
-    if (string=="2") { return(12*log2(9/8)) }
-    if (string=="t") { return(12*log2(9/8)) }
-    if (string=="w") { return(12*log2(9/8)) }
-    if (string=="wt") { return(12*log2(9/8)) }
-    if (string=="sept") { return(12*log2(8/7)) }
-    if (string=="sdt") { return(12*log2(32/27)) }
-    if (string=="pm3") { return(12*log2(32/27)) }
-    if (string=="m3") { return(12*log2(6/5)) }
-    if (string=="3") { return(12*log2(5/4)) }
-    if (string=="M3") { return(12*log2(5/4)) }
-    if (string=="dt") { return(12*log2(81/64)) }
-    if (string=="4") { return(12*log2(4/3)) }
-    if (string=="stt") { return(12*log2(7/5)) }
-    if (string=="utt") { return(12*log2(11/8)) }
-    if (string=="jtt") { return(12*log2(45/32)) }
-    if (string=="5") { return(12*log2(3/2)) }
-    if (string=="m6") { return(12*log2(8/5)) }
-    if (string=="6") { return(12*log2(5/3)) }
-    if (string=="pm7") { return(12*log2(16/9)) }
-    if (string=="m7") { return(12*log2(9/5)) }
-    if (string=="7") { return(12*log2(15/8)) }
-    if (string=="8") { return(12) }
-    if (string=="dia") { return(12*log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))) }
-  }
+  values_2        <- c(10/9, 9/8, 9/8, 9/8, 9/8,  8/7,    32/27, 32/27, 6/5,  5/4, 5/4,  81/64)
+  names(values_2) <- c("mt", "2", "t", "w", "wt", "sept", "sdt", "pm3", "m3", "3", "M3", "dt")
 
-  res <- as.vector(unlist(sapply(input_values, hardcoded_values)))
+  values_3        <- c(4/3, 7/5,   11/8,  45/32, 3/2, 8/5,  5/3, 16/9,  9/5,  15/8, 2, NA)
+  names(values_3) <- c("4", "stt", "utt", "jtt", "5", "m6", "6", "pm7", "m7", "7", "8", "dia")
+
+  all_values <- c(values_1, values_2, values_3)
+  freq_to_cents <- function(x) 12 * log2(x)
+  all_values <- sapply(all_values, freq_to_cents)
+
+  input_values <- match.arg(arg=input_values, choices=names(all_values), several.ok=TRUE)
+  
+  res <- all_values[input_values]
   names(res) <- NULL
-  res <- convert(res, 12, edo)
 
-  return(res)
+  just_dia <- freq_to_cents(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+  insert_dia_at_na <- function(x) {
+    if (is.na(x)) { 
+      return(just_dia) 
+    } else {
+      return(x)
+    }          
+  }
+  res <- as.list(res)
+  res <- lapply(res, insert_dia_at_na)
+  res <- unlist(res)
+
+  convert(res, 12, edo)
 }
+
