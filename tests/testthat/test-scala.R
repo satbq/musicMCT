@@ -1,5 +1,5 @@
 test_that("writeSCL then readSCL returns input scale", {
-  test_scale <- c(0,2,4,7)
+  test_scale <- c(0, 2, 4, 7)
   tempSCL <- withr::local_tempfile(
     pattern="scltest-",fileext=".scl")
   writeSCL(test_scale, tempSCL)

@@ -24,11 +24,11 @@ zmate <- function(set) {
   num <- fortenum(set)
 
   if (card == 6) {
-    complement <- scComp(set)
+    complement <- sc_comp(set)
     if (num == fortenum(complement)) { 
       NA 
     } else {
-      scComp(set)
+      sc_comp(set)
     }
   } else {
     num <- strsplit(num, split="-")[[1]][2]

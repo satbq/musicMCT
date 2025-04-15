@@ -13,8 +13,8 @@ musical scale structure developed by Paul Sherrill, “Modal Color
 Theory,” *Journal of Music Theory* 69/1 (2025): 1-49. The goal of this
 package is to give musicians and music scholars computational tools that
 make it easier to work with this theory. In a nutshell, Modal Color
-Theory models musical scales as points in a geometry. The location of
-those points relative to various hyperplane arrangements tells us a lot
+Theory models musical scales as points in a geometry. The locations of
+those points relative to various hyperplane arrangements tell us a lot
 about the scales’ internal structures and mutual relationships. The
 shape of those hyperplane arrangements gets pretty complex–for the
 important case of seven-note scales, the main arrangement has 42

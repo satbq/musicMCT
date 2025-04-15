@@ -59,8 +59,17 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   }
 
 
-  if (freedom==1) { degree <- "degree" } else { degree <- "degrees" }
-  if (svzeroes==1) { zeroes <- "hyperplane" } else { zeroes <- "hyperplanes" }
+  if (freedom==1) { 
+    degree <- "degree" 
+  } else { 
+    degree <- "degrees" 
+  }
+
+  if (svzeroes==1) { 
+    zeroes <- "hyperplane" 
+  } else { 
+    zeroes <- "hyperplanes" 
+  }
 
   if (nameColor==TRUE) {
     line1 <- paste0("A ", card, "-note scale of color ", color, " with ", freedom, " ", degree, " of freedom. Period: ", round(periodCents,3), " cents. Ratio: ", scaleratio, "; evenness: ", how_even, " (wrt. ", edo, " steps to period); on ", svzeroes, " ", zeroes, ".")
@@ -112,72 +121,86 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
 #' 
 #' @export
 readSCL <- function(filename, scaleonly=TRUE, edo=12) {
-#Note that if scala files don't define the scale with enough precision, they may appear to lack structure.
-#Check how close they are to hyperplanes to adjust rounder appropriately.
-  contents <- scan(filename,what="character",sep="\n",quiet=TRUE,blank.lines.skip=FALSE)
+  contents <- scan(filename, what="character", sep="\n", quiet=TRUE, blank.lines.skip=FALSE)
 
   removeAfterChar <- function(string,charToRemove) {
     charindex <- as.vector(regexpr(charToRemove,string,fixed=TRUE))
     charindex[charindex ==-1] <- nchar(string[charindex==-1]) + 1
     charindex <- charindex - 1
-    res <- do.call(substr,list(x=string,start=rep(0,length(string)),stop=charindex))
-    res <- res[res!=""]
-    return(res)
+    res <- do.call(substr, list(x=string, start=rep(0, length(string)), stop=charindex))
+    res[res!=""]
   }
 
-  #Fill in description line if blank
+  # Fill in description line if blank
   bangindex <- as.vector(grepl("!",contents,fixed=TRUE))
   firstrealline <- contents[which(bangindex==FALSE)[1]]
-  if (firstrealline == "") { contents[which(bangindex==FALSE)[1]] <- "blank description" }
+  if (firstrealline == "") { 
+    contents[which(bangindex==FALSE)[1]] <- "blank description" 
+  }
 
-  #Remove comments marked by !
-  contents <- removeAfterChar(contents,"!")
+  # Remove comments marked by !
+  contents <- removeAfterChar(contents, "!")
   contents <- trimws(contents)
 
-  #Read scale length & remove description header
+  # Read scale length & remove description header
   card <- strtoi(contents[2])
-  if (class(card)[1] != "integer") { warning(".scl file not formatted as expected. Scale length not found.") }
+  if (class(card)[1] != "integer") { 
+    warning(".scl file not formatted as expected. Scale length not found.") 
+  }
   contents <- contents[-(1:2)]
 
-  #Locate the degrees defined as ratios vs. those defined by cents
-  ratioindex <- grepl("/",contents,fixed=TRUE)
-  centsindex <- grepl(".",contents,fixed=TRUE)
+  # Locate the degrees defined as ratios vs. those defined by cents
+  ratioindex <- grepl("/", contents, fixed=TRUE)
+  centsindex <- grepl(".", contents, fixed=TRUE)
 
-  #Remove whitespace-prefixed comments
+  # Remove whitespace-prefixed comments
   contents <- trimws(contents)
   contents <- removeAfterChar(contents," ")
 
-  #Check for integers (e.g. an octave defined as "2" rather than "2/1")
+  # Check for integers (e.g. an octave defined as "2" rather than "2/1")
   integerindex <- !is.na(strtoi(contents))
 
-  if (sum(ratioindex,centsindex,integerindex) != card) { warning(".scl file not formatted as expected. Cents or ratios incorrectly identified.") }
+  if (sum(ratioindex,centsindex,integerindex) != card) { 
+    warning(".scl file not formatted as expected. Cents or ratios incorrectly identified.") 
+  }
 
-  #Convert the ratios to scale degrees
+  # Convert the ratios to scale degrees
   ratioToLog <- function(ratioString, edo=edo) {
     dividends <- unlist(strsplit(ratioString, split="/"))
-    if ( length(dividends) != 2 ) { warning(".scl file not formatted as expected. Apparent ratio with more or less than 2 arguments.") }
+    if ( length(dividends) != 2 ) { 
+      warning(".scl file not formatted as expected. Apparent ratio with more or less than 2 arguments.") 
+    }
     dividends <- as.numeric(dividends)
     res <- dividends[1]/dividends[2]
-    res <- edo * log(res)/log(2)
-    return(res)
+    edo * log(res)/log(2)
   }
 
-  #Convert integers to scale degrees
+  # Convert integers to scale degrees
   intToLog <- function(intString, localedo=edo) {
     val <- strtoi(intString)
-    return(localedo * log(val)/log(2))
+    localedo * log(val)/log(2)
   }
 
-  #Apply above functions and convert cents to global EDO
-  if (sum(ratioindex) > 0) { contents[ratioindex] <- sapply(contents[ratioindex],ratioToLog, edo=edo) }
-  if (sum(integerindex) > 0) {contents[integerindex] <- sapply(contents[integerindex],intToLog) }
-  if (sum(centsindex) > 0) { contents[centsindex] <- sapply(contents[centsindex],as.numeric) * (edo/1200) }
+  # Apply above functions and convert cents to global EDO
+  if (sum(ratioindex) > 0) { 
+    contents[ratioindex] <- sapply(contents[ratioindex], ratioToLog, edo=edo) 
+  }
+  if (sum(integerindex) > 0) {
+    contents[integerindex] <- sapply(contents[integerindex], intToLog) 
+  }
+  if (sum(centsindex) > 0) { 
+    contents[centsindex] <- sapply(contents[centsindex], as.numeric) * (edo/1200) 
+  }
   contents <- as.numeric(contents)
 
-  #Format & output results
+  # Format & output results
   names(contents) <- NULL
   octave <- contents[length(contents)]
-  contents <- c(0,contents[-length(contents)])
-  if (scaleonly==TRUE) { return(contents) }
-  return(list(scale=contents,length=card,period=octave))
+  contents <- c(0, contents[-length(contents)])
+
+  if (scaleonly==TRUE) { 
+    return(contents) 
+  }
+
+  list(scale=contents, length=card, period=octave)
 }

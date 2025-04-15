@@ -13,7 +13,7 @@ tni(set, n, edo = 12, sorted = TRUE)
 
 startzero(set, edo = 12, sorted = TRUE)
 
-charm(set, edo = 12, sorted = TRUE)
+charm(set, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -25,6 +25,9 @@ index of transposition or inversion.}
 
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 }
 \value{
 Numeric vector of same length as \code{set}

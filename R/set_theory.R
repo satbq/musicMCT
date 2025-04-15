@@ -8,6 +8,7 @@
 #'   that indicates the number of distinct pitch-classes in the set class.
 #' @param num Ordinal number of the desired set class in Forte's list
 #' @returns Numeric vector of length `card` representing a pc-set of `card` notes.
+#'
 #' @examples
 #' ait1 <- sc(4,15)
 #' ait2 <- sc(4,29)
@@ -15,9 +16,17 @@
 #' print(NB_rahn_prime_form)
 #' @export
 sc <- function(card, num) {
+  if (card < 1 || card > 12) {
+    stop("Cardinality not in the range 1-12")
+  }
+
   set <- fortenums[[card]][num]
-  res <- strtoi(unlist(strsplit(set,split=",")))
-  return(res)
+
+  if (length(set) != 1 || is.na(set)) {
+   stop("Ordinal number out of bounds for given cardinal") 
+  }
+
+  strtoi(unlist(strsplit(set, split=",")))
 }
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("fortenums"))
@@ -36,11 +45,17 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("fortenums"))
 #' fortenum(c(4,8,11))
 #' @export
 fortenum <- function(set) {
-  condensed_set <- unique(set)
+  condensed_set <- unique(set %% 12)
   card <- length(condensed_set)
   strset <- toString(primeform(condensed_set, edo=12))
   val <- which(fortenums[[card]]==strset)
-  return(paste0(card, "-", val))
+
+  if (length(val) == 0) {
+    warning("It looks like ", paste0(round(primeform(condensed_set, edo=12), 2), sep=" "), 
+            "includes pitches outside 12edo. Not on Forte's list.")
+  }
+
+  paste0(card, "-", val)
 }
 
 compactest_mode <- function(modes, rounder=10) {
@@ -48,12 +63,16 @@ compactest_mode <- function(modes, rounder=10) {
   card <- nrow(modes)
 
   for (i in card:1) {
-    if ("numeric" %in% class(modes)) {return(modes)}
+    if ("numeric" %in% class(modes)) {
+      return(modes)
+    }
+
     top <- min(modes[i,])
     index <- which(abs(modes[i,] - top) < tiny)
     modes <- modes[,index]
   }
-  return(modes)
+
+  modes
 }
 
 #' Transposition class of a given pc-set
@@ -77,11 +96,11 @@ tnprime <- function(set, edo=12, rounder=10) {
   card <- length(set)
   if (card == 1) { return(0) }
   if (card == 0) { return(integer(0))}
-  modes <- sim(set, edo)
 
+  modes <- sim(set, edo)
   modes <- compactest_mode(modes, rounder=rounder)
 
-  return(modes[1:card])
+  modes[1:card]
 }
 
 #' Transposition and Inversion
@@ -137,8 +156,10 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' @export
 tn <- function(set, n, edo=12, sorted=TRUE) {
   res <- ((set%%edo) + (n%%edo)) %% edo
-  if (sorted == FALSE) { return(res) }
-  return(sort(res))
+  if (sorted == FALSE) { 
+    return(res)
+  }
+  sort(res)
 }
 
 #' @rdname tn
@@ -146,7 +167,7 @@ tn <- function(set, n, edo=12, sorted=TRUE) {
 tni <- function(set, n, edo=12, sorted=TRUE) {
   res <- ((n%%edo) - (set%%edo)) %% edo
   if (sorted == FALSE) { return(res) }
-  return(sort(res))
+  sort(res)
 }
 
 #' @rdname tn
@@ -155,19 +176,14 @@ startzero <- function(set, edo=12, sorted=TRUE) tn(set, -set[1], edo, sorted)
 
 #' @rdname tn
 #' @export
-charm <- function(set, edo=12, sorted=TRUE) {
-  return(tnprime(tni(set, 0, edo, sorted), edo))
-}
+charm <- function(set, edo=12, rounder=10) tnprime(tni(set, 0, edo), edo, rounder)
 
 strange_charm_compare <- function(x, y, rounder=10) {
   card <- length(x)
-  if ( length(y) != card ) { warning("Cardinality mismatch"); return(NA) }
-
   modes <- cbind(x,y)
-
   modes <- compactest_mode(modes, rounder=rounder)
 
-  return(modes[1:card])
+  modes[1:card]
 }
 
 #' Prime form of a set using Rahn's algorithm
@@ -192,10 +208,9 @@ strange_charm_compare <- function(x, y, rounder=10) {
 #' @export
 primeform <- function(set, edo=12, rounder=10) {
   if (length(set)==1) { return(0) }
-  upset <- startzero(tnprime(set, edo, rounder), edo)
-  downset <- startzero(tnprime(tni(set, 0, edo), edo, rounder), edo)
-  winner <- strange_charm_compare(upset, downset, rounder)
-  return(winner)
+  upset <- tnprime(set, edo, rounder)
+  downset <- charm(set, edo, rounder)
+  strange_charm_compare(upset, downset, rounder)
 }
 
 #' Test for inversional symmetry
@@ -232,14 +247,20 @@ primeform <- function(set, edo=12, rounder=10) {
 #' @export
 isym <- function(set, edo=12, rounder=10) {
   card <- length(set)
+  if (card < 2) { 
+    return(TRUE) 
+  }
+
   setword <- asword(set, edo, rounder)
   invsetword <- rev(setword)
 
   for (i in 1:card) {
-    invmode <- rotate(invsetword,i)
-    if ( isTRUE(all.equal(setword,invmode)) ) { return(TRUE) }
+    invmode <- rotate(invsetword, i)
+    if ( isTRUE(all.equal(setword, invmode)) ) { 
+      return(TRUE)
+     }
   }
-  return(FALSE)
+  FALSE
 }
 
 #' Interval-class vector
@@ -277,13 +298,13 @@ ivec <- function(set, edo=12) {
     vec[i] <- sum(nonzero == i)
   }
 
-  return(vec)
+  vec
 }
 
 #' Set class complement
 #'
 #' Find the complement of a set class in a given mod k universe. Complements
-#' have traditionally been recognized in pitch-class set theory as sharing
+#' have long been recognized in pitch-class set theory as sharing
 #' many properties with each other. This is true to *some* extent when 
 #' considering scales in continuous pc-space, but sometimes it is not! 
 #' Therefore whenever you're exploring an odd property that a scale has, it
@@ -295,10 +316,10 @@ ivec <- function(set, edo=12) {
 #'   the length of the input `set`
 #' @examples
 #' diatonic19 <- c(0, 3, 6, 9, 11, 14, 17)
-#' chromatic19 <- scComp(diatonic19, edo=19)
+#' chromatic19 <- sc_comp(diatonic19, edo=19)
 #' icvecs_19 <- rbind(ivec(diatonic19, edo=19), ivec(chromatic19, edo=19))
 #' rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
 #' icvecs_19
 #' @export
-scComp <- function(set,edo=12) primeform(setdiff(0:(edo-1),set),edo)
+sc_comp <- function(set,edo=12) primeform(setdiff(0:(edo-1),set),edo)
 
