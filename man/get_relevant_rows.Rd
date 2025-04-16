@@ -40,8 +40,8 @@ colornum(heptachord_1) == colornum(heptachord_2)
 sv_1 <- signvector(heptachord_1, ineqmat=triads_in_7_ineqmat)
 sv_2 <- signvector(heptachord_2, ineqmat=triads_in_7_ineqmat)
 isTRUE(all.equal(sv_1, sv_2))
-diatonicsubsets(c(0,2,4), heptachord_1, unique=FALSE)
-diatonicsubsets(c(0,2,4), heptachord_2, unique=FALSE)
+subset_varieties(c(0,2,4), heptachord_1, unique=FALSE)
+subset_varieties(c(0,2,4), heptachord_2, unique=FALSE)
 # Both have identical qualities for triads on scale degree 3, 5, and 7,
 # which you can see by comparing columns 3, 5, and 7 in the two
 # matrices above.

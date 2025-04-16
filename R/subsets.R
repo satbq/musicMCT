@@ -31,7 +31,9 @@
 #' @export
 intervalspectrum <- function(set, edo=12, rounder=10) {
   card <- length(set)
-  if (card < 2) { return(list()) }
+  if (card < 2) { 
+    return(list()) 
+  }
 
   modes <- sim(set, edo)
   modes <- t(apply(modes, 1, sort))
@@ -41,7 +43,7 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
     uniques <- as.list(as.data.frame(uniques))
     names(uniques) <- NULL
   }
-  return(uniques)
+  uniques
 }
 
 #' @rdname intervalspectrum
@@ -68,26 +70,26 @@ spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,e
 #' c_major_scale <- c(0,2,4,5,7,9,11)
 #' double_harmonic_scale <- c(0,1,4,5,7,8,11)
 #' 
-#' diatonicsubsets(c(0,2,4), c_major_scale)
-#' diatonicsubsets(c(0,2,4), c_major_scale, unique=FALSE)
-#' diatonicsubsets(c(0,2,4), double_harmonic_scale)
+#' subset_varieties(c(0,2,4), c_major_scale)
+#' subset_varieties(c(0,2,4), c_major_scale, unique=FALSE)
+#' subset_varieties(c(0,2,4), double_harmonic_scale)
 #' @export
-diatonicsubsets <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
+subset_varieties <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
   modes <- sim(set,edo=edo)
   subsetdegrees <- subsetdegrees + 1 #Because in music theory these are 0-indexed, but vectors are 1-indexed in R
   res <- modes[subsetdegrees,]
 
   if (unique == TRUE) {
-  res <- fpunique(res, MARGIN=2, rounder=rounder)
+    res <- fpunique(res, MARGIN=2, rounder=rounder)
   }
 
-  return(res)
+  res
 }
 
 #' Subset varieties for all subsets of a fixed size
 #'
 #' @description
-#' Applies [diatonicsubsets] not just to a particular subset shape but to all possible subset shapes
+#' Applies [subset_varieties] not just to a particular subset shape but to all possible subset shapes
 #' given a fixed cardinality. For example, finds the specific varieties of *all* trichordal subsets of 
 #' the major scale, not than just the varities of the tonal triad. Comparable to [intervalspectrum] 
 #' but for subsets larger than dyads.
@@ -97,7 +99,7 @@ diatonicsubsets <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
 #' but with `simplify=FALSE`, the first inversion (0,2,5) and second inversion (0,3,5) subset shapes would 
 #' also be displayed.
 #'
-#' @inheritParams diatonicsubsets
+#' @inheritParams subset_varieties
 #' @param subsetcard Single integer defining the cardinality of subsets to consider
 #' @param simplify Should "inversions" of a subset be ignored? Boolean, defaults to `TRUE`
 #' @param mode String `"tn"` or `"tni"`. When defining subset shapes, use transposition or transposition 
@@ -113,31 +115,35 @@ diatonicsubsets <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
 #' subsetspectrum(c_major_scale, 3, mode="tni")
 #'
 #' @export
-subsetspectrum <- function(set,subsetcard,simplify=TRUE,mode="tn",edo=12,rounder=10) { 
+subsetspectrum <- function(set, subsetcard, simplify=TRUE, mode="tn", edo=12, rounder=10) { 
   card <- length(set)
-  comb <- utils::combn(card-1,subsetcard-1)
-  comb <- rbind(rep(0,choose(card-1,subsetcard-1)),comb)
+  comb <- utils::combn(card-1, subsetcard-1)
+  comb <- rbind(rep(0, choose(card-1, subsetcard-1)), comb)
 
-  if (mode=="tn") { use <- tnprime }
-  if (mode=="tni") { use <- primeform }
+  if (mode=="tn") { 
+    use <- tnprime 
+  }
+  if (mode=="tni") { 
+    use <- primeform 
+  }
 
   if (simplify == TRUE) {
-    comb <- fpunique(apply(comb,2,use,edo=card),MARGIN=2,rounder=rounder)
+    comb <- fpunique(apply(comb, 2, use, edo=card), MARGIN=2, rounder=rounder)
     if (!("matrix" %in% class(comb))) {
       comb <- as.matrix(comb)
     }
   }
 
-  res <- apply(comb,2,diatonicsubsets,set=set,edo=edo,rounder=rounder)
+  res <- apply(comb, 2, subset_varieties, set=set, edo=edo, rounder=rounder)
 
   if ("matrix" %in% class(res)) {
     res <- as.list(as.data.frame(res))
 
     for (i in 1:length(res) ) {
-       res[[i]] <- matrix(res[[i]],nrow=subsetcard,ncol=(length(res[[i]])/subsetcard))
+       res[[i]] <- matrix(res[[i]], nrow=subsetcard, ncol=(length(res[[i]])/subsetcard))
     }
   }
 
-  names(res) <- apply(comb,2,toString)
-  return(res)
+  names(res) <- apply(comb, 2, toString)
+  res
 }
