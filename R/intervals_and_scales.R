@@ -93,12 +93,12 @@ edoo <- function(card, edo=12) {
 #'   quantization to round down. If `FALSE` rounds to the nearest value.
 #' @returns Numeric vector of length `card` representing a scale of `card` notes.
 #' @examples
-#' makeMEscale(7, 12)
-#' makeMEscale(7, 12, floor=FALSE)
-#' diatonic_in_19 <- makeMEscale(7, 19)
-#' tresillo <- makeMEscale(3,8)
+#' maxeven(7, 12)
+#' maxeven(7, 12, floor=FALSE)
+#' diatonic_in_19 <- maxeven(7, 19)
+#' tresillo <- maxeven(3,8)
 #' @export
-makeMEscale <- function(card, edo=12, floor=TRUE) {
+maxeven <- function(card, edo=12, floor=TRUE) {
   if (floor==TRUE) {
     res <- primeform(floor(edoo(card, edo)), edo)
   } else {

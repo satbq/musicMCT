@@ -16,11 +16,11 @@ test_that("edoo works", {
   expect_equal(edoo(5, edo=10), c(0, 2, 4, 6, 8))
 })
 
-test_that("makeMEscale works", {
-  expect_equal(makeMEscale(7,12), c(0,1,3,5,6,8,10))
-  expect_equal(makeMEscale(7,14), c(0,2,4,6,8,10,12))
-  expect_equal(makeMEscale(6,15), c(0,2,5,7,10,12))
-  expect_equal(makeMEscale(6,15, floor=FALSE), c(0,2,4,7,9,12))
+test_that("maxeven works", {
+  expect_equal(maxeven(7,12), c(0,1,3,5,6,8,10))
+  expect_equal(maxeven(7,14), c(0,2,4,6,8,10,12))
+  expect_equal(maxeven(6,15), c(0,2,5,7,10,12))
+  expect_equal(maxeven(6,15, floor=FALSE), c(0,2,4,7,9,12))
 })
 
 test_that("j intervals accurate", {

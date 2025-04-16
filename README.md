@@ -107,8 +107,8 @@ print(quantized_just_dia)
 #> $edo
 #> [1] 15
 
-# Finally, let's see a rough brightness graph for the scale. (R can assemble the necessary
-# information, but musicMCT doesn't yet make the graphs pretty!)
+# Finally, let's see a rough brightness graph for the scale. (R can assemble the
+# necessary information, but musicMCT doesn't yet make the graphs pretty!)
 brightnessgraph(quantized_just_dia$set, edo=quantized_just_dia$edo)
 ```
 
