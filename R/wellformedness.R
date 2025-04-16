@@ -35,7 +35,8 @@
 #' @inheritParams tnprime
 #' @inheritParams fpunique
 #' @param setword A vector representing the ranked step sizes of a scale (e.g.
-#'   `c(2,2,1,2,2,2,1)` for the diatonic). If you want to test a step word instead of 
+#'   `c(2,2,1,2,2,2,1)` for the diatonic). The distinct values of the `setword`
+#'   should be consecutive integers. If you want to test a step word instead of 
 #'   a list of pitch classes, `set` must be entered as `NULL`.
 #' @param allowdegen Should the function test for degenerate well-formed and distributionally even scales too?
 #'   Defaults to `FALSE`.
@@ -49,15 +50,26 @@
 #' iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
 #' @export
 iswellformed <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10) {
-  if ( is.null(set) ) { set <- realize_setword(setword, edo) }
-  if ( length(set) < 2 ) { return(as.logical(allowdegen)) }
+  if (is.null(set)) { 
+    set <- realize_setword(setword, edo) 
+  }
+  if (length(set) < 2) { 
+    return(as.logical(allowdegen)) 
+  }
+
   speccount <- spectrumcount(set, edo, rounder)
   uniques <- unique(speccount)
-  if (toString(uniques)=="2") { return(TRUE) }
-  if (toString(uniques)=="1") { return(as.logical(allowdegen)) }
-  if (toString(sort(uniques))=="1, 2") { return(as.logical(allowdegen)) }
+  if (toString(uniques)=="2") { 
+    return(TRUE) 
+  }
+  if (toString(uniques)=="1") { 
+    return(as.logical(allowdegen)) 
+  }
+  if (toString(sort(uniques))=="1, 2") { 
+    return(as.logical(allowdegen)) 
+  }
 
-  return(FALSE)
+  FALSE
 }
 
 equivocate <- function(setword, lowerbound, windowsize) {
@@ -67,7 +79,7 @@ equivocate <- function(setword, lowerbound, windowsize) {
   replacement_positions <- which(setword %in% toMatch)
   result <- replace(setword, replacement_positions, 1)
   result <- replace(result, -replacement_positions, 2)
-  return(result)
+  result
 }
 
 #' Is a scale n-wise well formed?
@@ -93,11 +105,13 @@ equivocate <- function(setword, lowerbound, windowsize) {
 #' apply(example_scales, 2, isgwf)
 #'
 #' @export
-isgwf <- function(set, setword=NULL,allowdegen=FALSE,edo=12,rounder=10) {
-# Note that this requires that the "letters" of a setword are consecutive integers,
-# such that max(letters) == len(unique(letters)). That is, a word on 3 letters should have the letters 1, 2, and 3.
-  if ( is.null(setword) ) { setword <- asword(set, edo, rounder) }
-  if (anyNA(setword)) { return(FALSE) }
+isgwf <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10) {
+  if (is.null(setword)) { 
+    setword <- asword(set, edo, rounder) 
+  }
+  if (anyNA(setword)) { 
+    return(FALSE)
+  }
 
   highest <- max(setword)
   equiv_parameters <- expand.grid(1:highest, 1:(highest-1))
@@ -106,10 +120,10 @@ isgwf <- function(set, setword=NULL,allowdegen=FALSE,edo=12,rounder=10) {
   reduced_words <- apply(equiv_parameters, 1, equiv_wrap, setword=setword)
 
   iswf_wrap <- function(setword, allowdegen, edo, rounder)  {
-    return(iswellformed(NULL, setword, allowdegen, edo, rounder))
+    iswellformed(NULL, setword, allowdegen, edo, rounder)
   }
 
   tests <- apply(reduced_words,2, iswf_wrap, allowdegen=allowdegen, edo=edo, rounder=rounder)
 
-  return(as.logical(prod(tests)))
+  as.logical(prod(tests))
 }
