@@ -55,9 +55,9 @@ Numeric vector representing the input just intervals converted to \code{edo} uni
 \description{
 It's not hard to define a just interval from a frequency ratio: it only
 requires an input like \code{12*log2(freq_ratio)}. That gets pretty tiresome
-if you're doing this a lot, though, so for convenience \code{musicMCT} includes a \code{j}
+if you're doing this a lot, though, so for convenience \code{musicMCT} includes a \code{j()}
 function (not related to \href{https://www.jstor.org/stable/843811}{Clough and Douthett's J function}
-but it wishes it was). \code{j} is designed to behave a lot like base R's \code{\link[=c]{c()}}
+but it wishes it was). \code{j()} is designed to behave a lot like base R's \code{\link[=c]{c()}}
 in the way that you'd use it to define a scale (see the examples below).
 The inputs that this can take are limited and hard-coded, since there's no
 systematic way to define shorthands for every potential just interval.

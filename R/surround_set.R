@@ -2,10 +2,10 @@ random_sphere_points <- function(card, numpoints, distance=1) {
   points <- replicate(numpoints, stats::rnorm(card))
   normalize <- function(vec) {
     z <- sqrt(sum(vec^2))
-    return(vec * (distance/z))
+    vec * (distance/z)
   }
 
-  return(apply(points,2,normalize))
+  apply(points, 2, normalize)
 }
 
 #' Random scales uniformly distributed on a hypersphere around an input

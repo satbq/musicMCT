@@ -19,6 +19,5 @@ step_signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   }
 
   step_rows <- ineqmat[get_relevant_rows(1, ineqmat=ineqmat),]
-  step_sv <- signvector(set, ineqmat=step_rows, edo=edo, rounder=rounder)
-  return(step_sv)
+  signvector(set, ineqmat=step_rows, edo=edo, rounder=rounder)
 }

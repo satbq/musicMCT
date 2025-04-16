@@ -113,9 +113,9 @@ maxeven <- function(card, edo=12, floor=TRUE) {
 #'
 #' It's not hard to define a just interval from a frequency ratio: it only
 #' requires an input like `12*log2(freq_ratio)`. That gets pretty tiresome
-#' if you're doing this a lot, though, so for convenience `musicMCT` includes a `j`
+#' if you're doing this a lot, though, so for convenience `musicMCT` includes a `j()`
 #' function (not related to [Clough and Douthett's J function](https://www.jstor.org/stable/843811)
-#' but it wishes it was). `j` is designed to behave a lot like base R's [c()]
+#' but it wishes it was). `j()` is designed to behave a lot like base R's [c()]
 #' in the way that you'd use it to define a scale (see the examples below).
 #' The inputs that this can take are limited and hard-coded, since there's no
 #' systematic way to define shorthands for every potential just interval.
