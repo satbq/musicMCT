@@ -26,6 +26,10 @@ number of decimal places to round to.}
 Boolean: is the set n-wise well formed?
 }
 \description{
+Tests whether a scale has a generalized type of well formedness (pairwise or
+n-wise well formedness).
+}
+\details{
 David Clampitt's 1997 dissertation ("Pairwise Well-Formed Scales:
 Structural and Transformational Properties," SUNY Buffalo) offers
 a generalization of the notion of well-formedness from 1-dimensional
