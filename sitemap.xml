@@ -17,7 +17,6 @@
 <url><loc>https://satbq.github.io/musicMCT/reference/comparesignvecs.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/convert.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/coord_to_edo.html</loc></url>
-<url><loc>https://satbq.github.io/musicMCT/reference/diatonicsubsets.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/edoo.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/eps.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/evenness.html</loc></url>
@@ -51,6 +50,7 @@
 <url><loc>https://satbq.github.io/musicMCT/reference/signvector.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/sim.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/step_signvector.html</loc></url>
+<url><loc>https://satbq.github.io/musicMCT/reference/subset_varieties.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/subsetspectrum.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/surround_set.html</loc></url>
 <url><loc>https://satbq.github.io/musicMCT/reference/svzero_fingerprint.html</loc></url>
