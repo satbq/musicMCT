@@ -66,13 +66,16 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satbq.github.io/musicMCT/">musicMCT</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; [1] "To deal with hyper-planes in a 14-dimensional space, visualize a 3-D space and say 'fourteen'\nto yourself very loudly. Everyone does it."</span></span></code></pre>
+<blockquote>
+<p>“To deal with hyper-planes in a 14-dimensional space, visualize a 3-D
+space and say ‘fourteen’ to yourself very loudly. Everyone does it.”</p>
+</blockquote>
 <p>– <a href="https://www.cs.toronto.edu/~hinton/coursera_slides.html" class="external-link">Geoffrey
 Hinton</a> (Lecture 2, Slide 16 from his 2012 Coursera course <em>Neural
 Networks for Machine Learning</em>)</p>
 <hr>
 <p>testing plots</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scale_from_genus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec</span><span class="op">)</span> <span class="op">{</span></span>
 <span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
@@ -92,8 +95,8 @@ Networks for Machine Learning</em>)</p>
 <span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
 <span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-2-1.png" width="480"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">sets</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
 <span><span class="va">all_signvecs_str</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvecs</span>, <span class="fl">2</span>, <span class="va">toString</span><span class="op">)</span></span>
 <span><span class="va">unique_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all_signvecs_str</span><span class="op">)</span></span>
@@ -105,7 +108,7 @@ Networks for Machine Learning</em>)</p>
 <span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
 <span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
   </main>
 </div>
 
