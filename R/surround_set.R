@@ -49,15 +49,15 @@ random_sphere_points <- function(card, numpoints, distance=1) {
 #' 
 #' # The next two commands will plot the sampled trichords on an x-y plane as
 #' # circles; the minor triad that they surround is marked with a "+" sign.
-#' plot(chords_near_minor[2,], chords_near_minor[3,],xlab="Third",ylab="Fifth")
-#' points(3,7,pch="+")
+#' plot(chords_near_minor[2,], chords_near_minor[3,], xlab="Third", ylab="Fifth")
+#' points(3, 7, pch="+")
 #'
 #' # The following two commands will plot the two lines (i.e. hyperplanes) that
 #' # demarcate the boundaries of the minor triad's color. Most but not all
 #' # of our randomly generated points should fall in the space between the 
 #' # two lines, in the same region as the "+" representing 037.
-#' abline(0,2)
-#' abline(6,1/2)
+#' abline(0, 2)
+#' abline(6, 1/2)
 #' @export
 surround_set <- function(set, magnitude=2, distance=1) {
   card <- length(set)
@@ -68,5 +68,5 @@ surround_set <- function(set, magnitude=2, distance=1) {
   res <- offsets + set[2:card]
   res <- rbind(leading_zeroes, res)
   rownames(res) <- NULL
-  return(res)
+  res
 }

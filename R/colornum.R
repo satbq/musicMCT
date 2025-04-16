@@ -42,7 +42,9 @@
 #' colornum(c(0,2,4,5,7,9,11))
 #' @export
 colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10) {
-  if (evenness(set, edo) < 10^(-rounder) ) { return(0) }
+  if (evenness(set, edo) < 10^(-rounder) ) { 
+    return(0) 
+  }
 
   if (is.null(signvector_list)) {
     if (exists("representative_signvectors")) {
@@ -55,5 +57,5 @@ colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10
   card <- length(set)
   signvec <- toString(signvector(set, ineqmat, edo, rounder))
 
-  return(which(signvector_list[[card]]==signvec))
+  which(signvector_list[[card]]==signvec)
 }
