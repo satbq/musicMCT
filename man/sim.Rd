@@ -23,5 +23,8 @@ specific intervals which represent its generic interval of size n.
 }
 \examples{
 diatonic_modes <- sim(c(0, 2, 4, 5, 7, 9, 11))
+print(diatonic_modes)
+
 miyakobushi_modes <- sim(c(0, 1, 5, 7, 8)) # rows show trivalence
+print(miyakobushi_modes)
 }

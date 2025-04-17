@@ -10,12 +10,14 @@
 #' @returns Numeric `n` by `n` matrix where `n` is the number of notes in `set`
 #' @examples
 #' diatonic_modes <- sim(c(0, 2, 4, 5, 7, 9, 11))
+#' print(diatonic_modes)
+#'
 #' miyakobushi_modes <- sim(c(0, 1, 5, 7, 8)) # rows show trivalence
+#' print(miyakobushi_modes)
 #' @export
 sim <- function(set, edo=12) {
   transpose_down <- function(set) set - set[1]
 
   res <- sapply(0:(length(set)-1), rotate, x=set, transpose_up=TRUE,edo=edo)
-  res <- apply(res, 2, transpose_down)
-  return(res)
+  apply(res, 2, transpose_down)
 }

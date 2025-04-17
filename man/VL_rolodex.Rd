@@ -8,7 +8,7 @@ VL_rolodex(
   source,
   goal_type = NULL,
   reorder = TRUE,
-  method = "taxicab",
+  method = c("taxicab", "euclidean"),
   edo = 12,
   no_ties = FALSE
 )

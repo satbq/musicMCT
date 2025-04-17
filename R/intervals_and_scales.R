@@ -54,7 +54,7 @@ carlos_step <- function(name="alpha", weights=NULL, edo=12) {
   just_min3 <- 12 * log2(6/5)
   target_intervals <- c(just_p5, just_maj3, just_min3) / edo
 
-  return(as.numeric((edo/sum(weights^2)) * weights %*% target_intervals))
+  as.numeric((edo/sum(weights^2)) * weights %*% target_intervals)
 }
 
 #' Perfectly even scales (the color white)
@@ -71,9 +71,7 @@ carlos_step <- function(name="alpha", weights=NULL, edo=12) {
 #' edoo(5, edo=15)
 #' octatonic_scale <- sort(c(edoo(4), edoo(4)+1))
 #' @export
-edoo <- function(card, edo=12) {
-  return( (0:(card-1))*(edo/card) )
-}
+edoo <- function(card, edo=12) (0:(card-1))*(edo/card) 
 
 #' Maximally even scales
 #'
@@ -105,7 +103,7 @@ maxeven <- function(card, edo=12, floor=TRUE) {
     res <- primeform(round(edoo(card, edo), digits=0), edo)
   }
 
-  return(res)
+  res
 }
 
 

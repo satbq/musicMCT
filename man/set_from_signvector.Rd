@@ -61,7 +61,7 @@ use this function on many sign vectors at the same time.
 set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, -1), 4)
 
 # But this one, which changes only the last entry of the previous sign vector
-# has no solution so will return a string of `NA` values.
+# has no solution so will return four `NA` values.
 set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, 1), 4)
   
 }

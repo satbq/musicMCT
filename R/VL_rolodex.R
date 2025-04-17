@@ -27,26 +27,36 @@
 #' VL_rolodex(c(0,4,7,10), c(0, 0, 4, 7))
 #'
 #' @export
-VL_rolodex <- function(source, goal_type=NULL, reorder=TRUE, method="taxicab", edo=12, no_ties=FALSE) {
-  if (is.null(goal_type)) { goal_type <- source }
+VL_rolodex <- function(source, 
+                       goal_type=NULL, 
+                       reorder=TRUE, 
+                       method=c("taxicab", "euclidean"), 
+                       edo=12, 
+                       no_ties=FALSE) {
+  if (is.null(goal_type)) { 
+    goal_type <- source 
+  }
   goals <- sapply(1:edo, tn, set=goal_type, edo=edo)
 
+  method <- match.arg(method)
+
   res <- apply(goals, 2, minimizeVL, source=source, method=method, edo=edo, no_ties=no_ties)
-  if (class(res)[1] == "matrix") { res <- as.list(as.data.frame(res)) }
+  if ("matrix" %in% class(res)) { 
+    res <- as.list(as.data.frame(res)) 
+  }
   names(res) <- 1:edo
   names(res)[edo] <- 0
 
-  if (method=="taxicab") {
-    dist_func <- function(x) sum(abs(x))
-  }
-  if (method=="euclidean") {
-    dist_func <- function(x) sqrt(sum(x^2))
+  dist_func <- function(x) {
+    switch(method,
+           taxicab = sum(abs(x)),
+           euclidean = sqrt(sum(x^2)))
   }
 
   if (reorder == TRUE) {
     index <- rep(NA,edo)
     for (i in 1:edo) {
-      if (class(res[[i]])[1] == "matrix") {
+      if ("matrix" %in% class(res[[i]])) {
         index[i] <- apply(res[[i]], 1, dist_func)[1]
       } else {
         index[i] <- dist_func(res[[i]])
@@ -55,5 +65,5 @@ VL_rolodex <- function(source, goal_type=NULL, reorder=TRUE, method="taxicab", e
     res <- res[order(index)]
   }
 
-  return(res)
+  res
 }

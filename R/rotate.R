@@ -27,11 +27,13 @@ rotate <- function(x, n=1, transpose_up=FALSE, edo=12) {
   n <- n %% length(x)
 
   if (transpose_up==TRUE) {
-    if (n != 0) { x[1:n] <- x[1:n] + edo }
-    if (n_reduced) warning("transpose_up=TRUE might not give expected results combined with n<0 or >= length(x)")
+    if (n != 0) { 
+      x[1:n] <- x[1:n] + edo 
+    }
+    if (n_reduced) {
+      warning("transpose_up=TRUE might not give expected results combined with n<0 or >= length(x)")
+    }
   }
 
-  res <- c( utils::tail(x,len-n), utils::head(x,n) )
-
-  return(res)
+  c(utils::tail(x, len-n), utils::head(x, n))
 }
