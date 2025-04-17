@@ -59,8 +59,8 @@ specified scale (or larger set).</p>
 
 
 <dl><dt id="arg-subsetdegrees">subsetdegrees<a class="anchor" aria-label="anchor" href="#arg-subsetdegrees"></a></dt>
-<dd><p>Vector of integers indicating the generic shape to use, e.g. <code>c(0,2,4)</code> for
-tertian trids in a heptachord. Lowest note should be 0.</p></dd>
+<dd><p>Vector of integers indicating the generic shape to use, e.g. <code>c(0, 2, 4)</code> for
+tertian trids in a heptachord. Expected to begin with <code>0</code> and must have length &gt; 1.</p></dd>
 
 
 <dt id="arg-set">set<a class="anchor" aria-label="anchor" href="#arg-set"></a></dt>
@@ -88,20 +88,20 @@ number of decimal places to round to.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">c_major_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">double_harmonic_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">8</span>,<span class="fl">11</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">c_major_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">double_harmonic_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">11</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, <span class="va">c_major_scale</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">c_major_scale</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    4    3    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    7    7    6</span>
-<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, <span class="va">c_major_scale</span>, unique<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">c_major_scale</span>, unique<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    0    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    4    3    3    4    4    3    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    7    7    7    7    7    7    6</span>
-<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, <span class="va">double_harmonic_scale</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">subset_varieties</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">double_harmonic_scale</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    0    0    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    4    3    4    4    2</span>
