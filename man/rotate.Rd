@@ -12,7 +12,7 @@ rotate(x, n = 1, transpose_up = FALSE, edo = 12)
 \item{n}{Number of positions the vector should be rotated left.
 Defaults to \code{1}. May be negative.}
 
-\item{transpose_up}{Boolean, defaults to \code{FALSE} which leaves entires
+\item{transpose_up}{Boolean, defaults to \code{FALSE} which leaves entries
 unchanged. If set to \code{TRUE}, elements moved from the head to the tail
 of the vector are increased in value by \code{edo}.}
 

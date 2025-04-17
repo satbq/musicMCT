@@ -53,7 +53,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #'
 #' For now, the function doesn't have a smart way to determine the horizontal positioning of modes in the
 #' graph. It uses a heuristic that works well for many sets, but sometimes it will create too much 
-#' visual overlap or won't clarify underlying sturcture particularly well. Think of these automatically
+#' visual overlap or won't clarify underlying structure particularly well. Think of these automatically
 #' generated graphs as the starting point for manual fine tuning.
 #'
 #' @inheritParams tnprime

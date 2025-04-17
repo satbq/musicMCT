@@ -1,7 +1,7 @@
 #' Specific sizes corresponding to each generic interval
 #'
 #' As defined by Clough and Myerson 1986 
-#' (<https://doi.org/10.1080/00029890.1986.11971924>),
+#' (<doi:10.1080/00029890.1986.11971924>),
 #' an "interval spectrum" is a list of all the specific (or "chromatic") 
 #' intervals that occur as instances of a single generic (or "diatonic")
 #' interval within some reference scale. For instance, in the usual diatonic
@@ -60,7 +60,7 @@ spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,e
 #' @inheritParams tnprime
 #' @inheritParams fpunique
 #' @param subsetdegrees Vector of integers indicating the generic shape to use, e.g. `c(0, 2, 4)` for
-#'   tertian trids in a heptachord. Expected to begin with `0` and must have length > 1.
+#'   tertian triads in a heptachord. Expected to begin with `0` and must have length > 1.
 #' @param set The scale to find subsets of, as a numeric vector
 #' @param unique Should each variety be listed only once? Defaults to `TRUE`. If `FALSE`, 
 #'   each specific variety will be listed corresponding to how many times it occurs as a subset.
@@ -91,7 +91,7 @@ subset_varieties <- function(subsetdegrees, set, unique=TRUE, edo=12, rounder=10
 #' @description
 #' Applies [subset_varieties()] not just to a particular subset shape but to all possible subset shapes
 #' given a fixed cardinality. For example, finds the specific varieties of *all* trichordal subsets of 
-#' the major scale, not than just the varities of the tonal triad. Comparable to [intervalspectrum()] 
+#' the major scale, not than just the varieties of the tonal triad. Comparable to [intervalspectrum()] 
 #' but for subsets larger than dyads.
 #' 
 #' The parameter `simplify` lets you decide whether to consider different "inversions" of a subset shape

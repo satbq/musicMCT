@@ -19,7 +19,7 @@ Represents an ordered interval between two pitch-classes as a value between
 \code{-edo/2} and \code{edo/2}, i.e. with an absolute value that matches its
 interval class as well as a sign (plus or minus) that disambiguates
 between the two OPCIs included in the interval-class. That is, C->D is
-\code{2} whereas C->Bb is \code{-2}. Exactly half the octave is represented as a
+\code{2} whereas C->B-flat is \code{-2}. Exactly half the octave is represented as a
 positive value.
 }
 \examples{

@@ -8,7 +8,7 @@
 #' @param x Vector to be rotated
 #' @param n Number of positions the vector should be rotated left.
 #'   Defaults to `1`. May be negative.
-#' @param transpose_up Boolean, defaults to `FALSE` which leaves entires 
+#' @param transpose_up Boolean, defaults to `FALSE` which leaves entries 
 #'   unchanged. If set to `TRUE`, elements moved from the head to the tail
 #'   of the vector are increased in value by `edo`.
 #' @inheritParams edoo

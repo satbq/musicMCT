@@ -23,7 +23,7 @@ canonical ("prime") form that represents the \eqn{T_n /T_n I}-type to which the
 set belongs. Uses the algorithm from Rahn 1980 rather than Forte 1973.
 }
 \details{
-In principle this should work for sets in continous pitch-class space,
+In principle this should work for sets in continuous pitch-class space,
 not just those in a mod k universe. But watch out for rounding errors:
 if you can manage to work with integer values, that's probably safer.
 Otherwise, try rounding your set to various decimal places to test for

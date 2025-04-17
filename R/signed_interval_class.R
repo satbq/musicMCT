@@ -4,7 +4,7 @@
 #' `-edo/2` and `edo/2`, i.e. with an absolute value that matches its 
 #' interval class as well as a sign (plus or minus) that disambiguates
 #' between the two OPCIs included in the interval-class. That is, C->D is 
-#' `2` whereas C->Bb is `-2`. Exactly half the octave is represented as a 
+#' `2` whereas C->B-flat is `-2`. Exactly half the octave is represented as a 
 #' positive value.
 #'
 #' @param x Single numeric value, representing an ordered pitch-class interval

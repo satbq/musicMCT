@@ -60,11 +60,11 @@ function (not related to \href{https://www.jstor.org/stable/843811}{Clough and D
 but it wishes it was). \code{j()} is designed to behave a lot like base R's \code{\link[=c]{c()}}
 in the way that you'd use it to define a scale (see the examples below).
 The inputs that this can take are limited and hard-coded, since there's no
-systematic way to define shorthands for every potential just interval.
+systematic way to define short hands for every potential just interval.
 In general, the logic is that individual digits refer to major intervals up from
 the tonic in the 5-limit just diatonic scale. The prefix "m" to a number (e.g. "m3")
 gives the equivalent minor version of the interval. If you
-just want the entire 5-limit diatonic, you can enter "dia".
+just want the entire 5-limit diatonic, you can enter \code{dia}.
 }
 \examples{
 major_triad <- j(1,3,5)

@@ -44,7 +44,7 @@ going to need computers to explore such a complicated space!
 
 This vignette will introduce many of the main functions of `musicMCT` that serve
 this purpose, especially as they relate to the concerns of the *Journal of Music Theory* article. The
-problem that we'll discuss is not of deep signifiance, but I hope a toy example
+problem that we'll discuss is not of deep significance, but I hope a toy example
 will teach you how to use this software and give you a sense of the kinds of
 questions that deeper study might get into.
 
@@ -63,7 +63,7 @@ sim(melodic_minor)
 ```
 
 Note the top line's syntax, which defined the melodic minor scale: we'll be using it a lot! Pitch-classes
-are represened by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
+are represented by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
 (12 **e**qual **d**ivisions of the **o**ctave), these are all integers. Later
 we'll see that it's easy to work with integers in any k edo. But the values that define
 our scales don't have to be integers at all: Modal Color Theory works in continuous 
@@ -79,7 +79,7 @@ column of the SIM:
 sim(melodic_minor)[,4]
 ```
 
-Just to flex our muscles in R, let's pretend that we've forgotten how to interpet pitch-class integers
+Just to flex our muscles in R, let's pretend that we've forgotten how to interpret pitch-class integers
 and that we therefore need to verify that those numbers do correspond to the 
 notes (C, D, E, F-sharp, G, A, B-flat). We'll do that by checking the **v**oice **l**eading from
 C major to this scale:
@@ -257,7 +257,7 @@ is defined in continuous pitch-class space and has a lot more variety to choose 
 frequency ratios and pitch intervals, each successive step in the overtone series is smaller than the previous, so it makes sense
 that the `overtone_scale` would have a lot of intervallic variety. If anything, it's surprising that it repeats *any* intervals.
 
-We can learn what interval it does repeat by putting together the information from the signvector with the `ineqmat` for heptachords. We could
+We can learn what interval it does repeat by putting together the information from the sign vector with the `ineqmat` for heptachords. We could
 manually count which entry of the sign vector is a 0, but `musicMCT` also has a function for that:
 
 ```{r}
@@ -297,7 +297,7 @@ Most of them do match the `overtone_scale` on this point, except for sc7-31 and 
 barely occurred at all as quantizations: each accounts for only about 2% of all the quantizations according to the table at the
 end of the previous section.
 
-We can do better than looking at *only* position `38` in the signvector. Why don't we compare the entire signvectors at once? There
+We can do better than looking at *only* position `38` in the sign vector. Why don't we compare the entire sign vectors at once? There
 are various ways to do this, but one that's simple to calculate is to treat the sign vectors as if they were real vectors in a 
 42-dimensional space and compute their distances:
 
@@ -311,7 +311,7 @@ The first column above, labeled "o.s." for `overtone_scale`, represents the dist
 and the 7 other sign vectors (as labeled on the rows of the matrix). The other columns represent distances among the various
 quantizations.
 
-In a surprise upset, the quantization with the closest signvector to the `overtone_scale` is apparently sc7-27 as represented by
+In a surprise upset, the quantization with the closest sign vector to the `overtone_scale` is apparently sc7-27 as represented by
 its mode (0, 2, 4, 5, 7, 8, 9). This doesn't mean that sc7-27 is a *better* quantization than the `acoustic_scale`, just that it's
 one that better reflects the structure of the `overtone_scale`. (In particular, it comes closest to capturing the fact that
 the `overtone_scale`'s step sizes get smaller as you go up the scale. We'll return to this consideration as we approach our
@@ -562,7 +562,7 @@ change the number `4` in the line of code below to any value from `1` to `7` to 
 brightnessgraph(final_quantizations[,4])
 ```
 
-Finally, let's take a look at the brightness graph for our `best_simple_approximation`. I'm going to surpress its listing of the 
+Finally, let's take a look at the brightness graph for our `best_simple_approximation`. I'm going to suppress its listing of the 
 pitch-classes in each mode, since without manual tweaking they overlap to the point of illegibility:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}

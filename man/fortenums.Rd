@@ -22,7 +22,7 @@ fortenums
 \description{
 For compatibility with music theory's traditional pitch-class set theory,
 whose landmark text is Allen Forte's 1973 \emph{The Structure of Atonal Music},
-the data set \code{fortenums} hardcodes the ordinal positions of 12-equal pitch-class
+the data set \code{fortenums} hard-codes the ordinal positions of 12-equal pitch-class
 set classes from Allen Forte's list. This allows us to look up specific set
 classes from Forte numbers or vice versa. \code{\link[=sc]{sc()}} does the former and
 \code{\link[=fortenum]{fortenum()}} does the latter. There's very little need to ever interact with

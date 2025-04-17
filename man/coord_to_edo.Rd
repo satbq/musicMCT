@@ -31,7 +31,7 @@ displacement vector from "white" and \code{coord_from_edo} does the reverse.
 }
 \details{
 It should be noted that the representative "white" scale used is not
-necessarily the \emph{closeset} one to the scale in question. Instead, it is
+necessarily the \emph{closest} one to the scale in question. Instead, it is
 the unique transposition of white that has 0 as its first coordinate.
 This is natural in the context of Modal Color Theory, which essentially
 always assumes transpositional equivalence with \eqn{x_0 = 0}. The closest

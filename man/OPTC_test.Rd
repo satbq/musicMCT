@@ -24,7 +24,7 @@ Either a single Boolean value or a vector of 4 Boolean values, depending on the
 }
 \description{
 Modal Color Theory is capable of describing "scales" (perhaps "melodies" might be more accurate)
-which do all sorts of unscalar things, like repeating notes, ascending and descending
+which do all sorts of non-scalar things, like repeating notes, ascending and descending
 inconsistently, not observing octave equivalence, and so on. This function tests whether
 an input has a 'well-behaved' form in that it starts on \code{0}, only ascends, doesn't repeat
 pitches, and doesn't go above the octave. If you find an interesting scale structure

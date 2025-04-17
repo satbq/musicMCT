@@ -46,7 +46,7 @@ brightness_comparisons <- function(set, edo=12, rounder=10) {
 #' @description
 #' Section 3.3 of "Modal Color Theory" describes a "brightness ratio" which characterizes
 #' the modes of a scale in terms of how well "sum brightness" acts as a proxy for "voice-leading
-#' brightness." Scales with a brighntess ratio less than 1 are pretty well behaved from this
+#' brightness." Scales with a brightness ratio less than 1 are pretty well behaved from this
 #' perspective, while ones with a brightness ratio greater than 1 are poorly behaved. When the
 #' brightness ratio is 0, sum brightness and voice-leading brightness give exactly the same
 #' results. (This can happen for sets on two extremes: those like the diatonic scale which are

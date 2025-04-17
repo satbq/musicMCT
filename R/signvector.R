@@ -102,7 +102,7 @@ countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #' which counts the different types of hyperplane separately.
 #'
 #' @inheritParams signvector
-#' @returns Numeric vector with 3 entries: the number of 'normal' hyerplanes
+#' @returns Numeric vector with 3 entries: the number of 'normal' hyperplanes
 #'   the set lies on, the number of 'exceptional' hyperplanes, and the
 #'   number of hyperplanes which compare a formal tritone to itself.
 #' @examples

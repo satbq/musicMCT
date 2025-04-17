@@ -16,7 +16,7 @@ Numeric vector of length \code{floor(edo/2)}
 }
 \description{
 The classic summary of a set's dyadic subset content from pitch-class set theory.
-The name \code{ivec} is short for \strong{i}nterval-calss \strong{vec}tor.
+The name \code{ivec} is short for \strong{i}nterval-class \strong{vec}tor.
 }
 \examples{
 ivec(c(0,1,4,6))

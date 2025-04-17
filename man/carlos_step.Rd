@@ -11,7 +11,7 @@ carlos_step(name = "alpha", weights = NULL, edo = 12)
 or \code{"delta"}. Defaults to \code{"alpha"}}
 
 \item{weights}{Numeric vector of length 3 assigning the number of steps that correspond
-to 3:2, 5:4, and 6:5, respectively. Overrides \code{name} if specificied.}
+to 3:2, 5:4, and 6:5, respectively. Overrides \code{name} if specified.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
@@ -20,7 +20,7 @@ Single numeric value containing the step size for the desired scale
 }
 \description{
 For her album \emph{Beauty in the Beast}, Wendy Carlos developed several
-non-octave scales whose step sizes are calcualted to optimize approximations
+non-octave scales whose step sizes are calculated to optimize approximations
 of three intervals: the 3:2 fifth, the 5:4 major third, and the 6:5 minor third.
 The alpha, beta, gamma, and delta scales differ in terms of how strongly they
 privilege each of those just intervals. The basic step size for each scale is

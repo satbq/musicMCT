@@ -20,7 +20,7 @@ arrangement in the same format as the standard ineqmats.}
 number of decimal places to round to.}
 }
 \value{
-Numeric vector with 3 entries: the number of 'normal' hyerplanes
+Numeric vector with 3 entries: the number of 'normal' hyperplanes
 the set lies on, the number of 'exceptional' hyperplanes, and the
 number of hyperplanes which compare a formal tritone to itself.
 }

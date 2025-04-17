@@ -23,7 +23,7 @@ meantone_fifth <- function(frac=1/4) just_p5 - (syntonic_comma * frac)
 #' Define a step size for one of Wendy Carlos's scales
 #' 
 #' For her album *Beauty in the Beast*, Wendy Carlos developed several
-#' non-octave scales whose step sizes are calcualted to optimize approximations
+#' non-octave scales whose step sizes are calculated to optimize approximations
 #' of three intervals: the 3:2 fifth, the 5:4 major third, and the 6:5 minor third.
 #' The alpha, beta, gamma, and delta scales differ in terms of how strongly they
 #' privilege each of those just intervals. The basic step size for each scale is
@@ -34,7 +34,7 @@ meantone_fifth <- function(frac=1/4) just_p5 - (syntonic_comma * frac)
 #' @param name Which of Carlos's four scales to create: `"alpha"`, `"beta"`, `"gamma"`,
 #'	or `"delta"`. Defaults to `"alpha"`
 #' @param weights Numeric vector of length 3 assigning the number of steps that correspond 
-#'	to 3:2, 5:4, and 6:5, respectively. Overrides `name` if specificied.
+#'	to 3:2, 5:4, and 6:5, respectively. Overrides `name` if specified.
 #' @param edo Number of unit steps in an octave. Defaults to `12`.
 #' @returns Single numeric value containing the step size for the desired scale
 #' @examples
@@ -116,11 +116,11 @@ maxeven <- function(card, edo=12, floor=TRUE) {
 #' but it wishes it was). `j()` is designed to behave a lot like base R's [c()]
 #' in the way that you'd use it to define a scale (see the examples below).
 #' The inputs that this can take are limited and hard-coded, since there's no
-#' systematic way to define shorthands for every potential just interval.
+#' systematic way to define short hands for every potential just interval.
 #' In general, the logic is that individual digits refer to major intervals up from
 #' the tonic in the 5-limit just diatonic scale. The prefix "m" to a number (e.g. "m3")
 #' gives the equivalent minor version of the interval. If you
-#' just want the entire 5-limit diatonic, you can enter "dia".
+#' just want the entire 5-limit diatonic, you can enter `dia`.
 #' 
 #' @inheritParams tnprime
 #' @param ... One or more names that will be matched to just intervals. You can 

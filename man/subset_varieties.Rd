@@ -8,7 +8,7 @@ subset_varieties(subsetdegrees, set, unique = TRUE, edo = 12, rounder = 10)
 }
 \arguments{
 \item{subsetdegrees}{Vector of integers indicating the generic shape to use, e.g. \code{c(0, 2, 4)} for
-tertian trids in a heptachord. Expected to begin with \code{0} and must have length > 1.}
+tertian triads in a heptachord. Expected to begin with \code{0} and must have length > 1.}
 
 \item{set}{The scale to find subsets of, as a numeric vector}
 

@@ -6,7 +6,7 @@
 #' hyperplanes' normal vectors as rows. (Because these are **mat**rices
 #' and they correspond ultimately to the intervallic **ineq**ualities
 #' that define MCT geometry, this package refers to them as ineqmats, and
-#' sometimes to the individual hyerplanes as ineqs.) These have already been computed and
+#' sometimes to the individual hyperplanes as `ineq`s.) These have already been computed and
 #' are stored as data in this package (`ineqmats`) for cardinalities up to 53,
 #' but they can be recreated from scratch with `makeineqmat`. This might be
 #' useful if for some reason you need to deal with a huge scale and therefore

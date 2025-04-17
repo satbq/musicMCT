@@ -24,10 +24,10 @@ same length as set).
 }
 \description{
 The central concepts in the visual conceit of "Modal Color Theory,"
-classfiying scales at different levels of granularity according to their
+classifying scales at different levels of granularity according to their
 voice-leading properties. See "Modal Color Theory," 19-23.
 
-Saturation paramterizes scale structures along a single degree of freedom
+Saturation parameterizes scale structures along a single degree of freedom
 which corresponds to size of the vector from the "white" perfectly even
 scale to the set in question. Variation in a scale's saturation minimally
 affects the scale's structural properties. The function \code{saturate} takes

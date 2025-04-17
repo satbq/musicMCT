@@ -16,10 +16,10 @@
 #' (see Sherrill 2025, 40-42). The last column of the matrix contains an
 #' offset related to whether any of the generic intervals "wrap around the
 #' octave," as e.g. the third from 7 to 2 does in a heptachord. This column
-#' is linearly dependent on the previous n colums, which contain the 
+#' is linearly dependent on the previous n columns, which contain the 
 #' coefficients of the hyperplane's normal vectors. That is, the first row
 #' of the matrix (dropping its last entry) is the normal vector for the
-#' first hyperplane of the arrangenemt, and so on.
+#' first hyperplane of the arrangement, and so on.
 #'
 #' @source
 #' The data in `ineqmats` can be recreated with the command
@@ -34,7 +34,7 @@
 #' @description
 #' For compatibility with music theory's traditional pitch-class set theory,
 #' whose landmark text is Allen Forte's 1973 *The Structure of Atonal Music*,
-#' the data set `fortenums` hardcodes the ordinal positions of 12-equal pitch-class
+#' the data set `fortenums` hard-codes the ordinal positions of 12-equal pitch-class
 #' set classes from Allen Forte's list. This allows us to look up specific set
 #' classes from Forte numbers or vice versa. [sc()] does the former and 
 #' [fortenum()] does the latter. There's very little need to ever interact with
