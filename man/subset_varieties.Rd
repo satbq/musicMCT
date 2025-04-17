@@ -7,8 +7,8 @@
 subset_varieties(subsetdegrees, set, unique = TRUE, edo = 12, rounder = 10)
 }
 \arguments{
-\item{subsetdegrees}{Vector of integers indicating the generic shape to use, e.g. \code{c(0,2,4)} for
-tertian trids in a heptachord. Lowest note should be 0.}
+\item{subsetdegrees}{Vector of integers indicating the generic shape to use, e.g. \code{c(0, 2, 4)} for
+tertian trids in a heptachord. Expected to begin with \code{0} and must have length > 1.}
 
 \item{set}{The scale to find subsets of, as a numeric vector}
 
@@ -30,10 +30,10 @@ the distinct varieties of any similarly defined generic shape which occur as sub
 specified scale (or larger set).
 }
 \examples{
-c_major_scale <- c(0,2,4,5,7,9,11)
-double_harmonic_scale <- c(0,1,4,5,7,8,11)
+c_major_scale <- c(0, 2, 4, 5, 7, 9, 11)
+double_harmonic_scale <- c(0, 1, 4, 5, 7, 8, 11)
 
-subset_varieties(c(0,2,4), c_major_scale)
-subset_varieties(c(0,2,4), c_major_scale, unique=FALSE)
-subset_varieties(c(0,2,4), double_harmonic_scale)
+subset_varieties(c(0, 2, 4), c_major_scale)
+subset_varieties(c(0, 2, 4), c_major_scale, unique=FALSE)
+subset_varieties(c(0, 2, 4), double_harmonic_scale)
 }

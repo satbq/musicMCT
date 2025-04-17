@@ -59,23 +59,23 @@ spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,e
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
-#' @param subsetdegrees Vector of integers indicating the generic shape to use, e.g. `c(0,2,4)` for
-#'   tertian trids in a heptachord. Lowest note should be 0.
+#' @param subsetdegrees Vector of integers indicating the generic shape to use, e.g. `c(0, 2, 4)` for
+#'   tertian trids in a heptachord. Expected to begin with `0` and must have length > 1.
 #' @param set The scale to find subsets of, as a numeric vector
 #' @param unique Should each variety be listed only once? Defaults to `TRUE`. If `FALSE`, 
 #'   each specific variety will be listed corresponding to how many times it occurs as a subset.
 #' @returns A numeric matrix whose columns represent the specific varieties of the subset
 #' 
 #' @examples
-#' c_major_scale <- c(0,2,4,5,7,9,11)
-#' double_harmonic_scale <- c(0,1,4,5,7,8,11)
+#' c_major_scale <- c(0, 2, 4, 5, 7, 9, 11)
+#' double_harmonic_scale <- c(0, 1, 4, 5, 7, 8, 11)
 #' 
-#' subset_varieties(c(0,2,4), c_major_scale)
-#' subset_varieties(c(0,2,4), c_major_scale, unique=FALSE)
-#' subset_varieties(c(0,2,4), double_harmonic_scale)
+#' subset_varieties(c(0, 2, 4), c_major_scale)
+#' subset_varieties(c(0, 2, 4), c_major_scale, unique=FALSE)
+#' subset_varieties(c(0, 2, 4), double_harmonic_scale)
 #' @export
-subset_varieties <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
-  modes <- sim(set,edo=edo)
+subset_varieties <- function(subsetdegrees, set, unique=TRUE, edo=12, rounder=10) {
+  modes <- sim(set, edo=edo)
   subsetdegrees <- subsetdegrees + 1 #Because in music theory these are 0-indexed, but vectors are 1-indexed in R
   res <- modes[subsetdegrees,]
 
@@ -89,9 +89,9 @@ subset_varieties <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
 #' Subset varieties for all subsets of a fixed size
 #'
 #' @description
-#' Applies [subset_varieties] not just to a particular subset shape but to all possible subset shapes
+#' Applies [subset_varieties()] not just to a particular subset shape but to all possible subset shapes
 #' given a fixed cardinality. For example, finds the specific varieties of *all* trichordal subsets of 
-#' the major scale, not than just the varities of the tonal triad. Comparable to [intervalspectrum] 
+#' the major scale, not than just the varities of the tonal triad. Comparable to [intervalspectrum()] 
 #' but for subsets larger than dyads.
 #' 
 #' The parameter `simplify` lets you decide whether to consider different "inversions" of a subset shape
@@ -112,7 +112,7 @@ subset_varieties <- function(subsetdegrees,set,unique=TRUE,edo=12,rounder=10) {
 #' c_major_scale <- c(0,2,4,5,7,9,11)
 #' subsetspectrum(c_major_scale, 3)
 #' subsetspectrum(c_major_scale, 3, simplify=FALSE)
-#' subsetspectrum(c_major_scale, 3, mode="tni")
+#' subsetspectrum(c_major_scale, 3, mode="tni") # Note the absence of a "0, 2, 3" matrix
 #'
 #' @export
 subsetspectrum <- function(set, subsetcard, simplify=TRUE, mode="tn", edo=12, rounder=10) { 

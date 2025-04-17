@@ -33,9 +33,9 @@ A list whose length matches the number of distinct subset shapes (given the chos
 Each entry of the list is a matrix displaying the varieties of some particular subset type.
 }
 \description{
-Applies \link{subset_varieties} not just to a particular subset shape but to all possible subset shapes
+Applies \code{\link[=subset_varieties]{subset_varieties()}} not just to a particular subset shape but to all possible subset shapes
 given a fixed cardinality. For example, finds the specific varieties of \emph{all} trichordal subsets of
-the major scale, not than just the varities of the tonal triad. Comparable to \link{intervalspectrum}
+the major scale, not than just the varities of the tonal triad. Comparable to \code{\link[=intervalspectrum]{intervalspectrum()}}
 but for subsets larger than dyads.
 
 The parameter \code{simplify} lets you decide whether to consider different "inversions" of a subset shape
