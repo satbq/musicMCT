@@ -94,7 +94,7 @@ explore such a complicated space!</p>
 <p>This vignette will introduce many of the main functions of
 <code>musicMCT</code> that serve this purpose, especially as they relate
 to the concerns of the <em>Journal of Music Theory</em> article. The
-problem that we’ll discuss is not of deep signifiance, but I hope a toy
+problem that we’ll discuss is not of deep significance, but I hope a toy
 example will teach you how to use this software and give you a sense of
 the kinds of questions that deeper study might get into.</p>
 </div>
@@ -121,7 +121,7 @@ the modes of a scale:</p>
 <span><span class="co">#&gt; [6,]    9    9    9    9    8    8    8</span></span>
 <span><span class="co">#&gt; [7,]   11   10   11   10   10   10   10</span></span></code></pre></div>
 <p>Note the top line’s syntax, which defined the melodic minor scale:
-we’ll be using it a lot! Pitch-classes are represened by numbers: C=0,
+we’ll be using it a lot! Pitch-classes are represented by numbers: C=0,
 C-sharp = 1, and so on. For familiar sets in 12edo (12
 <strong>e</strong>qual <strong>d</strong>ivisions of the
 <strong>o</strong>ctave), these are all integers. Later we’ll see that
@@ -139,7 +139,7 @@ SIM:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  9 10</span></span></code></pre></div>
 <p>Just to flex our muscles in R, let’s pretend that we’ve forgotten how
-to interpet pitch-class integers and that we therefore need to verify
+to interpret pitch-class integers and that we therefore need to verify
 that those numbers do correspond to the notes (C, D, E, F-sharp, G, A,
 B-flat). We’ll do that by checking the <strong>v</strong>oice
 <strong>l</strong>eading from C major to this scale:</p>
@@ -369,7 +369,7 @@ is smaller than the previous, so it makes sense that the
 <code>overtone_scale</code> would have a lot of intervallic variety. If
 anything, it’s surprising that it repeats <em>any</em> intervals.</p>
 <p>We can learn what interval it does repeat by putting together the
-information from the signvector with the <code>ineqmat</code> for
+information from the sign vector with the <code>ineqmat</code> for
 heptachords. We could manually count which entry of the sign vector is a
 0, but <code>musicMCT</code> also has a function for that:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -409,8 +409,8 @@ barely occurred at all as quantizations: each accounts for only about 2%
 of all the quantizations according to the table at the end of the
 previous section.</p>
 <p>We can do better than looking at <em>only</em> position
-<code>38</code> in the signvector. Why don’t we compare the entire
-signvectors at once? There are various ways to do this, but one that’s
+<code>38</code> in the sign vector. Why don’t we compare the entire sign
+vectors at once? There are various ways to do this, but one that’s
 simple to calculate is to treat the sign vectors as if they were real
 vectors in a 42-dimensional space and compute their distances:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -430,7 +430,7 @@ vectors in a 42-dimensional space and compute their distances:</p>
 <code>overtone_scale</code>’s sign vector and the 7 other sign vectors
 (as labeled on the rows of the matrix). The other columns represent
 distances among the various quantizations.</p>
-<p>In a surprise upset, the quantization with the closest signvector to
+<p>In a surprise upset, the quantization with the closest sign vector to
 the <code>overtone_scale</code> is apparently sc7-27 as represented by
 its mode (0, 2, 4, 5, 7, 8, 9). This doesn’t mean that sc7-27 is a
 <em>better</em> quantization than the <code>acoustic_scale</code>, just
@@ -802,7 +802,7 @@ number <code>4</code> in the line of code below to any value from
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="musicMCT_files/figure-html/unnamed-chunk-36-1.png" width="480"></p>
 <p>Finally, let’s take a look at the brightness graph for our
-<code>best_simple_approximation</code>. I’m going to surpress its
+<code>best_simple_approximation</code>. I’m going to suppress its
 listing of the pitch-classes in each mode, since without manual tweaking
 they overlap to the point of illegibility:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
