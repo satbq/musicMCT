@@ -24,22 +24,21 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #' @examples
 #' # Because the diatonic scale, sc7-35, is non-degenerate well-formed, the only
 #' # 0 entries should be on its diagonal.
-#' brightnessComps(sc(7,35))
+#' brightness_comparisons(sc(7,35))
 #' 
 #' mystic_chord <- sc(6,34)
 #' colSums(sim(mystic_chord)) # The sum brightnesses of the mystic chord's 6 modes
-#' brightnessComps(mystic_chord) 
+#' brightness_comparisons(mystic_chord) 
 #' # Almost all 0s because very few mode pairs are comparable.
 #' # That's because nearly all modes have the same sum, which means they have sum-brightness
 #' # ties, and voice-leading brightness can't break a sum-brightness tie.
 #' # (See "Modal Color Theory," 7.)
 #' 
 #' @export
-brightnessComps <- function(set, edo=12, rounder=10) {
+brightness_comparisons <- function(set, edo=12, rounder=10) {
   modes <- sim(set, edo)
-  modes <- split(modes,col(modes))
-  res <- outer(modes,modes,Vectorize(modecompare), rounder=rounder)
-  return(res)
+  modes <- split(modes, col(modes))
+  outer(modes, modes, Vectorize(modecompare), rounder=rounder)
 }
 
 #' The brightness ratio
@@ -95,25 +94,25 @@ brightnessComps <- function(set, edo=12, rounder=10) {
 #' @export
 eps <- function(set, edo=12, rounder=10) {
   modes <- t(sim(set, edo))
-  chart <- brightnessComps(set, edo, rounder)*brightnessComps(set, edo, rounder)
-  diffs <- outer(rowSums(modes),rowSums(modes),'-')
+  chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
+  diffs <- outer(rowSums(modes), rowSums(modes),'-')
   result <- chart * diffs
 
-  return(min(result[result > 0]))
+  min(result[result > 0])
 }
 
 #' @rdname eps
 #' @export
 delta <- function(set, edo=12, rounder=10) {
   modes <- t(sim(set, edo))
-  chart <- brightnessComps(set, edo, rounder)*brightnessComps(set, edo, rounder)
+  chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
   diag(chart) <- -1
   chart <- (chart + 1)%%2
 
   diffs <- outer(rowSums(modes),rowSums(modes),'-')
   result <- chart * diffs
 
-  return(max(result))
+  max(result)
 }
 
 #' @rdname eps

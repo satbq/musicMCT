@@ -58,5 +58,5 @@ asword <- function(set, edo=12, rounder=10) {
     result <- new_result
   }
 
-  return(result)
+  result
 }

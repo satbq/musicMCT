@@ -3,7 +3,7 @@
 export(OPTC_test)
 export(VL_rolodex)
 export(asword)
-export(brightnessComps)
+export(brightness_comparisons)
 export(brightnessgraph)
 export(carlos_step)
 export(charm)
