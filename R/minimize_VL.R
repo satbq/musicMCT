@@ -33,7 +33,11 @@
 #' minimizeVL(c(0,4,7,10),c(7,7,11,2),method="euclidean", no_ties=TRUE)
 #' @export
 
-minimizeVL <- function(source, goal, method="taxicab", no_ties=FALSE, edo=12) {
+minimizeVL <- function(source, 
+                       goal, 
+                       method=c("taxicab", "euclidean"), 
+                       no_ties=FALSE, 
+                       edo=12) {
   card <- length(source)
   if (card != length(goal)) { 
     warning("Goals and source should have the same cardinality. 
@@ -46,14 +50,17 @@ minimizeVL <- function(source, goal, method="taxicab", no_ties=FALSE, edo=12) {
   modes <- sapply(0:(card-1), rotate, x=goal, edo=edo)
   voice_leadings <- t(t(modes)-source)
   voice_leadings[] <- sapply(voice_leadings, signed_interval_class, edo=edo)
-  if (method == "taxicab") {
-    vl_scores <- colSums(apply(voice_leadings, 1, abs))
-  }
-  if (method == "euclidean") {
-    vl_scores <- sqrt(rowSums(voice_leadings^2))
-  }
-  index <- which(vl_scores == min(vl_scores))
 
+  method <- match.arg(method)
+  get_vl_scores <- function(vls) {
+    switch(method,
+           taxicab = colSums(apply(vls, 1, abs)),
+           euclidean = sqrt(rowSums(vls^2)))
+  }
+
+  vl_scores <- get_vl_scores(voice_leadings)
+
+  index <- which(vl_scores == min(vl_scores))
   if (no_ties) { index <- index[1] }
 
   return(voice_leadings[index,])

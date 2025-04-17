@@ -4,7 +4,13 @@
 \alias{minimizeVL}
 \title{Smallest voice leading between two sets}
 \usage{
-minimizeVL(source, goal, method = "taxicab", no_ties = FALSE, edo = 12)
+minimizeVL(
+  source,
+  goal,
+  method = c("taxicab", "euclidean"),
+  no_ties = FALSE,
+  edo = 12
+)
 }
 \arguments{
 \item{source}{Numeric vector, the pitch-class set at the start of your voice leading}
