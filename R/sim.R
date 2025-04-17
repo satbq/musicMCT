@@ -18,6 +18,6 @@
 sim <- function(set, edo=12) {
   transpose_down <- function(set) set - set[1]
 
-  res <- sapply(0:(length(set)-1), rotate, x=set, transpose_up=TRUE,edo=edo)
+  res <- sapply(0:(length(set)-1), rotate, x=set, transpose_up=TRUE, edo=edo)
   apply(res, 2, transpose_down)
 }
