@@ -47,6 +47,6 @@ also be displayed.
 c_major_scale <- c(0,2,4,5,7,9,11)
 subsetspectrum(c_major_scale, 3)
 subsetspectrum(c_major_scale, 3, simplify=FALSE)
-subsetspectrum(c_major_scale, 3, mode="tni")
+subsetspectrum(c_major_scale, 3, mode="tni") # Note the absence of a "0, 2, 3" matrix
 
 }

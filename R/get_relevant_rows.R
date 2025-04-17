@@ -5,9 +5,8 @@ affected_generic_intervals <- function(row, card) {
     reference_pitch <- negative_positions[1]
     res <- postitive_positions - reference_pitch
     res <- abs(sapply(res, signed_interval_class, edo=card))
-    res <- sort(unique(res))
-    return(res)
-  }
+    sort(unique(res))
+}
 
 #' Which hyperplanes affect a specific generic interval?
 #'
@@ -28,29 +27,26 @@ affected_generic_intervals <- function(row, card) {
 #'
 #' # Create an ineqmat that attends only to the quality of (024) trichordal
 #' # subsets in a heptachord.
-#' heptachord_triads <- get_relevant_rows(c(0,2,4), heptachord_ineqmat)
+#' heptachord_triads <- get_relevant_rows(c(0, 2, 4), heptachord_ineqmat)
 #' triads_in_7_ineqmat <- heptachord_ineqmat[heptachord_triads,]
 #' 
 #' # Now, the following two heptachords have different colors
 #' # but the same pattern of (024) trichordal subsets, so their signvector
 #' # using triads_in_7_ineqmat is identical:
-#' heptachord_1 <- convert(c(0,1,3,6,8,12,13),17,12)
-#' heptachord_2 <- convert(c(0,1,3,5,7,10,11),14,12)
+#' heptachord_1 <- convert(c(0, 1, 3, 6, 8, 12, 13), 17, 12)
+#' heptachord_2 <- convert(c(0, 1, 3, 5, 7, 10, 11), 14, 12)
 #' colornum(heptachord_1) == colornum(heptachord_2)
 #' sv_1 <- signvector(heptachord_1, ineqmat=triads_in_7_ineqmat)
 #' sv_2 <- signvector(heptachord_2, ineqmat=triads_in_7_ineqmat)
 #' isTRUE(all.equal(sv_1, sv_2))
-#' subset_varieties(c(0,2,4), heptachord_1, unique=FALSE)
-#' subset_varieties(c(0,2,4), heptachord_2, unique=FALSE)
+#' subset_varieties(c(0, 2, 4), heptachord_1, unique=FALSE)
+#' subset_varieties(c(0, 2, 4), heptachord_2, unique=FALSE)
 #' # Both have identical qualities for triads on scale degree 3, 5, and 7,
 #' # which you can see by comparing columns 3, 5, and 7 in the two
 #' # matrices above.
 #' 
 #' @export
 get_relevant_rows <- function(generic_intervals, ineqmat) {
-  # Indicates which rows of ineqmat affect the listed generic interals.
-
-  # Step 1: Process the generic intervals. They should be indexed such that unisons are 0.
   generic_intervals <- generic_intervals[generic_intervals > 0]
   card <- length(ineqmat[1,]) - 1
   generic_intervals <- abs(sapply(generic_intervals, signed_interval_class, edo=card))
@@ -63,6 +59,5 @@ get_relevant_rows <- function(generic_intervals, ineqmat) {
   }
 
   res <- sapply(generic_intervals, check_generic)
-  res <- sort(unique(as.vector(res)))
-  return(res)
+  sort(unique(as.vector(res)))
 }

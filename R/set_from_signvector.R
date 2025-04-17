@@ -1,12 +1,14 @@
 approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12, rounder=10) {
   if (is.null(ineqmat)) {
-    if (is.null(card)) { warning("Either cardinality or inequality matrix must be specified.") } else {
-      ineqmat <- getineqmat(card) }
+    if (is.null(card)) { 
+      stop("Either cardinality or inequality matrix must be specified.") 
+    } else {
+      ineqmat <- getineqmat(card) 
+    }
   }
 
   res <- qr.solve(ineqmat[, 2:(dim(ineqmat)[2]-1)], signvec) # this assumes T equivalence and a central arrangement
-  res <- coord_from_edo(c(0, res), edo=edo)
-  return(res)
+  coord_from_edo(c(0, res), edo=edo)
 }
 
 #' Create a scale from a sign vector
@@ -38,62 +40,22 @@ approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, -1), 4)
 #'
 #' # But this one, which changes only the last entry of the previous sign vector
-#' # has no solution so will return a string of `NA` values.
+#' # has no solution so will return four `NA` values.
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, 1), 4)
 #'   
 #' @export
 set_from_signvector <- function(signvec, card, nmax=12, reconvert=FALSE, ineqmat=NULL,
                                 edo=12, rounder=10) {
-  usual_ineqmat <- getineqmat(card)
-  if (is.null(ineqmat)) { ineqmat <- usual_ineqmat }
+  if (is.null(ineqmat)) { 
+    ineqmat <- getineqmat(card)
+  }
 
-  # Note that for this step we use the usual "Modal Color Theory" ineqmat, not any custom-input ineqmat,
-  # because using an ineqmat with extra rows may make it impossible for approximate_from_signvector to generate
-  # a scale with the right step-word.
-  set_from_word <- approximate_from_signvector(signvec[get_relevant_rows(1, ineqmat=usual_ineqmat)],
-                                               ineqmat=usual_ineqmat[get_relevant_rows(1, ineqmat=usual_ineqmat),])
+  ineqmat_step_rows <- get_relevant_rows(1, ineqmat=ineqmat)
+  step_ineqmat <- ineqmat[ineqmat_step_rows,]
+  set_from_word <- approximate_from_signvector(signvec[ineqmat_step_rows], ineqmat=step_ineqmat)
   implied_word <- asword(set_from_word, edo=edo, rounder=rounder)
 
-  # From here we reuse code from quantize_color:
-  letters <- sort(unique(implied_word), decreasing=FALSE)
-
-  startedo <- sum(implied_word)
-  current_set <- cumsum(c(0, implied_word))[1:card]
-
-  if (isTRUE(all.equal(signvector(current_set, ineqmat=ineqmat, edo=startedo, rounder=rounder), signvec))) {
-    result_list <- list(set=current_set, edo=startedo)
-    if (reconvert==TRUE) {
-      return(convert(result_list$"set", result_list$"edo", edo))
-    } else {
-      return(result_list)
-    }
-  }
-
-  options <- utils::combn(nmax,length(letters))
-  stop <- dim(options)[2]
-
-  for (i in 1:stop) {
-      newletters <- options[,i]
-      res <- implied_word
-
-    for (j in seq_along(letters)) {
-      res <- replace(res, which(implied_word==letters[j]), newletters[j])
-    }
-
-    current_edo <- sum(res)
-    current_set <- cumsum(c(0,res))[1:card]
-
-    current_signvec <- signvector(current_set, ineqmat=ineqmat, edo=current_edo, rounder=rounder)
-
-    if (isTRUE(all.equal(current_signvec, signvec))) {
-          result_list <- list(set=current_set, edo=current_edo)
-          if (reconvert==TRUE) {
-            return(convert(result_list$"set", result_list$"edo", edo))
-          } else {
-            return(result_list)
-          }
-    }
-  }
-  return(rep(NA,card))
-
+  # See quantize_color.r for try_scale_from_word()
+  try_scale_from_word(signvec=signvec, word=implied_word,
+                      nmax=nmax, reconvert=reconvert, ineqmat=ineqmat, edo=edo, rounder=rounder)
 }
