@@ -1,6 +1,6 @@
 #' Well-formedness, Myhill's property, and/or moment of symmetry
 #'
-#' Tests whether a scale has the property of "wellformedness" or "moment of symmetry."
+#' Tests whether a scale has the property of "well-formedness" or "moment of symmetry."
 #'
 #' The three concepts of "well-formedness," "Myhill's property," and "moment of symmetry"
 #' refer to nearly the same scalar property, generalizing one of the most important features

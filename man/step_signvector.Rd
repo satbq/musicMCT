@@ -25,7 +25,7 @@ hyperplanes in the defined \code{ineqmat}.
 }
 \description{
 Rather than calculate the full sign vector from the "modal color" hyperplane
-arrangement, sometimes it's advantageous to use a signvector that reflects
+arrangement, sometimes it's advantageous to use a sign vector that reflects
 only the pairwise comparisons on a scale's steps. This function does that.
 }
 \examples{

@@ -27,7 +27,7 @@ Boolean answering "Is the scale MOS?" (if allowdegen=FALSE) or "Is the scale wel
 in any sense?" (if allowdegen=TRUE).
 }
 \description{
-Tests whether a scale has the property of "wellformedness" or "moment of symmetry."
+Tests whether a scale has the property of "well-formedness" or "moment of symmetry."
 }
 \details{
 The three concepts of "well-formedness," "Myhill's property," and "moment of symmetry"
