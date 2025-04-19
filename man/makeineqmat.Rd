@@ -3,7 +3,7 @@
 \name{makeineqmat}
 \alias{makeineqmat}
 \alias{getineqmat}
-\title{Define the hyperplanes for the MCT arrangement of any cardinality}
+\title{Define hyperplanes for the Modal Color Theory arrangements}
 \usage{
 makeineqmat(card)
 

@@ -9,7 +9,7 @@
 #' the algebraic letters are usually represented as letters of the Latin
 #' alphabet, but for some computational purposes it is useful for these to
 #' be explicitly ordered. That is, the major scale should be represented as
-#' intergers 2212221, which is distinct from 1121112. (Thus `asword` makes finer 
+#' integers 2212221, which is distinct from 1121112. (Thus `asword` makes finer 
 #' distinctions than you might expect coming from a word-theoretic context.)
 #'
 #' @inheritParams tnprime

@@ -24,7 +24,7 @@
 #'   each entry. If `x` and `y` both belong to a single mod `edo` universe (and
 #'   `show_zeroes=TRUE`), the result is a vector of length `edo` and includes
 #'   explicit `0` results for missing intervals. If `x` and `y` must be measured
-#'   in continous pitch-class space, no missing intervals are identified
+#'   in continuous pitch-class space, no missing intervals are identified
 #'   (since there would be infinitely many to list).
 #'
 #' @examples

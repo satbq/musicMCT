@@ -37,7 +37,7 @@ The \code{\link[=names]{names()}} of the result indicate which interval size is 
 each entry. If \code{x} and \code{y} both belong to a single mod \code{edo} universe (and
 \code{show_zeroes=TRUE}), the result is a vector of length \code{edo} and includes
 explicit \code{0} results for missing intervals. If \code{x} and \code{y} must be measured
-in continous pitch-class space, no missing intervals are identified
+in continuous pitch-class space, no missing intervals are identified
 (since there would be infinitely many to list).
 }
 \description{

@@ -1,4 +1,4 @@
-#' Define the hyperplanes for the MCT arrangement of any cardinality
+#' Define hyperplanes for the Modal Color Theory arrangements
 #'
 #' @description
 #' As described in Appendix 1.2 of "Modal Color Theory," information about the

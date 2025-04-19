@@ -10,3 +10,10 @@ test_that("isproper works", {
   expect_false(isproper(c(0, 7, 9), edo=19))
   expect_true(isproper(c(0, 7, 10), edo=19))
 })
+
+test_that("make_roth_ineqmat works", {
+  expect_equal(dim(make_roth_ineqmat(3))[1], 6)
+  expect_equal(dim(make_roth_ineqmat(4))[1], 22)
+
+  expect_snapshot(make_roth_ineqmat(7))
+})

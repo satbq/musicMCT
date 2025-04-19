@@ -69,3 +69,103 @@ strictly_proper <- function(set, edo=12, rounder=10) {
   as.logical(prod(is_strict))
 }
 
+
+#' Define hyperplanes for Rothenberg arrangements
+#'
+#' Although the Rothenberg propriety of a single scale can be computed directly with [isproper()],
+#' propriety is a scalar feature (like modal "color") which is defined by a scale's position in 
+#' the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
+#' all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
+#' define these properties are different from the ones of Modal Color Theory. This function creates
+#' the `ineqmats` needed to study those arrangements, similar to what [makeineqmat()] does for MCT
+#' arrangements. This function is still somewhat experimental and needs further vetting.
+#'
+#' Each row of a Rothenberg `ineqmat` represents a hyperplane, just like the rows produced by
+#' [makeineqmat()]. The rows are normalized so that their first non-zero entry is either `1` or `-1`,
+#' and their orientations are assigned so that a strictly proper set will return only `-1`s for its
+#' sign vector relative to the Rothenberg arrangement. A `0` in a Rothenberg sign vector represents
+#' an ambiguity. Note that the Rothenberg arrangements are never "central," which means that the 
+#' hyperplanes do *not* all intersect at the perfectly even scale. (It is clear that they must not, 
+#' because perfectly even scales have no ambiguities.) These arrangements also grow in complexity
+#' much faster than the MCT arrangements do: for tetrachords, MCT arrangements have 8 hyperplanes while
+#' Rothenberg arrangements have 22. For heptachords, those numbers increase to 42 and 259, respectively.
+#' Thus, this function runs slowly when called on cardinalities of only modest size (e.g. 12-24).
+#'
+#' @inheritParams makeineqmat
+#'
+#' @returns A matrix with `card+1` columns and k rows, where k is the number of hyperplanes
+#'   in the arrangement.
+#'
+#' @examples
+#' c_major <- c(0, 2, 4, 5, 7, 9, 11)
+#' hepta_roth_ineqmat <- make_roth_ineqmat(7)
+#' isproper(c_major)
+#' cmaj_roth_sv <- signvector(c_major, ineqmat=hepta_roth_ineqmat)
+#' table(cmaj_roth_sv)
+#' hepta_roth_ineqmat[which(cmaj_roth_sv==0),] 
+#' # This reveals that c_major has one ambiguity, which results from
+#' # the interval from 4 to 7 being exactly half an octave.
+#'
+#' @export
+make_roth_ineqmat <- function(card) {
+
+  quasimod <- function(x) {
+    normal_mod <- x %% card
+    if (normal_mod == 0) {
+      return(card)
+    }
+    normal_mod
+  }
+
+  roth_row <- function(firstroot, secondroot, g1, g2) {
+
+    row <- rep(0, card+1)
+    firstroot <- quasimod(firstroot+1)
+    secondroot <- quasimod(secondroot+1)
+
+    fr_target <- quasimod(firstroot + g1)
+    sr_target <- quasimod(secondroot + g2)
+
+    firstroot_indices <- c(firstroot, fr_target)
+    secondroot_indices <- c(secondroot, sr_target)
+
+    firstroot_vec <- c(-1, 1)
+    secondroot_vec <- -1 * firstroot_vec
+
+    if (fr_target < firstroot) {
+      firstroot_indices <- c(firstroot_indices, card+1)
+      firstroot_vec <- c(firstroot_vec, 1)
+    }
+
+    if (sr_target < secondroot) {
+      secondroot_indices <- c(secondroot_indices, card+1)
+      secondroot_vec <- c(secondroot_vec, -1)
+    }
+
+    temprow_small_side <- row
+    temprow_large_side <- row
+   
+    temprow_small_side[firstroot_indices] <- firstroot_vec
+    temprow_large_side[secondroot_indices] <- secondroot_vec
+    
+    row <- temprow_small_side + temprow_large_side
+    first_entry <- row[which(row != 0)[1]]
+    
+    (row / first_entry) * sign(first_entry)
+  }
+
+  roots <- 0:(card-1)
+  intervals <- 1:(card-1)
+  combinations <- expand.grid(roots, roots, intervals, intervals)
+  combinations <- combinations[combinations[,3] < combinations[,4],]
+
+  firstroots <- combinations[,1]
+  secondroots <- combinations[,2]
+  g1s <- combinations[,3]
+  g2s <- combinations[,4]
+
+  res <- t(mapply(roth_row, firstroot=firstroots, secondroot=secondroots, g1=g1s, g2=g2s))
+ 
+  unique(res, MARGIN=1)
+}
+
