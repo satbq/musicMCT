@@ -33,7 +33,9 @@ makeineqmat <- function(card) {
   # (specified as zero-indexed scale degrees) and the generic size of the interval (zero-indexed).
   generateRow <- function(firstroot, secondroot, genericival) {
     row <- rep(0, card+1)
-    if ((secondroot %% card) <= firstroot) { return(row) }
+    if ((secondroot %% card) <= firstroot) { 
+      return(row) 
+    }
     row[(firstroot %% card)+1] <- row[(firstroot %% card)+1] - 1
     row[(secondroot %% card)+1] <- row[(secondroot %% card)+1] + 1
     row[((firstroot + genericival) %% card) + 1] <- row[((firstroot + genericival) %% card) + 1] + 1
