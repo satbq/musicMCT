@@ -152,6 +152,8 @@ maxeven <- function(card, edo=12, floor=TRUE) {
 #'   * `utt`: 11-limit tritone (11:8 or ~5.51 semitones)
 #'   * `stt`: 7-limit tritone (7:5 or ~5.83 semitones)
 #'   * `jtt`: 5-limit tritone (45:32 or ~5.90 semitones)
+#'   * `ptt`: 3-limit tritone (729:512 or ~6.12 semitones)
+#'   * `pd5`: 3-limit diminished fifth (1024/729 or ~5.88 semitones)
 #'   * `5`: 3-limit perfect fifth (3:2 or ~7.02 semitones)
 #'   * `m6`: 5-limit minor sixth (8:5 or ~8.14 semitones)
 #'   * `6`: 5-limit major sixth (5:3 or ~8.84 semitones)
@@ -178,7 +180,9 @@ maxeven <- function(card, edo=12, floor=TRUE) {
 j <- function(..., edo=12) {
   input_values <- substitute(...())
   input_values <- unlist(lapply(input_values, toString))
-  if (length(input_values) == 0) { return(NULL) }
+  if (length(input_values) == 0) { 
+    return(NULL) 
+  }
 
   values_1        <- c(1,   1,   531441/524288, 81/80, 256/243, 2187/2048, 16/15, 16/15, 16/15, 16/15)
   names(values_1) <- c("1", "u", "pyth",        "synt", "l",    "a",       "h",    "s",  "st",  "m2")
@@ -186,10 +190,13 @@ j <- function(..., edo=12) {
   values_2        <- c(10/9, 9/8, 9/8, 9/8, 9/8,  8/7,    32/27, 32/27, 6/5,  5/4, 5/4,  81/64)
   names(values_2) <- c("mt", "2", "t", "w", "wt", "sept", "sdt", "pm3", "m3", "3", "M3", "dt")
 
-  values_3        <- c(4/3, 7/5,   11/8,  45/32, 3/2, 8/5,  5/3, 16/9,  9/5,  15/8, 2, NA)
-  names(values_3) <- c("4", "stt", "utt", "jtt", "5", "m6", "6", "pm7", "m7", "7", "8", "dia")
+  values_3        <- c(4/3, 7/5,   11/8,  45/32, 729/512, 1024/729, 3/2)
+  names(values_3) <- c("4", "stt", "utt", "jtt", "ptt",   "pd5",    "5")
 
-  all_values <- c(values_1, values_2, values_3)
+  values_4        <- c(8/5,  5/3, 16/9,  9/5,  15/8, 2, NA)
+  names(values_4) <- c("m6", "6", "pm7", "m7", "7", "8", "dia")
+
+  all_values <- c(values_1, values_2, values_3, values_4)
   freq_to_cents <- function(x) 12 * log2(x)
   all_values <- sapply(all_values, freq_to_cents)
 

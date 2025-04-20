@@ -37,6 +37,8 @@ currently accepted inputs, their meaning, and their return value:
 \item \code{utt}: 11-limit tritone (11:8 or ~5.51 semitones)
 \item \code{stt}: 7-limit tritone (7:5 or ~5.83 semitones)
 \item \code{jtt}: 5-limit tritone (45:32 or ~5.90 semitones)
+\item \code{ptt}: 3-limit tritone (729:512 or ~6.12 semitones)
+\item \code{pd5}: 3-limit diminished fifth (1024/729 or ~5.88 semitones)
 \item \code{5}: 3-limit perfect fifth (3:2 or ~7.02 semitones)
 \item \code{m6}: 5-limit minor sixth (8:5 or ~8.14 semitones)
 \item \code{6}: 5-limit major sixth (5:3 or ~8.84 semitones)
