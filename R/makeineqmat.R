@@ -70,9 +70,7 @@ makeineqmat <- function(card) {
   res <- res[!duplicated(res, MARGIN=1),]
 
   # First row was all 0s -- unisons are identical -- so remove it.
-  res <- res[-1,]
-
-  return(res)
+  res[-1,]
 }
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("ineqmats"))
@@ -84,8 +82,6 @@ getineqmat <- function(card) {
     if (card <= length(ineqmats)) {
       return(ineqmats[[card]])
     }
-  }
- else {
-    return(makeineqmat(card))
-  }
+  } 
+  makeineqmat(card)
 }

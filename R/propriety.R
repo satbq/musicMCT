@@ -118,7 +118,6 @@ make_roth_ineqmat <- function(card) {
   }
 
   roth_row <- function(firstroot, secondroot, g1, g2) {
-
     row <- rep(0, card+1)
     firstroot <- quasimod(firstroot+1)
     secondroot <- quasimod(secondroot+1)
