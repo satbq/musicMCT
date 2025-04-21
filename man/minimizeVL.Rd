@@ -7,9 +7,10 @@
 minimizeVL(
   source,
   goal,
-  method = c("taxicab", "euclidean"),
+  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   no_ties = FALSE,
-  edo = 12
+  edo = 12,
+  rounder = 10
 )
 }
 \arguments{
@@ -17,13 +18,17 @@ minimizeVL(
 
 \item{goal}{Numeric vector, the pitch-class set at the end of your voice leading}
 
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
+but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{no_ties}{If multiple VLs are equally small, should only one be returned? Defaults to \code{FALSE}, which
 is generally what a human user should want. Some functions that call \code{minimize_VL} need \code{TRUE} for predictable
 shapes of the returned value.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 }
 \value{
 Numeric array. In most cases, a vector the same length as \code{source};
@@ -37,11 +42,11 @@ Given a \code{source} set and a \code{goal} to move to, find the "strongly
 crossing-free" voice leading from \code{source} to \code{goal} with smallest size.
 }
 \examples{
-c_major <- c(0,4,7)
-ab_minor <- c(8,11,3)
+c_major <- c(0, 4, 7)
+ab_minor <- c(8, 11, 3)
 minimizeVL(c_major, ab_minor)
 
-diatonic_scale <- c(0,2,4,5,7,9,11)
+diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
 minimizeVL(diatonic_scale, tn(diatonic_scale, 7))
 
 d_major <- c(2,6,9)
@@ -49,6 +54,6 @@ minimizeVL(c_major, d_major)
 minimizeVL(c_major, d_major, no_ties=TRUE)
 minimizeVL(c_major, d_major, method="euclidean", no_ties=FALSE)
 
-minimizeVL(c(0,4,7,10),c(7,7,11,2),method="euclidean")
-minimizeVL(c(0,4,7,10),c(7,7,11,2),method="euclidean", no_ties=TRUE)
+minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean")
+minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
 }

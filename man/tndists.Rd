@@ -4,16 +4,26 @@
 \alias{tndists}
 \title{Distances between continuous transpositions of a set}
 \usage{
-tndists(set, method = c("taxicab", "euclidean"), subdivide = 100, edo = 12)
+tndists(
+  set,
+  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
+  subdivide = 100,
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
+but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{subdivide}{Numeric: how many small amounts should each \code{edo} step be divided into? Defaults to \code{100}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 }
 \value{
 Numeric vector of length \code{edo * subdivide} representing distances of the transpositions. Names

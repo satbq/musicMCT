@@ -1,7 +1,9 @@
 crossingfree_vls <- function(source, 
                              goal, 
-                             method=c("taxicab", "euclidean"), 
-                             edo=12) {
+                             method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
+                             edo=12,
+                             rounder=10) {
+  tiny <- 10^(-1 * rounder)
   card <- length(source)
   if (card != length(goal)) { 
     stop("Goal and source should have the same cardinality. 
@@ -16,8 +18,10 @@ crossingfree_vls <- function(source,
   method <- match.arg(method)
   get_vl_scores <- function(vls) {
     switch(method,
-           taxicab = colSums(apply(vls, 1, abs)),
-           euclidean = sqrt(rowSums(vls^2)))
+           taxicab = rowSums(abs(vls)),
+           euclidean = sqrt(rowSums(vls^2)),
+           chebyshev = apply(apply(vls, 1, abs), 2, max),
+           hamming = rowSums(abs(vls) > tiny))
   }
 
   vl_scores <- get_vl_scores(voice_leadings)
@@ -33,7 +37,8 @@ crossingfree_vls <- function(source,
 #' 
 #' @param source Numeric vector, the pitch-class set at the start of your voice leading
 #' @param goal Numeric vector, the pitch-class set at the end of your voice leading
-#' @param method What distance metric should be used? Defaults to `"taxicab"` but can be `"euclidean"`.
+#' @param method What distance metric should be used? Defaults to `"taxicab"` 
+#'   but can be `"euclidean"`, `"chebyshev"`, or `"hamming"`.
 #' @param no_ties If multiple VLs are equally small, should only one be returned? Defaults to `FALSE`, which
 #'   is generally what a human user should want. Some functions that call `minimize_VL` need `TRUE` for predictable
 #'   shapes of the returned value.
@@ -45,11 +50,11 @@ crossingfree_vls <- function(source,
 #'   are equivalent, the array can be a matrix with `m` rows where `m` is the number
 #'   of equally small voice leadings.
 #' @examples
-#' c_major <- c(0,4,7)
-#' ab_minor <- c(8,11,3)
+#' c_major <- c(0, 4, 7)
+#' ab_minor <- c(8, 11, 3)
 #' minimizeVL(c_major, ab_minor)
 #'
-#' diatonic_scale <- c(0,2,4,5,7,9,11)
+#' diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
 #' minimizeVL(diatonic_scale, tn(diatonic_scale, 7))
 #'
 #' d_major <- c(2,6,9)
@@ -57,17 +62,17 @@ crossingfree_vls <- function(source,
 #' minimizeVL(c_major, d_major, no_ties=TRUE)
 #' minimizeVL(c_major, d_major, method="euclidean", no_ties=FALSE)
 #'
-#' minimizeVL(c(0,4,7,10),c(7,7,11,2),method="euclidean")
-#' minimizeVL(c(0,4,7,10),c(7,7,11,2),method="euclidean", no_ties=TRUE)
+#' minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean")
+#' minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
 #' @export
-
 minimizeVL <- function(source, 
                        goal, 
-                       method=c("taxicab", "euclidean"), 
+                       method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                        no_ties=FALSE, 
-                       edo=12) {
+                       edo=12,
+                       rounder=10) {
 
-  vl_data <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo)
+  vl_data <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo, rounder=rounder)
 
   index <- vl_data$"min_index"
   if (no_ties) index <- index[1]
@@ -81,6 +86,7 @@ minimizeVL <- function(source,
 #' (assuming crossing-free voice leadings and the given `method` for determining distance).
 #'
 #' @inheritParams minimizeVL
+#' @inheritParams fpunique
 #'
 #' @returns Numeric value(s) identifying the modes of `goal`. Single value if `no_ties` is `TRUE`,
 #'   otherwise n values for an n-way tie.
@@ -105,21 +111,26 @@ minimizeVL <- function(source,
 #' @export
 whichmodebest <- function(source, 
                           goal, 
-                          method=c("taxicab", "euclidean"), 
+                          method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                           no_ties=FALSE, 
-                          edo=12) {
-  res <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo)$"min_index"
+                          edo=12,
+                          rounder=10) {
+  res <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo, rounder=rounder)$"min_index"
   if (no_ties) res[1]
   res
 }
 
 get_tn_levels <- function(edo, subdivide) seq(0, edo, length.out=1 + (edo*subdivide))
  
-get_vl_dists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12) {
+get_vl_dists <- function(set, 
+                         method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
+                         subdivide=100, 
+                         edo=12,
+                         rounder=10) {
   tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
   all_transpositions <- sapply(tn_levels, tn, set=set, edo=edo, sorted=FALSE)
   getdist <- function(source, goal, method, edo) {
-    min(crossingfree_vls(source, goal, method, edo)$vl_scores)
+    min(crossingfree_vls(source, goal, method, edo, rounder)$vl_scores)
   }
   apply(all_transpositions, 2, getdist, source=set, method=method, edo=edo)
 }
@@ -163,14 +174,18 @@ get_vl_dists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, e
 #' euclidean_dists[tns_to_display]
 #' 
 #' @export
-tndists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12) {
+tndists <- function(set, 
+                    method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
+                    subdivide=100, 
+                    edo=12,
+                    rounder=10) {
   method <- match.arg(method)
   method_title <- paste0(toupper(substr(method, 1, 1)),
                         substr(method, 2, nchar(method)), collapse="")
 
   tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
 
-  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo)
+  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo, rounder=rounder)
 
   plot(tn_levels, all_dists, type="l", lwd=4, ljoin=2,
        xlab = paste0("Transposition relative to ", edo, "-equal temperament"), xaxs="i",
@@ -217,8 +232,12 @@ tndists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12
 #' flex_points(major_triad_19tet, edo=19)
 #'
 #' @export
-flex_points <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12, rounder=10) {
-  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo)
+flex_points <- function(set, 
+                        method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
+                        subdivide=100, 
+                        edo=12, 
+                        rounder=10) {
+  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo, rounder=rounder)
   second_derivative <- round(diff(all_dists, differences=2), digits=rounder)
   inflection_points <- which(second_derivative < 0)
   duplicated_points <- which(diff(inflection_points)==1) + 1

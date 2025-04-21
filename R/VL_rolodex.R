@@ -30,7 +30,7 @@
 VL_rolodex <- function(source, 
                        goal_type=NULL, 
                        reorder=TRUE, 
-                       method=c("taxicab", "euclidean"), 
+                       method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                        edo=12, 
                        no_ties=FALSE) {
   if (is.null(goal_type)) { 

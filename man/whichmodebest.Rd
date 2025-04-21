@@ -7,9 +7,10 @@
 whichmodebest(
   source,
   goal,
-  method = c("taxicab", "euclidean"),
+  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   no_ties = FALSE,
-  edo = 12
+  edo = 12,
+  rounder = 10
 )
 }
 \arguments{
@@ -17,13 +18,17 @@ whichmodebest(
 
 \item{goal}{Numeric vector, the pitch-class set at the end of your voice leading}
 
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
+but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{no_ties}{If multiple VLs are equally small, should only one be returned? Defaults to \code{FALSE}, which
 is generally what a human user should want. Some functions that call \code{minimize_VL} need \code{TRUE} for predictable
 shapes of the returned value.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 }
 \value{
 Numeric value(s) identifying the modes of \code{goal}. Single value if \code{no_ties} is \code{TRUE},

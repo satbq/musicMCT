@@ -6,7 +6,7 @@
 \usage{
 flex_points(
   set,
-  method = c("taxicab", "euclidean"),
+  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   subdivide = 100,
   edo = 12,
   rounder = 10
@@ -15,7 +15,8 @@ flex_points(
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
+but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{subdivide}{Numeric: how many small amounts should each \code{edo} step be divided into? Defaults to \code{100}.}
 

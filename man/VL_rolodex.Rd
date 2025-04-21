@@ -8,7 +8,7 @@ VL_rolodex(
   source,
   goal_type = NULL,
   reorder = TRUE,
-  method = c("taxicab", "euclidean"),
+  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   edo = 12,
   no_ties = FALSE
 )
@@ -23,7 +23,8 @@ representing the tn-type of your voice leading goal}
 Defaults to \code{TRUE}. If \code{FALSE} results are listed in transposition order (i.e.
 \eqn{T_1}, \eqn{T_2}, ..., \eqn{T_{edo-1}}, \eqn{T_0}).}
 
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
+but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
