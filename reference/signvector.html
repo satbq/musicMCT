@@ -83,8 +83,8 @@ arrangement in the same format as the standard ineqmats.</p></dd>
 
 
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
-<dd><p>Numeric (expected integer) representing tolerance:
-number of decimal places to round to.</p></dd>
+<dd><p>Numeric (expected integer), defaults to <code>10</code>:
+number of decimal places to round to when testing for equality.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -96,9 +96,9 @@ number of hyperplanes in <code>ineqmat</code>.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># 037 and 016 have identical sign vectors because they belong to the same trichordal color</span></span></span>
-<span class="r-in"><span><span class="fu">signvector</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">signvector</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1 -1 -1</span>
-<span class="r-in"><span><span class="fu">signvector</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">signvector</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1 -1 -1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Just and equal-tempered diatonic scales have different sign vectors because they have </span></span></span>

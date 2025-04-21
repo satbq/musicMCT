@@ -103,8 +103,8 @@ but can be <code>"euclidean"</code>, <code>"chebyshev"</code>, or <code>"hamming
 
 
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
-<dd><p>Numeric (expected integer) representing tolerance:
-number of decimal places to round to.</p></dd>
+<dd><p>Numeric (expected integer), defaults to <code>10</code>:
+number of decimal places to round to when testing for equality.</p></dd>
 
 
 <dt id="arg-no-ties">no_ties<a class="anchor" aria-label="anchor" href="#arg-no-ties"></a></dt>
@@ -121,7 +121,7 @@ tied voice leadings). List entries are named by their transposition level.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -165,7 +165,7 @@ tied voice leadings). List entries are named by their transposition level.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   -2   -2   -2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span>,<span class="fl">7</span><span class="op">)</span>, reorder<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>, reorder<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 1 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -210,7 +210,7 @@ tied voice leadings). List entries are named by their transposition level.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Multisets sort of work! Best resolutions from dom7 to triads with doubled root:</span></span></span>
-<span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">VL_rolodex</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 0 0 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

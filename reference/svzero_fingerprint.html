@@ -80,8 +80,8 @@ arrangement in the same format as the standard ineqmats.</p></dd>
 
 
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
-<dd><p>Numeric (expected integer) representing tolerance:
-number of decimal places to round to.</p></dd>
+<dd><p>Numeric (expected integer), defaults to <code>10</code>:
+number of decimal places to round to when testing for equality.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -94,8 +94,8 @@ number of hyperplanes which compare a formal tritone to itself.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Two hexachords on the same number of hyperplanes but with different fingerprints</span></span></span>
-<span class="r-in"><span><span class="va">hex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">9</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">hex2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hex2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="whichsvzeroes.html">countsvzeroes</a></span><span class="op">(</span><span class="va">hex1</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="whichsvzeroes.html">countsvzeroes</a></span><span class="op">(</span><span class="va">hex2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu">svzero_fingerprint</span><span class="op">(</span><span class="va">hex1</span><span class="op">)</span></span></span>
