@@ -32,12 +32,14 @@ VL_rolodex <- function(source,
                        reorder=TRUE, 
                        method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                        edo=12, 
+                       rounder=10,
                        no_ties=FALSE) {
   if (is.null(goal_type)) { 
     goal_type <- source 
   }
   goals <- sapply(1:edo, tn, set=goal_type, edo=edo)
 
+  tiny <- 10^(-1*rounder)
   method <- match.arg(method)
 
   res <- apply(goals, 2, minimizeVL, source=source, method=method, edo=edo, no_ties=no_ties)
@@ -50,7 +52,9 @@ VL_rolodex <- function(source,
   dist_func <- function(x) {
     switch(method,
            taxicab = sum(abs(x)),
-           euclidean = sqrt(sum(x^2)))
+           euclidean = sqrt(sum(x^2)),
+           chebyshev = max(abs(x)),
+           hamming = sum(abs(x) > tiny))
   }
 
   if (reorder == TRUE) {
