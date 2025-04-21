@@ -112,3 +112,69 @@ whichmodebest <- function(source,
   if (no_ties) res[1]
   res
 }
+
+get_tn_levels <- function(edo, subdivide) seq(0, edo, length.out=1 + (edo*subdivide))
+ 
+get_vl_dists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12) {
+  tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
+  all_transpositions <- sapply(tn_levels, tn, set=set, edo=edo, sorted=FALSE)
+  getdist <- function(source, goal, method, edo) {
+    min(crossingfree_vls(source, goal, method, edo)$vl_scores)
+  }
+  apply(all_transpositions, 2, getdist, source=set, method=method, edo=edo)
+}
+
+#' Distances between continuous transpositions of a set
+#'
+#' @description
+#' One way to think about the voice-leading potential of a set is to consider all the ways
+#' that it can move to transpositions of itself. For instance, the major triad's closest 
+#' transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
+#' and potentially also \eqn{T_{\pm 2}} depending on the distance metric you use. For 
+#' the major triad restricted to 12-tone equal temperament, this set of relationships is well
+#' modeled by Richard Cohn's discussion of [Douthett & Steinbach's](https://doi.org/10.2307/843877)
+#' "Cube Dance" in *Audacious Euphony* (102-106). The behavior of other sets is not always what you
+#' might expect based on the model of tertian sonorities. For instance, the trichord (027) has
+#' different minimal neighbors depending on the metric chosen: its nearest neighbors are \eqn{T_{\pm 4}}
+#' under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
+#'
+#' This function allows us to visualize such relationships by plotting the minimal voice leading
+#' distance from a set to all of its transpositions in continuous pc-space. (In spirit, it is like
+#' a continuous version of [VL_rolodex()] except that it visualizes a voice-leading distance rather than
+#' reporting the specific motions of the set's individual voices.) The main intended use of the function
+#' is  
+#' 
+tndists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12) {
+  method <- match.arg(method)
+  method_title <- paste0(toupper(substr(method, 1, 1)),
+                        substr(method, 2, nchar(method)), collapse="")
+
+  tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
+
+  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo)
+
+  plot(tn_levels, all_dists, type="l", lwd=4, ljoin=2,
+       xlab = paste0("Transposition relative to ", edo, "-equal temperament"), xaxs="i",
+       ylab = "Voice-leading distance")
+  mtext(side=3, 
+        paste(method_title, "distances from", 
+              deparse(substitute(set)), "to its transpositions"),
+        font=2, line=1)
+  grid(nx=edo, ny=NA, lty="dashed")
+  grid(nx=NA, ny=NULL, lty="dotted")
+
+  names(all_dists) <- tn_levels
+  invisible(all_dists)
+}
+
+tn_inflections <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12, rounder=10) {
+  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo)
+  second_derivative <- round(diff(all_dists, differences=2), digits=rounder)
+  inflection_points <- which(second_derivative < 0)
+  duplicated_points <- which(diff(inflection_points)==1) + 1
+  if (length(duplicated_points) > 0) {
+    inflection_points <- inflection_points[-duplicated_points]
+  }
+  inflection_points/subdivide
+}
+  
