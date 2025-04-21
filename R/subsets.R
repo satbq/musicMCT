@@ -37,8 +37,10 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
 
   modes <- sim(set, edo)
   modes <- t(apply(modes, 1, sort))
-  if (card == 2) { return(list(fpunique(modes[2,], rounder=rounder))) }
-  uniques <- apply(modes[2:card,],1, fpunique, rounder=rounder)
+  if (card == 2) { 
+    return(list(fpunique(modes[2,], rounder=rounder))) 
+  }
+  uniques <- apply(modes[2:card,], 1, fpunique, rounder=rounder)
   if ("matrix" %in% class(uniques)) {
     uniques <- as.list(as.data.frame(uniques))
     names(uniques) <- NULL
@@ -48,7 +50,7 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
 
 #' @rdname intervalspectrum
 #' @export
-spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,edo,rounder),length)
+spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set, edo, rounder), length)
 
 #' Specific varieties of scalar subsets given a generic shape
 #'
@@ -75,6 +77,14 @@ spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set,e
 #' subset_varieties(c(0, 2, 4), double_harmonic_scale)
 #' @export
 subset_varieties <- function(subsetdegrees, set, unique=TRUE, edo=12, rounder=10) {
+  card <- length(set)
+  if (max(subsetdegrees) >= card || min(subsetdegrees) < 0) {
+    stop("All subset degrees must be >= 0 and < the scale's cardinality")
+  }
+  if (length(subsetdegrees) < 2) {
+    stop("Subsetdegrees must have length at least 2")
+  }
+
   modes <- sim(set, edo=edo)
   subsetdegrees <- subsetdegrees + 1 #Because in music theory these are 0-indexed, but vectors are 1-indexed in R
   res <- modes[subsetdegrees,]
@@ -88,15 +98,14 @@ subset_varieties <- function(subsetdegrees, set, unique=TRUE, edo=12, rounder=10
 
 #' Subset varieties for all subsets of a fixed size
 #'
-#' @description
 #' Applies [subset_varieties()] not just to a particular subset shape but to all possible subset shapes
 #' given a fixed cardinality. For example, finds the specific varieties of *all* trichordal subsets of 
 #' the major scale, not than just the varieties of the tonal triad. Comparable to [intervalspectrum()] 
 #' but for subsets larger than dyads.
 #' 
-#' The parameter `simplify` lets you decide whether to consider different "inversions" of a subset shape
-#' independently. For instance, with `simplify=TRUE`, only root position triads (0,2,4) would be considered;
-#' but with `simplify=FALSE`, the first inversion (0,2,5) and second inversion (0,3,5) subset shapes would 
+#' The parameter `simplify` lets you control whether to consider different "inversions" of a subset shape
+#' independently. For instance, with `simplify=TRUE`, only root position triads (0, 2, 4) would be considered;
+#' but with `simplify=FALSE`, the first inversion (0, 2, 5) and second inversion (0, 3, 5) subset shapes would 
 #' also be displayed.
 #'
 #' @inheritParams subset_varieties
@@ -109,7 +118,7 @@ subset_varieties <- function(subsetdegrees, set, unique=TRUE, edo=12, rounder=10
 #'   Each entry of the list is a matrix displaying the varieties of some particular subset type.
 #'
 #' @examples
-#' c_major_scale <- c(0,2,4,5,7,9,11)
+#' c_major_scale <- c(0, 2, 4, 5, 7, 9, 11)
 #' subsetspectrum(c_major_scale, 3)
 #' subsetspectrum(c_major_scale, 3, simplify=FALSE)
 #' subsetspectrum(c_major_scale, 3, mode="tni") # Note the absence of a "0, 2, 3" matrix
@@ -147,3 +156,47 @@ subsetspectrum <- function(set, subsetcard, simplify=TRUE, mode="tn", edo=12, ro
   names(res) <- apply(comb, 2, toString)
   res
 }
+
+
+#' Count the multiplicities of a subset-type's varieties 
+#'
+#' Given the varieties of a subset type returned by [subset_varieties()], `subset_multiplicities()`
+#' counts how many times each one occurs in the scale. These are the multiplicities of the subsets
+#' in the sense of [Clough and Myerson (1985)'s](https://www.jstor.org/stable/843615) 
+#' result "structure yields multiplicity" for well-formed scales.
+#'
+#' @inheritParams subset_varieties
+#' @inheritParams ifunc
+#'
+#' @returns Numeric vector whose names indicate the `k` varieties of the subset type and whose
+#'   entries count how often each variety occurs.
+#'
+#' @examples
+#' subset_multiplicities(c(0, 2, 4), sc(7, 35))
+#' subset_multiplicities(c(0, 1, 4), sc(7, 35))
+#' 
+#' subset_multiplicities(c(0, 2, 4), j(dia))
+#'
+#' @export
+subset_multiplicities <- function(subsetdegrees, set, edo=12, rounder=10, display_digits=2) {
+  all_subsets <- subset_varieties(subsetdegrees=subsetdegrees, set=set, unique=FALSE, edo=edo, rounder=rounder)
+  unique_subsets <- fpunique(all_subsets, rounder=rounder, MARGIN=2)
+
+  single_variety <- !("matrix" %in% class(unique_subsets))
+  if (single_variety) {
+    res <- length(set)
+    names(res) <- toString(round(unique_subsets, digits=display_digits))
+    return(res)
+  }
+
+  variety_count <- table(apply(round(all_subsets, digits=(rounder-1)), 2, toString))
+  res <- as.numeric(variety_count)
+
+  variety_names <- sort(apply(round(unique_subsets, digits=display_digits), 2, paste0, collapse=", "))
+  give_parens <- function(x) paste0("(",x,")",collapse="")
+  variety_names <- sapply(variety_names, give_parens)
+  names(res) <- variety_names
+
+  res
+}
+

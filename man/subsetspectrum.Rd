@@ -37,14 +37,15 @@ Applies \code{\link[=subset_varieties]{subset_varieties()}} not just to a partic
 given a fixed cardinality. For example, finds the specific varieties of \emph{all} trichordal subsets of
 the major scale, not than just the varieties of the tonal triad. Comparable to \code{\link[=intervalspectrum]{intervalspectrum()}}
 but for subsets larger than dyads.
-
-The parameter \code{simplify} lets you decide whether to consider different "inversions" of a subset shape
-independently. For instance, with \code{simplify=TRUE}, only root position triads (0,2,4) would be considered;
-but with \code{simplify=FALSE}, the first inversion (0,2,5) and second inversion (0,3,5) subset shapes would
+}
+\details{
+The parameter \code{simplify} lets you control whether to consider different "inversions" of a subset shape
+independently. For instance, with \code{simplify=TRUE}, only root position triads (0, 2, 4) would be considered;
+but with \code{simplify=FALSE}, the first inversion (0, 2, 5) and second inversion (0, 3, 5) subset shapes would
 also be displayed.
 }
 \examples{
-c_major_scale <- c(0,2,4,5,7,9,11)
+c_major_scale <- c(0, 2, 4, 5, 7, 9, 11)
 subsetspectrum(c_major_scale, 3)
 subsetspectrum(c_major_scale, 3, simplify=FALSE)
 subsetspectrum(c_major_scale, 3, mode="tni") # Note the absence of a "0, 2, 3" matrix

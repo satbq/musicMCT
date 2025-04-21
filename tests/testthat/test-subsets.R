@@ -26,6 +26,10 @@ test_that("subset_varieties works", {
                matrix(c(0, 2, 3, 0, 1, 5, 0, 4, 5, 0, 1, 5, 0, 4, 6), ncol=5))
   expect_equal(subset_varieties(c(0, 1, 3), c(0, 2, 3, 4, 6, 8), edo=17),
                matrix(c(0, 2, 4, 0, 1, 4, 0, 1, 5, 0, 2, 13, 0, 9, 12), ncol=5))
+ 
+  expect_error(subset_varieties(c(0, 1, 5), c(0, 2, 4, 7, 9)))
+  expect_error(subset_varieties(c(0, -1), c(0, 1, 4, 6)))
+  expect_error(subset_varieties(0, c(0, 2, 4, 7, 9)))
 })
 
 test_that("subsetspectrum works with default params", {
@@ -65,4 +69,26 @@ test_that("subsetspectrum simplify can be turned off", {
   names(tetra_result) <- c("0, 1", "0, 2", "0, 3")
   expect_equal(subsetspectrum(c(0, 1, 2, 7), 2, simplify=FALSE), 
                tetra_result)
+})
+
+test_that("subset_multiplicities works", {
+  mmin_seventh_chords <- c(2, 1, 1, 2, 1)
+  names(mmin_seventh_chords) <- c("(0, 3, 6, 10)",
+                                  "(0, 3, 7, 10)",
+                                  "(0, 3, 7, 11)",
+                                  "(0, 4, 7, 10)",
+                                  "(0, 4, 8, 11)")
+  expect_equal(subset_multiplicities(c(0, 2, 4, 6), 
+                                     c(0, 2, 3, 5, 7, 9, 11)),
+               mmin_seventh_chords)
+
+  pentas_in_7edo <- c(1, 2, 2)
+  names(pentas_in_7edo) <- c("(0, 1, 2)", "(0, 1, 3)", "(0, 2, 3)")
+  expect_equal(subset_multiplicities(c(0, 1, 2), c(0, 1, 2, 4, 5), edo=7), 
+               pentas_in_7edo)
+
+  wt_subset <- 6
+  names(wt_subset) <- "0, 2, 6"
+  expect_equal(subset_multiplicities(c(0, 1, 3), c(0, 2, 4, 6, 8, 10)), 
+               wt_subset)
 })

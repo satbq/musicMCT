@@ -31,7 +31,9 @@ and rounding to the nearest value).
 }
 \examples{
 maxeven(7, 12)
-maxeven(7, 12, floor=FALSE)
+maxeven(6, 15)
+maxeven(6, 15, floor=FALSE)
+
 diatonic_in_19 <- maxeven(7, 19)
 tresillo <- maxeven(3,8)
 }

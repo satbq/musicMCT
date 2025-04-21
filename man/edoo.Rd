@@ -22,5 +22,6 @@ whence the name \code{edoo} for "\strong{e}qual \strong{d}ivision of the \strong
 \examples{
 edoo(5)
 edoo(5, edo=15)
-octatonic_scale <- sort(c(edoo(4), edoo(4)+1))
+octatonic_scale <- tc(edoo(4), c(0, 1))
+print(octatonic_scale)
 }

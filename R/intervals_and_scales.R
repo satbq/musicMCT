@@ -69,7 +69,8 @@ carlos_step <- function(name="alpha", weights=NULL, edo=12) {
 #' @examples
 #' edoo(5)
 #' edoo(5, edo=15)
-#' octatonic_scale <- sort(c(edoo(4), edoo(4)+1))
+#' octatonic_scale <- tc(edoo(4), c(0, 1))
+#' print(octatonic_scale)
 #' @export
 edoo <- function(card, edo=12) (0:(card-1))*(edo/card) 
 
@@ -92,7 +93,9 @@ edoo <- function(card, edo=12) (0:(card-1))*(edo/card)
 #' @returns Numeric vector of length `card` representing a scale of `card` notes.
 #' @examples
 #' maxeven(7, 12)
-#' maxeven(7, 12, floor=FALSE)
+#' maxeven(6, 15)
+#' maxeven(6, 15, floor=FALSE)
+#' 
 #' diatonic_in_19 <- maxeven(7, 19)
 #' tresillo <- maxeven(3,8)
 #' @export

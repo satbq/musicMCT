@@ -32,7 +32,7 @@ testing plots
 scale_from_genus <- function(vec) {
  x <- vec[1]
  y <- vec[2]
- c(0, x, y, j(4), j(5), j(5)+x, j(5)+y)
+ tc(c(0, x, y, 5), c(0, 7))
 }
 colorfunc <- function(x) tanh(x-min(x))
 
