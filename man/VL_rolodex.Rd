@@ -10,6 +10,7 @@ VL_rolodex(
   reorder = TRUE,
   method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   edo = 12,
+  rounder = 10,
   no_ties = FALSE
 )
 }
@@ -27,6 +28,9 @@ Defaults to \code{TRUE}. If \code{FALSE} results are listed in transposition ord
 but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer) representing tolerance:
+number of decimal places to round to.}
 
 \item{no_ties}{If multiple VLs are equally small, should only one be returned? Defaults to \code{FALSE}, which
 is generally what a human user should want. Some functions that call \code{minimize_VL} need \code{TRUE} for predictable
