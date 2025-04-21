@@ -29,8 +29,8 @@ but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 
 \item{no_ties}{If multiple VLs are equally small, should only one be returned? Defaults to \code{FALSE}, which
 is generally what a human user should want. Some functions that call \code{minimize_VL} need \code{TRUE} for predictable
@@ -51,11 +51,11 @@ for this information, so the metaphor behind "rolodex" is that these voice leadi
 are the contact information that \code{source} has for all its acquaintances in \code{goal_type}.
 }
 \examples{
-VL_rolodex(c(0,4,7))
+VL_rolodex(c(0, 4, 7))
 
-VL_rolodex(c(0,4,7), reorder=FALSE)
+VL_rolodex(c(0, 4, 7), reorder=FALSE)
 
 #Multisets sort of work! Best resolutions from dom7 to triads with doubled root:
-VL_rolodex(c(0,4,7,10), c(0, 0, 4, 7))
+VL_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
 
 }

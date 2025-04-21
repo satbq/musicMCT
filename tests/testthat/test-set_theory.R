@@ -104,3 +104,13 @@ test_that("ivec works", {
   expect_equal(ivec(c(0, 1, 2, 4, 6, 8, 10)), c(2, 6, 2, 6, 2, 3))
   expect_equal(ivec(c(0, 2, 4, 7, 9), edo=13), c(0, 3, 1, 2, 2, 2))
 })
+
+test_that("tc works", {
+  expect_equal(tc(c(0, 4, 7), c(0, 1)),
+               c(0, 1, 4, 5, 7, 8))
+  expect_equal(tc(c(0, 6, 11), c(0, 3, 9), edo=19),
+               c(0, 1, 3, 6, 9, 11, 14, 15))
+  expect_equal(tc(c(0, 2, 7)), 
+               c(0, 2, 4, 7, 9))
+})
+

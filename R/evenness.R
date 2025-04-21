@@ -18,10 +18,10 @@
 #' 
 #' @examples
 #' evenness(c(0, 4, 8))
-#' evenness(c(0, 4, 7)) < evenness(c(0,1,2))
+#' evenness(c(0, 4, 7)) < evenness(c(0, 1, 2))
 #' 
-#' dim_triad <- c(0,3,6)
-#' sus_2 <- c(0,2,7)
+#' dim_triad <- c(0, 3, 6)
+#' sus_2 <- c(0, 2, 7)
 #' coord_to_edo(dim_triad)
 #' coord_to_edo(sus_2)
 #' evenness(dim_triad) == evenness(sus_2)
@@ -31,5 +31,5 @@ evenness <- function(set, edo=12) {
   card <- length(set)
   edoozero <- edoo(card, edo) - (sum(edoo(card, edo))/card)
   setzero <- set - (sum(set)/card)
-  return(sqrt(sum((setzero-edoozero)^2)))
+  sqrt(sum((setzero-edoozero)^2))
 }

@@ -13,8 +13,8 @@ fpunique(x, MARGIN = 0, rounder = 10)
 unique individual numbers, unique rows, or unique columns, respectively.
 Defaults to \code{0}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Numeric array of unique elements (vector if \code{MARGIN} is 0;

@@ -15,8 +15,8 @@
 #' @param MARGIN Numeric `0`, `1`, or `2` depending on whether you want
 #'   unique individual numbers, unique rows, or unique columns, respectively.
 #'   Defaults to `0`.
-#' @param rounder Numeric (expected integer) representing tolerance:
-#'   number of decimal places to round to.
+#' @param rounder Numeric (expected integer), defaults to `10`:
+#'   number of decimal places to round to when testing for equality.
 #' @returns Numeric array of unique elements (vector if `MARGIN` is 0;
 #'   matrix otherwise)
 #' @examples

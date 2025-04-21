@@ -19,8 +19,8 @@ arrangement in the same format as the standard ineqmats.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Single numeric value for \code{countsvzeroes} and a numeric vector
@@ -48,15 +48,15 @@ than color (as determined by the entire sign vector).
 }
 \examples{
 # Sort 12edo heptachords by how many sign vector zeroes they have (from high to low)
-heptas12 <- unique(apply(utils::combn(12,7),2,primeform),MARGIN=2)
+heptas12 <- unique(apply(utils::combn(12, 7), 2, primeform), MARGIN=2)
 heptas12_svzeroes <- apply(heptas12, 2, countsvzeroes)
 colnames(heptas12) <- apply(heptas12, 2, fortenum)
-heptas12[,order(heptas12_svzeroes, decreasing=TRUE)]
+heptas12[, order(heptas12_svzeroes, decreasing=TRUE)]
 
 # Multiple hexachords on the same flat but of different colors
-hex1 <- c(0,2,4,5,7,9)
-hex2 <- convert(c(0,1,2,4,5,6),9,12)
-hex3 <- convert(c(0,3,6,8,11,14),15,12)
+hex1 <- c(0, 2, 4, 5, 7, 9)
+hex2 <- convert(c(0, 1, 2, 4, 5, 6), 9, 12)
+hex3 <- convert(c(0, 3, 6, 8, 11, 14), 15, 12)
 hex_words <- rbind(asword(hex1), asword(hex2), asword(hex3))
 rownames(hex_words) <- c("hex1", "hex2", "hex3")
 c(colornum(hex1), colornum(hex2), colornum(hex3))

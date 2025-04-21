@@ -19,12 +19,12 @@
 #'   tied voice leadings). List entries are named by their transposition level.
 #'
 #' @examples
-#' VL_rolodex(c(0,4,7))
+#' VL_rolodex(c(0, 4, 7))
 #'
-#' VL_rolodex(c(0,4,7), reorder=FALSE)
+#' VL_rolodex(c(0, 4, 7), reorder=FALSE)
 #'
 #' #Multisets sort of work! Best resolutions from dom7 to triads with doubled root:
-#' VL_rolodex(c(0,4,7,10), c(0, 0, 4, 7))
+#' VL_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
 #'
 #' @export
 VL_rolodex <- function(source, 

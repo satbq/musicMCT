@@ -8,7 +8,6 @@ crossingfree_vls <- function(source,
   if (card != length(goal)) { 
     stop("Goal and source should have the same cardinality. 
   You might want to double notes in your smaller (multi)set.")
-    return(rep(NA, card)) 
   }
 
   modes <- sapply(0:(card-1), rotate, x=goal, edo=edo)
@@ -116,7 +115,9 @@ whichmodebest <- function(source,
                           edo=12,
                           rounder=10) {
   res <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo, rounder=rounder)$"min_index"
-  if (no_ties) res[1]
+  if (no_ties) {
+    return(res[1])
+  }
   res
 }
 
@@ -205,7 +206,7 @@ tndists <- function(set,
 #'
 #' When considering an n-note set's potential voice leadings to transpositions of itself (along the lines 
 #' of [VL_rolodex()] and [tndists()]), there will always be some transposition in continuous pc-space
-#' for which any given modal rotation is the best potential target for voice leading. (That is, there is
+#' for which a given modal rotation is the best potential target for voice leading. (That is, there is
 #' always some `x` such that `whichmodebest(set, tn(set, x)) == k` for any `k` between `1` and `n`.)
 #' Moreover, there will always be a transposition level at the boundary between two different ideal modes,
 #' where both modes require the same amount of voice leading work. `flex_points()` identifies those

@@ -26,8 +26,8 @@ index of transposition or inversion.}
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Numeric vector of same length as \code{set}

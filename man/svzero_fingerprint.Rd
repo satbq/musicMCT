@@ -16,8 +16,8 @@ arrangement in the same format as the standard ineqmats.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Numeric vector with 3 entries: the number of 'normal' hyperplanes
@@ -34,8 +34,8 @@ which counts the different types of hyperplane separately.
 }
 \examples{
 # Two hexachords on the same number of hyperplanes but with different fingerprints
-hex1 <- c(0,1,3,5,8,9)
-hex2 <- c(0,1,3,5,6,9)
+hex1 <- c(0, 1, 3, 5, 8, 9)
+hex2 <- c(0, 1, 3, 5, 6, 9)
 countsvzeroes(hex1) == countsvzeroes(hex2)
 svzero_fingerprint(hex1)
 svzero_fingerprint(hex2)

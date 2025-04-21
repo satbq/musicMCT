@@ -323,3 +323,36 @@ ivec <- function(set, edo=12) {
 #' @export
 sc_comp <- function(set,edo=12) primeform(setdiff(0:(edo-1),set),edo)
 
+#' Transpositional combination & pitch multiplication
+#'
+#' [Cohn 1988](https://doi.org/10.2307/745790) defines transpositional
+#' combination as a procedure that generates a pc-set as the union of two
+#' (or more) transpositions of some smaller set. `tc()` takes the small set
+#' and a vector of transposition levels, returning the larger pc-set that
+#' results. (Pierre Boulez referred to this procedure as pitch "multiplication",
+#' which [Amiot 2016](https://doi.org/10.1007/978-3-319-45581-5) shows to be not at
+#' all fanciful, as a convolution of two pitch-class sets.)
+#'
+#' @inheritParams tnprime
+#' @param multiplier Numeric vector of transposition levels to apply to `set`. If not
+#'   specified, defaults to `set`.
+#'
+#' @returns Numeric vector of length \eqn{\leq} `length(set)` \eqn{\cdot} `length(multiplier)`
+#'
+#' @examples
+#' tc(c(0, 4), c(0, 7))
+#' tc(c(0, 7), c(0, 4))
+#'
+#' pyth_tetrachord <- 12 * log2(c(1, 9/8, 81/64, 4/3))
+#' pyth_dia <- tc(pyth_tetrachord, c(0, 12*log2(1.5)))
+#' isTRUE(all.equal(signvector(pyth_dia), signvector(c(0, 2, 4, 5, 7, 9, 11))))
+#'
+#' @export
+tc <- function(set, multiplier=NULL, edo=12, rounder=10) {
+  if (is.null(multiplier)) multiplier <- set
+  all_pcs <- sapply(multiplier, tn, set=set, edo=edo)    
+  all_pcs <- as.numeric(all_pcs)
+  sort(fpunique(all_pcs, rounder=rounder))
+}
+
+

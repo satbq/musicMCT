@@ -16,8 +16,8 @@
 #'   identical.
 #'
 #' @examples
-#' meantone_major_sv <- signvector(c(0,2,4,5,7,9,11))
-#' meantone_dorian_sv <- signvector(c(0,2,3,5,7,9,10))
+#' meantone_major_sv <- signvector(c(0, 2, 4, 5, 7, 9, 11))
+#' meantone_dorian_sv <- signvector(c(0, 2, 3, 5, 7, 9, 10))
 #' just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 #' just_dorian <- sim(just_major)[,2] 
 #' just_major_sv <- signvector(just_major)
@@ -77,6 +77,5 @@ comparesignvecs <- function(signvecX, signvecY) {
 
   # Want to return -1 if +/-2 is present, else 1 if +/-1 is present, and 0 if identical.
   index <- max(difftypes)
-  res <- ((2*index)%%3)-index
-  return(res)
+  ((2*index)%%3)-index
 }

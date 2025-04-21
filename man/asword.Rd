@@ -11,8 +11,8 @@ asword(set, edo = 12, rounder = 10)
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Vector of integers of the same length as \code{set}. \code{1} should always

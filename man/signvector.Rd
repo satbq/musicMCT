@@ -16,8 +16,8 @@ arrangement in the same format as the standard ineqmats.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
-\item{rounder}{Numeric (expected integer) representing tolerance:
-number of decimal places to round to.}
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 A vector whose entries are \code{0}, \code{-1}, or \code{1}. Length of vector equals the
@@ -34,8 +34,8 @@ sign vector is \code{1}. Two scales with identical sign vectors belong to the sa
 }
 \examples{
 # 037 and 016 have identical sign vectors because they belong to the same trichordal color
-signvector(c(0,3,7))
-signvector(c(0,1,6))
+signvector(c(0, 3, 7))
+signvector(c(0, 1, 6))
 
 # Just and equal-tempered diatonic scales have different sign vectors because they have 
 # different internal structures (e.g. 12edo dia is generated but just dia is not). 

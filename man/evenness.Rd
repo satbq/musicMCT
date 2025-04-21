@@ -31,10 +31,10 @@ between calculations done with the same value for \code{edo}.
 }
 \examples{
 evenness(c(0, 4, 8))
-evenness(c(0, 4, 7)) < evenness(c(0,1,2))
+evenness(c(0, 4, 7)) < evenness(c(0, 1, 2))
 
-dim_triad <- c(0,3,6)
-sus_2 <- c(0,2,7)
+dim_triad <- c(0, 3, 6)
+sus_2 <- c(0, 2, 7)
 coord_to_edo(dim_triad)
 coord_to_edo(sus_2)
 evenness(dim_triad) == evenness(sus_2)

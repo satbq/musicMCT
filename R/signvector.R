@@ -13,8 +13,8 @@
 #'   number of hyperplanes in `ineqmat`.
 #' @examples
 #' # 037 and 016 have identical sign vectors because they belong to the same trichordal color
-#' signvector(c(0,3,7))
-#' signvector(c(0,1,6))
+#' signvector(c(0, 3, 7))
+#' signvector(c(0, 1, 6))
 #'
 #' # Just and equal-tempered diatonic scales have different sign vectors because they have 
 #' # different internal structures (e.g. 12edo dia is generated but just dia is not). 
@@ -32,7 +32,7 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   set <- c(set, edo)
   res <- ineqmat %*% set
   res <- sign(round(res, digits=rounder))
-  return(as.vector(res))
+  as.vector(res)
 }
 
 #' Which interval-comparison equalities does a scale satisfy?
@@ -62,15 +62,15 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #'   for `whichsvzeroes`
 #' @examples
 #' # Sort 12edo heptachords by how many sign vector zeroes they have (from high to low)
-#' heptas12 <- unique(apply(utils::combn(12,7),2,primeform),MARGIN=2)
+#' heptas12 <- unique(apply(utils::combn(12, 7), 2, primeform), MARGIN=2)
 #' heptas12_svzeroes <- apply(heptas12, 2, countsvzeroes)
 #' colnames(heptas12) <- apply(heptas12, 2, fortenum)
-#' heptas12[,order(heptas12_svzeroes, decreasing=TRUE)]
+#' heptas12[, order(heptas12_svzeroes, decreasing=TRUE)]
 #'
 #' # Multiple hexachords on the same flat but of different colors
-#' hex1 <- c(0,2,4,5,7,9)
-#' hex2 <- convert(c(0,1,2,4,5,6),9,12)
-#' hex3 <- convert(c(0,3,6,8,11,14),15,12)
+#' hex1 <- c(0, 2, 4, 5, 7, 9)
+#' hex2 <- convert(c(0, 1, 2, 4, 5, 6), 9, 12)
+#' hex3 <- convert(c(0, 3, 6, 8, 11, 14), 15, 12)
 #' hex_words <- rbind(asword(hex1), asword(hex2), asword(hex3))
 #' rownames(hex_words) <- c("hex1", "hex2", "hex3")
 #' c(colornum(hex1), colornum(hex2), colornum(hex3))
@@ -82,14 +82,14 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #' @export
 whichsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   signvec <- signvector(set, ineqmat, edo, rounder)
-  return(which(signvec == 0))
+  which(signvec == 0)
 }
 
 #' @rdname whichsvzeroes
 #' @export
 countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   signveczeroes <- whichsvzeroes(set, ineqmat, edo, rounder)
-  return(length(signveczeroes))
+  length(signveczeroes)
 }
 
 #' Distinguish different types of interval equalities
@@ -107,8 +107,8 @@ countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #'   number of hyperplanes which compare a formal tritone to itself.
 #' @examples
 #' # Two hexachords on the same number of hyperplanes but with different fingerprints
-#' hex1 <- c(0,1,3,5,8,9)
-#' hex2 <- c(0,1,3,5,6,9)
+#' hex1 <- c(0, 1, 3, 5, 8, 9)
+#' hex2 <- c(0, 1, 3, 5, 6, 9)
 #' countsvzeroes(hex1) == countsvzeroes(hex2)
 #' svzero_fingerprint(hex1)
 #' svzero_fingerprint(hex2)
@@ -135,5 +135,5 @@ svzero_fingerprint <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   anchored_count <- countsvzeroes(set, ineqmat=anchored_ineqmat, edo=edo, rounder=rounder)
   reflexive_tritone_count <- countsvzeroes(set, ineqmat=reflexive_tritone_ineqmat, edo=edo, rounder=rounder)
 
-  return(c(general_count, anchored_count, reflexive_tritone_count))
+  c(general_count, anchored_count, reflexive_tritone_count)
 }

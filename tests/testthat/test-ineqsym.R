@@ -1,5 +1,6 @@
 test_that("ineqsym works", {
   expect_equal(ineqsym(c(0, 2, 4, 6)), c(0, 2, 4, 6))
+  expect_error(ineqsym(c(0, 3, 7), a=0))
   expect_error(ineqsym(c(0, 2, 4, 6), a=2))
   expect_equal(ineqsym(c(0, 2, 4, 6), a=3), c(0, 0, 4, 8))
   expect_equal(ineqsym(c(0, 3, 6), 2), c(0, 2, 7))
