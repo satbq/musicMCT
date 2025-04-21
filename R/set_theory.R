@@ -312,6 +312,7 @@ ivec <- function(set, edo=12) {
 #' scale in some mod k context, of course).
 #'
 #' @inheritParams tnprime
+#' @inheritParams cover
 #' @returns Numeric vector representing a set class of length `edo - n` where `n` is
 #'   the length of the input `set`
 #' @examples
@@ -321,7 +322,16 @@ ivec <- function(set, edo=12) {
 #' rownames(icvecs_19) <- c("diatonic ivec", "chromatic ivec")
 #' icvecs_19
 #' @export
-sc_comp <- function(set,edo=12) primeform(setdiff(0:(edo-1),set),edo)
+sc_comp <- function(set, canon=c("tni", "tn"), edo=12, rounder=10) {
+  canon <- match.arg(canon)
+  normalform <- function(x, edo, rounder) {
+    switch(canon,
+           tni = primeform(x, edo=edo, rounder=rounder),
+           tn = tnprime(x, edo=edo, rounder=rounder))
+  }
+
+  normalform(setdiff(0:(edo-1), set), edo=edo, rounder=rounder)
+}
 
 #' Transpositional combination & pitch multiplication
 #'

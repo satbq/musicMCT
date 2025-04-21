@@ -42,3 +42,25 @@ test_that("ifunc edo param works", {
 
   expect_equal(ifunc(c(0, 4, 8), edo=13), expected_ifunc)
 })
+
+test_that("emb works", {
+  expect_equal(emb(c(0, 4, 7), c(0, 2, 4, 5, 7, 9, 11), canon="tn"), 3)
+  expect_equal(emb(c(0, 4, 7), c(0, 2, 4, 5, 7, 9, 11), canon="tni"), 6)
+  expect_equal(emb(c(2, 6, 9), c(0, 3, 6, 7), canon="tni"), 1)
+  expect_equal(emb(c(0, 3, 7), c(0, 0.1, 4, 4.1, 7, 7.1), canon="tni"), 2)
+  expect_equal(emb(c(0, 3, 7), c(0, 0.1, 4, 4.1, 7, 7.1), canon="tn"), 0)
+
+  expect_equal(emb(c(0, 6, 10), c(0, 1, 4, 7, 8, 11, 14), edo=17), 6)
+
+  expect_equal(emb(0, c(0,2,4,7,9)), 5)
+  expect_equal(emb(integer(0), c(0,2,4,7,9)), 0)
+  expect_true(is.null(emb(NULL, c(0, 3, 7))))
+  expect_true(is.null(emb(c(0, 3, 7), NULL)))
+})
+
+test_that("cover works", {
+  expect_equal(cover(c(0, 4, 7), c(0, 2, 3, 5, 7, 8, 11), canon="tn"), 2)
+  expect_equal(cover(c(0, 4, 8), c(0, 2, 3, 5, 7, 9, 11)), 3)
+  expect_equal(cover(c(0, 4), c(0, 4, 8)), 1)
+  expect_equal(cover(c(0, 5), c(0, 5, 10), edo=15), 1)
+})

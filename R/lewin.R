@@ -78,3 +78,89 @@ ifunc <- function(x,
 
   res    
 }
+
+#' How many instances of a subset-type exist within a scale? How many scales embed a subset?
+#'
+#' David Lewin's EMB and COV functions: see Lewin, *Generalized Musical Intervals and Transformations* 
+#' (New Haven, CT: Yale University Press, 1987), 105-120. For EMB, given a group ("CANON") of transformations 
+#' which are considered to preserve a set's type, find the number of instances of that type in a larger 
+#' set (`scale`). Lewin characterizes this generally, but `emb()` only offers \eqn{T_n} and \eqn{T_n / T_nI}
+#' transformation groups as available canonical groups. Conversely, Lewin's COV function asks how
+#' many instances of a `scale` type include `subset`: `cover()` answers this but (unlike `emb()`)
+#' is restricted to some equal division of the octave.
+#'
+#' @inheritParams tnprime
+#' @param subset Numeric vector of pitch-classes in any representative of the subset type
+#'   (Lewin's X)
+#' @param scale Numeric vector of pitch-classes in the larger set to embed into
+#'   (Lewin's Y)
+#' @param canon What transformations should be considered equivalent? Defaults to "tni" (giving
+#'   standard set classes) but can be "tn" (giving transposition classes)
+#'
+#' @returns Integer: count of `subset` or `scale` types satisfying the desired relation.
+#'
+#' @examples
+#' emb(c(0, 4, 7), sc(7, 35))
+#' emb(c(0, 4, 7), sc(7, 35), canon="tn")
+#'
+#' # Works for continuous pc-space too:
+#' emb(j(1, 3, 5), j(dia))
+#' emb(j(1, 2, 3, 5, 6), j(dia))
+#' emb(j(1, 2, 4, 5, 6), j(dia), canon="tn")
+#'
+#' emb(c(0, 4, 7), c(0, 1, 3, 7))
+#' emb(c(0, 4, 7), c(0, 1, 3, 7), canon="tn")
+#'
+#' cover(c(0, 4, 8), sc(7, 34))
+#'
+#' @export
+emb <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
+  if (is.null(subset) || is.null(scale)) {
+    return(NULL)
+  }
+
+  xcard <- length(subset)
+  ycard <- length(scale)
+
+  if (xcard == 0) {
+    return(0)
+  }
+  if (xcard == 1) {
+    return(length(scale))
+  }
+
+  canon <- match.arg(canon)
+  normalform <- function(x, edo, rounder) {
+    switch(canon,
+           tni = primeform(x, edo=edo, rounder=rounder),
+           tn = tnprime(x, edo=edo, rounder=rounder))
+  }
+
+  if (xcard >= ycard) {
+    if (isTRUE(all.equal(normalform(subset), normalform(scale)))) {
+      return(1)
+    } else {
+      return(0)
+    }
+  }
+
+  all_subsets <- utils::combn(scale, xcard)
+  xnormal <- normalform(subset, edo=edo, rounder=rounder)
+  normalized_subsets <- apply(all_subsets, 2, normalform, edo=edo, rounder=rounder)
+  match_x <- function(set) length(fpunique(cbind(set, xnormal), MARGIN=2)) == xcard
+  matches_count <- apply(normalized_subsets, 2, match_x)
+  sum(matches_count)
+}
+
+#' @rdname emb
+#' @export
+cover <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
+  bad_subset <- isFALSE(all.equal(subset, round(subset, digits=0)))  
+  bad_scale <- isFALSE(all.equal(scale, round(scale, digits=0)))
+  if (bad_subset || bad_scale) {
+    stop("cover() only works within equal-temperament settings")
+  }  
+
+  emb(sc_comp(scale, canon=canon, edo=edo), sc_comp(subset, canon=canon, edo=edo), 
+      canon=canon, edo=edo, rounder=rounder)
+}
