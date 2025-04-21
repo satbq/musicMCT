@@ -137,7 +137,8 @@ emb <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
   }
 
   if (xcard >= ycard) {
-    if (isTRUE(all.equal(normalform(subset), normalform(scale)))) {
+    if (isTRUE(all.equal(normalform(subset, edo=edo, rounder=rounder), 
+                         normalform(scale, edo=edo, rounder=rounder)))) {
       return(1)
     } else {
       return(0)
@@ -155,10 +156,10 @@ emb <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
 #' @rdname emb
 #' @export
 cover <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
-  bad_subset <- isFALSE(all.equal(subset, round(subset, digits=0)))  
-  bad_scale <- isFALSE(all.equal(scale, round(scale, digits=0)))
+  bad_subset <- !isTRUE(all.equal(subset, round(subset, digits=0)))  
+  bad_scale <- !isTRUE(all.equal(scale, round(scale, digits=0)))
   if (bad_subset || bad_scale) {
-    stop("cover() only works within equal-temperament settings")
+    stop("cover() only works in equal-temperament settings")
   }  
 
   emb(sc_comp(scale, canon=canon, edo=edo), sc_comp(subset, canon=canon, edo=edo), 
