@@ -48,7 +48,7 @@
 #'
 #' @export
 make_white_ineqmat <- function(card) {
-  index_pairs <- combn(card, 2)
+  index_pairs <- utils::combn(card, 2)
   generic_sizes <- index_pairs[2,] - index_pairs[1,]
   pairs_and_sizes <- rbind(index_pairs, generic_sizes)
 

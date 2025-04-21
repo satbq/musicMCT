@@ -6,15 +6,46 @@
 \usage{
 tndists(set, method = c("taxicab", "euclidean"), subdivide = 100, edo = 12)
 }
+\arguments{
+\item{set}{Numeric vector of pitch-classes in the set}
+
+\item{method}{What distance metric should be used? Defaults to \code{"taxicab"} but can be \code{"euclidean"}.}
+
+\item{subdivide}{Numeric: how many small amounts should each \code{edo} step be divided into? Defaults to \code{100}.}
+
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+}
+\value{
+Numeric vector of length \code{edo * subdivide} representing distances of the transpositions. Names
+indicate the transposition index that corresponds to each distance.
+}
 \description{
-One way to think about the voice-leading potential of a set is to consider all the ways
-that it can move to transpositions of itself. For instance, the major triad's closest
+One way to think about the voice-leading potential of a set is to consider the minimal voice-leadings
+by which it can move to transpositions of itself. For instance, the major triad's closest
 transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
 and potentially also \eqn{T_{\pm 2}} depending on the distance metric you use. For
 the major triad restricted to 12-tone equal temperament, this set of relationships is well
-modeled by Richard Cohn's discussion of \href{https://doi.org/10.2307/843877}{Douthett & Steinbach's}
+modeled by Richard Cohn's discussion of \href{https://www.jstor.org/stable/843877}{Douthett & Steinbach's}
 "Cube Dance" in \emph{Audacious Euphony} (102-106). The behavior of other sets is not always what you
-might expect based on the model of tertian sonorities. For instance, the trichord (027) has
+might expect extrapolating from the case of tertian sonorities. For instance, the trichord (027) has
 different minimal neighbors depending on the metric chosen: its nearest neighbors are \eqn{T_{\pm 4}}
 under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
+
+This function allows us to visualize such relationships by plotting the minimal voice leading
+distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
+a continuous version of \code{\link[=VL_rolodex]{VL_rolodex()}} except that it visualizes a voice-leading distance rather than
+reporting the specific motions of the set's individual voices.) The main intended use of the function
+is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of
+each \code{edo} step divided into \code{subdivide} amounts) on the x axis and voice-leading distance on the y
+axis. Secondarily, \code{tndists()} invisibly returns the distance values that it plots, named
+according to the \eqn{T_n} they correspond to.
+}
+\examples{
+major_triad <- c(0, 4, 7)
+taxicab_dists <- tndists(major_triad)
+euclidean_dists <- tndists(major_triad, method="euclidean")
+tns_to_display <- c("1.9", "1.92", "1.95", "2", "2.05", "2.08", "2.1")
+taxicab_dists[tns_to_display]
+euclidean_dists[tns_to_display]
+
 }

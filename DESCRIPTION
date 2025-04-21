@@ -14,7 +14,8 @@ LazyData: true
 Imports: 
     igraph,
     utils,
-    stats
+    stats,
+    graphics
 Suggests: 
     knitr,
     rmarkdown,

@@ -127,23 +127,42 @@ get_vl_dists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, e
 #' Distances between continuous transpositions of a set
 #'
 #' @description
-#' One way to think about the voice-leading potential of a set is to consider all the ways
-#' that it can move to transpositions of itself. For instance, the major triad's closest 
+#' One way to think about the voice-leading potential of a set is to consider the minimal voice-leadings
+#' by which it can move to transpositions of itself. For instance, the major triad's closest 
 #' transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
 #' and potentially also \eqn{T_{\pm 2}} depending on the distance metric you use. For 
 #' the major triad restricted to 12-tone equal temperament, this set of relationships is well
-#' modeled by Richard Cohn's discussion of [Douthett & Steinbach's](https://doi.org/10.2307/843877)
+#' modeled by Richard Cohn's discussion of [Douthett & Steinbach's](https://www.jstor.org/stable/843877)
 #' "Cube Dance" in *Audacious Euphony* (102-106). The behavior of other sets is not always what you
-#' might expect based on the model of tertian sonorities. For instance, the trichord (027) has
+#' might expect extrapolating from the case of tertian sonorities. For instance, the trichord (027) has
 #' different minimal neighbors depending on the metric chosen: its nearest neighbors are \eqn{T_{\pm 4}}
 #' under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
 #'
 #' This function allows us to visualize such relationships by plotting the minimal voice leading
-#' distance from a set to all of its transpositions in continuous pc-space. (In spirit, it is like
+#' distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
 #' a continuous version of [VL_rolodex()] except that it visualizes a voice-leading distance rather than
 #' reporting the specific motions of the set's individual voices.) The main intended use of the function
-#' is  
+#' is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of 
+#' each `edo` step divided into `subdivide` amounts) on the x axis and voice-leading distance on the y
+#' axis. Secondarily, `tndists()` invisibly returns the distance values that it plots, named 
+#' according to the \eqn{T_n} they correspond to.
+#'
+#' @inheritParams tnprime
+#' @inheritParams minimizeVL
+#' @param subdivide Numeric: how many small amounts should each `edo` step be divided into? Defaults to `100`.
+#'
+#' @returns Numeric vector of length `edo * subdivide` representing distances of the transpositions. Names
+#'   indicate the transposition index that corresponds to each distance.
+#'
+#' @examples
+#' major_triad <- c(0, 4, 7)
+#' taxicab_dists <- tndists(major_triad)
+#' euclidean_dists <- tndists(major_triad, method="euclidean")
+#' tns_to_display <- c("1.9", "1.92", "1.95", "2", "2.05", "2.08", "2.1")
+#' taxicab_dists[tns_to_display]
+#' euclidean_dists[tns_to_display]
 #' 
+#' @export
 tndists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12) {
   method <- match.arg(method)
   method_title <- paste0(toupper(substr(method, 1, 1)),
@@ -156,18 +175,49 @@ tndists <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12
   plot(tn_levels, all_dists, type="l", lwd=4, ljoin=2,
        xlab = paste0("Transposition relative to ", edo, "-equal temperament"), xaxs="i",
        ylab = "Voice-leading distance")
-  mtext(side=3, 
+  graphics::mtext(side=3, 
         paste(method_title, "distances from", 
               deparse(substitute(set)), "to its transpositions"),
         font=2, line=1)
-  grid(nx=edo, ny=NA, lty="dashed")
-  grid(nx=NA, ny=NULL, lty="dotted")
+  graphics::grid(nx=edo, ny=NA, lty="dashed")
+  graphics::grid(nx=NA, ny=NULL, lty="dotted")
 
   names(all_dists) <- tn_levels
   invisible(all_dists)
 }
 
-tn_inflections <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12, rounder=10) {
+#' Voice-leading inflection points
+#'
+#' When considering an n-note set's potential voice leadings to transpositions of itself (along the lines 
+#' of [VL_rolodex()] and [tndists()]), there will always be some transposition in continuous pc-space
+#' for which any given modal rotation is the best potential target for voice leading. (That is, there is
+#' always some `x` such that `whichmodebest(set, tn(set, x)) == k` for any `k` between `1` and `n`.)
+#' Moreover, there will always be a transposition level at the boundary between two different ideal modes,
+#' where both modes require the same amount of voice leading work. `flex_points()` identifies those
+#' inflection points where one mode gives way to another. (Note: `flex_points()` identifies these points
+#' by numerical approximation, so it may not give exact values. For more precision, increase the value
+#' of `subdivide`.)
+#'
+#' @inheritParams tndists
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector of the transposition indices that are inflection points. Length of result 
+#'   matches size of `set`, except in the case of some multisets, which can have fewer inflection points.
+#'
+#' @examples
+#' major_triad_12tet <- c(0, 4, 7)
+#' major_triad_just <- 12 * log2(c(1, 5/4, 3/2))
+#' major_triad_19tet <- c(0, 6, 11)
+#'
+#' flex_points(major_triad_12tet, method="euclidean", subdivide=1000)
+#' flex_points(major_triad_just, method="euclidean", subdivide=1000)
+#' 
+#' # Note that the units of measurement correspond to edo.
+#' # The value 3.16 here corresponds to exactly 1/6 of an octave.
+#' flex_points(major_triad_19tet, edo=19)
+#'
+#' @export
+flex_points <- function(set, method=c("taxicab", "euclidean"), subdivide=100, edo=12, rounder=10) {
   all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo)
   second_derivative <- round(diff(all_dists, differences=2), digits=rounder)
   inflection_points <- which(second_derivative < 0)
