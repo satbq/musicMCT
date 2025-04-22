@@ -89,3 +89,92 @@ quantize_color <- function(set, nmax=12, reconvert=FALSE, ineqmat=NULL, edo=12, 
   try_scale_from_word(signvec=signvec, word=word, 
                       nmax=nmax, reconvert=reconvert, ineqmat=ineqmat, edo=edo, rounder=rounder)
 }
+
+ineq_from_sdpair <- function(vec, central_set) {
+  ineq <- rep(0, length(central_set)+1)
+  ineq[vec[1]] <- -central_set[vec[2]]
+  ineq[vec[2]] <- central_set[vec[1]]
+  ineq
+}
+
+#' Find a scale mod k that matches a given hue
+#'
+#' Given any scale, attempts to find a scale defined as integers mod k
+#' which belongs to the same hue as the input (i.e. would return `TRUE`
+#' when [same_hue()] is applied). This function thus is similar in spirit to
+#' [quantize_color()] but seeks a more precise structural match between
+#' input and quantization. Note, though, that while [quantize_color()] should always
+#' be able to find a suitable quantization (if `nmax` is set high enough),
+#' this is not necessarily true for `quantize_hue()`. There are lines in 
+#' \eqn{\mathbb{R}^n} which pass through no rational points, so some hues
+#' (including ones of musical interest like the 5-limit just diatonic scale)
+#' may not have any quantization.
+#'
+#' @inheritParams quantize_color
+#'
+#' @returns If `reconvert=FALSE`, a list of two elements: element 1 is `set` with a vector of integers
+#'   representing the quantized scale; element 2 is `edo` representing the number k of unit steps in the
+#'   mod k universe. If `reconvert=TRUE`, returns a single numeric vector measured relative
+#'   to the unit step size input as `edo`: these generally will not be integers. May also return a vector
+#'   of `NA`s the same length as `set` if no suitable quantization was found beneath the limit given by
+#'   `nmax`.
+#'
+#' @examples
+#' meantone_diatonic <- sort(((0:6)*meantone_fifth())%%12)
+#' quantize_hue(meantone_diatonic) # Passes
+#' quantize_hue(j(dia), nmax=15) # Fails no matter how high you set nmax.
+#'
+#' quasi_guido <- convert(c(0, 2, 4, 5, 7, 9), 13, 12)
+#' quantize_color(quasi_guido)
+#' quantize_hue(quasi_guido)
+#'
+#' @export
+quantize_hue <- function(set, 
+                         nmax=12, 
+                         reconvert=FALSE, 
+                         edo=12, 
+                         rounder=10) {
+  card <- length(set)
+  tiny <- 10^(-1 * rounder)
+  central_set <- coord_to_edo(set, edo=edo)
+
+  white_sds <- which(abs(central_set) < tiny)
+  colorful_sds <- setdiff(1:length(set), white_sds)
+  use_white <- use_colorful <- FALSE
+  if (length(white_sds) > 1) use_white <- TRUE
+  if (length(colorful_sds) > 1) use_colorful <- TRUE
+
+  hue_ineqmat <- matrix(rep(0,card+1), nrow=1)
+
+  if (use_white) {
+    whole_white_ineqmat <- make_white_ineqmat(card)
+    white_svzeroes <- whichsvzeroes(set, ineqmat=whole_white_ineqmat, edo=edo, rounder=rounder)
+    white_ineqmat <- whole_white_ineqmat[white_svzeroes,]
+    hue_ineqmat <- rbind(hue_ineqmat, white_ineqmat)
+  }
+
+  if (use_colorful) {
+    sd_pairs <- utils::combn(colorful_sds, 2)
+    colorful_ineqmat <- t(apply(sd_pairs, 2, ineq_from_sdpair, central_set=central_set))
+    
+    origin <- c(edoo(card, edo=edo), edo)
+    offsets <- colorful_ineqmat %*% origin 
+    offsets <- (-1 * offsets) / edo
+    colorful_ineqmat[, card+1] <- offsets
+
+    hue_ineqmat <- rbind(hue_ineqmat, colorful_ineqmat)
+  }
+  
+  hue_ineqmat <- hue_ineqmat[-1,]
+  signvec <- signvector(set, ineqmat=hue_ineqmat, edo=edo, rounder=rounder)
+  word <- asword(set, edo=edo, rounder=rounder)
+
+  try_scale_from_word(signvec=signvec, 
+                      word=word, 
+                      nmax=nmax, 
+                      reconvert=reconvert, 
+                      ineqmat=hue_ineqmat, 
+                      edo=edo, 
+                      rounder=rounder
+  )
+}

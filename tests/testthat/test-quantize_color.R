@@ -28,3 +28,16 @@ test_that("quantize_color accepts alternate ineqmats", {
   expect_equal(quantize_color(c(0,3,4,8))$set, c(0,2,3,6))
   expect_equal(quantize_color(c(0,3,4,8),ineqmat=novel_ineqmat)$set, c(0,3,4,8))
 })
+
+test_that("quantize_hue works", {
+  triad_in_6 <- list(set=c(0,2,3), edo=6)
+  expect_equal(quantize_hue(c(0, 4, 7)), triad_in_6)
+  expect_equal(quantize_hue(c(0, 2, 3, 7), reconvert=TRUE), c(0, 2, 3, 7))
+  expect_equal(quantize_hue(c(0, 4, 5, 10), reconvert=TRUE, edo=16),
+               c(0, 4, 5, 10))
+
+  pyth_dia <- sort((12*log2(1.5)*(0:6))%%12)
+  just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+  expect_equal(quantize_hue(pyth_dia)$"set", c(0, 2, 4, 6, 7, 9, 11))
+  expect_equal(sum(is.na(quantize_hue(just_dia))), 7)
+})

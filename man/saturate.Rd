@@ -23,20 +23,16 @@ If r < 0, the result is an "involution" of the set.}
 same length as set).
 }
 \description{
-The central concepts in the visual conceit of "Modal Color Theory,"
-classifying scales at different levels of granularity according to their
-voice-leading properties. See "Modal Color Theory," 19-23.
-
 Saturation parameterizes scale structures along a single degree of freedom
 which corresponds to size of the vector from the "white" perfectly even
-scale to the set in question. Variation in a scale's saturation minimally
-affects the scale's structural properties. The function \code{saturate} takes
+scale to the scale in question. Variation in a scale's saturation minimally
+affects its structural properties. The function \code{saturate()} takes
 in a scale and a saturation parameter (\code{r}) and returns another scale
 along the same line (i.e. including the scale's hue and its scalar
 involution--see "Modal Color Theory," 32).
 }
 \examples{
-lydian <- c(0,2,4,6,7,9,11)
+lydian <- c(0, 2, 4, 6, 7, 9, 11)
 qcm_fifth <- meantone_fifth()
 qcm_dia <- sort(((0:6)*qcm_fifth)\%\%12)
 evenness_ratio <- evenness(qcm_dia) / evenness(lydian)
@@ -44,7 +40,7 @@ desaturated_lydian <- saturate(evenness_ratio, lydian)
 desaturated_lydian
 qcm_dia
 
-ionian <- c(0,2,4,5,7,9,11)
+ionian <- c(0, 2, 4, 5, 7, 9, 11)
 involution_of_ionian <- saturate(-2, ionian)
 convert(involution_of_ionian, 12, 42)
 asword(ionian)
