@@ -106,7 +106,7 @@ ineq_from_sdpair <- function(vec, central_set) {
 #' input and quantization. Note, though, that while [quantize_color()] should always
 #' be able to find a suitable quantization (if `nmax` is set high enough),
 #' this is not necessarily true for `quantize_hue()`. There are lines in 
-#' \eqn{\mathbb{R}^n} which pass through no rational points, so some hues
+#' \eqn{\mathbb{R}^n} which pass through no rational points but the origin, so some hues
 #' (including ones of musical interest like the 5-limit just diatonic scale)
 #' may not have any quantization.
 #'
@@ -121,7 +121,7 @@ ineq_from_sdpair <- function(vec, central_set) {
 #'
 #' @examples
 #' meantone_diatonic <- sort(((0:6)*meantone_fifth())%%12)
-#' quantize_hue(meantone_diatonic) # Passes
+#' quantize_hue(meantone_diatonic) # Succeeds
 #' quantize_hue(j(dia), nmax=15) # Fails no matter how high you set nmax.
 #'
 #' quasi_guido <- convert(c(0, 2, 4, 5, 7, 9), 13, 12)

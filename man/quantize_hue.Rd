@@ -37,13 +37,13 @@ when \code{\link[=same_hue]{same_hue()}} is applied). This function thus is simi
 input and quantization. Note, though, that while \code{\link[=quantize_color]{quantize_color()}} should always
 be able to find a suitable quantization (if \code{nmax} is set high enough),
 this is not necessarily true for \code{quantize_hue()}. There are lines in
-\eqn{\mathbb{R}^n} which pass through no rational points, so some hues
+\eqn{\mathbb{R}^n} which pass through no rational points but the origin, so some hues
 (including ones of musical interest like the 5-limit just diatonic scale)
 may not have any quantization.
 }
 \examples{
 meantone_diatonic <- sort(((0:6)*meantone_fifth())\%\%12)
-quantize_hue(meantone_diatonic) # Passes
+quantize_hue(meantone_diatonic) # Succeeds
 quantize_hue(j(dia), nmax=15) # Fails no matter how high you set nmax.
 
 quasi_guido <- convert(c(0, 2, 4, 5, 7, 9), 13, 12)

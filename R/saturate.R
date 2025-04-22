@@ -65,7 +65,11 @@ saturate <- function(r, set, edo=12) {
 #' set39 <- convert(set39, 39, 12)
 #' set53 <- convert(set53, 53, 12)
 #' same_hue(set39, set53)
-#'
+#' # Since they have the same hue, we can resaturate one to become the other:
+#' relative_evenness <- evenness(set53)/evenness(set39)
+#' set53
+#' saturate(relative_evenness, set39)
+#' 
 #' # These two hexachords belong to the same quasi-pairwise well formed 
 #' # color (see "Modal Color Theory," p. 37), but not to the same hue: 
 #' guidonian_1 <- c(0, 2, 4, 5, 7, 9)

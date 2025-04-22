@@ -29,7 +29,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
   for (i in 1:card) {
     reduced_comparisons[i, get_neighbors(i)] <- 1
   }
-  return(reduced_comparisons)
+  reduced_comparisons
 }
 
 #' Visualize brightness relationships among modes of a scale
