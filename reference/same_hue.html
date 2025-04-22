@@ -93,6 +93,12 @@ related by "involution."</p>
 <span class="r-in"><span><span class="va">set53</span> <span class="op">&lt;-</span> <span class="fu"><a href="convert.html">convert</a></span><span class="op">(</span><span class="va">set53</span>, <span class="fl">53</span>, <span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">same_hue</span><span class="op">(</span><span class="va">set39</span>, <span class="va">set53</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="co"># Since they have the same hue, we can resaturate one to become the other:</span></span></span>
+<span class="r-in"><span><span class="va">relative_evenness</span> <span class="op">&lt;-</span> <span class="fu"><a href="evenness.html">evenness</a></span><span class="op">(</span><span class="va">set53</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="evenness.html">evenness</a></span><span class="op">(</span><span class="va">set39</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">set53</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000 1.584906 2.943396 3.622642 4.981132 5.886792 7.471698</span>
+<span class="r-in"><span><span class="fu"><a href="saturate.html">saturate</a></span><span class="op">(</span><span class="va">relative_evenness</span>, <span class="va">set39</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.000000 1.584906 2.943396 3.622642 4.981132 5.886792 7.471698</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># These two hexachords belong to the same quasi-pairwise well formed </span></span></span>
 <span class="r-in"><span><span class="co"># color (see "Modal Color Theory," p. 37), but not to the same hue: </span></span></span>
