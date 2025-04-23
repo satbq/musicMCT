@@ -28,3 +28,16 @@ test_that("palette works", {
 
   expect_equal(scale_palette(c(0, 4, 8)), matrix(c(0, 4, 8), ncol=1))
 })
+
+test_that("primary_hue works", {
+  expect_equal(primary_hue(c(0, 5, 9)), c(0, 3, 7))
+  expect_equal(primary_hue(c(0, 5, 9), type="modes"), c(0, 3, 8))
+
+  sc723 <- c(0, 2, 3, 4, 5, 7, 9)
+  half_primary <- c(0, 1, 9, 31, 46, 47, 62)/7
+  expect_equal(primary_hue(sc723, type="half"), half_primary)
+  expect_equal(primary_hue(sc723, type="modes"), c(0, 1, 3, 5, 8, 10, 11))
+
+  expect_equal(primary_hue(c(0, 6)), c(0, 6))
+  expect_equal(primary_hue(c(0, 4, 8)), c(0, 4, 8))
+})

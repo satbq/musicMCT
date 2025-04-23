@@ -54,3 +54,30 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
   all_colors[, -duplicated_svs]
 }
 
+
+primary_hue <- function(set, 
+                        type=c("all", "half_palette", "modes"), 
+                        ineqmat=NULL,
+                        edo=12,
+                        rounder=10) {
+  card <- length(set)
+  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+
+  type <- match.arg(type)
+  colors_to_try <- switch(type,
+                          modes = sim(set, edo=edo),
+                          half_palette = scale_palette(set, 
+                                                       include_involution=FALSE, 
+                                                       edo=edo,
+                                                       rounder=rounder),
+                          all = scale_palette(set, edo=edo, rounder=rounder))
+  signvecs <- apply(colors_to_try, 2, signvector, ineqmat=ineqmat, edo=edo, rounder=rounder)
+
+  if (!inherits(signvecs, "matrix")) {
+    return(as.numeric(colors_to_try))
+  }
+
+  string_svs <- apply(signvecs, 2, toString)
+
+  colors_to_try[, order(string_svs)[1]]
+}
