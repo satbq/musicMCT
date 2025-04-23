@@ -12,8 +12,8 @@ test_that("vl_rolodex handles ties correctly", {
   expect_equal(vl_rolodex(c(0, 3, 6))$"6",
                tie_matrix)
 
-  expect_true("matrix" %in% class(vl_rolodex(c(0, 3, 6))$"6"))
-  expect_false("matrix" %in% class(vl_rolodex(c(0, 3, 6), no_ties=TRUE)$"6"))
+  expect_true(inherits(vl_rolodex(c(0, 3, 6))$"6", "matrix"))
+  expect_false(inherits(vl_rolodex(c(0, 3, 6), no_ties=TRUE)$"6", "matrix"))
 })
 
 test_that("vl_rolodex method param works", {

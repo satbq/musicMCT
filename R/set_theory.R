@@ -63,7 +63,7 @@ compactest_mode <- function(modes, rounder=10) {
   card <- nrow(modes)
 
   for (i in card:1) {
-    if ("numeric" %in% class(modes)) {
+    if (inherits(modes, "numeric")) {
       return(modes)
     }
 
@@ -166,7 +166,9 @@ tn <- function(set, n, edo=12, sorted=TRUE) {
 #' @export
 tni <- function(set, n, edo=12, sorted=TRUE) {
   res <- ((n%%edo) - (set%%edo)) %% edo
-  if (sorted == FALSE) { return(res) }
+  if (sorted == FALSE) { 
+    return(res) 
+  }
   sort(res)
 }
 
@@ -256,7 +258,7 @@ isym <- function(set, edo=12, rounder=10) {
 
   for (i in 1:card) {
     invmode <- rotate(invsetword, i)
-    if ( isTRUE(all.equal(setword, invmode)) ) { 
+    if (isTRUE(all.equal(setword, invmode))) { 
       return(TRUE)
      }
   }

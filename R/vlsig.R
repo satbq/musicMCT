@@ -1,5 +1,5 @@
 insist_matrix <- function(x) {
-  if (!("matrix" %in% class(x))) x <- as.matrix(x)
+  if (!(inherits(x, "matrix"))) x <- as.matrix(x)
   x
 }
 
@@ -85,7 +85,7 @@ vl_generators <- function(set,
 
 #' Elementary voice leadings
 #'
-#' Calculates the "voice leading signature" of the set's elementary transpositions
+#' Calculates the "**v**oice-**l**eading **sig**nature" of the set's elementary transpositions
 #' as determined by [vl_generators()]. 
 #'
 #' Note that the voice leadings determined by `vlsig()` can be different from the
@@ -107,7 +107,8 @@ vl_generators <- function(set,
 #'   * "rotation" which indicates the scalar transposition caused by the voice leading
 #'
 #' @examples
-#' vlsig(sc(7, 35)) # Hook's elementary signature transformation
+#' major_scale <- c(0, 2, 4, 5, 7, 9, 11)
+#' vlsig(major_scale) # Hook's elementary signature transformation
 #'
 #' pure_major_triad <- j(1, 3, 5)
 #' vlsig(pure_major_triad, index=1)

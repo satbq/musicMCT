@@ -39,7 +39,7 @@ List with three elements:
 }
 }
 \description{
-Calculates the "voice leading signature" of the set's elementary transpositions
+Calculates the "\strong{v}oice-\strong{l}eading \strong{sig}nature" of the set's elementary transpositions
 as determined by \code{\link[=vl_generators]{vl_generators()}}.
 }
 \details{
@@ -51,7 +51,8 @@ leadings derived from a set's \code{\link[=brightnessgraph]{brightnessgraph()}}.
 and involve no contrary motion. See the \code{odd_pentachord} voice leadings in the Examples.
 }
 \examples{
-vlsig(sc(7, 35)) # Hook's elementary signature transformation
+major_scale <- c(0, 2, 4, 5, 7, 9, 11)
+vlsig(major_scale) # Hook's elementary signature transformation
 
 pure_major_triad <- j(1, 3, 5)
 vlsig(pure_major_triad, index=1)

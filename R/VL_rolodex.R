@@ -43,7 +43,7 @@ vl_rolodex <- function(source,
   method <- match.arg(method)
 
   res <- apply(goals, 2, minimize_vl, source=source, method=method, edo=edo, no_ties=no_ties)
-  if ("matrix" %in% class(res)) { 
+  if (inherits(res, "matrix")) { 
     res <- as.list(as.data.frame(res)) 
   }
   names(res) <- 1:edo
@@ -52,7 +52,7 @@ vl_rolodex <- function(source,
   if (reorder == TRUE) {
     index <- rep(NA,edo)
     for (i in 1:edo) {
-      if ("matrix" %in% class(res[[i]])) {
+      if (inherits(res[[i]], "matrix")) {
         index[i] <- apply(res[[i]], 1, dist_func, method=method, rounder=rounder)[1]
       } else {
         index[i] <- dist_func(res[[i]], method=method, rounder=rounder)

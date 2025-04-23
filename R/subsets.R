@@ -41,7 +41,7 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
     return(list(fpunique(modes[2,], rounder=rounder))) 
   }
   uniques <- apply(modes[2:card,], 1, fpunique, rounder=rounder)
-  if ("matrix" %in% class(uniques)) {
+  if (inherits(uniques, "matrix")) {
     uniques <- as.list(as.data.frame(uniques))
     names(uniques) <- NULL
   }
@@ -138,14 +138,14 @@ subsetspectrum <- function(set, subsetcard, simplify=TRUE, mode="tn", edo=12, ro
 
   if (simplify == TRUE) {
     comb <- fpunique(apply(comb, 2, use, edo=card), MARGIN=2, rounder=rounder)
-    if (!("matrix" %in% class(comb))) {
+    if (!(inherits(comb, "matrix"))) {
       comb <- as.matrix(comb)
     }
   }
 
   res <- apply(comb, 2, subset_varieties, set=set, edo=edo, rounder=rounder)
 
-  if ("matrix" %in% class(res)) {
+  if (inherits(res, "matrix")) {
     res <- as.list(as.data.frame(res))
 
     for (i in 1:length(res) ) {
@@ -182,7 +182,7 @@ subset_multiplicities <- function(subsetdegrees, set, edo=12, rounder=10, displa
   all_subsets <- subset_varieties(subsetdegrees=subsetdegrees, set=set, unique=FALSE, edo=edo, rounder=rounder)
   unique_subsets <- fpunique(all_subsets, rounder=rounder, MARGIN=2)
 
-  single_variety <- !("matrix" %in% class(unique_subsets))
+  single_variety <- !(inherits(unique_subsets, "matrix"))
   if (single_variety) {
     res <- length(set)
     names(res) <- toString(round(unique_subsets, digits=display_digits))
