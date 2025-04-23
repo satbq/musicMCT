@@ -49,21 +49,13 @@ VL_rolodex <- function(source,
   names(res) <- 1:edo
   names(res)[edo] <- 0
 
-  dist_func <- function(x) {
-    switch(method,
-           taxicab = sum(abs(x)),
-           euclidean = sqrt(sum(x^2)),
-           chebyshev = max(abs(x)),
-           hamming = sum(abs(x) > tiny))
-  }
-
   if (reorder == TRUE) {
     index <- rep(NA,edo)
     for (i in 1:edo) {
       if ("matrix" %in% class(res[[i]])) {
-        index[i] <- apply(res[[i]], 1, dist_func)[1]
+        index[i] <- apply(res[[i]], 1, dist_func, method=method, rounder=rounder)[1]
       } else {
-        index[i] <- dist_func(res[[i]])
+        index[i] <- dist_func(res[[i]], method=method, rounder=rounder)
       }
     }
     res <- res[order(index)]

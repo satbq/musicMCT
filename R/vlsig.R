@@ -40,6 +40,7 @@ vl_generators <- function(set,
                           method=c("taxicab", "euclidean", "chebyshev", "hamming"),
                           edo=12,
                           rounder=10) {
+  method <- match.arg(method)
   tiny <- 10^(-1 * rounder)
   card <- length(set)
 
@@ -66,17 +67,9 @@ vl_generators <- function(set,
   
   res <- insist_matrix(res)
 
-  method <- match.arg(method)
-  dist_func <- function(x) {
-    switch(method,
-           taxicab = sum(abs(x)),
-           euclidean = sqrt(sum(x^2)),
-           chebyshev = max(abs(x)),
-           hamming = sum(abs(x) > tiny))
-  }
   measure_vl <- function(vec) {
     vl <- tn(set, vec[2], sorted=FALSE) - rotate(set, vec[1])
-    dist_func(vl)
+    dist_func(vl, method=method, rounder=rounder)
   }
 
   res <- res[,order(res[2,])]

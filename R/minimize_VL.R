@@ -3,6 +3,7 @@ crossingfree_vls <- function(source,
                              method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                              edo=12,
                              rounder=10) {
+  method <- match.arg(method)
   tiny <- 10^(-1 * rounder)
   card <- length(source)
   if (card != length(goal)) { 
@@ -14,16 +15,7 @@ crossingfree_vls <- function(source,
   voice_leadings <- modes - matrix(source, nrow=card, ncol=card, byrow=TRUE)
   voice_leadings[] <- sapply(voice_leadings, signed_interval_class, edo=edo)
 
-  method <- match.arg(method)
-  get_vl_scores <- function(vls) {
-    switch(method,
-           taxicab = rowSums(abs(vls)),
-           euclidean = sqrt(rowSums(vls^2)),
-           chebyshev = apply(apply(vls, 1, abs), 2, max),
-           hamming = rowSums(abs(vls) > tiny))
-  }
-
-  vl_scores <- get_vl_scores(voice_leadings)
+  vl_scores <- apply(voice_leadings, 1, dist_func, method=method, rounder=rounder)
   min_index <- which(vl_scores == min(vl_scores))
   
   list(vls=voice_leadings, vl_scores=vl_scores, min_index=min_index)
