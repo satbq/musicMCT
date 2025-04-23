@@ -2,7 +2,7 @@
 % Please edit documentation in R/vlsig.R
 \name{vl_generators}
 \alias{vl_generators}
-\title{Elementary voice leadings which generate a set's transpositions}
+\title{Which transpositions give elementary voice leadings?}
 \usage{
 vl_generators(
   set,

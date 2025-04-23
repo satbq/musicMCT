@@ -55,7 +55,7 @@ spectrumcount <- function(set, edo=12, rounder=10) sapply(intervalspectrum(set, 
 #' Specific varieties of scalar subsets given a generic shape
 #'
 #' Considered mod 7, the traditional triads of a diatonic scale are all instances of the generic
-#' shape (0,2,4). They come in three varieties: major, minor, and diminished. This function lists
+#' shape (0, 2, 4). They come in three varieties: major, minor, and diminished. This function lists
 #' the distinct varieties of any similarly defined generic shape which occur as subsets in some
 #' specified scale (or larger set). 
 #'

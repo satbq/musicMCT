@@ -30,3 +30,24 @@ test_that("vl_generators works", {
   expect_equal(vl_generators(maj7, method="euclidean"), maj7_mat_e)
 })
 
+
+test_that("vlsig works", {
+  major_triad <- c(0, 4, 7)
+  expect_equal(vlsig(major_triad)$"vl", c(0, 1, 2))
+  expect_equal(vlsig(major_triad)$"tn", 5)
+  expect_equal(vlsig(major_triad)$"rotation", 1)
+
+  expect_equal(vlsig(major_triad, 2)$"vl", c(1, 0, 2))
+  expect_equal(vlsig(major_triad, 2)$"tn", 9)
+  expect_equal(vlsig(major_triad, 2)$"rotation", 2)
+
+  expect_equal(vlsig(c(0, 6, 11), edo=19)$"vl", c(0, 2, 3))
+
+  gh <- c(0, 2, 4, 5, 7, 9)
+  expect_equal(vlsig(gh, 1)$"vl", c(0, 1, 1, 2, 1, 1))
+  expect_equal(vlsig(gh, 1, method="hamming")$"vl", c(0, 0, 0, 2, 2, 2))
+  expect_equal(vlsig(gh, 2, method="euclidean")$"vl", c(1, 1, 0, 1, 1, 2))
+
+  expect_error(vlsig(c(0, 2, 4, 5, 7, 9, 11), 2))
+  expect_error(vlsig(major_triad, 0))
+})
