@@ -31,7 +31,7 @@ matches size of \code{set}, except in the case of some multisets, which can have
 }
 \description{
 When considering an n-note set's potential voice leadings to transpositions of itself (along the lines
-of \code{\link[=VL_rolodex]{VL_rolodex()}} and \code{\link[=tndists]{tndists()}}), there will always be some transposition in continuous pc-space
+of \code{\link[=vl_rolodex]{vl_rolodex()}} and \code{\link[=tndists]{tndists()}}), there will always be some transposition in continuous pc-space
 for which a given modal rotation is the best potential target for voice leading. (That is, there is
 always some \code{x} such that \code{whichmodebest(set, tn(set, x)) == k} for any \code{k} between \code{1} and \code{n}.)
 Moreover, there will always be a transposition level at the boundary between two different ideal modes,

@@ -1,7 +1,7 @@
-# VL_rolodex output format as intended
+# vl_rolodex output format as intended
 
     Code
-      VL_rolodex(c(0, 2, 3, 5, 7, 9, 11))
+      vl_rolodex(c(0, 2, 3, 5, 7, 9, 11))
     Output
       $`0`
       [1] 0 0 0 0 0 0 0
@@ -45,7 +45,7 @@
 ---
 
     Code
-      VL_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
+      vl_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
     Output
       $`0`
       [1] 0 0 0 2

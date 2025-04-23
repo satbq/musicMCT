@@ -22,8 +22,7 @@ whichmodebest(
 but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{no_ties}{If multiple VLs are equally small, should only one be returned? Defaults to \code{FALSE}, which
-is generally what a human user should want. Some functions that call \code{minimize_VL} need \code{TRUE} for predictable
-shapes of the returned value.}
+is generally what an interactive user should want.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 

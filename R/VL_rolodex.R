@@ -9,7 +9,7 @@
 #' for this information, so the metaphor behind "rolodex" is that these voice leadings
 #' are the contact information that `source` has for all its acquaintances in `goal_type`.
 #'
-#' @inheritParams minimizeVL
+#' @inheritParams minimize_vl
 #' @param goal_type Numeric vector, any pitch-class set
 #'   representing the tn-type of your voice leading goal
 #' @param reorder Should the results be listed from smallest to largest voice leading size?
@@ -19,15 +19,15 @@
 #'   tied voice leadings). List entries are named by their transposition level.
 #'
 #' @examples
-#' VL_rolodex(c(0, 4, 7))
+#' vl_rolodex(c(0, 4, 7))
 #'
-#' VL_rolodex(c(0, 4, 7), reorder=FALSE)
+#' vl_rolodex(c(0, 4, 7), reorder=FALSE)
 #'
 #' #Multisets sort of work! Best resolutions from dom7 to triads with doubled root:
-#' VL_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
+#' vl_rolodex(c(0, 4, 7, 10), c(0, 0, 4, 7))
 #'
 #' @export
-VL_rolodex <- function(source, 
+vl_rolodex <- function(source, 
                        goal_type=NULL, 
                        reorder=TRUE, 
                        method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
@@ -42,7 +42,7 @@ VL_rolodex <- function(source,
   tiny <- 10^(-1*rounder)
   method <- match.arg(method)
 
-  res <- apply(goals, 2, minimizeVL, source=source, method=method, edo=edo, no_ties=no_ties)
+  res <- apply(goals, 2, minimize_vl, source=source, method=method, edo=edo, no_ties=no_ties)
   if ("matrix" %in% class(res)) { 
     res <- as.list(as.data.frame(res)) 
   }

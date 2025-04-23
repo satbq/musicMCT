@@ -31,8 +31,7 @@ crossingfree_vls <- function(source,
 #' @param method What distance metric should be used? Defaults to `"taxicab"` 
 #'   but can be `"euclidean"`, `"chebyshev"`, or `"hamming"`.
 #' @param no_ties If multiple VLs are equally small, should only one be returned? Defaults to `FALSE`, which
-#'   is generally what a human user should want. Some functions that call `minimize_VL` need `TRUE` for predictable
-#'   shapes of the returned value.
+#'   is generally what an interactive user should want. 
 #' @inheritParams tnprime
 #' 
 #' @returns Numeric array. In most cases, a vector the same length as `source`;
@@ -43,20 +42,20 @@ crossingfree_vls <- function(source,
 #' @examples
 #' c_major <- c(0, 4, 7)
 #' ab_minor <- c(8, 11, 3)
-#' minimizeVL(c_major, ab_minor)
+#' minimize_vl(c_major, ab_minor)
 #'
 #' diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
-#' minimizeVL(diatonic_scale, tn(diatonic_scale, 7))
+#' minimize_vl(diatonic_scale, tn(diatonic_scale, 7))
 #'
 #' d_major <- c(2,6,9)
-#' minimizeVL(c_major, d_major)
-#' minimizeVL(c_major, d_major, no_ties=TRUE)
-#' minimizeVL(c_major, d_major, method="euclidean", no_ties=FALSE)
+#' minimize_vl(c_major, d_major)
+#' minimize_vl(c_major, d_major, no_ties=TRUE)
+#' minimize_vl(c_major, d_major, method="euclidean", no_ties=FALSE)
 #'
-#' minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean")
-#' minimizeVL(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
+#' minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean")
+#' minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
 #' @export
-minimizeVL <- function(source, 
+minimize_vl<- function(source, 
                        goal, 
                        method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                        no_ties=FALSE, 
@@ -76,7 +75,7 @@ minimizeVL <- function(source,
 #' Given source and goal pitch-class sets, which mode of the goal is closest to the source
 #' (assuming crossing-free voice leadings and the given `method` for determining distance).
 #'
-#' @inheritParams minimizeVL
+#' @inheritParams minimize_vl
 #' @inheritParams fpunique
 #'
 #' @returns Numeric value(s) identifying the modes of `goal`. Single value if `no_ties` is `TRUE`,
@@ -144,7 +143,7 @@ get_vl_dists <- function(set,
 #'
 #' This function allows us to visualize such relationships by plotting the minimal voice leading
 #' distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
-#' a continuous version of [VL_rolodex()] except that it visualizes a voice-leading distance rather than
+#' a continuous version of [vl_rolodex()] except that it visualizes a voice-leading distance rather than
 #' reporting the specific motions of the set's individual voices.) The main intended use of the function
 #' is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of 
 #' each `edo` step divided into `subdivide` amounts) on the x axis and voice-leading distance on the y
@@ -152,7 +151,7 @@ get_vl_dists <- function(set,
 #' according to the \eqn{T_n} they correspond to.
 #'
 #' @inheritParams tnprime
-#' @inheritParams minimizeVL
+#' @inheritParams minimize_vl
 #' @param subdivide Numeric: how many small amounts should each `edo` step be divided into? Defaults to `100`.
 #'
 #' @returns Numeric vector of length `edo * subdivide` representing distances of the transpositions. Names
@@ -197,7 +196,7 @@ tndists <- function(set,
 #' Voice-leading inflection points
 #'
 #' When considering an n-note set's potential voice leadings to transpositions of itself (along the lines 
-#' of [VL_rolodex()] and [tndists()]), there will always be some transposition in continuous pc-space
+#' of [vl_rolodex()] and [tndists()]), there will always be some transposition in continuous pc-space
 #' for which a given modal rotation is the best potential target for voice leading. (That is, there is
 #' always some `x` such that `whichmodebest(set, tn(set, x)) == k` for any `k` between `1` and `n`.)
 #' Moreover, there will always be a transposition level at the boundary between two different ideal modes,

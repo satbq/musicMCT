@@ -17,7 +17,7 @@ insist_matrix <- function(x) {
 #' `vl_generators()` identifies these basic voice-leading motions.
 #'
 #' @inheritParams tnprime
-#' @inheritParams minimizeVL
+#' @inheritParams minimize_vl
 #'
 #' @returns 2-by-m matrix whose m columns represent the m distinct voice-leading
 #'   generators. The top row indicates the generic size of each interval; the 

@@ -29,11 +29,11 @@
 #'				   major_triad_on_des,
 #'				   major_triad_doubled_third_omit_5)
 #' 
-#' apply(example_triads, 2, OPTC_test)
-#' OPTC_test(major_triad_voice_crossing, single_answer=FALSE)
+#' apply(example_triads, 2, optc_test)
+#' optc_test(major_triad_voice_crossing, single_answer=FALSE)
 #'
 #' @export
-OPTC_test <- function(set, edo=12, rounder=10, single_answer=TRUE) {
+optc_test <- function(set, edo=12, rounder=10, single_answer=TRUE) {
   basically_zero <- 10^(-rounder)
   step_sizes <- sim(sort(set))[2,]
 

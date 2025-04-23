@@ -86,7 +86,7 @@ C major to this scale:
 
 ```{r}
 c_major <- c(0, 2, 4, 5, 7, 9, 11)
-minimizeVL(c_major, sim(melodic_minor)[,4])
+minimize_vl(c_major, sim(melodic_minor)[,4])
 ```
 
 As [Tymoczko 2007](https://www.mtosmt.org/issues/mto.05.11.4/mto.05.11.4.tymoczko.pdf) points
@@ -116,7 +116,7 @@ Tymoczko 2008](https://doi.org/10.1126/science.1153021) argue):
 
 ```{r}
 acoustic_scale <- sim(melodic_minor)[,4]
-minimizeVL(overtone_scale, acoustic_scale)
+minimize_vl(overtone_scale, acoustic_scale)
 ```
 
 Intuitions about voice leading distances can be tricky, but this initially doesn't seem like a 
@@ -477,8 +477,8 @@ than our `best_simple_approximation` is:
 
 
 ```{r}
-round(minimizeVL(overtone_scale, acoustic_scale), 3)
-round(minimizeVL(overtone_scale, best_simple_approximation), 3)
+round(minimize_vl(overtone_scale, acoustic_scale), 3)
+round(minimize_vl(overtone_scale, best_simple_approximation), 3)
 ```
 
 It's not easy to eyeball which one of those is a *smaller* overall voice leading, partially because the answer to that question depends on what

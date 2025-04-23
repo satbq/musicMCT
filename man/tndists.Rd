@@ -43,7 +43,7 @@ under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
 
 This function allows us to visualize such relationships by plotting the minimal voice leading
 distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
-a continuous version of \code{\link[=VL_rolodex]{VL_rolodex()}} except that it visualizes a voice-leading distance rather than
+a continuous version of \code{\link[=vl_rolodex]{vl_rolodex()}} except that it visualizes a voice-leading distance rather than
 reporting the specific motions of the set's individual voices.) The main intended use of the function
 is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of
 each \code{edo} step divided into \code{subdivide} amounts) on the x axis and voice-leading distance on the y
