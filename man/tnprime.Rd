@@ -21,10 +21,10 @@ Tn-prime form
 \description{
 Uses Rahn's algorithm to calculate the best normal order for the
 transposition class represented by a given set. Reflects transpositional
-but not inversional equivalence, i.e. all major triads return (0,4,7) and
-all minor triads return (0,3,7).
+but not inversional equivalence, i.e. all major triads return (0, 4, 7) and
+all minor triads return (0, 3, 7).
 }
 \examples{
-tnprime(c(2,6,9))
-tnprime(c(0,3,6,9,14),edo=16)
+tnprime(c(2, 6, 9))
+tnprime(c(0, 3, 6, 9, 14),edo=16)
 }

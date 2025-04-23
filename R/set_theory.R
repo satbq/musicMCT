@@ -79,8 +79,8 @@ compactest_mode <- function(modes, rounder=10) {
 #' 
 #' Uses Rahn's algorithm to calculate the best normal order for the 
 #' transposition class represented by a given set. Reflects transpositional
-#' but not inversional equivalence, i.e. all major triads return (0,4,7) and
-#' all minor triads return (0,3,7).
+#' but not inversional equivalence, i.e. all major triads return (0, 4, 7) and
+#' all minor triads return (0, 3, 7).
 #'
 #' @param set Numeric vector of pitch-classes in the set
 #' @inheritParams edoo
@@ -88,8 +88,8 @@ compactest_mode <- function(modes, rounder=10) {
 #' @returns Numeric vector of same length as `set` representing the set's
 #'   Tn-prime form
 #' @examples
-#' tnprime(c(2,6,9))
-#' tnprime(c(0,3,6,9,14),edo=16)
+#' tnprime(c(2, 6, 9))
+#' tnprime(c(0, 3, 6, 9, 14),edo=16)
 #' @export
 tnprime <- function(set, edo=12, rounder=10) {
   set <- sort(set %% edo)
@@ -115,7 +115,7 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' in which case you should set `sorted` to `FALSE`.
 #'
 #' `startzero` transposes a set so that its first element is `0`.
-#' (Note that this is different from [tnprime] because it doesn't attempt
+#' (Note that this is different from [tnprime()] because it doesn't attempt
 #' to find the most compact form of the set. See examples for the contrast.)
 #'
 #' Sometimes you just want to invert a set and you don't care what the
@@ -263,6 +263,39 @@ isym <- function(set, edo=12, rounder=10) {
      }
   }
   FALSE
+}
+
+#' Test for transpositional symmetry
+#'
+#' Does the set map onto itself at some transposition other than \eqn{T_0}?
+#'
+#' @inheritParams tnprime
+#'
+#' @returns `TRUE` if the set is transpositionally symmetrical, `FALSE` otherwise
+#'
+#' @examples
+#' tsym(sc(6, 34))
+#' tsym(sc(6, 35))
+#' tsym(edoo(5))
+#'
+#' # Works for continuous values:
+#' tsym(tc(j(dia), edoo(3)))
+#'
+#' @export
+tsym <- function(set, edo=12, rounder=10) {
+  set <- sort(set)
+  card <- length(set)
+  if (card < 2) {
+    return(FALSE)
+  }
+  levels_to_check <- edoo(card, edo=edo)[-1]
+  transpositions <- sapply(levels_to_check, tn, set=set, edo=edo)
+  sets_to_compare <- cbind(set, transpositions)
+  res <- fpunique(sets_to_compare, MARGIN=2)
+  if (!inherits(res, "matrix")) {
+    return(TRUE)
+  }
+  dim(res)[2] < card
 }
 
 #' Interval-class vector

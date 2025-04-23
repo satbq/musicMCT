@@ -42,7 +42,7 @@ but sometimes it can be useful to track transformational voice leadings,
 in which case you should set \code{sorted} to \code{FALSE}.
 
 \code{startzero} transposes a set so that its first element is \code{0}.
-(Note that this is different from \link{tnprime} because it doesn't attempt
+(Note that this is different from \code{\link[=tnprime]{tnprime()}} because it doesn't attempt
 to find the most compact form of the set. See examples for the contrast.)
 
 Sometimes you just want to invert a set and you don't care what the

@@ -100,6 +100,22 @@ test_that("isym works", {
   expect_true(isym(c(0,1,2,4), edo=6))
 })
 
+test_that("tsym works", {
+  expect_false(tsym(NULL))
+  expect_false(tsym(1))
+
+  expect_true(tsym(c(0, 1, 6, 7)))
+  expect_true(tsym(c(0, 3, 6, 9)))
+  expect_false(tsym(c(0, 1, 4, 8)))
+
+  s <- 12 * log2(213/199)
+  expect_true(tsym(c(0, s, 4, 4+s, 8, 8+s)))
+ 
+  expect_true(tsym(c(0, 4, 8, 12), edo=16))
+  expect_false(tsym(c(0, 4, 8, 12)))
+  expect_true(tsym(c(0, 1, 3, 6, 7, 9)))
+})
+
 test_that("ivec works", {
   expect_equal(ivec(c(0, 1, 2, 4, 6, 8, 10)), c(2, 6, 2, 6, 2, 3))
   expect_equal(ivec(c(0, 2, 4, 7, 9), edo=13), c(0, 3, 1, 2, 2, 2))
