@@ -18,9 +18,10 @@ make it easier to work with this theory. In a nutshell, Modal Color
 Theory models musical scales as points in a geometry. The locations of
 those points relative to various hyperplane arrangements tell us a lot
 about the scales’ internal structures and mutual relationships. The
-shape of those hyperplane arrangements gets pretty complex–for the
+shape of those hyperplane arrangements gets pretty complex: for the
 important case of seven-note scales, the main arrangement has 42
-hyperplanes in a 6d space–so computational tools are very helpful.
+hyperplanes in a 6-dimensional space! Computational tools are therefore
+very helpful.
 
 If you’ve ever wondered why a piece of music uses one scale rather than
 another; if you want to know more about the jazz chord-scale concept of

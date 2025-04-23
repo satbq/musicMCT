@@ -30,7 +30,7 @@ scales have this close relationship.
 }
 \examples{
 set39 <- c(0, 5, 9, 10, 14, 16, 21)
-set53 <- c(0, 7, 13, 16, 22 ,26, 33)
+set53 <- c(0, 7, 13, 16, 22, 26, 33)
 set39 <- convert(set39, 39, 12)
 set53 <- convert(set53, 53, 12)
 same_hue(set39, set53)

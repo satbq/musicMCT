@@ -41,3 +41,15 @@ test_that("primary_hue works", {
   expect_equal(primary_hue(c(0, 6)), c(0, 6))
   expect_equal(primary_hue(c(0, 4, 8)), c(0, 4, 8))
 })
+
+test_that("other primary color functions work", {
+  expect_equal(primary_signvector(c(0, 6, 9)), c(-1, -1, 0))
+  expect_equal(primary_color(c(0, 6, 9), reconvert=TRUE), c(0, 2.4, 7.2))
+
+  expect_equal(primary_signvector(c(0, 6, 9), type="modes"), c(-1, 0, 1))
+  expect_equal(primary_color(c(0, 6, 9), reconvert=TRUE, type="modes"), 
+               c(0, 3, 9))
+
+  expect_true(is.null(primary_colornum(c(0, 4, 7, 10))))
+})
+

@@ -55,6 +55,56 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
 }
 
 
+#' Primary colors
+#'
+#' In traditional pitch-class set theory, concepts like normal order and
+#' [primeform()] establish a canonical representative for each equivalence
+#' class of pitch-class sets. It's useful to do something similar in MCT
+#' as well: given a family of scales, such as the collection of modes or a 
+#' [scale_palette()], we can define the "primary color" of the family as the
+#' one that comes first when the scales' sign vectors are ordered lexicographically.
+#' `primary_hue()` uses [ineqsym()] to return a specific representative of
+#' the primary color which belongs to the same palette of hues as the input.
+#' Because `primary_hue()` focuses on hues rather than colors, it may not 
+#' highlight the fact that two scales have the same primary color. Thus, for
+#' information about broader families, `primary_colornum()` returns the color
+#' number of the primary color, `primary_signvector()` returns the signvector,
+#' and `primary_color()` itself uses [quantize_color()] to return a consistent
+#' representative of each color.
+#'
+#' @inheritParams tnprime
+#' @param type How broad of an equivalence class should be considered? May
+#'   be one of three options:
+#'   * "all", the default, uses the full range of [scale_palette()] relationships
+#'   * "half_palette" uses [scale_palette()] with `include_involution=FALSE`
+#'   * "modes" returns only the n modes of `set`
+#' @inheritParams quantize_color
+#' @param ... Arguments to be passed to `primary_hue()`
+#' 
+#' @returns A numeric vector representing a scale for `primary_hue()`; a
+#'   single integer for `primary_colornum()`; a [signvector()] for
+#'   `primary_signvector()`; and a list like [quantize_color()] for
+#'   `primary_color()`.
+#'
+#' @examples
+#' major_64 <- c(0, 5, 9)
+#' primary_hue(major_64)
+#' primary_hue(major_64, type="modes")
+#'
+#' viennese_trichord <- c(0, 6, 11)
+#' # Same primary color as major_64:
+#' apply(cbind(major_64, viennese_trichord), 2, primary_signvector)
+#' 
+#' # But a different primary hue:
+#' primary_hue(viennese_trichord)
+#'
+#' # Only works with representative_signvectors loaded:
+#' primary_colornum(major_64) == primary_colornum(viennese_trichord)
+#'
+#' primary_color(major_64)
+#' primary_color(viennese_trichord)
+#'
+#' @export
 primary_hue <- function(set, 
                         type=c("all", "half_palette", "modes"), 
                         ineqmat=NULL,
@@ -81,3 +131,19 @@ primary_hue <- function(set,
 
   colors_to_try[, order(string_svs)[1]]
 }
+
+#' @rdname primary_hue
+#' @export
+primary_colornum <- function(set, type="all", ...) colornum(primary_hue(set, type=type, ...), ...)
+
+#' @rdname primary_hue
+#' @export
+primary_signvector <- function(set, type="all", ...) signvector(primary_hue(set, type=type, ...), ...)
+
+#' @rdname primary_hue
+#' @export
+primary_color <- function(set, type="all", nmax=12, reconvert=FALSE, ...) {
+  hue <- primary_hue(set, type=type, ...)
+  quantize_color(hue, nmax=nmax, reconvert=reconvert, ...)
+}
+

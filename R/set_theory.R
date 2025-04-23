@@ -388,9 +388,9 @@ sc_comp <- function(set, canon=c("tni", "tn"), edo=12, rounder=10) {
 #' tc(c(0, 4), c(0, 7))
 #' tc(c(0, 7), c(0, 4))
 #'
-#' pyth_tetrachord <- 12 * log2(c(1, 9/8, 81/64, 4/3))
-#' pyth_dia <- tc(pyth_tetrachord, c(0, 12*log2(1.5)))
-#' isTRUE(all.equal(signvector(pyth_dia), signvector(c(0, 2, 4, 5, 7, 9, 11))))
+#' pyth_tetrachord <- j(1, t, dt, 4)
+#' pyth_dia <- tc(pyth_tetrachord, j(1, 5))
+#' same_hue(pyth_dia, c(0, 2, 4, 5, 7, 9, 11))
 #'
 #' @export
 tc <- function(set, multiplier=NULL, edo=12, rounder=10) {
@@ -399,5 +399,4 @@ tc <- function(set, multiplier=NULL, edo=12, rounder=10) {
   all_pcs <- as.numeric(all_pcs)
   sort(fpunique(all_pcs, rounder=rounder))
 }
-
 
