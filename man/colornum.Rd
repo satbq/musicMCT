@@ -36,7 +36,7 @@ set class numbers do in traditional pitch-class set theory. Color numbers
 are defined with reference to a complete list of the possible sign vectors
 for each cardinality, so they depend on the extensive prior computation
 that is stored in the object \code{representative_signvectors}. (This is a large
-file that cannot be included in the package musicMCT itself; it needs to be
+file that cannot be included in the package musicMCT itself. It needs to be
 downloaded separately, saved in your working directory, and loaded by entering
 \code{representative_signvectors <- readRDS("representative_signvectors.rds")}.
 Color numbers are currently only defined for scales with 7 or fewer notes.

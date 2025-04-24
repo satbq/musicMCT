@@ -4,4 +4,120 @@ template:
   math-rendering: mathjax
 
 
+reference:
+- title: Core MCT Functions
+  desc: >
+    Essential tools for analyzing scale structures and the hyperplane arrangments of Modal Color Theory.
 
+- subtitle: Scalar Properties
+  desc: Gather information about individual scales
+- contents:
+  - brightnessgraph
+  - colornum
+  - eps
+  - howfree
+  - ineqsym
+  - primary_hue
+  - quantize_color
+  - quantize_hue
+  - same_hue
+  - saturate
+  - scale_palette
+  - sim
+
+- subtitle: Hyperplane Arrangements
+  desc: Define and manipulate the arrangements which characterize the spaces
+- contents:
+  - get_relevant_rows
+  - ineqmats
+  - make_roth_ineqmat
+  - make_white_ineqmat
+  - makeineqmat
+
+- subtitle: Sign vectors
+  desc: Work directly with the information contained in a sign vector
+- contents:
+  - brightness_comparisons
+  - comparesignvecs
+  - set_from_signvector
+  - signvector
+  - step_signvector
+  - svzero_fingerprint
+  - whichsvzeroes
+
+- title: Other Properties
+  desc: Tests for miscellaneous scalar properties that aren't directly tied to MCT.
+- contents:
+  - evenness
+  - isproper
+  - optc_test
+
+- title: Scales and Intervals
+  description: Basic tools for defining musical objects
+- contents:
+  - carlos_step
+  - convert
+  - coord_to_edo
+  - edoo
+  - j
+  - maxeven
+  - meantone_fifth
+  - surround_set
+
+- title: Set Theory
+  desc: Concepts from traditional pitch-class set theory
+- contents:
+  - emb
+  - fortenum
+  - fortenums
+  - ifunc
+  - isym
+  - ivec
+  - primeform
+  - sc
+  - sc_comp
+  - signed_interval_class
+  - tc
+  - tn
+  - tnprime
+  - tsym
+  - zmate
+
+- title: Subsets
+  desc: Tools for exploring subset-superset relationships in scales
+- contents:
+  - intervalspectrum
+  - subset_multiplicities
+  - subset_varieties
+  - subsetspectrum
+
+- title: Utilities
+  desc: Tools that make it convenient to manipulate objects in R
+- contents:
+  - fpunique
+  - rotate
+
+- title: Voice Leading
+  desc: Tools for studying how sets are connected by voice leadings
+- contents:
+  - flex_points
+  - minimize_vl
+  - vl_rolodex
+  - tndists
+  - vl_generators
+  - vlsig
+  - whichmodebest
+
+- title: Word Theory
+  desc: Concepts related to representations of scales as algebraic words
+- contents:
+  - asword
+  - isgwf
+  - iswellformed
+  - realize_setword
+
+- title: Input/Output
+  desc: Ways to read & save data for use outside of R
+- contents:
+  - readSCL
+  - writeSCL

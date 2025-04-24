@@ -15,7 +15,7 @@ tsym(set, edo = 12, rounder = 10)
 number of decimal places to round to when testing for equality.}
 }
 \value{
-\code{TRUE} if the set is transpositionally symmetrical, \code{FALSE} otherwise
+\code{TRUE} if the set has non-trivial transpositional symmetry, \code{FALSE} otherwise
 }
 \description{
 Does the set map onto itself at some transposition other than \eqn{T_0}?

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_relevant_rows.R
 \name{get_relevant_rows}
 \alias{get_relevant_rows}
-\title{Which hyperplanes affect a specific generic interval?}
+\title{Which hyperplanes affect a given generic interval?}
 \usage{
 get_relevant_rows(generic_intervals, ineqmat)
 }

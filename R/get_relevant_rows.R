@@ -8,7 +8,7 @@ affected_generic_intervals <- function(row, card) {
     sort(unique(res))
 }
 
-#' Which hyperplanes affect a specific generic interval?
+#' Which hyperplanes affect a given generic interval?
 #'
 #' Given an `ineqmat` (i.e. a matrix representing a hyperplane arrangement),
 #' this function tells us which of those hyperplanes affect a specific generic

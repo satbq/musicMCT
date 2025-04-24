@@ -271,7 +271,7 @@ isym <- function(set, edo=12, rounder=10) {
 #'
 #' @inheritParams tnprime
 #'
-#' @returns `TRUE` if the set is transpositionally symmetrical, `FALSE` otherwise
+#' @returns `TRUE` if the set has non-trivial transpositional symmetry, `FALSE` otherwise
 #'
 #' @examples
 #' tsym(sc(6, 34))

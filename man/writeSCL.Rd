@@ -39,7 +39,7 @@ will attempt to add as comments extra information that can be derived
 from MCT functions, like the color number, degrees of freedom, number of sign-vector zeroes, etc.
 }
 \examples{
-neat_pentachord <- convert(c(0,1,4,9,11),15,12)
+neat_pentachord <- convert(c(0, 1, 4, 9, 11), 15, 12)
 \dontrun{
   writeSCL(neat_pentachord, "neat_pentachord.scl")
 }

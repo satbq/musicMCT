@@ -20,14 +20,14 @@
 #'   indicates an octave-repeating scale.
 #' @returns Invisible `NULL`
 #' @examples
-#' neat_pentachord <- convert(c(0,1,4,9,11),15,12)
+#' neat_pentachord <- convert(c(0, 1, 4, 9, 11), 15, 12)
 #' \dontrun{
 #'   writeSCL(neat_pentachord, "neat_pentachord.scl")
 #' }
 #' @export
 writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   # Period defined as a frequency ratio (i.e. 2 for octave-repeading scales)
-  periodCents <- 1200 * log(period)/log(2)
+  periodCents <- 1200 * log2(period)
 
   if (missing(filename)) {
     filename <- deparse(substitute(x))
@@ -172,13 +172,13 @@ readSCL <- function(filename, scaleonly=TRUE, edo=12) {
     }
     dividends <- as.numeric(dividends)
     res <- dividends[1]/dividends[2]
-    edo * log(res)/log(2)
+    edo * log2(res)
   }
 
   # Convert integers to scale degrees
   intToLog <- function(intString, localedo=edo) {
     val <- strtoi(intString)
-    localedo * log(val)/log(2)
+    localedo * log2(val)
   }
 
   # Apply above functions and convert cents to global EDO
