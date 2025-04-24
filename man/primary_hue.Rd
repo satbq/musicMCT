@@ -29,7 +29,7 @@ be one of three options:
 \itemize{
 \item "all", the default, uses the full range of \code{\link[=scale_palette]{scale_palette()}} relationships
 \item "half_palette" uses \code{\link[=scale_palette]{scale_palette()}} with \code{include_involution=FALSE}
-\item "modes" returns only the n modes of \code{set}
+\item "modes" uses only the n modes of \code{set}
 }}
 
 \item{ineqmat}{Defaults to \code{NULL}, in which case the function assumes

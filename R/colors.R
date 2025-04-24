@@ -77,7 +77,7 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
 #'   be one of three options:
 #'   * "all", the default, uses the full range of [scale_palette()] relationships
 #'   * "half_palette" uses [scale_palette()] with `include_involution=FALSE`
-#'   * "modes" returns only the n modes of `set`
+#'   * "modes" uses only the n modes of `set`
 #' @inheritParams quantize_color
 #' @param ... Arguments to be passed to `primary_hue()`
 #' 
