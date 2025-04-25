@@ -42,7 +42,7 @@ seven-note scales live in a 6-dimensional geometry populated by 1,824,229 qualit
 distinct scalar structures. I'm happy to calculate an `ivec()` by hand, but we're
 going to need computers to explore such a complicated space!
 
-This vignette will introduce many of the main functions of `musicMCT` that serve
+This vignette will introduce many of the main functions of {musicMCT} that serve
 this purpose, especially as they relate to the concerns of the *Journal of Music Theory* article. The
 problem that we'll discuss is not of deep significance, but I hope a toy example
 will teach you how to use this software and give you a sense of the kinds of
@@ -315,8 +315,8 @@ In a surprise upset, the quantization with the closest sign vector to the `overt
 its mode (0, 2, 4, 5, 7, 8, 9). This doesn't mean that sc7-27 is a *better* quantization than the `acoustic_scale`, just that it's
 one that better reflects the structure of the `overtone_scale`. (In particular, it comes closest to capturing the fact that
 the `overtone_scale`'s step sizes get smaller as you go up the scale. We'll return to this consideration as we approach our
-final approximation at the end of the next section.) The modes of melodic minor simply have too much regularity--
-too many zeroes in their sign vectors--to be very structurally similar to the `overtone_scale`.
+final approximation at the end of the next section.) The modes of melodic minor simply have too much regularity--too many zeroes 
+in their sign vectors--to be very structurally similar to the `overtone_scale`.
 
 Another scalar property that we might consider is how many degrees of freedom a scale has ("Modal Color Theory," 26-27): how freely can
 you vary its individual scale degrees while maintaining the same overall structure? A minimally constrained heptachord has six degrees of 
