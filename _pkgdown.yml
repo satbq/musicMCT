@@ -34,6 +34,7 @@ reference:
   - make_white_ineqmat
   - makeineqmat
   - project_onto
+  - populate_flat
 
 - subtitle: Sign vectors
   desc: Work directly with the information contained in a sign vector
