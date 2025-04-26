@@ -33,6 +33,7 @@ reference:
   - make_roth_ineqmat
   - make_white_ineqmat
   - makeineqmat
+  - project_onto
 
 - subtitle: Sign vectors
   desc: Work directly with the information contained in a sign vector
@@ -102,9 +103,10 @@ reference:
 - contents:
   - flex_points
   - minimize_vl
-  - vl_rolodex
   - tndists
+  - vl_dist
   - vl_generators
+  - vl_rolodex
   - vlsig
   - whichmodebest
 

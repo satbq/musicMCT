@@ -112,6 +112,35 @@ whichmodebest <- function(source,
   res
 }
 
+#' How far apart are two scales?
+#'
+#' Using the chosen `method` to measure distance, determines how far 
+#' apart two scales are in voice-leading space.
+#' 
+#' @inheritParams tnprime
+#' @inheritParams minimize_vl
+#' @inheritParams same_hue
+#'
+#' @returns Numeric: distance between `set_1` and `set_2`
+#'
+#' @examples
+#' c_major <- c(0, 4, 7)
+#' a_minor_63 <- c(0, 4, 9)
+#' f_minor_64 <- c(0, 5, 8)
+#' vl_dist(c_major, a_minor_63)
+#' vl_dist(c_major, f_minor_64)
+#' vl_dist(c_major, a_minor_63, method="euclidean")
+#' vl_dist(c_major, f_minor_64, method="euclidean")
+#' 
+#' @export
+vl_dist <- function(set_1, 
+                    set_2, 
+                    method=c("taxicab", "euclidean", "chebyshev", "hamming"),
+                    rounder=10) {
+  dist_func(set_1 - set_2, method=method, rounder=rounder)
+}
+
+
 get_tn_levels <- function(edo, subdivide) seq(0, edo, length.out=1 + (edo*subdivide))
  
 get_vl_dists <- function(set, 

@@ -30,6 +30,17 @@ test_that("whichmodebest works", {
   expect_equal(whichmodebest(c(0, 6, 11), c(6, 12, 17), edo=19), 3)
 })
 
+test_that("vl_dist works", {
+  c_dom7 <- c(0, 4, 7, 10)
+  a_dom7 <- c(1, 4, 7, 9)
+  expect_equal(vl_dist(c_dom7, c_dom7), 0)
+  expect_equal(vl_dist(c_dom7, a_dom7), 2)
+  expect_equal(vl_dist(a_dom7, c_dom7), 2)
+  expect_equal(vl_dist(c_dom7, a_dom7, method="euclidean"), sqrt(2))
+  expect_equal(vl_dist(c_dom7, a_dom7, method="chebyshev"), 1)
+  expect_equal(vl_dist(c_dom7, a_dom7, method="hamming"), 2)
+})
+
 test_that("flex_points works", {
   expect_equal(flex_points(c(0, 4, 7)), c(2, 6, 10))
   expect_equal(flex_points(c(0, 1, 6)), c(2.5, 6, 9.5))

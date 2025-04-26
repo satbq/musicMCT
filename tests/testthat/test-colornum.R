@@ -18,6 +18,10 @@ test_that("colornum works with explicit signvector list", {
                          "1, 1, 0", "1, 1, 1"))
   expect_equal(colornum(c(0,7,11), signvector_list=tiny_sv_list),
                12)
+
+  rs <- readRDS(test_path("testdata", "test_signvectors.rds"))
+  expect_equal(colornum(c(0, 2, 6, 8), signvector_list=rs), 35)
+  expect_equal(colornum(c(0, 1, 3, 7), signvector_list=rs, edo=10), 5)
 })
 
 test_that("colornum is OK without explicit signvector list", {
