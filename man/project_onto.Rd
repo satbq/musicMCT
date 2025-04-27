@@ -5,9 +5,23 @@
 \alias{match_flat}
 \title{Closest point on a given flat}
 \usage{
-project_onto(set, target_rows, ineqmat = NULL, edo = 12, rounder = 10)
+project_onto(
+  set,
+  target_rows,
+  ineqmat = NULL,
+  start_zero = TRUE,
+  edo = 12,
+  rounder = 10
+)
 
-match_flat(set, target_scale, ineqmat = NULL, edo = 12, rounder = 10)
+match_flat(
+  set,
+  target_scale,
+  start_zero = TRUE,
+  ineqmat = NULL,
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -20,6 +34,9 @@ rows must be linearly independent.}
 you want to use the standard hyperplane arrangement of MCT. But you can
 enter a different matrix that contains normal vectors for any hyperplane
 arrangement in the same format as the standard ineqmats.}
+
+\item{start_zero}{Boolean: should the result be transposed so that its pitch
+initial is zero? Defaults to \code{TRUE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 

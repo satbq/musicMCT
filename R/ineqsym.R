@@ -69,7 +69,9 @@ ineqsym <- function(set,
                     edo=12) {
   card <- length(set)
   a <- a %% card
-  bad_a <- function() stop("Parameter a must be coprime to scale cardinality")
+  bad_a <- function() {
+    stop("Parameter a must be coprime to scale cardinality", call.=FALSE)
+  }
   if (a == 0) {
     bad_a()
   }

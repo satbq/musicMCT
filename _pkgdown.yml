@@ -24,6 +24,7 @@ reference:
   - saturate
   - scale_palette
   - sim
+  - simplify_scale
 
 - subtitle: Hyperplane Arrangements
   desc: Define and manipulate the arrangements which characterize the spaces
@@ -33,8 +34,8 @@ reference:
   - make_roth_ineqmat
   - make_white_ineqmat
   - makeineqmat
-  - project_onto
   - populate_flat
+  - project_onto
 
 - subtitle: Sign vectors
   desc: Work directly with the information contained in a sign vector

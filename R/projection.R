@@ -15,6 +15,8 @@
 #' @param target_rows An integer vector: each integer specifies a row
 #'   of `ineqmat` which helps to determine the target flat. The
 #'   rows must be linearly independent.
+#' @param start_zero Boolean: should the result be transposed so that its pitch
+#'   initial is zero? Defaults to `TRUE`.
 #' @param target_scale A numeric vector which represents a scale
 #'   on the target flat.
 #'
@@ -38,16 +40,21 @@
 #' fifth_comma_meantone <- sim(sort(((0:6) * meantone_fifth(1/5))%%12))[,5]
 #' vl_dist(projected_just_dia, fifth_comma_meantone)
 #' @export
-project_onto <- function(set, target_rows, ineqmat=NULL, edo=12, rounder=10) {
+project_onto <- function(set, 
+                         target_rows, 
+                         ineqmat=NULL, 
+                         start_zero=TRUE,
+                         edo=12, 
+                         rounder=10) {
   if (length(target_rows)==0) {
     return(set)
   }
   card <- length(set)
   if (is.null(ineqmat)) ineqmat <- getineqmat(card)
 
-  central_set <- coord_to_edo(set, edo=edo)[-1]
+  central_set <- coord_to_edo(set, edo=edo)
 
-  A <- t(ineqmat[target_rows, 2:card])
+  A <- t(ineqmat[target_rows, 1:card])
   if (dim(A)[1] == 1) A <- t(A)
 
   projection_matrix <- solve(t(A) %*% A)
@@ -56,10 +63,33 @@ project_onto <- function(set, target_rows, ineqmat=NULL, edo=12, rounder=10) {
   projection_matrix <- diag(n) - projection_matrix
 
   res <- projection_matrix %*% central_set
-  res <- coord_from_edo(c(0, res), edo=edo)
-  as.numeric(res)
+  res <- as.numeric(coord_from_edo(res, edo=edo))
+
+  if (start_zero) res <- startzero(res, edo=edo, sorted=FALSE)
+
+  res
 }
 
+#' Find a basis for a flat's orthogonal complement
+#'
+#' Many flats in the MCT spaces are intersections of more hyperplanes
+#' than you'd expect in a general arrangement. When projecting onto such
+#' a flat using `project_onto()`, we need to define it using a linearly
+#' independent spanning set for the flat's orthogonal complement--not *all* the
+#' vectors that we could use. Unfortunately not just any collection of
+#' normals with the right size will do. So this function goes systematically
+#' through all correct-size subsets of the flat's normals until it finds 
+#' the first one that has the right rank.
+#'
+#' @param zeroes Integer vector identifying all the "zeroes" in a sign
+#'   vector that lies on the flat (i.e. all the normal vectors to the flat)
+#'   by which row they are in `ineqmat`.
+#' @param ineqmat The matrix of normal vectors defining the hyperplane
+#'   arrangement you're working in.
+#'
+#' @returns A subset of `zeroes` which is a basis for the flat defined
+#'   by all the vectors in `zeroes`.
+#' @noRd
 independent_normals <- function(zeroes, ineqmat) {
   if (length(zeroes)==0) { 
     return(integer(0))
@@ -71,6 +101,10 @@ independent_normals <- function(zeroes, ineqmat) {
 
   getrank <- function(vec, ineqmat) qr(ineqmat[vec,])$rank
   goal_rank <- getrank(zeroes, ineqmat)
+  if (goal_rank == 2) {
+    return(zeroes[1:2])
+  }
+
   attempts <- utils::combn(zeroes[2:length(zeroes)], goal_rank-1)
   num_attempts <- dim(attempts)[2]
   attempts <- rbind(rep(zeroes[1], num_attempts), attempts)
@@ -84,7 +118,12 @@ independent_normals <- function(zeroes, ineqmat) {
 
 #' @rdname project_onto
 #' @export
-match_flat <- function(set, target_scale, ineqmat=NULL, edo=12, rounder=10) {
+match_flat <- function(set, 
+                       target_scale, 
+                       start_zero=TRUE,
+                       ineqmat=NULL, 
+                       edo=12, 
+                       rounder=10) {
   card <- length(set)
   if (is.null(ineqmat)) ineqmat <- getineqmat(card)
   
@@ -94,7 +133,12 @@ match_flat <- function(set, target_scale, ineqmat=NULL, edo=12, rounder=10) {
 
   target_zeroes <- whichsvzeroes(target_scale, ineqmat=ineqmat, edo=edo, rounder=rounder)
   independent_zeroes <- independent_normals(target_zeroes, ineqmat)
-  project_onto(set, independent_zeroes, ineqmat=ineqmat, edo=12, rounder=rounder)  
+  project_onto(set, 
+               independent_zeroes,
+               start_zero=start_zero, 
+               ineqmat=ineqmat,  
+               edo=edo, 
+               rounder=rounder)  
 }
 
 #' Randomly generate scales on a flat
@@ -134,7 +178,8 @@ match_flat <- function(set, target_scale, ineqmat=NULL, edo=12, rounder=10) {
 #' match_sv <- function(sv) which(unique_svs == sv)
 #' characters_for_plotting <- sapply(jdia_flat_svs, match_sv) + 9
 #' plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=letters[characters_for_plotting],
-#'   xlab = "Height of scale degree 2", ylab = "Height of scale degree 3")
+#'   xlab = "Height of scale degree 2", ylab = "Height of scale degree 3",
+#'   asp=1)
 #'
 #' # Mostly we have sampled two colors on this flat, the ones represented by the letters
 #' # "k" and "m". But we've also got a few instances of "j" and "l" on the left and bottom
@@ -143,7 +188,8 @@ match_flat <- function(set, target_scale, ineqmat=NULL, edo=12, rounder=10) {
 #' @export
 populate_flat <- function(set, 
                           target_scale=NULL, 
-                          target_rows=NULL, 
+                          target_rows=NULL,
+                          start_zero=TRUE, 
                           ineqmat=NULL,
                           edo=12, 
                           rounder=10, 
@@ -161,11 +207,21 @@ populate_flat <- function(set,
   }
   if (is.null(target_scale)) {
     projection_func <- function(set) {
-      project_onto(set, target_rows, ineqmat=ineqmat, edo=edo, rounder=rounder)
+      project_onto(set, 
+                   target_rows, 
+                   start_zero=start_zero,
+                   ineqmat=ineqmat, 
+                   edo=edo, 
+                   rounder=rounder)
     } 
   } else {
     projection_func <- function(set) {
-      match_flat(set, target_scale, ineqmat=ineqmat, edo=edo, rounder=rounder)
+      match_flat(set, 
+                 target_scale, 
+                 start_zero=start_zero,
+                 ineqmat=ineqmat, 
+                 edo=edo, 
+                 rounder=rounder)
     }
   }
 

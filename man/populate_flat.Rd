@@ -8,6 +8,7 @@ populate_flat(
   set,
   target_scale = NULL,
   target_rows = NULL,
+  start_zero = TRUE,
   ineqmat = NULL,
   edo = 12,
   rounder = 10,
@@ -24,6 +25,9 @@ on the target flat.}
 \item{target_rows}{An integer vector: each integer specifies a row
 of \code{ineqmat} which helps to determine the target flat. The
 rows must be linearly independent.}
+
+\item{start_zero}{Boolean: should the result be transposed so that its pitch
+initial is zero? Defaults to \code{TRUE}.}
 
 \item{ineqmat}{Defaults to \code{NULL}, in which case the function assumes
 you want to use the standard hyperplane arrangement of MCT. But you can
@@ -75,7 +79,8 @@ unique_svs <- sort(unique(jdia_flat_svs))
 match_sv <- function(sv) which(unique_svs == sv)
 characters_for_plotting <- sapply(jdia_flat_svs, match_sv) + 9
 plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=letters[characters_for_plotting],
-  xlab = "Height of scale degree 2", ylab = "Height of scale degree 3")
+  xlab = "Height of scale degree 2", ylab = "Height of scale degree 3",
+  asp=1)
 
 # Mostly we have sampled two colors on this flat, the ones represented by the letters
 # "k" and "m". But we've also got a few instances of "j" and "l" on the left and bottom
