@@ -172,18 +172,27 @@ match_flat <- function(set,
 #' unique(apply(jdia_flat_scales, 2, whichsvzeroes), MARGIN=2)
 #' 
 #' # So all the scales do lie on one flat, but they may be different colors.
-#' # Let's plot them using different characters to represent the colors.
+#' # Let's plot them using different literal colors to represent the scalar "colors."
 #' jdia_flat_svs <- apply(apply(jdia_flat_scales, 2, signvector), 2, toString)
 #' unique_svs <- sort(unique(jdia_flat_svs))
 #' match_sv <- function(sv) which(unique_svs == sv)
-#' characters_for_plotting <- sapply(jdia_flat_svs, match_sv) + 9
-#' plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=letters[characters_for_plotting],
+#' sv_colors <- grDevices::hcl.colors(length(unique_svs), 
+#'                                    palette="tropic")[sapply(jdia_flat_svs, match_sv)]
+#' plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=19, col=sv_colors,
 #'   xlab = "Height of scale degree 2", ylab = "Height of scale degree 3",
 #'   asp=1)
+#' abline(0, 2, lty="dashed", lwd=2)
+#' points(j(2), j(3), cex=2, pch="x")
+#' points(2, 4, cex=2, pch="o")
 #'
-#' # Mostly we have sampled two colors on this flat, the ones represented by the letters
-#' # "k" and "m". But we've also got a few instances of "j" and "l" on the left and bottom
-#' # fringes of the plot.
+#' # Most of our sampled sets belong to two colors, separated by the dashed line on the plot,
+#' # which represents the inequality which determines the size of a scale's second step in
+#' # relation to its first step. This is hyperplane #1 in the space, so it corresponds to
+#' # the first entry in each scale's sign vector. The point labeled "x" represents the 
+#' # just diatonic scale itself, which has a larger first step than second step. The point
+#' # labeled "o" represents the 12-equal diatonic, whose whole steps are all equal and
+#' # which therefore lies directly on hyperplane #1. Finally, note that our sampled scales
+#' # also touch on a few other colors at the bottom & left fringes of the scatter plot.
 #'
 #' @export
 populate_flat <- function(set, 
