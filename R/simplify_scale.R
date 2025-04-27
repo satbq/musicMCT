@@ -1,3 +1,30 @@
+#' Simplify a scale
+#' 
+#' simplify_scale description
+#'
+#' @inheritParams tnprime
+#' @inheritParams signvector
+#' @inheritParams ifunc
+#' @inheritParams project_onto
+#' @param scales List of scales representing the faces of your hyperplane
+#'   arrangement. Defaults to `NULL` in which case the function looks for
+#'   `representative_scales` in the global environment.
+#' @inheritParams colornum
+#' @param adjlist Adjacency list structed in the same way as `color_adjacencies`.
+#'   Defaults to `NULL` in which case the function looks for `color_adjacencies`
+#'   in the global environment.
+#' @param method What distance metric should be used? Defaults to `"euclidean"` 
+#'   (unlike most functions with a method parameter in musicMCT) 
+#'   but can be `"taxicab"`, `"chebyshev"`, or `"hamming"`.
+#' @param ... Other arguments to be passed from `best_simplification()`
+#'   to `simplify_scale()`.
+#'
+#' @returns A complicated matrix
+#'
+#' @examples
+#' \dontrun{
+#'   simplify_scale(c(0,5))
+#' }
 #' @export
 simplify_scale <- function(set,
                            start_zero=TRUE, 
@@ -127,6 +154,7 @@ simplify_scale <- function(set,
 }
 
 #' @rdname simplify_scale
+#' @export
 best_simplification <- function(set, ...) {
   card <- length(set)
   res <- simplify_scale(set, display_digits=NULL, ...)[1:card, 1]
