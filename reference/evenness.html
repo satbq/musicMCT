@@ -60,7 +60,12 @@ even than another. Since this value is a distance from the perfectly even
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">evenness</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">evenness</span><span class="op">(</span></span>
+<span>  <span class="va">set</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"taxicab"</span>, <span class="st">"chebyshev"</span>, <span class="st">"hamming"</span><span class="op">)</span>,</span>
+<span>  edo <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,8 +76,19 @@ even than another. Since this value is a distance from the perfectly even
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
 
 
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>What distance metric should be used? Defaults to <code>"euclidean"</code>
+(unlike most functions with a method parameter in musicMCT)
+but can be <code>"taxicab"</code>, <code>"chebyshev"</code>, or <code>"hamming"</code>.</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
+
+
+<dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
+<dd><p>Numeric (expected integer), defaults to <code>10</code>:
+number of decimal places to round to when testing for equality.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -83,7 +99,7 @@ even than another. Since this value is a distance from the perfectly even
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note that the values this function returns depend on what measurement
 unit you're using (i.e. are you in 12edo or 16edo?). Their absolute value
-isn't terribly significant, but you should only make relative comparisons
+isn't terribly significant: you should only make relative comparisons
 between calculations done with the same value for <code>edo</code>.</p>
     </div>
 
