@@ -78,8 +78,8 @@ jdia_flat_svs <- apply(apply(jdia_flat_scales, 2, signvector), 2, toString)
 unique_svs <- sort(unique(jdia_flat_svs))
 match_sv <- function(sv) which(unique_svs == sv)
 sv_colors <- grDevices::hcl.colors(length(unique_svs), 
-                                   palette="tropic")[sapply(jdia_flat_svs, match_sv)]
-plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=19, col=sv_colors,
+                                   palette="Green-Orange")[sapply(jdia_flat_svs, match_sv)]
+plot(jdia_flat_scales[2,], jdia_flat_scales[3,], pch=20, col=sv_colors,
   xlab = "Height of scale degree 2", ylab = "Height of scale degree 3",
   asp=1)
 abline(0, 2, lty="dashed", lwd=2)

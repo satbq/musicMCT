@@ -49,7 +49,8 @@ chords_near_minor
 
 # The next two commands will plot the sampled trichords on an x-y plane as
 # circles; the minor triad that they surround is marked with a "+" sign.
-plot(chords_near_minor[2,], chords_near_minor[3,], xlab="Third", ylab="Fifth")
+plot(chords_near_minor[2,], chords_near_minor[3,], 
+  xlab="Third", ylab="Fifth", asp=1)
 points(3, 7, pch="+")
 
 # The following two commands will plot the two lines (i.e. hyperplanes) that

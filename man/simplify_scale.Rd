@@ -136,7 +136,7 @@ loaded into your workspace. It can't function without them.
 
 simplify_scale(j(dia))
 
-# So the best option is color number 942695, which is the "well-formed"
+# So the best option is color number 942659, which is the "well-formed"
 # structure of the familiar diatonic scale. The particular saturation of
 # that meantone structure is very close to 1/5-comma meantone:
 
