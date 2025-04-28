@@ -42,7 +42,7 @@
 #' colornum(c(0,2,4,5,7,9,11))
 #' @export
 colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10) {
-  if (evenness(set, edo) < 10^(-rounder) ) { 
+  if (evenness(set, edo=edo) < 10^(-rounder) ) { 
     return(0) 
   }
 

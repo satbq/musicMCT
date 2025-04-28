@@ -4,12 +4,24 @@
 \alias{evenness}
 \title{How even is a scale?}
 \usage{
-evenness(set, edo = 12)
+evenness(
+  set,
+  method = c("euclidean", "taxicab", "chebyshev", "hamming"),
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
+\item{method}{What distance metric should be used? Defaults to \code{"euclidean"}
+(unlike most functions with a method parameter in musicMCT)
+but can be \code{"taxicab"}, \code{"chebyshev"}, or \code{"hamming"}.}
+
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
 Single non-negative numeric value
@@ -26,7 +38,7 @@ even than another. Since this value is a distance from the perfectly even
 \details{
 Note that the values this function returns depend on what measurement
 unit you're using (i.e. are you in 12edo or 16edo?). Their absolute value
-isn't terribly significant, but you should only make relative comparisons
+isn't terribly significant: you should only make relative comparisons
 between calculations done with the same value for \code{edo}.
 }
 \examples{

@@ -10,10 +10,11 @@
 #'
 #' Note that the values this function returns depend on what measurement
 #' unit you're using (i.e. are you in 12edo or 16edo?). Their absolute value
-#' isn't terribly significant, but you should only make relative comparisons
+#' isn't terribly significant: you should only make relative comparisons
 #' between calculations done with the same value for `edo`.
 #'
 #' @inheritParams tnprime
+#' @inheritParams simplify_scale
 #' @returns Single non-negative numeric value
 #' 
 #' @examples
@@ -27,9 +28,13 @@
 #' evenness(dim_triad) == evenness(sus_2)
 #'
 #' @export
-evenness <- function(set, edo=12) {
+evenness <- function(set, 
+                     method=c("euclidean", "taxicab", "chebyshev", "hamming"), 
+                     edo=12,
+                     rounder=10) {
+  method <- match.arg(method)
   card <- length(set)
   edoozero <- edoo(card, edo) - (sum(edoo(card, edo))/card)
   setzero <- set - (sum(set)/card)
-  sqrt(sum((setzero-edoozero)^2))
+  dist_func(setzero-edoozero, method=method, rounder=rounder)
 }
