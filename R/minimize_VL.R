@@ -8,7 +8,7 @@ crossingfree_vls <- function(source,
   card <- length(source)
   if (card != length(goal)) { 
     stop("Goal and source should have the same cardinality. 
-  You might want to double notes in your smaller (multi)set.")
+  You might want to double notes in your smaller (multi)set.", call.=FALSE)
   }
 
   modes <- sapply(0:(card-1), rotate, x=goal, edo=edo)
@@ -144,12 +144,15 @@ vl_dist <- function(set_1,
 get_tn_levels <- function(edo, subdivide) seq(0, edo, length.out=1 + (edo*subdivide))
  
 get_vl_dists <- function(set, 
+                         goal=NULL,
                          method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                          subdivide=100, 
                          edo=12,
                          rounder=10) {
+  if (is.null(goal)) goal <- set
+
   tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
-  all_transpositions <- sapply(tn_levels, tn, set=set, edo=edo, sorted=FALSE)
+  all_transpositions <- sapply(tn_levels, tn, set=goal, edo=edo, sorted=FALSE)
   getdist <- function(source, goal, method, edo) {
     min(crossingfree_vls(source, goal, method, edo, rounder)$vl_scores)
   }
@@ -160,8 +163,8 @@ get_vl_dists <- function(set,
 #'
 #' @description
 #' One way to think about the voice-leading potential of a set is to consider the minimal voice-leadings
-#' by which it can move to transpositions of itself. For instance, the major triad's closest 
-#' transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
+#' by which it can move to transpositions of itself (or another set). For instance, the major triad's 
+#' closest transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
 #' and potentially also \eqn{T_{\pm 2}} depending on the distance metric you use. For 
 #' the major triad restricted to 12-tone equal temperament, this set of relationships is well
 #' modeled by Richard Cohn's discussion of [Douthett & Steinbach's](https://www.jstor.org/stable/843877)
@@ -171,7 +174,7 @@ get_vl_dists <- function(set,
 #' under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
 #'
 #' This function allows us to visualize such relationships by plotting the minimal voice leading
-#' distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
+#' distance from a set to transpositions of its goal in continuous pc-space. (In spirit, it is like
 #' a continuous version of [vl_rolodex()] except that it visualizes a voice-leading distance rather than
 #' reporting the specific motions of the set's individual voices.) The main intended use of the function
 #' is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of 
@@ -181,6 +184,8 @@ get_vl_dists <- function(set,
 #'
 #' @inheritParams tnprime
 #' @inheritParams minimize_vl
+#' @param goal Numeric vector like set: what is the tn-type of the voice leading's destination?
+#'   Defaults to `NULL`, in which case the function uses `set` as the tn-type.
 #' @param subdivide Numeric: how many small amounts should each `edo` step be divided into? Defaults to `100`.
 #'
 #' @returns Numeric vector of length `edo * subdivide` representing distances of the transpositions. Names
@@ -196,24 +201,37 @@ get_vl_dists <- function(set,
 #' 
 #' @export
 tndists <- function(set, 
+                    goal=NULL,
                     method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                     subdivide=100, 
                     edo=12,
                     rounder=10) {
+  if (is.null(goal)) {
+    goal <- set
+    title_final <- "to its transpositions"
+  } else {
+    title_final <- paste("to transpositions of", deparse(substitute(goal)))
+  }
+
   method <- match.arg(method)
   method_title <- paste0(toupper(substr(method, 1, 1)),
                         substr(method, 2, nchar(method)), collapse="")
 
   tn_levels <- get_tn_levels(edo=edo, subdivide=subdivide)
 
-  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo, rounder=rounder)
+  all_dists <- get_vl_dists(set=set, 
+                            goal=goal, 
+                            method=method, 
+                            subdivide=subdivide, 
+                            edo=edo, 
+                            rounder=rounder)
 
   plot(tn_levels, all_dists, type="l", lwd=4, ljoin=2,
        xlab = paste0("Transposition relative to ", edo, "-equal temperament"), xaxs="i",
        ylab = "Voice-leading distance")
   graphics::mtext(side=3, 
         paste(method_title, "distances from", 
-              deparse(substitute(set)), "to its transpositions"),
+              deparse(substitute(set)), title_final),
         font=2, line=1)
   graphics::grid(nx=edo, ny=NA, lty="dashed")
   graphics::grid(nx=NA, ny=NULL, lty="dotted")
@@ -224,7 +242,7 @@ tndists <- function(set,
 
 #' Voice-leading inflection points
 #'
-#' When considering an n-note set's potential voice leadings to transpositions of itself (along the lines 
+#' When considering an n-note set's potential voice leadings to transpositions of a goal (along the lines 
 #' of [vl_rolodex()] and [tndists()]), there will always be some transposition in continuous pc-space
 #' for which a given modal rotation is the best potential target for voice leading. (That is, there is
 #' always some `x` such that `whichmodebest(set, tn(set, x)) == k` for any `k` between `1` and `n`.)
@@ -254,11 +272,19 @@ tndists <- function(set,
 #'
 #' @export
 flex_points <- function(set, 
+                        goal=NULL,
                         method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                         subdivide=100, 
                         edo=12, 
                         rounder=10) {
-  all_dists <- get_vl_dists(set=set, method=method, subdivide=subdivide, edo=edo, rounder=rounder)
+  if (is.null(goal)) goal <- set
+
+  all_dists <- get_vl_dists(set=set, 
+                            goal=goal, 
+                            method=method, 
+                            subdivide=subdivide, 
+                            edo=edo, 
+                            rounder=rounder)
   second_derivative <- round(diff(all_dists, differences=2), digits=rounder)
   inflection_points <- which(second_derivative < 0)
   duplicated_points <- which(diff(inflection_points)==1) + 1

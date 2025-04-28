@@ -6,6 +6,7 @@
 \usage{
 tndists(
   set,
+  goal = NULL,
   method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   subdivide = 100,
   edo = 12,
@@ -14,6 +15,9 @@ tndists(
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{goal}{Numeric vector like set: what is the tn-type of the voice leading's destination?
+Defaults to \code{NULL}, in which case the function uses \code{set} as the tn-type.}
 
 \item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
 but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
@@ -31,8 +35,8 @@ indicate the transposition index that corresponds to each distance.
 }
 \description{
 One way to think about the voice-leading potential of a set is to consider the minimal voice-leadings
-by which it can move to transpositions of itself. For instance, the major triad's closest
-transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
+by which it can move to transpositions of itself (or another set). For instance, the major triad's
+closest transpositions are \eqn{T_4} and \eqn{T_8} while its most distant transposition is \eqn{T_6},
 and potentially also \eqn{T_{\pm 2}} depending on the distance metric you use. For
 the major triad restricted to 12-tone equal temperament, this set of relationships is well
 modeled by Richard Cohn's discussion of \href{https://www.jstor.org/stable/843877}{Douthett & Steinbach's}
@@ -42,7 +46,7 @@ different minimal neighbors depending on the metric chosen: its nearest neighbor
 under the Euclidean metric but \eqn{T_{\pm 5}} under the taxicab metric.
 
 This function allows us to visualize such relationships by plotting the minimal voice leading
-distance from a set to its transpositions in continuous pc-space. (In spirit, it is like
+distance from a set to transpositions of its goal in continuous pc-space. (In spirit, it is like
 a continuous version of \code{\link[=vl_rolodex]{vl_rolodex()}} except that it visualizes a voice-leading distance rather than
 reporting the specific motions of the set's individual voices.) The main intended use of the function
 is the plot that it produces, which represents many discrete \eqn{T_n}s of the set (for a sampling of

@@ -27,7 +27,7 @@ number of decimal places to round to when testing for equality.}
 Single non-negative numeric value
 }
 \description{
-Calculates the Euclidean distance from a set to the nearest perfectly even
+Calculates the distance from a set to the nearest perfectly even
 division of the octave, which will \emph{not} be the one with a first entry
 of 0, unlike almost every other usage in this package. That's because, for
 most purposes, we do want to distinguish between different modes of a set,
@@ -40,6 +40,8 @@ Note that the values this function returns depend on what measurement
 unit you're using (i.e. are you in 12edo or 16edo?). Their absolute value
 isn't terribly significant: you should only make relative comparisons
 between calculations done with the same value for \code{edo}.
+
+Currently, \code{method}s other than "Euclidean" are somewhat experimental.
 }
 \examples{
 evenness(c(0, 4, 8))

@@ -1,6 +1,6 @@
 #' How even is a scale?
 #'
-#' Calculates the Euclidean distance from a set to the nearest perfectly even
+#' Calculates the distance from a set to the nearest perfectly even
 #' division of the octave, which will *not* be the one with a first entry
 #' of 0, unlike almost every other usage in this package. That's because, for
 #' most purposes, we do want to distinguish between different modes of a set,
@@ -12,6 +12,8 @@
 #' unit you're using (i.e. are you in 12edo or 16edo?). Their absolute value
 #' isn't terribly significant: you should only make relative comparisons
 #' between calculations done with the same value for `edo`.
+#'
+#' Currently, `method`s other than "Euclidean" are somewhat experimental.
 #'
 #' @inheritParams tnprime
 #' @inheritParams simplify_scale
@@ -34,7 +36,16 @@ evenness <- function(set,
                      rounder=10) {
   method <- match.arg(method)
   card <- length(set)
-  edoozero <- edoo(card, edo) - (sum(edoo(card, edo))/card)
-  setzero <- set - (sum(set)/card)
+  if (method=="taxicab") {
+    edoozero <- edoo(card, edo) - stats::median(edoo(card, edo))
+    get_setzero <- function(set)  set - stats::median(set)
+    sim_setzeros <- apply(sim(set, edo=edo), 2, get_setzero)
+    offsets <- sim_setzeros - edoozero
+    return(min(apply(offsets, 2, dist_func, method=method, rounder=rounder)))
+  } else {
+    edoozero <- edoo(card, edo) - (sum(edoo(card, edo))/card)
+    setzero <- set - (sum(set)/card) 
+  }
+
   dist_func(setzero-edoozero, method=method, rounder=rounder)
 }

@@ -6,6 +6,7 @@
 \usage{
 flex_points(
   set,
+  goal = NULL,
   method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   subdivide = 100,
   edo = 12,
@@ -14,6 +15,9 @@ flex_points(
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{goal}{Numeric vector like set: what is the tn-type of the voice leading's destination?
+Defaults to \code{NULL}, in which case the function uses \code{set} as the tn-type.}
 
 \item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
 but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
@@ -30,7 +34,7 @@ Numeric vector of the transposition indices that are inflection points. Length o
 matches size of \code{set}, except in the case of some multisets, which can have fewer inflection points.
 }
 \description{
-When considering an n-note set's potential voice leadings to transpositions of itself (along the lines
+When considering an n-note set's potential voice leadings to transpositions of a goal (along the lines
 of \code{\link[=vl_rolodex]{vl_rolodex()}} and \code{\link[=tndists]{tndists()}}), there will always be some transposition in continuous pc-space
 for which a given modal rotation is the best potential target for voice leading. (That is, there is
 always some \code{x} such that \code{whichmodebest(set, tn(set, x)) == k} for any \code{k} between \code{1} and \code{n}.)

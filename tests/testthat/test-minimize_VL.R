@@ -58,3 +58,9 @@ test_that("tndists works", {
                               m7_tndists)
 })
 
+test_that("tndists goal param works", {
+  plr_tndists <- function() tndists(c(0,4,7), c(0,3,7))
+  vdiffr::expect_doppelganger("tndists plots for M-m vls",
+                              plr_tndists)
+})
+
