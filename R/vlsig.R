@@ -16,8 +16,8 @@
 #'
 #' @returns 2-by-m matrix whose m columns represent the m distinct voice-leading
 #'   generators. The top row indicates the generic size of each interval; the 
-#'   bottom row indicates the specific size. Columns are sorted according to the 
-#'   size of their induced voice leading.
+#'   bottom row indicates the specific size. Results are sorted so that the first
+#'   row (generic intervals) is strictly increasing.
 #'
 #' @examples
 #' diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
@@ -28,14 +28,9 @@
 #'
 #' maj7 <- c(0, 4, 7, 11)
 #' vl_generators(maj7)
-#' vl_generators(maj7, method="euclidean")
 #'
 #' @export
-vl_generators <- function(set, 
-                          method=c("taxicab", "euclidean", "chebyshev", "hamming"),
-                          edo=12,
-                          rounder=10) {
-  method <- match.arg(method)
+vl_generators <- function(set, edo=12, rounder=10) {
   tiny <- 10^(-1 * rounder)
   card <- length(set)
 
@@ -62,20 +57,8 @@ vl_generators <- function(set,
   
   res <- insist_matrix(res)
 
-  measure_vl <- function(vec) {
-    vl <- tn(set, vec[2], edo=edo, sorted=FALSE) - rotate(set, vec[1])
-    dist_func(vl, method=method, rounder=rounder)
-  }
-
-  res <- res[,order(res[2,])]
-  res <- insist_matrix(res)
-
-  vl_distances <- apply(res, 2, measure_vl)
-
-  res <- res[,order(vl_distances)]
-  res <- insist_matrix(res)
-
-  res
+  res <- res[,order(res[1,])]
+  insist_matrix(res)
 }
 
 #' Elementary voice leadings
@@ -114,19 +97,13 @@ vl_generators <- function(set,
 #' vl_rolodex(odd_pentachord, edo=15)$"8" 
 #'
 #' @export
-vlsig <- function(set, 
-                  index=1, 
-                  display_digits=2, 
-                  method=c("taxicab", "euclidean", "chebyshev", "hamming"),
-                  edo=12, 
-                  rounder=10) {
+vlsig <- function(set, index=1, display_digits=2, edo=12, rounder=10) {
   if (index < 1) {
     stop("Index must be positive!")
   }
 
   card <- length(set)
-  tiny <- 10^(-1 * rounder)
-  tn_levels <- vl_generators(set, method=method, edo=edo, rounder=rounder)
+  tn_levels <- vl_generators(set, edo=edo, rounder=rounder)
   rownames(tn_levels) <- NULL
 
   if (index > dim(tn_levels)[2]) {

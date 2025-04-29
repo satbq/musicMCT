@@ -4,14 +4,7 @@
 \alias{vlsig}
 \title{Elementary voice leadings}
 \usage{
-vlsig(
-  set,
-  index = 1,
-  display_digits = 2,
-  method = c("taxicab", "euclidean", "chebyshev", "hamming"),
-  edo = 12,
-  rounder = 10
-)
+vlsig(set, index = 1, display_digits = 2, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -21,9 +14,6 @@ the one which induces the least amount of motion.}
 
 \item{display_digits}{Integer: how many digits to display when naming any
 non-integral interval sizes. Defaults to 2.}
-
-\item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
-but can be \code{"euclidean"}, \code{"chebyshev"}, or \code{"hamming"}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
