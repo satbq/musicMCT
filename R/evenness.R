@@ -36,6 +36,19 @@ evenness <- function(set,
                      rounder=10) {
   method <- match.arg(method)
   card <- length(set)
+
+  if (method=="hamming") {
+    modes <- sim(set, edo=edo)
+    modes <- apply(modes, 2, coord_to_edo, edo=edo)
+    tiny <- 10^(-1 * rounder)
+    non_common_tones <- colSums(abs(modes) > tiny)
+    return(min(non_common_tones))
+  }
+
+  if (method=="chebyshev") {
+    stop("This method isn't implemented yet.")
+  }
+
   if (method=="taxicab") {
     edoozero <- edoo(card, edo) - stats::median(edoo(card, edo))
     get_setzero <- function(set)  set - stats::median(set)
