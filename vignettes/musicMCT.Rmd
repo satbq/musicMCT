@@ -20,7 +20,7 @@ library(musicMCT)
 
 # Introduction
 
-The goal of `musicMCT` is to provide computational tools for the study
+The goal of musicMCT is to provide computational tools for the study
 of musical scales. It includes functions that will probably be familiar to
 music theorists from pitch-class set theory in the vein of Allen Forte's
 *The Structure of Atonal Music* (1973). For instance, we can calculate the 
@@ -42,7 +42,7 @@ seven-note scales live in a 6-dimensional geometry populated by 1,824,229 qualit
 distinct scalar structures. I'm happy to calculate an `ivec()` by hand, but we're
 going to need computers to explore such a complicated space!
 
-This vignette will introduce many of the main functions of {musicMCT} that serve
+This vignette will introduce many of the main functions of musicMCT that serve
 this purpose, especially as they relate to the concerns of the *Journal of Music Theory* article. The
 problem that we'll discuss is not of deep significance, but I hope a toy example
 will teach you how to use this software and give you a sense of the kinds of
@@ -95,7 +95,7 @@ and here we've found a voice leading that raises the fourth step (F) a semitone 
 So the numbers (0, 2, 4, 6, 7, 9, 10) do indeed correspond to the scale (C, D, E, F-sharp, G, A, B-flat).
 
 Now, this scale is sometimes called the "acoustic" scale because in some sense it is
-close to a seven-note chunk of the overtone series. Our task in this vignette is to use `musicMCT`
+close to a seven-note chunk of the overtone series. Our task in this vignette is to use musicMCT
 to see how real that similarity is. Let's agree to call these two scales the "acoustic" and "overtone" scales, respectively.
 
 The overtone scale is defined by treating the 7th through 13th harmonics of the overtone series as a scale
@@ -200,7 +200,7 @@ quantization of the `overtone_scale` even if it isn't the *only* quantization.
 
 ## 3. But what about scale structure?
 
-So far we've used some of the computational tools of `musicMCT` but we haven't really applied the concepts
+So far we've used some of the tools of musicMCT but we haven't really applied the concepts
 of Modal Color Theory. That's because we've been treating the scales' continuous voice-leading space as 
 essentially undifferentiated, whereas the central argument of MCT is that there are discrete regions in the geometry
 that correspond to *qualitative* differences in scale structure.
@@ -212,7 +212,7 @@ $\hat{1}$-$\hat{2}$ bigger or smaller than the step $\hat{2}$-$\hat{3}$? Is the 
 the skip $\hat{3}$-$\hat{5}$? And so on.
 
 How long before we have exhausted all the potential comparisons that we could make? Each comparison corresponds to a hyperplane
-in the geometry, and `musicMCT` offers a complete list of all the hyperplanes in a matrix called an `ineqmat` (for "inequality matrix").
+in the geometry, and musicMCT offers a complete list of all the hyperplanes in a matrix called an `ineqmat` (for "inequality matrix").
 The relevant matrix for four-note scales looks like this:
 
 ```{r}
@@ -221,7 +221,7 @@ getineqmat(4)
 
 Each row of the matrix represents a different pairwise interval comparison: for tetrachords, we apparently need to consider 8
 different comparisons to have a complete accounting of a scale structure. Two scales have the same structure (or belong to the same
-"color") if they answer all 8 comparisons in the same way. `musicMCT` summarizes this information in a scale's `signvector()`. For
+"color") if they answer all 8 comparisons in the same way. musicMCT summarizes this information in a scale's `signvector()`. For
 instance, let's consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248). Here are their sign vectors:
 
 ```{r}
@@ -233,7 +233,7 @@ These vectors are the same, so MCT considers the tetrachords to have the same sc
 (0-1-2 and 0-2-4) and then have a larger leap (2-7 and 4-8).
 
 For heptachords, the relevant `ineqmat` has 42 rows, so the space of scale structures is considerably more complicated. Generally 
-you wouldn't learn a lot from trying to read sign vectors directly--`musicMCT` has more human-readable functions that will help you
+you wouldn't learn a lot from trying to read sign vectors directly--musicMCT has more human-readable functions that will help you
 interpret them--but let's take a gander at them for the acoustic and overtone scales:
 
 ```{r}
@@ -258,7 +258,7 @@ frequency ratios and pitch intervals, each successive step in the overtone serie
 that the `overtone_scale` would have a lot of intervallic variety. If anything, it's surprising that it repeats *any* intervals.
 
 We can learn what interval it does repeat by putting together the information from the sign vector with the `ineqmat` for heptachords. We could
-manually count which entry of the sign vector is a 0, but `musicMCT` also has a function for that:
+manually count which entry of the sign vector is a 0, but musicMCT also has a function for that:
 
 ```{r}
 whichsvzeroes(overtone_scale)
@@ -345,7 +345,7 @@ set ourselves up to fail by restricting our attention to the twelve-tone chromat
 
 ## 4. Looking for better approximations outside of 12edo
 
-If we are willing to quantize to other equal divisions of the octave, we can find much better structural approximations. In particular, `musicMCT`
+If we are willing to quantize to other equal divisions of the octave, we can find much better structural approximations. In particular, musicMCT
 has a function that will find a quantized representative of any scalar color, in the lowest n-note equal division of the octave where such a
 quantization exists.
 
@@ -386,7 +386,7 @@ diatonic makes, such as the difference between major and minor whole tones. (The
 since it averages out the sizes of the larger and smaller just whole tones.)
 
 With this in mind, let us ask: what more regular colors is the `overtone_scale` adjacent to? We might first compare it to the 12edo quantizations 
-above. `musicMCT` lets us do this with the function `comparesignvecs()`, which returns `1` if two sign vectors represent adjacent colors, `0` if 
+above. musicMCT lets us do this with the function `comparesignvecs()`, which returns `1` if two sign vectors represent adjacent colors, `0` if 
 two sign vectors are identical, and `-1` if the colors are neither the same nor adjacent.
 
 ```{r}
@@ -403,7 +403,7 @@ scale to match, since most conceivable sign vectors don't correspond to scales t
 from scratch, but luckily we don't have to: part of MCT is a map of all the colors that exist (for scale sizes up to heptachords) and their 
 adjacency relationships.
 
-This map involves datasets that are too large to distribute with the `musicMCT` package. They can be downloaded from the [GitHub repository
+This map involves datasets that are too large to distribute with the musicMCT package. They can be downloaded from the [GitHub repository
 modalcolortheory](https://github.com/satbq/modalcolortheory):
 
 * [representative_scales.rds](https://github.com/satbq/modalcolortheory/blob/main/representative_scales.rds) (~80 MB) contains a list of all scalar colors for scales of 2-7 notes, with one concrete scale to represent each color
@@ -496,13 +496,13 @@ to that tradition, when my goal with the theory is to do just the opposite. The 
 deeper insight into the nature of that intersection between cultural choice and acoustical affordance.
 
 In the end, the `acoustic_scale` actually is a pretty decent approximation for many purposes, especially if you're limited to the familiar 12 pitch-classes
-of the piano. Hopefully, though, this vignette shows how we might, when musicking with different priorities, come to make other choices--and how `musicMCT` can aid us in that process.
+of the piano. Hopefully, though, this vignette shows how we might, when musicking with different priorities, come to make other choices--and how musicMCT can aid us in that process.
 
 # Coda: Brightness graphs
 
 Up to this point, we've done everything numerically, but "Modal Color Theory" also has some visualization tools. The one I want to introduce here is the "brightness graph," 
 which lets us visualize the voice-leading relationships between a scale's modes (and thus to some degree the internal structure of the scale, as described in "Modal Color 
-Theory," 7-11). Using `musicMCT` we can make quick mock-ups of brightness graphs with `brightnessgraph()`. First let's take a look at the `acoustic_scale`:
+Theory," 7-11). Using musicMCT we can make quick mock-ups of brightness graphs with `brightnessgraph()`. First let's take a look at the `acoustic_scale`:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 brightnessgraph(acoustic_scale)
@@ -548,7 +548,7 @@ brightnessgraph(quantized_overtone_color$set, edo=30, show_sums=FALSE)
 That's impressively close to the graph for the actual `overtone_scale`! (In truth, we got a little lucky here: many colors offer
 enough room for variation that `brightnessgraph()` doesn't always preserve such visually obvious similarity.) Aside from
 a check that `quantize_color()` works as intended, one other thing to note from this example is that `brightnessgraph()`, like
-almost all functions in `musicMCT` makes it convenient to work in other "chromatic cardinalities" (i.e. number of unit steps to
+almost all functions in musicMCT makes it convenient to work in other "chromatic cardinalities" (i.e. number of unit steps to
 the octave) besides 12edo. Just be careful not to make direct comparisons between absolute values reckoned in different systems:
 note, for instance, that the sum brightnesses for our 30edo quantization are all around 90 whereas they were about 36 in the 
 brightness graph of the original `overtone_scale`. That's because we've changed our unit of measurement to be 2.5 times smaller,

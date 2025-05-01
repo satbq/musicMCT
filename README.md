@@ -65,7 +65,8 @@ color_adjacencies <- readRDS("color_adjacencies.rds")
 ## Example
 
 For a detailed introduction to using this package, please see the
-vignette “musicMCT”.
+[introductory
+vignette](https://satbq.github.io/musicMCT/articles/musicMCT.html).
 
 As a very quick example, let’s define the most common “just intonation”
 version of the major scale and run a few tests on it:
