@@ -6,11 +6,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Introduction to musicMCT • musicMCT</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="../deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to musicMCT">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to musicMCT">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -69,11 +75,11 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The goal of <code>musicMCT</code> is to provide computational tools
-for the study of musical scales. It includes functions that will
-probably be familiar to music theorists from pitch-class set theory in
-the vein of Allen Forte’s <em>The Structure of Atonal Music</em> (1973).
-For instance, we can calculate the <strong>i</strong>nterval-class
+<p>The goal of musicMCT is to provide computational tools for the study
+of musical scales. It includes functions that will probably be familiar
+to music theorists from pitch-class set theory in the vein of Allen
+Forte’s <em>The Structure of Atonal Music</em> (1973). For instance, we
+can calculate the <strong>i</strong>nterval-class
 <strong>vec</strong>tor of the diatonic scale (Forte’s
 <strong>s</strong>et <strong>c</strong>lass 7-35) as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -91,7 +97,7 @@ scales live in a 6-dimensional geometry populated by 1,824,229
 qualitatively distinct scalar structures. I’m happy to calculate an
 <code><a href="../reference/ivec.html">ivec()</a></code> by hand, but we’re going to need computers to
 explore such a complicated space!</p>
-<p>This vignette will introduce many of the main functions of {musicMCT}
+<p>This vignette will introduce many of the main functions of musicMCT
 that serve this purpose, especially as they relate to the concerns of
 the <em>Journal of Music Theory</em> article. The problem that we’ll
 discuss is not of deep significance, but I hope a toy example will teach
@@ -155,9 +161,9 @@ the seventh step (B). So the numbers (0, 2, 4, 6, 7, 9, 10) do indeed
 correspond to the scale (C, D, E, F-sharp, G, A, B-flat).</p>
 <p>Now, this scale is sometimes called the “acoustic” scale because in
 some sense it is close to a seven-note chunk of the overtone series. Our
-task in this vignette is to use <code>musicMCT</code> to see how real
-that similarity is. Let’s agree to call these two scales the “acoustic”
-and “overtone” scales, respectively.</p>
+task in this vignette is to use musicMCT to see how real that similarity
+is. Let’s agree to call these two scales the “acoustic” and “overtone”
+scales, respectively.</p>
 <p>The overtone scale is defined by treating the 7th through 13th
 harmonics of the overtone series as a scale (noting that the 14th
 harmonic is an octave above the 7th). We’ll convert that into semitone
@@ -281,13 +287,12 @@ quantization.</p>
 <div class="section level3">
 <h3 id="but-what-about-scale-structure">3. But what about scale structure?<a class="anchor" aria-label="anchor" href="#but-what-about-scale-structure"></a>
 </h3>
-<p>So far we’ve used some of the computational tools of
-<code>musicMCT</code> but we haven’t really applied the concepts of
-Modal Color Theory. That’s because we’ve been treating the scales’
-continuous voice-leading space as essentially undifferentiated, whereas
-the central argument of MCT is that there are discrete regions in the
-geometry that correspond to <em>qualitative</em> differences in scale
-structure.</p>
+<p>So far we’ve used some of the tools of musicMCT but we haven’t really
+applied the concepts of Modal Color Theory. That’s because we’ve been
+treating the scales’ continuous voice-leading space as essentially
+undifferentiated, whereas the central argument of MCT is that there are
+discrete regions in the geometry that correspond to <em>qualitative</em>
+differences in scale structure.</p>
 <p>MCT models scale structure by comparing intervals that belong to the
 same generic size. For instance, a big part of the character of the
 familiar major scale lies in the fact that most of its steps have the
@@ -298,9 +303,9 @@ other). MCT breaks this down into individual comparisons: is the step
 <span class="math inline">\(\hat{3}\)</span>-<span class="math inline">\(\hat{5}\)</span>? And so on.</p>
 <p>How long before we have exhausted all the potential comparisons that
 we could make? Each comparison corresponds to a hyperplane in the
-geometry, and <code>musicMCT</code> offers a complete list of all the
-hyperplanes in a matrix called an <code>ineqmat</code> (for “inequality
-matrix”). The relevant matrix for four-note scales looks like this:</p>
+geometry, and musicMCT offers a complete list of all the hyperplanes in
+a matrix called an <code>ineqmat</code> (for “inequality matrix”). The
+relevant matrix for four-note scales looks like this:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/makeineqmat.html">getineqmat</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
@@ -316,10 +321,10 @@ matrix”). The relevant matrix for four-note scales looks like this:</p>
 comparison: for tetrachords, we apparently need to consider 8 different
 comparisons to have a complete accounting of a scale structure. Two
 scales have the same structure (or belong to the same “color”) if they
-answer all 8 comparisons in the same way. <code>musicMCT</code>
-summarizes this information in a scale’s <code><a href="../reference/signvector.html">signvector()</a></code>. For
-instance, let’s consider set classes 4-6 (prime form 0127) and 4-24
-(prime form 0248). Here are their sign vectors:</p>
+answer all 8 comparisons in the same way. musicMCT summarizes this
+information in a scale’s <code><a href="../reference/signvector.html">signvector()</a></code>. For instance, let’s
+consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248).
+Here are their sign vectors:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0 -1 -1 -1 -1  0 -1  0</span></span>
@@ -331,9 +336,9 @@ steps (0-1-2 and 0-2-4) and then have a larger leap (2-7 and 4-8).</p>
 <p>For heptachords, the relevant <code>ineqmat</code> has 42 rows, so
 the space of scale structures is considerably more complicated.
 Generally you wouldn’t learn a lot from trying to read sign vectors
-directly–<code>musicMCT</code> has more human-readable functions that
-will help you interpret them–but let’s take a gander at them for the
-acoustic and overtone scales:</p>
+directly–musicMCT has more human-readable functions that will help you
+interpret them–but let’s take a gander at them for the acoustic and
+overtone scales:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  0  0  0  1  1  1  0  0  0 -1  1  1  1  0  1  0  0  0 -1  0 -1  1  1  1  1</span></span>
@@ -371,7 +376,7 @@ anything, it’s surprising that it repeats <em>any</em> intervals.</p>
 <p>We can learn what interval it does repeat by putting together the
 information from the sign vector with the <code>ineqmat</code> for
 heptachords. We could manually count which entry of the sign vector is a
-0, but <code>musicMCT</code> also has a function for that:</p>
+0, but musicMCT also has a function for that:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/whichsvzeroes.html">whichsvzeroes</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 38</span></span></code></pre></div>
@@ -484,9 +489,9 @@ restricting our attention to the twelve-tone chromatic universe.</p>
 </h3>
 <p>If we are willing to quantize to other equal divisions of the octave,
 we can find much better structural approximations. In particular,
-<code>musicMCT</code> has a function that will find a quantized
-representative of any scalar color, in the lowest n-note equal division
-of the octave where such a quantization exists.</p>
+musicMCT has a function that will find a quantized representative of any
+scalar color, in the lowest n-note equal division of the octave where
+such a quantization exists.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">quantized_overtone_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quantize_color.html">quantize_color</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">quantized_overtone_color</span><span class="op">)</span></span>
@@ -548,11 +553,11 @@ difference, since it averages out the sizes of the larger and smaller
 just whole tones.)</p>
 <p>With this in mind, let us ask: what more regular colors is the
 <code>overtone_scale</code> adjacent to? We might first compare it to
-the 12edo quantizations above. <code>musicMCT</code> lets us do this
-with the function <code><a href="../reference/comparesignvecs.html">comparesignvecs()</a></code>, which returns
-<code>1</code> if two sign vectors represent adjacent colors,
-<code>0</code> if two sign vectors are identical, and <code>-1</code> if
-the colors are neither the same nor adjacent.</p>
+the 12edo quantizations above. musicMCT lets us do this with the
+function <code><a href="../reference/comparesignvecs.html">comparesignvecs()</a></code>, which returns <code>1</code> if
+two sign vectors represent adjacent colors, <code>0</code> if two sign
+vectors are identical, and <code>-1</code> if the colors are neither the
+same nor adjacent.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">overtone_sv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvectors</span>, <span class="fl">2</span>, <span class="va">comparesignvecs</span>, signvecY<span class="op">=</span><span class="va">overtone_sv</span><span class="op">)</span></span>
@@ -572,7 +577,7 @@ exist. We could try to solve this problem from scratch, but luckily we
 don’t have to: part of MCT is a map of all the colors that exist (for
 scale sizes up to heptachords) and their adjacency relationships.</p>
 <p>This map involves datasets that are too large to distribute with the
-<code>musicMCT</code> package. They can be downloaded from the <a href="https://github.com/satbq/modalcolortheory" class="external-link">GitHub repository
+musicMCT package. They can be downloaded from the <a href="https://github.com/satbq/modalcolortheory" class="external-link">GitHub repository
 modalcolortheory</a>:</p>
 <ul>
 <li>
@@ -705,8 +710,8 @@ that intersection between cultural choice and acoustical affordance.</p>
 decent approximation for many purposes, especially if you’re limited to
 the familiar 12 pitch-classes of the piano. Hopefully, though, this
 vignette shows how we might, when musicking with different priorities,
-come to make other choices–and how <code>musicMCT</code> can aid us in
-that process.</p>
+come to make other choices–and how musicMCT can aid us in that
+process.</p>
 </div>
 </div>
 <div class="section level2">
@@ -717,9 +722,9 @@ Theory” also has some visualization tools. The one I want to introduce
 here is the “brightness graph,” which lets us visualize the
 voice-leading relationships between a scale’s modes (and thus to some
 degree the internal structure of the scale, as described in “Modal Color
-Theory,” 7-11). Using <code>musicMCT</code> we can make quick mock-ups
-of brightness graphs with <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>. First let’s
-take a look at the <code>acoustic_scale</code>:</p>
+Theory,” 7-11). Using musicMCT we can make quick mock-ups of brightness
+graphs with <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>. First let’s take a look at
+the <code>acoustic_scale</code>:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span></code></pre></div>
 <p><img src="musicMCT_files/figure-html/unnamed-chunk-33-1.png" width="480"></p>
@@ -783,15 +788,15 @@ colors offer enough room for variation that
 obvious similarity.) Aside from a check that
 <code><a href="../reference/quantize_color.html">quantize_color()</a></code> works as intended, one other thing to note
 from this example is that <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>, like almost
-all functions in <code>musicMCT</code> makes it convenient to work in
-other “chromatic cardinalities” (i.e. number of unit steps to the
-octave) besides 12edo. Just be careful not to make direct comparisons
-between absolute values reckoned in different systems: note, for
-instance, that the sum brightnesses for our 30edo quantization are all
-around 90 whereas they were about 36 in the brightness graph of the
-original <code>overtone_scale</code>. That’s because we’ve changed our
-unit of measurement to be 2.5 times smaller, so values like distances
-and sums scale correspondingly.</p>
+all functions in musicMCT makes it convenient to work in other
+“chromatic cardinalities” (i.e. number of unit steps to the octave)
+besides 12edo. Just be careful not to make direct comparisons between
+absolute values reckoned in different systems: note, for instance, that
+the sum brightnesses for our 30edo quantization are all around 90
+whereas they were about 36 in the brightness graph of the original
+<code>overtone_scale</code>. That’s because we’ve changed our unit of
+measurement to be 2.5 times smaller, so values like distances and sums
+scale correspondingly.</p>
 <p>You might find it instructive to explore the brightness graphs of the
 remaining <code>final_quantizations</code> from above, which show
 considerable variety from one to the next. This gives a glimpse of the
@@ -827,7 +832,7 @@ could spend several thousand words developing.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
