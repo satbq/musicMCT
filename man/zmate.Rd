@@ -21,12 +21,12 @@ in which case the function returns \code{NA}.
 }
 \details{
 These values are hard-coded from Forte's list for non-hexachords and only work for subsets
-of the standard chromatic scale. \code{zmate} doesn't even give you an option
+of the standard chromatic scale. \code{zmate()} doesn't even give you an option
 to work in a different \code{edo}. If it were to do so, I can't see a better solution
 than calculating all the set classes of a given cardinality on the spot,
 which can be slow for higher \code{edo}s.
 }
 \examples{
-zmate(c(0,4,7))
-zmate(c(0,1,4,6))
+zmate(c(0, 4, 7))
+zmate(c(0, 1, 4, 6))
 }

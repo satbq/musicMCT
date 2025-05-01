@@ -10,20 +10,26 @@
 #' @returns Numeric vector of length `card` representing a pc-set of `card` notes.
 #'
 #' @examples
-#' ait1 <- sc(4,15)
-#' ait2 <- sc(4,29)
-#' NB_rahn_prime_form <- sc(6,31)
+#' ait1 <- sc(4, 15)
+#' ait2 <- sc(4, 29)
+#'
+#' NB_rahn_prime_form <- sc(6, 31)
 #' print(NB_rahn_prime_form)
 #' @export
 sc <- function(card, num) {
+  if ((!inherits(card, "numeric") && !inherits(card, "integer"))
+       || (!inherits(num, "numeric") && !inherits(num, "integer"))) {
+    stop("Inputs must be numeric or integers.")
+  }
+
   if (card < 1 || card > 12) {
-    stop("Cardinality not in the range 1-12")
+    stop("Cardinality not in the range 1-12.")
   }
 
   set <- fortenums[[card]][num]
 
   if (length(set) != 1 || is.na(set)) {
-   stop("Ordinal number out of bounds for given cardinal") 
+   stop("Ordinal number out of bounds for given cardinal or multiple ordinals.") 
   }
 
   strtoi(unlist(strsplit(set, split=",")))

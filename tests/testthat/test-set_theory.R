@@ -11,6 +11,10 @@ test_that("sc works", {
 
   expect_error(sc(0,1))
   expect_error(sc(13,5))
+
+  expect_error(sc(4, integer(0)))
+  expect_error(sc(7, "oops"))
+  expect_error(sc(7, 1:3))
 })
 
 test_that("fortenum works", {

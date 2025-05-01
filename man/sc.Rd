@@ -22,8 +22,9 @@ Music} (1973). Draws the information from hard-coded values in the package's
 data.
 }
 \examples{
-ait1 <- sc(4,15)
-ait2 <- sc(4,29)
-NB_rahn_prime_form <- sc(6,31)
+ait1 <- sc(4, 15)
+ait2 <- sc(4, 29)
+
+NB_rahn_prime_form <- sc(6, 31)
 print(NB_rahn_prime_form)
 }
