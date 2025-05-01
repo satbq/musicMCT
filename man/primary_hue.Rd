@@ -69,7 +69,7 @@ the primary color which belongs to the same palette of hues as the input.
 Because \code{primary_hue()} focuses on hues rather than colors, it may not
 highlight the fact that two scales have the same primary color. Thus, for
 information about broader families, \code{primary_colornum()} returns the color
-number of the primary color, \code{primary_signvector()} returns the signvector,
+number of the primary color, \code{primary_signvector()} returns the sign vector,
 and \code{primary_color()} itself uses \code{\link[=quantize_color]{quantize_color()}} to return a consistent
 representative of each color.
 }

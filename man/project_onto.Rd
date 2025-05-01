@@ -53,7 +53,7 @@ the projection of \code{set} onto the flat determined by \code{target_rows} or
 }
 \description{
 Projects a scale onto the nearest point that lies on a target flat
-of the hyperplane arrangment. \code{project_onto()} determines the target
+of the hyperplane arrangement. \code{project_onto()} determines the target
 flat from a list of linearly independent rows in \code{ineqmat} which define
 the flat. \code{match_flat()} determines the target by extrapolating from a
 given scale on that flat. Note that while the projection lies on

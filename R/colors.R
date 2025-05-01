@@ -68,7 +68,7 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
 #' Because `primary_hue()` focuses on hues rather than colors, it may not 
 #' highlight the fact that two scales have the same primary color. Thus, for
 #' information about broader families, `primary_colornum()` returns the color
-#' number of the primary color, `primary_signvector()` returns the signvector,
+#' number of the primary color, `primary_signvector()` returns the sign vector,
 #' and `primary_color()` itself uses [quantize_color()] to return a consistent
 #' representative of each color.
 #'

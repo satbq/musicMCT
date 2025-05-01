@@ -29,7 +29,7 @@ These motions correspond to the arrows in a set's \code{\link[=brightnessgraph]{
 (The qualifier "generally" is needed because of certain problematic edge
 cases, such as the perfectly even scales of \code{\link[=edoo]{edoo()}} whose minimal voice
 leadings always involve entirely parallel motion, which cannot be
-derived from "mode shift" voice leadings represnted on a brightness graph.)
+derived from "mode shift" voice leadings represented on a brightness graph.)
 \code{vl_generators()} identifies these basic voice-leading motions.
 }
 \examples{

@@ -21,7 +21,7 @@ coprime to the size of the set. Defaults to \code{1}.}
 }
 \value{
 Numeric vector representing a scale of same length as \code{set}.
-Defaults params determine the identity symmetry and will return
+Default parameters determine the identity symmetry and will return
 \code{set} itself.
 }
 \description{

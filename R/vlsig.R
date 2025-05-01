@@ -8,7 +8,7 @@
 #' (The qualifier "generally" is needed because of certain problematic edge
 #' cases, such as the perfectly even scales of [edoo()] whose minimal voice
 #' leadings always involve entirely parallel motion, which cannot be 
-#' derived from "mode shift" voice leadings represnted on a brightness graph.)
+#' derived from "mode shift" voice leadings represented on a brightness graph.)
 #' `vl_generators()` identifies these basic voice-leading motions.
 #'
 #' @inheritParams tnprime
@@ -68,7 +68,7 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'
 #' Note that the voice leadings determined by `vlsig()` can be different from the
 #' corresponding ones at the same \eqn{T_n} level in [vl_rolodex()]. The latter function
-#' prioritizes minimal voice leadings, whereas `vlsig()` priotizes *elementary* voice
+#' prioritizes minimal voice leadings, whereas `vlsig()` prioritizes *elementary* voice
 #' leadings derived from a set's [brightnessgraph()]. In particular, this means that
 #' `vlsig()` voice leadings will always be ascending, involve at least one common tone,
 #' and involve no contrary motion. See the `odd_pentachord` voice leadings in the Examples.

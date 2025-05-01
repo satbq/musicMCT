@@ -10,7 +10,7 @@
 #' combination of measurement error and the permissiveness of cognitive
 #' categories? `simplify_scale()` helps to answer such a question by considering
 #' whether eliding a precisely measured difference results in a significant
-#' simplifcation of the overall scale structure.
+#' simplification of the overall scale structure.
 #'
 #' It accomplishes this by starting from two premises:
 #'  * Any simplification should move to an adjacent color with fewer 
@@ -40,7 +40,7 @@
 #'   arrangement. Defaults to `NULL` in which case the function looks for
 #'   `representative_scales` in the global environment.
 #' @inheritParams colornum
-#' @param adjlist Adjacency list structed in the same way as `color_adjacencies`.
+#' @param adjlist Adjacency list structured in the same way as `color_adjacencies`.
 #'   Defaults to `NULL` in which case the function looks for `color_adjacencies`
 #'   in the global environment.
 #' @param method What distance metric should be used? Defaults to `"euclidean"` 

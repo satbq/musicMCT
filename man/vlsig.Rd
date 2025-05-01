@@ -35,7 +35,7 @@ as determined by \code{\link[=vl_generators]{vl_generators()}}.
 \details{
 Note that the voice leadings determined by \code{vlsig()} can be different from the
 corresponding ones at the same \eqn{T_n} level in \code{\link[=vl_rolodex]{vl_rolodex()}}. The latter function
-prioritizes minimal voice leadings, whereas \code{vlsig()} priotizes \emph{elementary} voice
+prioritizes minimal voice leadings, whereas \code{vlsig()} prioritizes \emph{elementary} voice
 leadings derived from a set's \code{\link[=brightnessgraph]{brightnessgraph()}}. In particular, this means that
 \code{vlsig()} voice leadings will always be ascending, involve at least one common tone,
 and involve no contrary motion. See the \code{odd_pentachord} voice leadings in the Examples.

@@ -40,7 +40,7 @@ which \code{colornum} assigns a value. Defaults to \code{NULL} and will attempt 
 use \code{representative_signvectors}, which needs to be downloaded and assigned
 separately from the package musicMCT.}
 
-\item{adjlist}{Adjacency list structed in the same way as \code{color_adjacencies}.
+\item{adjlist}{Adjacency list structured in the same way as \code{color_adjacencies}.
 Defaults to \code{NULL} in which case the function looks for \code{color_adjacencies}
 in the global environment.}
 
@@ -105,7 +105,7 @@ to consider those intervals to be essentially the same, up to some
 combination of measurement error and the permissiveness of cognitive
 categories? \code{simplify_scale()} helps to answer such a question by considering
 whether eliding a precisely measured difference results in a significant
-simplifcation of the overall scale structure.
+simplification of the overall scale structure.
 
 It accomplishes this by starting from two premises:
 \itemize{

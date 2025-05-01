@@ -1,7 +1,7 @@
 #' Closest point on a given flat
 #'
 #' Projects a scale onto the nearest point that lies on a target flat
-#' of the hyperplane arrangment. `project_onto()` determines the target  
+#' of the hyperplane arrangement. `project_onto()` determines the target  
 #' flat from a list of linearly independent rows in `ineqmat` which define 
 #' the flat. `match_flat()` determines the target by extrapolating from a 
 #' given scale on that flat. Note that while the projection lies on

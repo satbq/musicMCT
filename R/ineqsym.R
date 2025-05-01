@@ -45,7 +45,7 @@
 #' @param involution Boolean: controls involutional symmetry. Defaults to
 #'   `FALSE`.
 #' @returns Numeric vector representing a scale of same length as `set`.
-#'   Defaults params determine the identity symmetry and will return
+#'   Default parameters determine the identity symmetry and will return
 #'   `set` itself.
 #' 
 #' @examples
