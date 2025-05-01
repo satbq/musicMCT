@@ -53,7 +53,7 @@
 #' forms are ordered in the same sequence as Forte's list. Thus, for instance, the
 #' set class of the minor triad is represented by the string `"0, 3, 7"`, which is
 #' the 11th element in `fortenums[[3]]`. 
-
+#'
 #' @source
 #' Forte, Allen. 1973. *The Structure of Atonal Music*. New Haven, CT:
 #' Yale University Press. Appendix 1, pp. 179-181.

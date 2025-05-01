@@ -64,6 +64,18 @@ fortenum <- function(set) {
   paste0(card, "-", val)
 }
 
+#' Rahn's algorithm
+#'
+#' The essence of Rahn's algorithm for finding a set's prime form
+#' is to find the version of a pc set which is most "packed to the left".
+#' This function implements that process.
+#'
+#' @param modes A scalar interval matrix
+#' @inheritParams tnprime
+#'
+#' @returns A numeric vector representing the most compact version of a pc-set
+#'
+#' @noRd
 compactest_mode <- function(modes, rounder=10) {
   tiny <- 10^(-1*rounder)
   card <- nrow(modes)
@@ -186,6 +198,19 @@ startzero <- function(set, edo=12, sorted=TRUE) tn(set, -set[1], edo, sorted)
 #' @export
 charm <- function(set, edo=12, rounder=10) tnprime(tni(set, 0, edo), edo, rounder)
 
+#' Apply compactest_mode to both inversions of a set
+#'
+#' The final step of finding a prime form is to compare the
+#' most compact representations of original and inverted forms
+#' of a set. This does this by passing their individual best representatives
+#' to compactest_mode() for comparison.
+#'
+#' @param x,y Numeric vectors of the same length
+#' @inheritParams tnprime
+#' 
+#' @returns A single "winner" represented by either x or y
+#'
+#' @noRd
 strange_charm_compare <- function(x, y, rounder=10) {
   card <- length(x)
   modes <- cbind(x,y)

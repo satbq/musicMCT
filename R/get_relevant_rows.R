@@ -1,3 +1,15 @@
+#' What generic intervals are implicated in a hyperplane?
+#'
+#' Given a row of an ineqmat (i.e. a normal vector a hyperplane), identify
+#' which generic intervals are involved in the comparisons that hyperplane
+#' defines.
+#'
+#' @param row A vector representing a hyperplane's normal vector
+#' @param card Integer indicating the size of the scales under study
+#'
+#' @returns A numeric vector (usually 1 or 2 values) of generic intervals
+#'
+#' @noRd
 affected_generic_intervals <- function(row, card) {
     row <- utils::head(row, -1) # Ignore last column, which doesn't affect generic intervals.
     negative_positions <- which(row < 0)

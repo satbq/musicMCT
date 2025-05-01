@@ -1,3 +1,19 @@
+#' Evaluate potentially minimal voice-leading options
+#'
+#' Following Tymoczko 2008 <https://doi.org/10.1111/j.1468-2249.2008.00257.x>,
+#' considers the strongly crossing-free voice leadings from `source` to the 
+#' modes of `goal`. 
+#'
+#' @inheritParams minimize_vl
+#'
+#' @returns A list with 3 entries:
+#'   * `$vls`: The "interscalar interval matrix" with intervals as 
+#'             signed interval classes.
+#'   * `vl_scores`: Measurements of the size of the rows in `$vls` according
+#'   *              to the chosen `method`.
+#'   * `min_index`: The row(s) containing the smallest voice leading.
+#'
+#' @noRd
 crossingfree_vls <- function(source, 
                              goal, 
                              method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
@@ -140,9 +156,26 @@ vl_dist <- function(set_1,
   dist_func(set_1 - set_2, method=method, rounder=rounder)
 }
 
-
+#' Create a sequence of transposition indices
+#'
+#' Internal function serving plotting of [tndists()]
+#'
+#' @inheritParams tndists
+#'
+#' @returns Vector: sequence with `1 + edo*subdivide`steps from `0` to `edo`
+#' 
+#' @noRd
 get_tn_levels <- function(edo, subdivide) seq(0, edo, length.out=1 + (edo*subdivide))
- 
+
+#' Calculate the distance from a set to a bunch of transpositions
+#'
+#' Generates the distance values which are plotted as the y axis of [tndists()]
+#'
+#' @inheritParams tndists
+#'
+#' @returns Vector of length `1 + edo*subdivide` with voice-leading distances
+#'
+#' @noRd 
 get_vl_dists <- function(set, 
                          goal=NULL,
                          method=c("taxicab", "euclidean", "chebyshev", "hamming"), 

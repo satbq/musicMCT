@@ -40,12 +40,13 @@ asword(dia_12edo)
 asword(qcm_dia)
 asword(just_dia)
 
-#### asword is less discriminating than colornum. 
+#### asword() is less discriminating than colornum(). 
 #### See "Modal Color Theory," 16
 set1 <- c(0, 1, 4, 7, 8)
 set2 <- c(0, 1, 3, 5, 6)
 set1_word <- asword(set1)
 set2_word <- asword(set2)
 isTRUE(all.equal(set1_word, set2_word))
-colornum(set1) == colornum(set2)
+colornum(set1) == colornum(set2) 
+# (Last line only works with representative_signvectors loaded.)
 }

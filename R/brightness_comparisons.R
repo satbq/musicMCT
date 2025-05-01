@@ -1,3 +1,14 @@
+#' Relative motions in a voice leading
+#'
+#' Does the main computation to determine voice-leading brightness comparisons.
+#'
+#' @inheritParams tnprime
+#' @param ref A vector the same length as `set` to serve as the origin of a voice leading.
+#' 
+#' @returns A value of `-1`, `0`, or `1` whose meaning is the same as the entries of the 
+#'   matrix returned by brightness_comparisons().
+#'
+#' @noRd
 modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, rounder))))
 
 #' Voice-leading brightness relationships for a scale's modes

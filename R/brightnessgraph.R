@@ -1,3 +1,17 @@
+#' Transitive reduction of a brightness graph
+#'
+#' To avoid adding a dependency on another package which would only be 
+#' used for brightnessgraph() and vlsig(), this function takes advantage
+#' of structure that we know (from music theoretic arguments) all brightness
+#' graphs will have to calculate the transitive reduction of the graph.
+#'
+#' @inheritParams tnprime
+#'
+#' @returns Adjacency matrix (card by card) of the brightness graph's
+#'   transitive reduction. It's a directed graph, so only "ascending" 
+#'   adjacencies are included.
+#'
+#' @noRd
 bg_reduction <- function(set, edo=12, rounder=10) {
   card <- length(set)
   scalar_interval_matrix <- sim(set,edo)

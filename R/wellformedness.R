@@ -73,6 +73,20 @@ iswellformed <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10
   FALSE
 }
 
+#' Equivalence two step letters as in the definition of PWF
+#'
+#' Clampitt's definition of pairwise well formed scales requires that
+#' every equivalencing of two letters in the PWF word results int 
+#' a well-formed word. This function does that substitution.
+#'
+#' @param setword A numeric vector: a step word of a scale to test
+#' @param lowerbound Integer: the smallest entry in `setword` to equivalence
+#' @param windowsize Integer: how many letters above `lowerbound`
+#'   (inclusive) are included in the equivalence?
+#'
+#' @returns A step word (numeric vector) with only two letters.
+#'
+#' @noRd
 equivocate <- function(setword, lowerbound, windowsize) {
   highest <- max(setword)
   toMatch <- lowerbound:(lowerbound+(windowsize-1))

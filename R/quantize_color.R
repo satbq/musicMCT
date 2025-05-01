@@ -1,4 +1,27 @@
-try_scale_from_word <- function(signvec, word, nmax=12, reconvert=FALSE, ineqmat=NULL, edo=12, rounder=10) {
+#' Create a scale from a list of its step sizes (or try to)
+#'
+#' Internal for several functions that try to create a specific scale that
+#' represents some desired property like a sign vector. Works by starting
+#' from a list of the desired scale's ranked step sizes, e.g. the results
+#' that you'd expect from applying asword() to your desired scale. Substitues
+#' the vague cardinal numbers of the step word with specific sizes drawn from
+#' some predetermined range of possibilities (`1:nmax`).
+#'
+#' @inheritParams quantize_color
+#' @param word Vector with a ranked step word for the desired scale
+#' @param signvec Sign vector that you'd like the created scale to have.
+#'
+#' @returns Numeric vector of a satisfatory scale or a vector of `NA`s. Either
+#'   is the same length as `word`.
+#'
+#' @noRd
+try_scale_from_word <- function(signvec, 
+                                word, 
+                                nmax=12, 
+                                reconvert=FALSE, 
+                                ineqmat=NULL, 
+                                edo=12, 
+                                rounder=10) {
   # Generate scales with a given step-word pattern until you create one whose sign vector matches input signvec.
   card <- length(word)
   letters <- sort(unique(word), decreasing=FALSE)
@@ -90,6 +113,19 @@ quantize_color <- function(set, nmax=12, reconvert=FALSE, ineqmat=NULL, edo=12, 
                       nmax=nmax, reconvert=reconvert, ineqmat=ineqmat, edo=edo, rounder=rounder)
 }
 
+#' Create local hyperplanes for quantize_hue()
+#'
+#' Aids quantize_hue() by creating a hyperplane normal which simply represents
+#' a comparison of a pair of scale degrees: do they represent an equal displacement
+#' from the perfectly even scale? A collection of such hyperplanes helps to specify
+#' a particular hue.
+#'
+#' @param vec A vector with 2 entries: integers which identify the scale degrees to compare
+#' @param central_set A vector that represents the scale in terms of the coord_to_edo() coordinates
+#'
+#' @returns A vector representing a hyperplane normal for a custom ineqmat
+#'
+#' @noRd
 ineq_from_sdpair <- function(vec, central_set) {
   ineq <- rep(0, length(central_set)+1)
   ineq[vec[1]] <- -central_set[vec[2]]

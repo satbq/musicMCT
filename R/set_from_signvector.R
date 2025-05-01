@@ -1,3 +1,22 @@
+#' Try to use linear algebra to generate a scale from a sign vector
+#'
+#' Often sign vectors don't provide enough information to reconstruct
+#' a specific scale that might have generated them. (Moreoever, not 
+#' all potential sign vectors are created by real scales.) However, 
+#' sometimes it's useful to start from a "rough draft" that gets 
+#' *close* to the desired result. This is more likely to be 
+#' completely successful in simpler hyperplane arrangements. For 
+#' instance, set_from_signvector() doesn't use the whole MCT arrangement
+#' but instead only the hyperplanes that affect step sizes.
+#'
+#' @param signvec The signvector of a scale you'd like to generate
+#' @inheritParams signvector
+#' @param card The number of notes in the desired scale
+#' 
+#' @returns A numeric vector of length `card` that should have a similar sign vector 
+#'   to the input `signvec`
+#'
+#' @noRd
 approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12, rounder=10) {
   if (is.null(ineqmat)) {
     if (is.null(card)) { 

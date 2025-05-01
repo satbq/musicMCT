@@ -1,3 +1,14 @@
+#' Rearrange sim() as a vector ordered by generic interval size
+#'
+#' Internal function for identifying rotherberg propriety. Sorts a 
+#' scalar interval matrix first internally to each generic interval,
+#' then chains all the generic intervals together in a long vector.
+#'
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector of size length(set)^2
+#'
+#' @noRd
 get_adjacent_sizes <- function(set, edo=12) {
   sorted_generic_intervals <- apply(sim(set, edo), 1, sort)
   all_intervals <- as.numeric(sorted_generic_intervals)

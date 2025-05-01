@@ -1,3 +1,18 @@
+#' Points uniformly sampled on a hypersphere
+#'
+#' Generates points that will be shifted to a new coordinate system
+#' by functions like surround_set that populate a MCT space with
+#' random points to study.
+#'
+#' @param card Integer/numeric: how many notes in the scale?
+#' @param numpoints Integer: number of points to sample
+#' @param distance Numeric: radius of the hypersphere. Defaults to `1`.
+#'
+#' @returns Matrix with `card` rows and `numpoints` columns. Each column
+#'   represents a scale on the hypersphere surrounding the origin at a distance
+#'   of `distance`.
+#'
+#' @noRd
 random_sphere_points <- function(card, numpoints, distance=1) {
   points <- replicate(numpoints, stats::rnorm(card))
   normalize <- function(vec) {
