@@ -7,11 +7,11 @@
 \alias{charm}
 \title{Transposition and Inversion}
 \usage{
-tn(set, n, edo = 12, sorted = TRUE)
+tn(set, n, sorted = TRUE, edo = 12, rounder = 10)
 
 tni(set, n, edo = 12, sorted = TRUE)
 
-startzero(set, edo = 12, sorted = TRUE)
+startzero(set, sorted = TRUE, edo = 12, rounder = 10)
 
 charm(set, edo = 12, rounder = 10)
 }
@@ -21,10 +21,10 @@ charm(set, edo = 12, rounder = 10)
 \item{n}{Numeric value (not necessarily an integer!) representing the
 index of transposition or inversion.}
 
-\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
-
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}
+
+\item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}

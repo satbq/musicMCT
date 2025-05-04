@@ -172,8 +172,11 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' lydian <- rotate(tn(ionian, 7, sorted=FALSE), 3)
 #' lydian - ionian
 #' @export
-tn <- function(set, n, edo=12, sorted=TRUE) {
+tn <- function(set, n, sorted=TRUE, edo=12, rounder=10) {
+  tiny <- 10^(-1 * rounder)
   res <- ((set%%edo) + (n%%edo)) %% edo
+  close_to_edo <- which(abs(res - edo) < tiny)
+  res[close_to_edo] <- 0
   if (sorted == FALSE) { 
     return(res)
   }
@@ -192,7 +195,9 @@ tni <- function(set, n, edo=12, sorted=TRUE) {
 
 #' @rdname tn
 #' @export
-startzero <- function(set, edo=12, sorted=TRUE) tn(set, -set[1], edo, sorted)
+startzero <- function(set, sorted=TRUE, edo=12, rounder=10) {
+  tn(set, -set[1], sorted=sorted, edo=edo, rounder=rounder)
+}
 
 #' @rdname tn
 #' @export
@@ -249,19 +254,30 @@ primeform <- function(set, edo=12, rounder=10) {
 #' Test for inversional symmetry
 #'
 #' Is the pc-set **i**nversionally **sym**metrical? That is, does it map onto itself
-#' under \eqn{T_n I} for some appropriate \eqn{n}? This is evaluated by asking
-#' whether, for some appropriate rotations, the step-interval series of the
-#' given set is equal to the step-interval series of the set's inversion.
-#' This is designed to work for sets in continuous pc-space, not just
-#' integers mod k. As usual for working with real values, this depends
-#' on your rounding tolerance (`rounder`).
+#' under \eqn{T_n I} for some appropriate \eqn{n}? `isym()` can return either
+#' `TRUE`/`FALSE` or an index of symmetry but defaults to the former. `isym_index()`
+#' is a simple wrapper for `isym()` that returns the latter. `isym_degree()`
+#' counts the total number of inversional symmetries (i.e. the number of distinct 
+#' inversional axes of symmetry).
 #'
-#' Note that this calculates abstract pitch-class symmetry, not potential
+#' `isym()` is evaluated by asking whether, for some appropriate rotations,
+#' the step-interval series of the given set is equal to the step-interval 
+#' series of the set's inversion. This is designed to work for sets in 
+#' continuous pc-space, not just integers mod k. Note also that this 
+#' calculates abstract pitch-class symmetry, not potential
 #' symmetry in pitch space. (See the second example.)
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
-#' @returns `TRUE` if the set is inversionally symmetrical, `FALSE` otherwise
+#' @param return_index Should the function return a specific index at which
+#'   the set is symmetrical? Defaults to `FALSE`.
+#' @param ... Arguments to be passed to `isym()`
+#' @returns `isym()` returns the Boolean value from testing for symmetry,
+#'   unless `return_index=TRUE`, in which case isym() and `isym_index()`
+#'   return a numeric value for one index of inversion at which the set
+#'   is symmetrical. If the set is not inversionally symmetrical, they will
+#'   return `NA`. `isym_degree()` gives the degree of inversional symmetry.
+#' 
 #' @examples
 #' #### Mod 12
 #' isym(c(0, 1, 5, 8))
@@ -276,9 +292,14 @@ primeform <- function(set, edo=12, rounder=10) {
 #' 
 #' #### Rounding matters:
 #' isym(qcm_dia, rounder=15)
-
+#'
+#' ### Index and Degree
+#' hexatonic_scale <- c(0, 1, 4, 5, 8, 9)
+#' isym_index(hexatonic_scale) # Only returns one suitable index
+#' isym_degree(hexatonic_scale)
+#'
 #' @export
-isym <- function(set, edo=12, rounder=10) {
+isym <- function(set, return_index=FALSE, edo=12, rounder=10) {
   card <- length(set)
   if (card < 2) { 
     return(TRUE) 
@@ -287,22 +308,38 @@ isym <- function(set, edo=12, rounder=10) {
   setword <- asword(set, edo, rounder)
   invsetword <- rev(setword)
 
-  for (i in 1:card) {
-    invmode <- rotate(invsetword, i)
-    if (isTRUE(all.equal(setword, invmode))) { 
-      return(TRUE)
-     }
+  test_mode <- function(i) isTRUE(all.equal(rotate(invsetword, i), setword))
+  symmetrical_rotations <- sapply(1:card, test_mode)
+
+  if (return_index) {
+    first_sym <- which(symmetrical_rotations==TRUE)[1]
+    (set[1] + set[card+1-first_sym]) %% edo
+  } else {
+    any(symmetrical_rotations)
   }
-  FALSE
 }
+
+#' @rdname isym
+#' @export
+isym_index <- function(set, ...) isym(set, return_index=TRUE, ...)
+
+#' @rdname isym
+#' @export
+isym_degree <- function(set, ...) tsym_degree(set, ...) * isym(set, return_index=FALSE, ...)
 
 #' Test for transpositional symmetry
 #'
 #' Does the set map onto itself at some transposition other than \eqn{T_0}?
 #'
 #' @inheritParams tnprime
+#' @param ... Arguments to be passed to `tsym()`
+#' @inheritParams isym
 #'
-#' @returns `TRUE` if the set has non-trivial transpositional symmetry, `FALSE` otherwise
+#' @returns By default, `tsym()` returns `TRUE` if the set has non-trivial transpositional 
+#'   symmetry, `FALSE` otherwise. If `return_index` is `TRUE`, returns a vector of transposition
+#'   levels at which the set is symmetric, including `0`. `tsym_index()` is a wrapper for `tsym()`
+#'   which sets `return_index` to `TRUE`. `tsym_degree()` gives the degree of symmetry, which
+#'   is simply the length of `tsym_index()`'s value.
 #'
 #' @examples
 #' tsym(sc(6, 34))
@@ -312,22 +349,44 @@ isym <- function(set, edo=12, rounder=10) {
 #' # Works for continuous values:
 #' tsym(tc(j(dia), edoo(3)))
 #'
+#'
+#' # Index and Degree:
+#' tsym_index(c(0, 1, 3, 6, 7, 9))
+#' tsym_degree(edoo(7))
+#'
 #' @export
-tsym <- function(set, edo=12, rounder=10) {
+tsym <- function(set, return_index=FALSE, edo=12, rounder=10) {
   set <- sort(set)
   card <- length(set)
+
   if (card < 2) {
-    return(FALSE)
+    if (return_index) {
+      return(0)
+    } else {
+      return(FALSE)
+    }
   }
-  levels_to_check <- edoo(card, edo=edo)[-1]
+
+  levels_to_check <- edoo(card, edo=edo)
   transpositions <- sapply(levels_to_check, tn, set=set, edo=edo)
-  sets_to_compare <- cbind(set, transpositions)
-  res <- fpunique(sets_to_compare, MARGIN=2)
-  if (!inherits(res, "matrix")) {
-    return(TRUE)
+  matches_set <- function(x) isTRUE(all.equal(round(x, rounder), set))
+  symmetry_levels <- which(apply(transpositions, 2, matches_set))
+  indices <- levels_to_check[symmetry_levels]
+
+  if (return_index) {
+    indices
+  } else {
+    length(symmetry_levels) > 1
   }
-  dim(res)[2] < card
 }
+
+#' @rdname tsym
+#' @export
+tsym_index <- function(set, ...) tsym(set, return_index=TRUE, ...)
+
+#' @rdname tsym
+#' @export
+tsym_degree <- function(set, ...) length(tsym_index(set, ...))
 
 #' Interval-class vector
 #'

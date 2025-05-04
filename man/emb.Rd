@@ -16,8 +16,8 @@ cover(subset, scale, canon = c("tni", "tn"), edo = 12, rounder = 10)
 \item{scale}{Numeric vector of pitch-classes in the larger set to embed into
 (Lewin's Y)}
 
-\item{canon}{What transformations should be considered equivalent? Defaults to "tni" (giving
-standard set classes) but can be "tn" (giving transposition classes)}
+\item{canon}{What transformations should be considered equivalent? Defaults to "tni" (using
+standard set classes) but can be "tn" (using transposition classes)}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
@@ -33,8 +33,7 @@ David Lewin's EMB and COV functions: see Lewin, \emph{Generalized Musical Interv
 which are considered to preserve a set's type, find the number of instances of that type in a larger
 set (\code{scale}). Lewin characterizes this generally, but \code{emb()} only offers \eqn{T_n} and \eqn{T_n / T_nI}
 transformation groups as available canonical groups. Conversely, Lewin's COV function asks how
-many instances of a \code{scale} type include \code{subset}: \code{cover()} answers this but (unlike \code{emb()})
-is restricted to some equal division of the octave.
+many instances of a \code{scale} type include \code{subset}: this is implemented as \code{cover()} (not \code{\link[=cov]{cov()}}!).
 }
 \examples{
 emb(c(0, 4, 7), sc(7, 35))
@@ -48,6 +47,10 @@ emb(j(1, 2, 4, 5, 6), j(dia), canon="tn")
 emb(c(0, 4, 7), c(0, 1, 3, 7))
 emb(c(0, 4, 7), c(0, 1, 3, 7), canon="tn")
 
-cover(c(0, 4, 8), sc(7, 34))
+cover(c(0, 4), c(0, 4, 8))
+
+harmonic_minor <- c(0, 2, 3, 5, 7, 8, 11)
+cover(c(0, 4, 8), harmonic_minor)
+cover(c(0, 4, 8), harmonic_minor, canon="tn")
 
 }

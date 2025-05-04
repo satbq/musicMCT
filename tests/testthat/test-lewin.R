@@ -67,7 +67,24 @@ test_that("cover works", {
   expect_equal(cover(c(0, 4), c(0, 4, 8)), 1)
   expect_equal(cover(c(0, 5), c(0, 5, 10), edo=15), 1)
 
-  just_triad <- 12 * log2(c(1, 5/3, 3/2))
+  just_triad <- 12 * log2(c(1, 5/4, 3/2))
   just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
-  expect_error(cover(just_triad, just_dia))
+  expect_equal(cover(just_triad, just_dia), 5)
+  expect_equal(cover(just_triad, just_dia, canon="tn"), 3)
+  expect_equal(cover(charm(just_triad), just_dia, canon="tn"), 2) 
+  expect_equal(cover(charm(just_triad), just_dia, canon="tni"), 5)
+
+  expect_equal(cover(c(0, 6), c(0, 1, 6)), 4)
+  expect_equal(cover(c(0, 6), c(0, 1, 6), canon="tn"), 2)
+  expect_equal(cover(c(0, 1, 6), c(0, 1, 6, 7), canon="tni"), 1)
+  expect_equal(cover(c(0, 1, 6), c(0, 1, 6, 7), canon="tn"), 1)
+
+  harmonic_minor <- c(0, 2, 3, 5, 7, 8, 11)
+  aug_triad <- c(0, 4, 8)
+  expect_equal(cover(aug_triad, harmonic_minor, canon="tni"), 6)
+  expect_equal(cover(aug_triad, harmonic_minor, canon="tn"), 3)
+
+  expect_equal(cover(c(0, 2, 4), c(0, 2, 4, 8), canon="tni"), 1)
+  expect_equal(cover(c(0, 2, 4), c(0, 2, 4, 8), canon="tn"), 1)
 })
+

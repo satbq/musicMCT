@@ -2,32 +2,50 @@
 % Please edit documentation in R/set_theory.R
 \name{isym}
 \alias{isym}
+\alias{isym_index}
+\alias{isym_degree}
 \title{Test for inversional symmetry}
 \usage{
-isym(set, edo = 12, rounder = 10)
+isym(set, return_index = FALSE, edo = 12, rounder = 10)
+
+isym_index(set, ...)
+
+isym_degree(set, ...)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{return_index}{Should the function return a specific index at which
+the set is symmetrical? Defaults to \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
+
+\item{...}{Arguments to be passed to \code{isym()}}
 }
 \value{
-\code{TRUE} if the set is inversionally symmetrical, \code{FALSE} otherwise
+\code{isym()} returns the Boolean value from testing for symmetry,
+unless \code{return_index=TRUE}, in which case isym() and \code{isym_index()}
+return a numeric value for one index of inversion at which the set
+is symmetrical. If the set is not inversionally symmetrical, they will
+return \code{NA}. \code{isym_degree()} gives the degree of inversional symmetry.
 }
 \description{
 Is the pc-set \strong{i}nversionally \strong{sym}metrical? That is, does it map onto itself
-under \eqn{T_n I} for some appropriate \eqn{n}? This is evaluated by asking
-whether, for some appropriate rotations, the step-interval series of the
-given set is equal to the step-interval series of the set's inversion.
-This is designed to work for sets in continuous pc-space, not just
-integers mod k. As usual for working with real values, this depends
-on your rounding tolerance (\code{rounder}).
+under \eqn{T_n I} for some appropriate \eqn{n}? \code{isym()} can return either
+\code{TRUE}/\code{FALSE} or an index of symmetry but defaults to the former. \code{isym_index()}
+is a simple wrapper for \code{isym()} that returns the latter. \code{isym_degree()}
+counts the total number of inversional symmetries (i.e. the number of distinct
+inversional axes of symmetry).
 }
 \details{
-Note that this calculates abstract pitch-class symmetry, not potential
+\code{isym()} is evaluated by asking whether, for some appropriate rotations,
+the step-interval series of the given set is equal to the step-interval
+series of the set's inversion. This is designed to work for sets in
+continuous pc-space, not just integers mod k. Note also that this
+calculates abstract pitch-class symmetry, not potential
 symmetry in pitch space. (See the second example.)
 }
 \examples{
@@ -44,4 +62,10 @@ isym(just_dia)
 
 #### Rounding matters:
 isym(qcm_dia, rounder=15)
+
+### Index and Degree
+hexatonic_scale <- c(0, 1, 4, 5, 8, 9)
+isym_index(hexatonic_scale) # Only returns one suitable index
+isym_degree(hexatonic_scale)
+
 }

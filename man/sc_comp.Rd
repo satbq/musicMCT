@@ -9,8 +9,8 @@ sc_comp(set, canon = c("tni", "tn"), edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{canon}{What transformations should be considered equivalent? Defaults to "tni" (giving
-standard set classes) but can be "tn" (giving transposition classes)}
+\item{canon}{What transformations should be considered equivalent? Defaults to "tni" (using
+standard set classes) but can be "tn" (using transposition classes)}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 

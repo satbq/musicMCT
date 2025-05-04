@@ -2,20 +2,35 @@
 % Please edit documentation in R/set_theory.R
 \name{tsym}
 \alias{tsym}
+\alias{tsym_index}
+\alias{tsym_degree}
 \title{Test for transpositional symmetry}
 \usage{
-tsym(set, edo = 12, rounder = 10)
+tsym(set, return_index = FALSE, edo = 12, rounder = 10)
+
+tsym_index(set, ...)
+
+tsym_degree(set, ...)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{return_index}{Should the function return a specific index at which
+the set is symmetrical? Defaults to \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
+
+\item{...}{Arguments to be passed to \code{tsym()}}
 }
 \value{
-\code{TRUE} if the set has non-trivial transpositional symmetry, \code{FALSE} otherwise
+By default, \code{tsym()} returns \code{TRUE} if the set has non-trivial transpositional
+symmetry, \code{FALSE} otherwise. If \code{return_index} is \code{TRUE}, returns a vector of transposition
+levels at which the set is symmetric, including \code{0}. \code{tsym_index()} is a wrapper for \code{tsym()}
+which sets \code{return_index} to \code{TRUE}. \code{tsym_degree()} gives the degree of symmetry, which
+is simply the length of \code{tsym_index()}'s value.
 }
 \description{
 Does the set map onto itself at some transposition other than \eqn{T_0}?
@@ -27,5 +42,10 @@ tsym(edoo(5))
 
 # Works for continuous values:
 tsym(tc(j(dia), edoo(3)))
+
+
+# Index and Degree:
+tsym_index(c(0, 1, 3, 6, 7, 9))
+tsym_degree(edoo(7))
 
 }

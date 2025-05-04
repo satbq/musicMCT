@@ -104,6 +104,28 @@ test_that("isym works", {
   expect_true(isym(c(0,1,2,4), edo=6))
 })
 
+test_that("isym index and degree work", {
+  expect_equal(isym(c(0, 3, 6), return_index=TRUE), 6)
+  expect_equal(isym(c(0, 1, 6, 7), return_index=TRUE), 7)
+  expect_equal(isym_index(c(0, 1, 6, 7)), 7)
+  expect_equal(isym(c(1, 6, 7, 12), return_index=TRUE), 1)
+  expect_equal(isym(c(0, 1, 6), return_index=TRUE, edo=7), 0)
+  expect_equal(isym_index(c(0, 1, 6), edo=7), 0)
+
+  expect_equal(isym(c(0, 2, 4, 5, 7, 9, 11), return_index=TRUE), 4)
+  expect_equal(isym(c(0, 2, 3, 5, 7, 9, 10), return_index=TRUE), 0)
+  expect_equal(isym(c(0, 1, 3, 5, 7, 8, 10), return_index=TRUE), 8)
+
+  expect_true(is.na(isym(c(0, 3, 7), return_index=TRUE)))
+  expect_true(is.na(isym(c(1, 6, 7, 0), return_index=TRUE)))
+
+  expect_equal(isym_degree(c(0, 3, 7)), 0)
+  expect_equal(isym_degree(c(0, 4, 8)), 3)
+  expect_equal(isym_degree(c(1, 5, 9)), 3)
+  expect_equal(isym_degree(c(0, 2, 6, 8)), 2)
+  expect_equal(isym_degree(c(0, 1, 3, 6, 7, 9)), 0)
+})
+
 test_that("tsym works", {
   expect_false(tsym(NULL))
   expect_false(tsym(1))
@@ -118,6 +140,27 @@ test_that("tsym works", {
   expect_true(tsym(c(0, 4, 8, 12), edo=16))
   expect_false(tsym(c(0, 4, 8, 12)))
   expect_true(tsym(c(0, 1, 3, 6, 7, 9)))
+})
+
+test_that("tsym index and degree work", {
+  expect_equal(tsym(0, return_index=TRUE), 0)
+  expect_equal(tsym(c(0, 2, 4), return_index=TRUE), 0)
+  expect_equal(tsym(c(0, 2, 6, 8), return_index=TRUE), c(0, 6))
+  expect_equal(tsym(c(0, 1, 4, 5, 8, 9), return_index=TRUE), c(0, 4, 8))
+  expect_equal(tsym(c(0, 1, 3, 6, 7, 9), return_index=TRUE), c(0, 6))
+  expect_equal(tsym(c(0, 1, 3, 6, 7, 9), return_index=TRUE, edo=13), 0)
+  expect_equal(tsym(c(0, 5, 10), return_index=TRUE, edo=15), c(0, 5, 10))
+
+  expect_equal(tsym_index(0), 0)
+  expect_equal(tsym_index(c(0, 2, 4)), 0)
+  expect_equal(tsym_index(c(0, 2, 6, 8)), c(0, 6))
+  expect_equal(tsym_index(c(0, 1, 4, 5, 8, 9)), c(0, 4, 8))
+  expect_equal(tsym_index(c(0, 1, 3, 6, 7, 9)), c(0, 6))
+  expect_equal(tsym_index(c(0, 1, 3, 6, 7, 9), edo=13), 0)
+  expect_equal(tsym_index(c(0, 5, 10), edo=15), c(0, 5, 10))
+
+  expect_equal(tsym_degree(c(0, 4, 8)), 3)
+  expect_equal(tsym_degree(edoo(41)), 41)
 })
 
 test_that("ivec works", {
