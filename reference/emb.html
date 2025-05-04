@@ -10,14 +10,12 @@
 which are considered to preserve a set's type, find the number of instances of that type in a larger
 set (scale). Lewin characterizes this generally, but emb() only offers \(T_n\) and \(T_n / T_nI\)
 transformation groups as available canonical groups. Conversely, Lewin's COV function asks how
-many instances of a scale type include subset: cover() answers this but (unlike emb())
-is restricted to some equal division of the octave."><meta property="og:description" content="David Lewin's EMB and COV functions: see Lewin, Generalized Musical Intervals and Transformations
+many instances of a scale type include subset: this is implemented as cover() (not cov()!)."><meta property="og:description" content="David Lewin's EMB and COV functions: see Lewin, Generalized Musical Intervals and Transformations
 (New Haven, CT: Yale University Press, 1987), 105-120. For EMB, given a group (&quot;CANON&quot;) of transformations
 which are considered to preserve a set's type, find the number of instances of that type in a larger
 set (scale). Lewin characterizes this generally, but emb() only offers \(T_n\) and \(T_n / T_nI\)
 transformation groups as available canonical groups. Conversely, Lewin's COV function asks how
-many instances of a scale type include subset: cover() answers this but (unlike emb())
-is restricted to some equal division of the octave."></head><body>
+many instances of a scale type include subset: this is implemented as cover() (not cov()!)."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -60,8 +58,7 @@ is restricted to some equal division of the octave."></head><body>
 which are considered to preserve a set's type, find the number of instances of that type in a larger
 set (<code>scale</code>). Lewin characterizes this generally, but <code>emb()</code> only offers \(T_n\) and \(T_n / T_nI\)
 transformation groups as available canonical groups. Conversely, Lewin's COV function asks how
-many instances of a <code>scale</code> type include <code>subset</code>: <code>cover()</code> answers this but (unlike <code>emb()</code>)
-is restricted to some equal division of the octave.</p>
+many instances of a <code>scale</code> type include <code>subset</code>: this is implemented as <code>cover()</code> (not <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov()</a></code>!).</p>
     </div>
 
     <div class="section level2">
@@ -86,8 +83,8 @@ is restricted to some equal division of the octave.</p>
 
 
 <dt id="arg-canon">canon<a class="anchor" aria-label="anchor" href="#arg-canon"></a></dt>
-<dd><p>What transformations should be considered equivalent? Defaults to "tni" (giving
-standard set classes) but can be "tn" (giving transposition classes)</p></dd>
+<dd><p>What transformations should be considered equivalent? Defaults to "tni" (using
+standard set classes) but can be "tn" (using transposition classes)</p></dd>
 
 
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
@@ -124,7 +121,13 @@ number of decimal places to round to when testing for equality.</p></dd>
 <span class="r-in"><span><span class="fu">emb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, canon<span class="op">=</span><span class="st">"tn"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">cover</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="sc.html">sc</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">34</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cover</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">harmonic_minor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cover</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, <span class="va">harmonic_minor</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
+<span class="r-in"><span><span class="fu">cover</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, <span class="va">harmonic_minor</span>, canon<span class="op">=</span><span class="st">"tn"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

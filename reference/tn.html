@@ -102,11 +102,11 @@ but NB also vice versa.)</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tn</span><span class="op">(</span><span class="va">set</span>, <span class="va">n</span>, edo <span class="op">=</span> <span class="fl">12</span>, sorted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tn</span><span class="op">(</span><span class="va">set</span>, <span class="va">n</span>, sorted <span class="op">=</span> <span class="cn">TRUE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">tni</span><span class="op">(</span><span class="va">set</span>, <span class="va">n</span>, edo <span class="op">=</span> <span class="fl">12</span>, sorted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">startzero</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, sorted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">startzero</span><span class="op">(</span><span class="va">set</span>, sorted <span class="op">=</span> <span class="cn">TRUE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">charm</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -124,13 +124,13 @@ but NB also vice versa.)</p>
 index of transposition or inversion.</p></dd>
 
 
-<dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
-<dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
-
-
 <dt id="arg-sorted">sorted<a class="anchor" aria-label="anchor" href="#arg-sorted"></a></dt>
 <dd><p>Do you want the result to be in ascending order? Boolean,
 defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
+<dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
 
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>

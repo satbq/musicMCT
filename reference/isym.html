@@ -6,18 +6,16 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Test for inversional symmetry — isym"><meta name="description" content="Is the pc-set inversionally symmetrical? That is, does it map onto itself
-under \(T_n I\) for some appropriate \(n\)? This is evaluated by asking
-whether, for some appropriate rotations, the step-interval series of the
-given set is equal to the step-interval series of the set's inversion.
-This is designed to work for sets in continuous pc-space, not just
-integers mod k. As usual for working with real values, this depends
-on your rounding tolerance (rounder)."><meta property="og:description" content="Is the pc-set inversionally symmetrical? That is, does it map onto itself
-under \(T_n I\) for some appropriate \(n\)? This is evaluated by asking
-whether, for some appropriate rotations, the step-interval series of the
-given set is equal to the step-interval series of the set's inversion.
-This is designed to work for sets in continuous pc-space, not just
-integers mod k. As usual for working with real values, this depends
-on your rounding tolerance (rounder)."></head><body>
+under \(T_n I\) for some appropriate \(n\)? isym() can return either
+TRUE/FALSE or an index of symmetry but defaults to the former. isym_index()
+is a simple wrapper for isym() that returns the latter. isym_degree()
+counts the total number of inversional symmetries (i.e. the number of distinct
+inversional axes of symmetry)."><meta property="og:description" content="Is the pc-set inversionally symmetrical? That is, does it map onto itself
+under \(T_n I\) for some appropriate \(n\)? isym() can return either
+TRUE/FALSE or an index of symmetry but defaults to the former. isym_index()
+is a simple wrapper for isym() that returns the latter. isym_degree()
+counts the total number of inversional symmetries (i.e. the number of distinct
+inversional axes of symmetry)."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -56,17 +54,20 @@ on your rounding tolerance (rounder)."></head><body>
 
     <div class="ref-description section level2">
     <p>Is the pc-set <strong>i</strong>nversionally <strong>sym</strong>metrical? That is, does it map onto itself
-under \(T_n I\) for some appropriate \(n\)? This is evaluated by asking
-whether, for some appropriate rotations, the step-interval series of the
-given set is equal to the step-interval series of the set's inversion.
-This is designed to work for sets in continuous pc-space, not just
-integers mod k. As usual for working with real values, this depends
-on your rounding tolerance (<code>rounder</code>).</p>
+under \(T_n I\) for some appropriate \(n\)? <code>isym()</code> can return either
+<code>TRUE</code>/<code>FALSE</code> or an index of symmetry but defaults to the former. <code>isym_index()</code>
+is a simple wrapper for <code>isym()</code> that returns the latter. <code>isym_degree()</code>
+counts the total number of inversional symmetries (i.e. the number of distinct
+inversional axes of symmetry).</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isym</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isym</span><span class="op">(</span><span class="va">set</span>, return_index <span class="op">=</span> <span class="cn">FALSE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">isym_index</span><span class="op">(</span><span class="va">set</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">isym_degree</span><span class="op">(</span><span class="va">set</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,6 +78,11 @@ on your rounding tolerance (<code>rounder</code>).</p>
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
 
 
+<dt id="arg-return-index">return_index<a class="anchor" aria-label="anchor" href="#arg-return-index"></a></dt>
+<dd><p>Should the function return a specific index at which
+the set is symmetrical? Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
@@ -85,14 +91,26 @@ on your rounding tolerance (<code>rounder</code>).</p>
 <dd><p>Numeric (expected integer), defaults to <code>10</code>:
 number of decimal places to round to when testing for equality.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Arguments to be passed to <code>isym()</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>TRUE</code> if the set is inversionally symmetrical, <code>FALSE</code> otherwise</p>
+    <p><code>isym()</code> returns the Boolean value from testing for symmetry,
+unless <code>return_index=TRUE</code>, in which case isym() and <code>isym_index()</code>
+return a numeric value for one index of inversion at which the set
+is symmetrical. If the set is not inversionally symmetrical, they will
+return <code>NA</code>. <code>isym_degree()</code> gives the degree of inversional symmetry.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Note that this calculates abstract pitch-class symmetry, not potential
+    <p><code>isym()</code> is evaluated by asking whether, for some appropriate rotations,
+the step-interval series of the given set is equal to the step-interval
+series of the set's inversion. This is designed to work for sets in
+continuous pc-space, not just integers mod k. Note also that this
+calculates abstract pitch-class symmetry, not potential
 symmetry in pitch space. (See the second example.)</p>
     </div>
 
@@ -116,6 +134,14 @@ symmetry in pitch space. (See the second example.)</p>
 <span class="r-in"><span><span class="co">#### Rounding matters:</span></span></span>
 <span class="r-in"><span><span class="fu">isym</span><span class="op">(</span><span class="va">qcm_dia</span>, rounder<span class="op">=</span><span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Index and Degree</span></span></span>
+<span class="r-in"><span><span class="va">hexatonic_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">isym_index</span><span class="op">(</span><span class="va">hexatonic_scale</span><span class="op">)</span> <span class="co"># Only returns one suitable index</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-in"><span><span class="fu">isym_degree</span><span class="op">(</span><span class="va">hexatonic_scale</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

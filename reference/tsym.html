@@ -48,7 +48,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tsym</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tsym</span><span class="op">(</span><span class="va">set</span>, return_index <span class="op">=</span> <span class="cn">FALSE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tsym_index</span><span class="op">(</span><span class="va">set</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tsym_degree</span><span class="op">(</span><span class="va">set</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -59,6 +63,11 @@
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
 
 
+<dt id="arg-return-index">return_index<a class="anchor" aria-label="anchor" href="#arg-return-index"></a></dt>
+<dd><p>Should the function return a specific index at which
+the set is symmetrical? Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
@@ -67,10 +76,18 @@
 <dd><p>Numeric (expected integer), defaults to <code>10</code>:
 number of decimal places to round to when testing for equality.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Arguments to be passed to <code>tsym()</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>TRUE</code> if the set has non-trivial transpositional symmetry, <code>FALSE</code> otherwise</p>
+    <p>By default, <code>tsym()</code> returns <code>TRUE</code> if the set has non-trivial transpositional
+symmetry, <code>FALSE</code> otherwise. If <code>return_index</code> is <code>TRUE</code>, returns a vector of transposition
+levels at which the set is symmetric, including <code>0</code>. <code>tsym_index()</code> is a wrapper for <code>tsym()</code>
+which sets <code>return_index</code> to <code>TRUE</code>. <code>tsym_degree()</code> gives the degree of symmetry, which
+is simply the length of <code>tsym_index()</code>'s value.</p>
     </div>
 
     <div class="section level2">
@@ -85,6 +102,13 @@ number of decimal places to round to when testing for equality.</p></dd>
 <span class="r-in"><span><span class="co"># Works for continuous values:</span></span></span>
 <span class="r-in"><span><span class="fu">tsym</span><span class="op">(</span><span class="fu"><a href="tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span>, <span class="fu"><a href="edoo.html">edoo</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Index and Degree:</span></span></span>
+<span class="r-in"><span><span class="fu">tsym_index</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 6</span>
+<span class="r-in"><span><span class="fu">tsym_degree</span><span class="op">(</span><span class="fu"><a href="edoo.html">edoo</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
