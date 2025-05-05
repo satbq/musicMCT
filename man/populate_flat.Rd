@@ -86,13 +86,14 @@ abline(0, 2, lty="dashed", lwd=2)
 points(j(2), j(3), cex=2, pch="x")
 points(2, 4, cex=2, pch="o")
 
-# Most of our sampled sets belong to two colors, separated by the dashed line on the plot,
-# which represents the inequality which determines the size of a scale's second step in
-# relation to its first step. This is hyperplane #1 in the space, so it corresponds to
-# the first entry in each scale's sign vector. The point labeled "x" represents the 
-# just diatonic scale itself, which has a larger first step than second step. The point
-# labeled "o" represents the 12-equal diatonic, whose whole steps are all equal and
-# which therefore lies directly on hyperplane #1. Finally, note that our sampled scales
+# Most of our sampled sets belong to two colors separated by the dashed
+# line on the plot. The dashed line represents the inequality that determines 
+# the size of a scale's second step in relation to its first step. This is
+# hyperplane #1 in the space, so it corresponds to the first entry in each 
+# scale's sign vector. The point labeled "x" represents the just diatonic scale 
+# itself, which has a larger first step than second step. The point labeled 
+# "o" represents the 12-equal diatonic, whose whole steps are all equal and which 
+# therefore lies directly on hyperplane #1. Finally, note that our sampled scales
 # also touch on a few other colors at the bottom & left fringes of the scatter plot.
 
 }

@@ -38,7 +38,7 @@ get_adjacent_sizes <- function(set, edo=12) {
 #' has_contradiction(c_major)
 #' strictly_proper(c_major)
 #' isproper(c_major)
-#' isproper(c_major, strict=FALSE)
+#' isproper(c_major, strict=TRUE)
 #'
 #' just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 #' isproper(just_major)
@@ -48,7 +48,7 @@ get_adjacent_sizes <- function(set, edo=12) {
 #' has_contradiction(pythagorean_diatonic)
 #'
 #' @export
-isproper <- function(set, edo=12, rounder=10, strict=TRUE) {
+isproper <- function(set, strict=FALSE, edo=12, rounder=10) {
   no_contradictions <- !has_contradiction(set, edo, rounder)
   is_strict <- strictly_proper(set, edo, rounder)
 

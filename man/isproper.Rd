@@ -6,7 +6,7 @@
 \alias{strictly_proper}
 \title{Rothenberg propriety}
 \usage{
-isproper(set, edo = 12, rounder = 10, strict = TRUE)
+isproper(set, strict = FALSE, edo = 12, rounder = 10)
 
 has_contradiction(set, edo = 12, rounder = 10)
 
@@ -15,12 +15,12 @@ strictly_proper(set, edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
+\item{strict}{Boolean: should only strictly proper scales pass?}
+
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
-
-\item{strict}{Boolean: should only strictly proper scales pass?}
 }
 \value{
 Boolean which answers whether the input satisfies the property named by the
@@ -42,7 +42,7 @@ c_major <- c(0, 2, 4, 5, 7, 9, 11)
 has_contradiction(c_major)
 strictly_proper(c_major)
 isproper(c_major)
-isproper(c_major, strict=FALSE)
+isproper(c_major, strict=TRUE)
 
 just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 isproper(just_major)
