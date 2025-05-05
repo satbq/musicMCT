@@ -260,7 +260,7 @@ primeform <- function(set, edo=12, rounder=10) {
 #' counts the total number of inversional symmetries (i.e. the number of distinct 
 #' inversional axes of symmetry).
 #'
-#' `isym()` is evaluated by asking whether, for some appropriate rotations,
+#' `isym()` is evaluated by asking whether, for some appropriate rotation,
 #' the step-interval series of the given set is equal to the step-interval 
 #' series of the set's inversion. This is designed to work for sets in 
 #' continuous pc-space, not just integers mod k. Note also that this 
@@ -329,7 +329,11 @@ isym_degree <- function(set, ...) tsym_degree(set, ...) * isym(set, return_index
 
 #' Test for transpositional symmetry
 #'
-#' Does the set map onto itself at some transposition other than \eqn{T_0}?
+#' Does the set map onto itself at some transposition other than \eqn{T_0}?  That is,
+#' does it map onto itself under \eqn{T_n} for some appropriate \eqn{n}? `tsym()` 
+#' can return either `TRUE`/`FALSE` or an index of symmetry but defaults to the former. 
+#' `tsym_index()` is a simple wrapper for `tsym()` that returns the latter. `tsym_degree()`
+#' counts the total number of transpositional symmetries.
 #'
 #' @inheritParams tnprime
 #' @param ... Arguments to be passed to `tsym()`

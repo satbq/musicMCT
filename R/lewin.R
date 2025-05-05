@@ -110,6 +110,7 @@ ifunc <- function(x,
 #' emb(c(0, 4, 7), c(0, 1, 3, 7))
 #' emb(c(0, 4, 7), c(0, 1, 3, 7), canon="tn")
 #'
+#' emb(c(0, 4), c(0, 4, 8))
 #' cover(c(0, 4), c(0, 4, 8))
 #'
 #' harmonic_minor <- c(0, 2, 3, 5, 7, 8, 11)

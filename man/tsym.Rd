@@ -33,7 +33,11 @@ which sets \code{return_index} to \code{TRUE}. \code{tsym_degree()} gives the de
 is simply the length of \code{tsym_index()}'s value.
 }
 \description{
-Does the set map onto itself at some transposition other than \eqn{T_0}?
+Does the set map onto itself at some transposition other than \eqn{T_0}?  That is,
+does it map onto itself under \eqn{T_n} for some appropriate \eqn{n}? \code{tsym()}
+can return either \code{TRUE}/\code{FALSE} or an index of symmetry but defaults to the former.
+\code{tsym_index()} is a simple wrapper for \code{tsym()} that returns the latter. \code{tsym_degree()}
+counts the total number of transpositional symmetries.
 }
 \examples{
 tsym(sc(6, 34))

@@ -41,7 +41,7 @@ counts the total number of inversional symmetries (i.e. the number of distinct
 inversional axes of symmetry).
 }
 \details{
-\code{isym()} is evaluated by asking whether, for some appropriate rotations,
+\code{isym()} is evaluated by asking whether, for some appropriate rotation,
 the step-interval series of the given set is equal to the step-interval
 series of the set's inversion. This is designed to work for sets in
 continuous pc-space, not just integers mod k. Note also that this
