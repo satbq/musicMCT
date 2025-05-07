@@ -178,6 +178,10 @@ maxeven <- function(card, edo=12, floor=TRUE) {
 #'
 #' # Is 53-equal temperament a good approximation of the 5-limit just diatonic?
 #' j(dia, edo=53)
+#'
+#' @seealso
+#' [z()] as a shortcut for 12*log2(x) when a just interval you need isn't
+#'   defined for `j()`.
 #' 
 #' @export
 j <- function(..., edo=12) {
@@ -240,6 +244,10 @@ j <- function(..., edo=12) {
 #'
 #' @returns Numeric vector representing the input ratios converted to
 #'   `edo` unit steps per octave
+#'
+#' @seealso
+#' [j()] is a more convenient input method for the most common frequency
+#'   ratios.
 #'
 #' @examples
 #' z(81/80) == j(synt)

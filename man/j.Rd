@@ -81,3 +81,7 @@ dist(rbind(c(0,2,4,5,7,9,11), j(dia)))
 j(dia, edo=53)
 
 }
+\seealso{
+\code{\link[=z]{z()}} as a shortcut for 12*log2(x) when a just interval you need isn't
+defined for \code{j()}.
+}

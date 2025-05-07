@@ -62,31 +62,42 @@ melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
 sim(melodic_minor)
 ```
 
-Note the top line's syntax, which defined the melodic minor scale: we'll be using it a lot! Pitch-classes
-are represented by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
+Note the top line's syntax, which defines the melodic minor scale. We'll be using it a lot!
+The arrow `<-` assigns the value on the right side to the variable name on the left side. 
+The `c( ... )` on the right side of this statement is the standard way to tell R to 
+treat a bunch of things as a single collection. (See [c()]. musicMCT also has a couple
+functions that are meant to mimic [c()] while letting you enter intervals as just-intonation
+frequency ratios instead of pitch-space distances: see [j()] and [z()].)
+
+Pitch-classes are represented by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
 (12 **e**qual **d**ivisions of the **o**ctave), these are all integers. Later
 we'll see that it's easy to work with integers in any k edo. But the values that define
 our scales don't have to be integers at all: Modal Color Theory works in continuous 
-pitch-class space.
+pitch-class space. For instance, here's a common just tuning of the major scale (Ptolemy's
+"intense" or "syntonic" diatonic):
 
-The function `sim()` above computes the **s**calar **i**nterval **m**atrix of a set 
-(as defined by [Tymoczko 2008](https://doi.org/10.1111/j.1468-2249.2008.00257.x)), which 
+```{r}
+j(dia)
+```
+
+Getting back to melodic minor, the function `sim()` above computes the **s**calar **i**nterval **m**atrix
+of a set (as defined by [Tymoczko 2008](https://doi.org/10.1111/j.1468-2249.2008.00257.x)), which 
 presents to us the modes of a scale as the columns of the matrix. Our input, the melodic
 minor scale, is in the first column, and the scale we want to study can be read from the fourth
 column of the SIM:
 
 ```{r}
-sim(melodic_minor)[,4]
+sim(melodic_minor)[, 4]
 ```
 
-Just to flex our muscles in R, let's pretend that we've forgotten how to interpret pitch-class integers
+Just to practice using R, let's pretend that we've forgotten how to interpret pitch-class integers
 and that we therefore need to verify that those numbers do correspond to the 
 notes (C, D, E, F-sharp, G, A, B-flat). We'll do that by checking the **v**oice **l**eading from
 C major to this scale:
 
 ```{r}
 c_major <- c(0, 2, 4, 5, 7, 9, 11)
-minimize_vl(c_major, sim(melodic_minor)[,4])
+minimize_vl(c_major, sim(melodic_minor)[, 4])
 ```
 
 As [Tymoczko 2007](https://www.mtosmt.org/issues/mto.05.11.4/mto.05.11.4.tymoczko.pdf) points
@@ -106,7 +117,7 @@ as follows:
 overtones <- 7:13
 frequency_ratios <- overtones / 7
 semitone_values <- 12 * log2(frequency_ratios)
-overtone_scale <- sim(semitone_values)[,2]
+overtone_scale <- sim(semitone_values)[, 2]
 print(overtone_scale)
 ```
 
@@ -115,7 +126,7 @@ offers an approximate measure of musical similarity (as [Callender, Quinn, and
 Tymoczko 2008](https://doi.org/10.1126/science.1153021) argue):
 
 ```{r}
-acoustic_scale <- sim(melodic_minor)[,4]
+acoustic_scale <- sim(melodic_minor)[, 4]
 minimize_vl(overtone_scale, acoustic_scale)
 ```
 
@@ -225,8 +236,8 @@ different comparisons to have a complete accounting of a scale structure. Two sc
 instance, let's consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248). Here are their sign vectors:
 
 ```{r}
-signvector(sc(4,6))
-signvector(sc(4,24))
+signvector(sc(4, 6))
+signvector(sc(4, 24))
 ```
 
 These vectors are the same, so MCT considers the tetrachords to have the same scalar structure. For instance, both start with two identical steps
@@ -290,7 +301,7 @@ In fact, why don't we consider all seven of the distinct quantizations from the 
 
 ```{r}
 all_signvectors <- apply(final_quantizations, 2, signvector)
-all_signvectors[38,]
+all_signvectors[38, ]
 ```
 
 Most of them do match the `overtone_scale` on this point, except for sc7-31 and sc7-28. Note that these are also the scales that
@@ -559,7 +570,7 @@ considerable variety from one to the next. This gives a glimpse of the range of 
 change the number `4` in the line of code below to any value from `1` to `7` to check the different scales:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
-brightnessgraph(final_quantizations[,4])
+brightnessgraph(final_quantizations[, 4])
 ```
 
 Finally, let's take a look at the brightness graph for our `best_simple_approximation`. I'm going to suppress its listing of the 

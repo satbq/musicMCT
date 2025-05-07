@@ -36,3 +36,7 @@ minimize_vl(j(dia), mod_jdia)
 z(1, 5/4, 3/2, edo=53)
 
 }
+\seealso{
+\code{\link[=j]{j()}} is a more convenient input method for the most common frequency
+ratios.
+}
