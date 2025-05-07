@@ -12,6 +12,7 @@ Analysis of musical scales (as well as modes, grooves, etc.) in the vein of Sher
 Useful links:
 \itemize{
   \item \url{https://satbq.github.io/musicMCT/}
+  \item Report bugs at \url{https://github.com/satbq/musicMCT/issues}
 }
 
 }

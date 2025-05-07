@@ -25,4 +25,5 @@ Suggests:
     withr,
 VignetteBuilder: knitr
 URL: https://satbq.github.io/musicMCT/
+BugReports: https://github.com/satbq/musicMCT/issues
 Config/testthat/edition: 3

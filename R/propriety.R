@@ -32,6 +32,9 @@ get_adjacent_sizes <- function(set, edo=12) {
 #'
 #' @returns Boolean which answers whether the input satisfies the property named by the 
 #'   function
+#' @seealso
+#' [make_roth_ineqmat()] creates an `ineqmat` for a hyperplane arrangement
+#'   that lets you explore propriety-related issues in finer detail.
 #'
 #' @examples
 #' c_major <- c(0, 2, 4, 5, 7, 9, 11)
@@ -43,7 +46,7 @@ get_adjacent_sizes <- function(set, edo=12) {
 #' just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 #' isproper(just_major)
 #'
-#' pythagorean_diatonic <- sort(((0:6)*12*log2(1.5))%%12)
+#' pythagorean_diatonic <- sort(((0:6)*z(3/2))%%12)
 #' isproper(pythagorean_diatonic)
 #' has_contradiction(pythagorean_diatonic)
 #'

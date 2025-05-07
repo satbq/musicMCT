@@ -62,7 +62,7 @@ built from two tetrachords with the following structure:
 
 Transpositional combination of this sort is easy to achieve in musicMCT with the function
 [tc()]. Let's see how the normal 12-equal major scale can be derived as the transpositional
-combination of an (0, 2, 4, 5) tetrachord at a perfect fith:
+combination of an (0, 2, 4, 5) tetrachord at a perfect fifth:
 
 ```{r}
 tc(c(0, 2, 4, 5), c(0, 7))

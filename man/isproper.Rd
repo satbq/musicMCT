@@ -47,8 +47,12 @@ isproper(c_major, strict=TRUE)
 just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 isproper(just_major)
 
-pythagorean_diatonic <- sort(((0:6)*12*log2(1.5))\%\%12)
+pythagorean_diatonic <- sort(((0:6)*z(3/2))\%\%12)
 isproper(pythagorean_diatonic)
 has_contradiction(pythagorean_diatonic)
 
+}
+\seealso{
+\code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}} creates an \code{ineqmat} for a hyperplane arrangement
+that lets you explore propriety-related issues in finer detail.
 }
