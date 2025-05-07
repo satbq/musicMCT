@@ -13,11 +13,11 @@
 #' 
 #' @inheritParams signvector
 #' 
-#' @returns Single nonnegative integer
+#' @returns Single non-negative integer
 #' 
 #' @examples
-#' c_natural_minor <- c(0,2,3,5,7,8,10)
-#' c_melodic_minor <- c(0,2,3,5,7,9,11)
+#' c_natural_minor <- c(0, 2, 3, 5, 7, 8, 10)
+#' c_melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
 #' just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 #' howfree(c_natural_minor)
 #' howfree(c_melodic_minor)
@@ -26,14 +26,15 @@
 #' @export
 howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   card <- length(set)
-  if (card < 2) { return(0) }
+  if (card < 2) { 
+    return(0) 
+  }
 
   if (is.null(ineqmat)) {
     ineqmat <- getineqmat(card)
   }
 
-  zeroesflat <- ineqmat[whichsvzeroes(set, ineqmat, edo, rounder),]
+  zeroesflat <- ineqmat[whichsvzeroes(set, ineqmat, edo, rounder), ]
   rank <- qr(zeroesflat)$rank
-  freedom <- card - (1+rank)
-  return(freedom)
+  card - (1+rank)
 }
