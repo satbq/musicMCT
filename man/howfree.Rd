@@ -20,7 +20,7 @@ arrangement in the same format as the standard ineqmats.}
 number of decimal places to round to when testing for equality.}
 }
 \value{
-Single nonnegative integer
+Single non-negative integer
 }
 \description{
 Some scalar structures can vary their specific pitches much more flexibly
@@ -35,8 +35,8 @@ size of its major third and the size of its perfect fifth. See "Modal
 Color Theory," pp. 26-27, for more discussion.
 }
 \examples{
-c_natural_minor <- c(0,2,3,5,7,8,10)
-c_melodic_minor <- c(0,2,3,5,7,9,11)
+c_natural_minor <- c(0, 2, 3, 5, 7, 8, 10)
+c_melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
 just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 howfree(c_natural_minor)
 howfree(c_melodic_minor)

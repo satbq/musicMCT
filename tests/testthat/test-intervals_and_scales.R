@@ -48,3 +48,12 @@ test_that("j accepts varied inputs", {
 test_that("j rejects nonstandard inputs", {
   expect_error(j(U))
 })
+
+test_that("z works", {
+  expect_error(z(0, 5/3, 3/2))
+  expect_error(z(-3/2))
+
+  expect_equal(round(z(1, 5/4, 3/2, edo=53), 0), c(0, 17, 31))
+  expect_equal(round(z(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8), 0),
+               c(0, 2, 4, 5, 7, 9, 11))
+})

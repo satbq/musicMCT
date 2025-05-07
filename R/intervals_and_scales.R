@@ -223,3 +223,38 @@ j <- function(..., edo=12) {
   convert(res, 12, edo)
 }
 
+#' Frequency ratios to logarithmic pitch intervals (e.g. semitones)
+#'
+#' Simple convenience function for converting frequency ratios to
+#' semitones. Useful to have in addition to [j()] because [j()] is only
+#' defined for specific common values. Defaults to 12-tone equal temperament 
+#' but `edo` parameter allows other units.
+#'
+#' The name `z()` doesn't make a lot of sense but has the virtue of being
+#' a letter that isn't otherwise very common. `r` (for ratio) and `q` (for
+#' the rationals) were both avoided because they're already used for other
+#' functions.
+#'
+#' @param ... One or more numerics values which represent frequency ratios.
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector representing the input ratios converted to
+#'   `edo` unit steps per octave
+#'
+#' @examples
+#' z(81/80) == j(synt)
+#'
+#' mod_jdia <- z(1, 10/9, 5/4, 4/3, 3/2, 5/3, 15/8)
+#' minimize_vl(j(dia), mod_jdia)
+#'
+#' z(1, 5/4, 3/2, edo=53)
+#'
+#' @export
+z <- function(..., edo=12) {
+  ratios <- c(...)
+  if (any(ratios <= 0)) {
+    stop("All frequency ratios must be positive")
+  }   
+
+  edo * log2(ratios)
+}

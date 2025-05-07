@@ -66,6 +66,7 @@ reference:
   - maxeven
   - meantone_fifth
   - surround_set
+  - z
 
 - title: Set Theory
   desc: Concepts from traditional pitch-class set theory
