@@ -80,13 +80,132 @@ Hinton</a> (Lecture 2, Slide 16 from his 2012 Coursera course <em>Neural
 Networks for Machine Learning</em>)</p>
 </blockquote>
 <hr>
-<p>testing plots</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>One of the major difficulties in understanding the geometries of
+Modal Color Theory is the fact that they usually involve more than three
+dimensions. The important case of seven-note scales involves a
+hyperplane arrangement in six dimensions, and generally
+<code>n</code>-note scales must be modeled in <code>n-1</code>
+dimensions. The purpose of this vignette is to show how we can use
+musicMCT to explore the geometries by visualizing cross-sections of
+them, even though we can’t visualize an entire space at once.</p>
+<p>The strategy that we’re going to use to explore heptachordal scale
+space is inspired by the venerable practice of building scales by
+combining two tetrachords. This practice is recorded in ancient Greek
+music theory and forms an important part of the theory of Arabic
+maqamat. I should stress, though, that this vignette is <em>inspired
+by</em> those theories, not an attempt to explain or reformulate them.
+I’m not an expert in either subject, and a maqam is not simply a scale
+in the elementary sense modeled by Modal Color Theory. I do suspect that
+part of the appeal of tetrachordal thinking is the way that it
+simplifies the range of possibilities that a musician must consider when
+using a scale: that simplification is a point of commonality between the
+visualization we’re about to do and the actual musical practices of
+Ancient Greek and Arabic classical musics (to the extent I understand
+them). I’d like to think that this commonality might be enough to allow
+MCT’s mathematical model to enrich our understanding of these theories,
+but for this vignette our goal is simply the technical problem of
+simplifying high-dimensional spaces.</p>
+</div>
+<div class="section level2">
+<h2 id="seven-notes-tetrachords-and-two-dimensions">Seven Notes, Tetrachords, and Two Dimensions<a class="anchor" aria-label="anchor" href="#seven-notes-tetrachords-and-two-dimensions"></a>
+</h2>
+<p>Our initial approach will be to restrict our attention to seven-note
+scales that can be built from two tetrachords with the following
+structure:</p>
+<ul>
+<li>The higher tetrachord is an exact transposition of the lower
+tetrachord up by 7 semitones.</li>
+<li>The lower tetrachord has a fixed first pitch of 0 and a fixed final
+pitch of 5.</li>
+<li>Thus the last pitch of the higher tetrachord is exactly an octave
+above the first pitch of the lower.</li>
+<li>The middle two pitches of the lower tetrachord are freely variable,
+as long as they stay in the right order. (That is, they must be above 0,
+less than 5, and the second pitch must be lower than the third
+pitch.)</li>
+</ul>
+<p>Transpositional combination of this sort is easy to achieve in
+musicMCT with the function [tc()]. Let’s see how the normal 12-equal
+major scale can be derived as the transpositional combination of an (0,
+2, 4, 5) tetrachord at a perfect fith:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scale_from_genus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vec</span><span class="op">)</span> <span class="op">{</span></span>
-<span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span> <span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  0  2  4  5  7  9 11</span></span></code></pre></div>
+<p>This structure is useful because it fixes most of the pitches in the
+scale, allowing only the values of the middle two notes in the lower
+tetrachord to vary freely. (The middle pitches of the upper tetrachord
+must match the lower one, so they are completely determined by our
+decisions about scale degrees 2 and 3.) This means that all scales with
+this structure live in a two-dimensional subspace of the overall
+heptachord geometry: the two dimensions of the subspace correspond
+simply to our choices for the values of scale degree 2 and 3. Let’s
+define a function that takes in a pair of choices for the variable scale
+degrees (i.e. a “genus” in Ancient Greek theory) and returns an entire
+scale:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">scale_from_genus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">genus</span><span class="op">)</span> <span class="op">{</span></span>
+<span> <span class="va">sd2</span> <span class="op">&lt;-</span> <span class="va">genus</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span> <span class="va">sd3</span> <span class="op">&lt;-</span> <span class="va">genus</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span> <span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">sd2</span>, <span class="va">sd3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Since the space of such scale is only two dimensional, it will be
+easy to visualize on a normal x-y plot. The space is a planar slice
+through the complete 6-d heptachord space. Since the perfectly even
+seven-note scale (7-tone equal temperament) <em>cannot</em> be
+constructed by <code>scale_from_genus()</code>, it does not lie on the
+plane that we will visualize. Recall that every “hue” in MCT is a ray
+that emanates outward from the perfectly even scale. The plane that
+we’re visualizing will intersect many of those hues, but no hue lies
+entirely within the plane. Every hue that we visualize will therefore be
+represented by just a single point in our plot. For instance, the
+12-equal major scale will be a point on our plot (with x coordinate 2
+for its <span class="math inline">\(\hat{2}\)</span> and y coordinate 4
+for its <span class="math inline">\(\hat{3}\)</span>). This single point
+belongs to the hue of “well-formed” major scales, i.e. the ones that
+have the meantone structure of being generated by a chain of fifths. If
+we wanted to visualize other specific points on that hue, such as the
+Pythagorean tuning of the major scale, we would need to redefine our
+<code>scale_from_genus()</code> function to use a different interval of
+transpositional combination. That is, instead of</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sd2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2.5</span><span class="op">)</span></span>
+<span><span class="va">sd3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2.5</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">sd2</span>, <span class="va">sd3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  0.0000000  0.2018753  4.5858326  5.0000000  7.0000000  7.2018753 11.5858326</span></span></code></pre></div>
+<p>we would need</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">sd2</span>, <span class="va">sd3</span>, <span class="fu"><a href="../reference/j.html">j</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="../reference/j.html">j</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  0.0000000  0.2018753  4.5858326  4.9804500  7.0195500  7.2214254 11.6053826</span></span>
+<span><span class="co"># (Note the use of j() to define acoustically pure fourth and fifth.)</span></span></code></pre></div>
+<p>This would crete a plane of scales that’s parallel to and just
+slightly offset from the plane that we will visualize. The points on the
+planes would correlate to each other one-to-one, as slight variations in
+the “saturation” of the same hues.</p>
+<p>Let’s plot our first few scales on this plane. There are several
+relatively familiar scales that all have the desired tetrachordal
+structure:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ionian</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dorian</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">phrygian</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">double_harmonic</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">enharmonic</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">demo_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">ionian</span>, <span class="va">dorian</span>, <span class="va">phrygian</span>, <span class="va">double_harmonic</span>, <span class="va">enharmonic</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">demo_scales</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="va">demo_scales</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>, pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">toString</span><span class="op">)</span>, </span>
+<span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.05</span>, <span class="fl">5.05</span><span class="op">)</span>,</span>
+<span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.01</span>, <span class="fl">5.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
+<p>The scales are marked by numbers in the order that we defined them:
+the ionian scale is “1”, dorian “2”, and so on. It will be useful to
+keep these points in mind as landmarks while we populate the space with
+more scales.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">colorfunc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html" class="external-link">tanh</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">numpoints</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
@@ -101,8 +220,8 @@ Networks for Machine Learning</em>)</p>
 <span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
 <span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-2-1.png" width="480"></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png" width="480"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">sets</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
 <span><span class="va">all_signvecs_str</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvecs</span>, <span class="fl">2</span>, <span class="va">toString</span><span class="op">)</span></span>
 <span><span class="va">unique_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all_signvecs_str</span><span class="op">)</span></span>
@@ -114,8 +233,25 @@ Networks for Machine Learning</em>)</p>
 <span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
 <span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
-  </main>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-8-1.png" width="480"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">numpoints</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
+<span><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">numpoints</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">numpoints</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">xs</span>, <span class="va">ys</span><span class="op">)</span></span>
+<span><span class="va">inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="fl">2</span>, <span class="va">sort</span><span class="op">)</span></span>
+<span><span class="va">sets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="fl">2</span>, <span class="va">scale_from_genus</span><span class="op">)</span></span>
+<span><span class="va">evs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">sets</span>, <span class="fl">2</span>, <span class="va">evenness</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sets</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>, <span class="va">sets</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></span><span class="op">(</span>h<span class="op">=</span><span class="fu">colorfunc</span><span class="op">(</span><span class="va">evs</span><span class="op">)</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">20</span>, </span>
+<span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
+<span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-9-1.png" width="480"></p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

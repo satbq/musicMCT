@@ -72,7 +72,7 @@ ambiguities are weakly but not strictly proper.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isproper</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isproper</span><span class="op">(</span><span class="va">set</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">has_contradiction</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
@@ -87,6 +87,10 @@ ambiguities are weakly but not strictly proper.</p>
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
 
 
+<dt id="arg-strict">strict<a class="anchor" aria-label="anchor" href="#arg-strict"></a></dt>
+<dd><p>Boolean: should only strictly proper scales pass?</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
@@ -94,10 +98,6 @@ ambiguities are weakly but not strictly proper.</p>
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
 <dd><p>Numeric (expected integer), defaults to <code>10</code>:
 number of decimal places to round to when testing for equality.</p></dd>
-
-
-<dt id="arg-strict">strict<a class="anchor" aria-label="anchor" href="#arg-strict"></a></dt>
-<dd><p>Boolean: should only strictly proper scales pass?</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -114,9 +114,9 @@ function</p>
 <span class="r-in"><span><span class="fu">strictly_proper</span><span class="op">(</span><span class="va">c_major</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span><span class="fu">isproper</span><span class="op">(</span><span class="va">c_major</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">isproper</span><span class="op">(</span><span class="va">c_major</span>, strict<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="fu">isproper</span><span class="op">(</span><span class="va">c_major</span>, strict<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">just_major</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">/</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">isproper</span><span class="op">(</span><span class="va">just_major</span><span class="op">)</span></span></span>

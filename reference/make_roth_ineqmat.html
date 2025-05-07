@@ -101,7 +101,7 @@ Thus, this function runs slowly when called on cardinalities of only modest size
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">c_major</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">hepta_roth_ineqmat</span> <span class="op">&lt;-</span> <span class="fu">make_roth_ineqmat</span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="isproper.html">isproper</a></span><span class="op">(</span><span class="va">c_major</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="va">cmaj_roth_sv</span> <span class="op">&lt;-</span> <span class="fu"><a href="signvector.html">signvector</a></span><span class="op">(</span><span class="va">c_major</span>, ineqmat<span class="op">=</span><span class="va">hepta_roth_ineqmat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">cmaj_roth_sv</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cmaj_roth_sv</span>
