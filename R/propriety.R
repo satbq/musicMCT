@@ -43,8 +43,7 @@ get_adjacent_sizes <- function(set, edo=12) {
 #' isproper(c_major)
 #' isproper(c_major, strict=TRUE)
 #'
-#' just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
-#' isproper(just_major)
+#' isproper(j(dia), strict=TRUE)
 #'
 #' pythagorean_diatonic <- sort(((0:6)*z(3/2))%%12)
 #' isproper(pythagorean_diatonic)

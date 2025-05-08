@@ -52,8 +52,11 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   nameColor <- FALSE
   if (exists("representative_signvectors")) {
     if (card <= length(get("representative_signvectors"))) {
-      color <- colornum(x,ineqmat=ineqmat, edo=edo, rounder=rounder,
-                       signvector_list=NULL)
+      color <- colornum(x,
+                        ineqmat=ineqmat, 
+                        edo=edo, 
+                        rounder=rounder,
+                        signvector_list=NULL)
       nameColor <- TRUE
     }
   }
@@ -83,12 +86,12 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
 
   line2 <- paste(card)
   line3 <- "! "
-  x <- c(x,edo)
-  scaledef <- convert(x,edo,periodCents)[-1]
-  scaledef <- format(scaledef,nsmall=1,digits=(rounder+2))
+  x <- c(x, edo)
+  scaledef <- convert(x, edo, periodCents)[-1]
+  scaledef <- format(scaledef, nsmall=1, digits=(rounder+2))
 
   fileConn <- file(filename)
-  writeLines(c(line0,line1,line2,line3,scaledef),fileConn)
+  writeLines(c(line0, line1, line2, line3, scaledef), fileConn)
   close(fileConn)
   invisible()
 }
@@ -124,15 +127,15 @@ readSCL <- function(filename, scaleonly=TRUE, edo=12) {
   contents <- scan(filename, what="character", sep="\n", quiet=TRUE, blank.lines.skip=FALSE)
 
   removeAfterChar <- function(string,charToRemove) {
-    charindex <- as.vector(regexpr(charToRemove,string,fixed=TRUE))
-    charindex[charindex ==-1] <- nchar(string[charindex==-1]) + 1
+    charindex <- as.vector(regexpr(charToRemove, string, fixed=TRUE))
+    charindex[charindex ==-1] <- nchar(string[charindex == -1]) + 1
     charindex <- charindex - 1
     res <- do.call(substr, list(x=string, start=rep(0, length(string)), stop=charindex))
     res[res!=""]
   }
 
   # Fill in description line if blank
-  bangindex <- as.vector(grepl("!",contents,fixed=TRUE))
+  bangindex <- as.vector(grepl("!", contents, fixed=TRUE))
   firstrealline <- contents[which(bangindex==FALSE)[1]]
   if (firstrealline == "") { 
     contents[which(bangindex==FALSE)[1]] <- "blank description" 
@@ -155,12 +158,12 @@ readSCL <- function(filename, scaleonly=TRUE, edo=12) {
 
   # Remove whitespace-prefixed comments
   contents <- trimws(contents)
-  contents <- removeAfterChar(contents," ")
+  contents <- removeAfterChar(contents, " ")
 
   # Check for integers (e.g. an octave defined as "2" rather than "2/1")
   integerindex <- !is.na(strtoi(contents))
 
-  if (sum(ratioindex,centsindex,integerindex) != card) { 
+  if (sum(ratioindex, centsindex, integerindex) != card) { 
     warning(".scl file not formatted as expected. Cents or ratios incorrectly identified.") 
   }
 

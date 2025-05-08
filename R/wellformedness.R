@@ -39,23 +39,23 @@
 #'   `c(2,2,1,2,2,2,1)` for the diatonic). The distinct values of the `setword`
 #'   should be consecutive integers. If you want to test a step word instead of 
 #'   a list of pitch classes, `set` must be entered as `NULL`.
-#' @param allowdegen Should the function test for degenerate well-formed and distributionally even scales too?
+#' @param allow_de Should the function test for degenerate well-formed and distributionally even scales too?
 #'   Defaults to `FALSE`.
-#' @returns Boolean answering "Is the scale MOS?" (if allowdegen=FALSE) or "Is the scale well-formed
-#'   in any sense?" (if allowdegen=TRUE).
+#' @returns Boolean answering "Is the scale MOS?" (if allow_de=FALSE) or "Is the scale well-formed
+#'   in any sense?" (if allow_de=TRUE).
 #' @examples
 #' iswellformed(sc(7,35))
 #' iswellformed(c(0,2,4,6))
 #' iswellformed(c(0,1,6,7))
-#' iswellformed(c(0,1,6,7), allowdegen=TRUE)
+#' iswellformed(c(0,1,6,7), allow_de=TRUE)
 #' iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
 #' @export
-iswellformed <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10) {
+iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
   if (is.null(set)) { 
     set <- realize_setword(setword, edo) 
   }
   if (length(set) < 2) { 
-    return(as.logical(allowdegen)) 
+    return(as.logical(allow_de)) 
   }
 
   speccount <- spectrumcount(set, edo, rounder)
@@ -64,10 +64,10 @@ iswellformed <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10
     return(TRUE) 
   }
   if (toString(uniques)=="1") { 
-    return(as.logical(allowdegen)) 
+    return(as.logical(allow_de)) 
   }
   if (toString(sort(uniques))=="1, 2") { 
-    return(as.logical(allowdegen)) 
+    return(as.logical(allow_de)) 
   }
 
   FALSE
@@ -123,7 +123,7 @@ equivocate <- function(setword, lowerbound, windowsize) {
 #' apply(example_scales, 2, isgwf)
 #'
 #' @export
-isgwf <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10) {
+isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
   if (is.null(setword)) { 
     setword <- asword(set, edo, rounder) 
   }
@@ -137,11 +137,11 @@ isgwf <- function(set, setword=NULL, allowdegen=FALSE, edo=12, rounder=10) {
   equiv_wrap <- function(params, setword) equivocate(setword, params[1], params[2])
   reduced_words <- apply(equiv_parameters, 1, equiv_wrap, setword=setword)
 
-  iswf_wrap <- function(setword, allowdegen, edo, rounder)  {
-    iswellformed(NULL, setword, allowdegen, edo, rounder)
+  iswf_wrap <- function(setword, allow_de, edo, rounder)  {
+    iswellformed(NULL, setword, allow_de, edo, rounder)
   }
 
-  tests <- apply(reduced_words,2, iswf_wrap, allowdegen=allowdegen, edo=edo, rounder=rounder)
+  tests <- apply(reduced_words,2, iswf_wrap, allow_de=allow_de, edo=edo, rounder=rounder)
 
   as.logical(prod(tests))
 }

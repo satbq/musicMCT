@@ -4,7 +4,7 @@
 \alias{isgwf}
 \title{Is a scale n-wise well formed?}
 \usage{
-isgwf(set, setword = NULL, allowdegen = FALSE, edo = 12, rounder = 10)
+isgwf(set, setword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -14,7 +14,7 @@ isgwf(set, setword = NULL, allowdegen = FALSE, edo = 12, rounder = 10)
 should be consecutive integers. If you want to test a step word instead of
 a list of pitch classes, \code{set} must be entered as \code{NULL}.}
 
-\item{allowdegen}{Should the function test for degenerate well-formed and distributionally even scales too?
+\item{allow_de}{Should the function test for degenerate well-formed and distributionally even scales too?
 Defaults to \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}

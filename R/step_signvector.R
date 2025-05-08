@@ -14,10 +14,9 @@
 step_signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   card <- length(set)
   if (is.null(ineqmat)) {
-    card <- length(set)
     ineqmat <- getineqmat(card)
   }
 
-  step_rows <- ineqmat[get_relevant_rows(1, ineqmat=ineqmat),]
+  step_rows <- ineqmat[get_relevant_rows(1, ineqmat=ineqmat), ]
   signvector(set, ineqmat=step_rows, edo=edo, rounder=rounder)
 }

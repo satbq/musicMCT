@@ -13,15 +13,15 @@ test_that("iswellformed works", {
   expect_true(iswellformed(c(0, 2, 4, 7, 9, 12, 14), edo=17))
 
   expect_false(iswellformed(3))
-  expect_true(iswellformed(3, allowdegen=TRUE))
+  expect_true(iswellformed(3, allow_de=TRUE))
   expect_false(iswellformed(c(0, 4, 8)))
-  expect_true(iswellformed(c(0, 4, 8), allowdegen=TRUE))
+  expect_true(iswellformed(c(0, 4, 8), allow_de=TRUE))
   expect_false(iswellformed(c(0, 1, 6, 7)))
-  expect_true(iswellformed(c(0, 1, 6, 7), allowdegen=TRUE))
+  expect_true(iswellformed(c(0, 1, 6, 7), allow_de=TRUE))
 
-  expect_true(iswellformed(NULL, c(1,1,2,1,2)))
-  expect_false(iswellformed(c(0, 2, 3, 7, 8), c(1,1,2,1,2)))
-  expect_false(iswellformed(NULL, c(2,1,3,1,3)))  
+  expect_true(iswellformed(NULL, c(1, 1, 2, 1, 2)))
+  expect_false(iswellformed(c(0, 2, 3, 7, 8), c(1, 1, 2, 1, 2)))
+  expect_false(iswellformed(NULL, c(2, 1, 3, 1, 3)))  
 })
 
 test_that("isgwf detects 12edo PWF scales correctly", {
@@ -39,9 +39,9 @@ test_that("isgwf handles irrational values correctly", {
   expect_false(isgwf(just_dia, rounder=14))
 })
 
-test_that("isgwf allowdegen parameter behaves", {
+test_that("isgwf allow_de parameter behaves", {
   expect_false(isgwf(c(0, 2, 4, 5, 7, 9)))
-  expect_true(isgwf(c(0, 2, 4, 5, 7, 9), allowdegen=TRUE))
+  expect_true(isgwf(c(0, 2, 4, 5, 7, 9), allow_de=TRUE))
 })
 
 test_that("isgwf correctly detects n-wise WF for n > 2", {
@@ -58,7 +58,7 @@ test_that("isgwf setword parameter behaves", {
   expect_true(isgwf(NULL, c(1, 3, 5, 2, 4)))
 
   expect_false(isgwf(NULL, c(2, 2, 1, 2, 2, 3)))
-  expect_true(isgwf(NULL, c(2, 2, 1, 2, 2, 3), allowdegen=TRUE))
+  expect_true(isgwf(NULL, c(2, 2, 1, 2, 2, 3), allow_de=TRUE))
 
   expect_false(isgwf(NULL, c(1, NA, 3)))
 })

@@ -4,7 +4,7 @@
 \alias{iswellformed}
 \title{Well-formedness, Myhill's property, and/or moment of symmetry}
 \usage{
-iswellformed(set, setword = NULL, allowdegen = FALSE, edo = 12, rounder = 10)
+iswellformed(set, setword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -14,7 +14,7 @@ iswellformed(set, setword = NULL, allowdegen = FALSE, edo = 12, rounder = 10)
 should be consecutive integers. If you want to test a step word instead of
 a list of pitch classes, \code{set} must be entered as \code{NULL}.}
 
-\item{allowdegen}{Should the function test for degenerate well-formed and distributionally even scales too?
+\item{allow_de}{Should the function test for degenerate well-formed and distributionally even scales too?
 Defaults to \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
@@ -23,8 +23,8 @@ Defaults to \code{FALSE}.}
 number of decimal places to round to when testing for equality.}
 }
 \value{
-Boolean answering "Is the scale MOS?" (if allowdegen=FALSE) or "Is the scale well-formed
-in any sense?" (if allowdegen=TRUE).
+Boolean answering "Is the scale MOS?" (if allow_de=FALSE) or "Is the scale well-formed
+in any sense?" (if allow_de=TRUE).
 }
 \description{
 Tests whether a scale has the property of "well-formedness" or "moment of symmetry."
@@ -65,6 +65,6 @@ for MOS/NDWF scales to all scale structures.
 iswellformed(sc(7,35))
 iswellformed(c(0,2,4,6))
 iswellformed(c(0,1,6,7))
-iswellformed(c(0,1,6,7), allowdegen=TRUE)
+iswellformed(c(0,1,6,7), allow_de=TRUE)
 iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
 }
