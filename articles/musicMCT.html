@@ -48,6 +48,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/satbq/musicMCT/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -64,7 +65,7 @@
       <h1>Introduction to musicMCT</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/satbq/musicMCT/blob/main/vignettes/musicMCT.Rmd" class="external-link"><code>vignettes/musicMCT.Rmd</code></a></small>
       <div class="d-none name"><code>musicMCT.Rmd</code></div>
     </div>
 
@@ -126,32 +127,44 @@ the modes of a scale:</p>
 <span><span class="co">#&gt; [5,]    7    7    8    7    7    6    6</span></span>
 <span><span class="co">#&gt; [6,]    9    9    9    9    8    8    8</span></span>
 <span><span class="co">#&gt; [7,]   11   10   11   10   10   10   10</span></span></code></pre></div>
-<p>Note the top line’s syntax, which defined the melodic minor scale:
-we’ll be using it a lot! Pitch-classes are represented by numbers: C=0,
-C-sharp = 1, and so on. For familiar sets in 12edo (12
-<strong>e</strong>qual <strong>d</strong>ivisions of the
-<strong>o</strong>ctave), these are all integers. Later we’ll see that
-it’s easy to work with integers in any k edo. But the values that define
-our scales don’t have to be integers at all: Modal Color Theory works in
-continuous pitch-class space.</p>
-<p>The function <code><a href="../reference/sim.html">sim()</a></code> above computes the
-<strong>s</strong>calar <strong>i</strong>nterval
+<p>Note the top line’s syntax, which defines the melodic minor scale.
+We’ll be using it a lot! The arrow <code>&lt;-</code> assigns the value
+on the right side to the variable name on the left side. The
+<code>c( ... )</code> on the right side of this statement is the
+standard way to tell R to treat a bunch of things as a single
+collection. (See [c()]. musicMCT also has a couple functions that are
+meant to mimic [c()] while letting you enter intervals as
+just-intonation frequency ratios instead of pitch-space distances: see
+[j()] and [z()].)</p>
+<p>Pitch-classes are represented by numbers: C=0, C-sharp = 1, and so
+on. For familiar sets in 12edo (12 <strong>e</strong>qual
+<strong>d</strong>ivisions of the <strong>o</strong>ctave), these are
+all integers. Later we’ll see that it’s easy to work with integers in
+any k edo. But the values that define our scales don’t have to be
+integers at all: Modal Color Theory works in continuous pitch-class
+space. For instance, here’s a common just tuning of the major scale
+(Ptolemy’s “intense” or “syntonic” diatonic):</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  0.000000  2.039100  3.863137  4.980450  7.019550  8.843587 10.882687</span></span></code></pre></div>
+<p>Getting back to melodic minor, the function <code><a href="../reference/sim.html">sim()</a></code> above
+computes the <strong>s</strong>calar <strong>i</strong>nterval
 <strong>m</strong>atrix of a set (as defined by <a href="https://doi.org/10.1111/j.1468-2249.2008.00257.x" class="external-link">Tymoczko
 2008</a>), which presents to us the modes of a scale as the columns of
 the matrix. Our input, the melodic minor scale, is in the first column,
 and the scale we want to study can be read from the fourth column of the
 SIM:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  9 10</span></span></code></pre></div>
-<p>Just to flex our muscles in R, let’s pretend that we’ve forgotten how
-to interpret pitch-class integers and that we therefore need to verify
-that those numbers do correspond to the notes (C, D, E, F-sharp, G, A,
+<p>Just to practice using R, let’s pretend that we’ve forgotten how to
+interpret pitch-class integers and that we therefore need to verify that
+those numbers do correspond to the notes (C, D, E, F-sharp, G, A,
 B-flat). We’ll do that by checking the <strong>v</strong>oice
 <strong>l</strong>eading from C major to this scale:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c_major</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/minimize_vl.html">minimize_vl</a></span><span class="op">(</span><span class="va">c_major</span>, <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/minimize_vl.html">minimize_vl</a></span><span class="op">(</span><span class="va">c_major</span>, <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  0  0  1  0  0 -1</span></span></code></pre></div>
 <p>As <a href="https://www.mtosmt.org/issues/mto.05.11.4/mto.05.11.4.tymoczko.pdf" class="external-link">Tymoczko
 2007</a> points out, key signatures are essentially just voice leadings
@@ -168,19 +181,19 @@ scales, respectively.</p>
 harmonics of the overtone series as a scale (noting that the 14th
 harmonic is an octave above the 7th). We’ll convert that into semitone
 measurements as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">overtones</span> <span class="op">&lt;-</span> <span class="fl">7</span><span class="op">:</span><span class="fl">13</span></span>
 <span><span class="va">frequency_ratios</span> <span class="op">&lt;-</span> <span class="va">overtones</span> <span class="op">/</span> <span class="fl">7</span></span>
 <span><span class="va">semitone_values</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">frequency_ratios</span><span class="op">)</span></span>
-<span><span class="va">overtone_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">semitone_values</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">overtone_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">semitone_values</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.000000 2.039100 3.863137 5.513179 7.019550 8.405277 9.688259</span></span></code></pre></div>
 <p>Let’s find the voice leading from the overtone scale to the acoustic
 scale, since voice leading distance offers an approximate measure of
 musical similarity (as <a href="https://doi.org/10.1126/science.1153021" class="external-link">Callender, Quinn, and
 Tymoczko 2008</a> argue):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">acoustic_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acoustic_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">melodic_minor</span><span class="op">)</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/minimize_vl.html">minimize_vl</a></span><span class="op">(</span><span class="va">overtone_scale</span>, <span class="va">acoustic_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0.00000000 -0.03910002  0.13686286  0.48682058 -0.01955001  0.59472338</span></span>
 <span><span class="co">#&gt; [7]  0.31174094</span></span></code></pre></div>
@@ -204,7 +217,7 @@ either.</p>
 <p>The normal justification for calling the <code>acoustic_scale</code>
 “acoustic” is that it’s what you get if you simply round the values of
 the <code>overtone_scale</code> to the nearest integer (in 12edo):</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">overtone_scale</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  8 10</span></span></code></pre></div>
 <p>Wait a second, that’s not even the acoustic scale! It has two
@@ -221,7 +234,7 @@ gets to stay fixed. Let’s try it.</p>
 we quantize the scale. Transposing the whole scale up 1 semitone by
 using <code><a href="../reference/tn.html">tn()</a></code>, we should expect to get essentially the same
 quantization, just with 1 added to every value:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">overtone_scale</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  6  7  8 10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/tn.html">tn</a></span><span class="op">(</span><span class="va">overtone_scale</span>, <span class="fl">1</span><span class="op">)</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
@@ -232,7 +245,7 @@ range of transpositions where the scale’s tonic is some value
 <code>overtone_scale</code> so that it starts on every cent (i.e.
 hundredth of a semitone) in that range, that should be a fine enough
 sampling to encounter every quantization:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">amounts_to_transpose</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">99</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span></span>
 <span><span class="va">transposed_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">amounts_to_transpose</span>, <span class="va">tn</span>, set<span class="op">=</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="va">quantized_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">transposed_scales</span>, <span class="fl">2</span>, <span class="va">round</span>, digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
@@ -250,7 +263,7 @@ sampling to encounter every quantization:</p>
 The eighth column is just <span class="math inline">\({T_1}\)</span> of
 the first. So let’s make them all start on zero to double-check that
 they’re truly unique:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unique_quantizations_from_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">unique_quantizations</span>, <span class="fl">2</span>, <span class="va">startzero</span><span class="op">)</span></span>
 <span><span class="va">final_quantizations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">unique_quantizations_from_0</span>, MARGIN<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">final_quantizations</span>, <span class="fl">2</span>, <span class="va">fortenum</span><span class="op">)</span></span>
@@ -306,7 +319,7 @@ we could make? Each comparison corresponds to a hyperplane in the
 geometry, and musicMCT offers a complete list of all the hyperplanes in
 a matrix called an <code>ineqmat</code> (for “inequality matrix”). The
 relevant matrix for four-note scales looks like this:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/makeineqmat.html">getineqmat</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
 <span><span class="co">#&gt; [1,]   -1    2   -1    0    0</span></span>
@@ -325,10 +338,10 @@ answer all 8 comparisons in the same way. musicMCT summarizes this
 information in a scale’s <code><a href="../reference/signvector.html">signvector()</a></code>. For instance, let’s
 consider set classes 4-6 (prime form 0127) and 4-24 (prime form 0248).
 Here are their sign vectors:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0 -1 -1 -1 -1  0 -1  0</span></span>
-<span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0 -1 -1 -1 -1  0 -1  0</span></span></code></pre></div>
 <p>These vectors are the same, so MCT considers the tetrachords to have
 the same scalar structure. For instance, both start with two identical
@@ -339,7 +352,7 @@ Generally you wouldn’t learn a lot from trying to read sign vectors
 directly–musicMCT has more human-readable functions that will help you
 interpret them–but let’s take a gander at them for the acoustic and
 overtone scales:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  0  0  0  1  1  1  0  0  0 -1  1  1  1  0  1  0  0  0 -1  0 -1  1  1  1  1</span></span>
 <span><span class="co">#&gt; [26]  1  0  1  1  0  0  0 -1 -1 -1  1  1  0  0  0 -1 -1</span></span>
@@ -377,18 +390,18 @@ anything, it’s surprising that it repeats <em>any</em> intervals.</p>
 information from the sign vector with the <code>ineqmat</code> for
 heptachords. We could manually count which entry of the sign vector is a
 0, but musicMCT also has a function for that:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/whichsvzeroes.html">whichsvzeroes</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 38</span></span></code></pre></div>
 <p>We can now look at the row of the heptachordal <code>ineqmat</code>
 to see what interval comparison it defines:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/makeineqmat.html">getineqmat</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="../reference/whichsvzeroes.html">whichsvzeroes</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="co">#&gt; [1] -1 -1  0  0  2  0  0 -1</span></span></code></pre></div>
 <p>This tells us that the fourth above <span class="math inline">\(\hat{5}\)</span> equals the fourth below <span class="math inline">\(\hat{5}\)</span> in size. (See page 43 of “Modal
 Color Theory” for a discussion of how to read the rows of an
 <code>ineqmat</code> like this.) And, sure enough, this is true:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signed_interval_class.html">signed_interval_class</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -4.98045</span></span>
 <span><span class="fu"><a href="../reference/signed_interval_class.html">signed_interval_class</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">-</span><span class="va">overtone_scale</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
@@ -398,14 +411,14 @@ Color Theory” for a discussion of how to read the rows of an
 interval, which it does: the perfect fourth from D to G matches the
 perfect fourth from G to C. We could also verify that by checking that
 the 38th entry of its sign vector is also 0:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span><span class="op">[</span><span class="fl">38</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
 <p>In fact, why don’t we consider all seven of the distinct
 quantizations from the previous section?</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">final_quantizations</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
-<span><span class="va">all_signvectors</span><span class="op">[</span><span class="fl">38</span>,<span class="op">]</span></span>
+<span><span class="va">all_signvectors</span><span class="op">[</span><span class="fl">38</span>, <span class="op">]</span></span>
 <span><span class="co">#&gt; 7-33 7-34 7-31 7-28 7-29 7-27 7-34 </span></span>
 <span><span class="co">#&gt;    0    0   -1    1    0    0    0</span></span></code></pre></div>
 <p>Most of them do match the <code>overtone_scale</code> on this point,
@@ -418,7 +431,7 @@ previous section.</p>
 vectors at once? There are various ways to do this, but one that’s
 simple to calculate is to treat the sign vectors as if they were real
 vectors in a 42-dimensional space and compute their distances:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">signvectors_with_overtone_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">all_signvectors</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">signvectors_with_overtone_scale</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"o.s."</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">signvectors_with_overtone_scale</span><span class="op">)</span></span>
@@ -457,7 +470,7 @@ in its sign vector, which ought to make it lose a degree of freedom.
 <span class="math inline">\(\hat{5}\)</span> ought to determine where
 <span class="math inline">\(\hat{2}\)</span> goes.) Let’s compare the
 <code>overtone_scale</code>’s freedom to its seven quantizations:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">final_quantizations</span>, <span class="fl">2</span>, <span class="va">howfree</span><span class="op">)</span></span>
@@ -470,7 +483,7 @@ little bit more flexible. This is a consequence of quantizing to
 twelve-tone equal temperament, which simply doesn’t have enough distinct
 notes to accommodate more flexible heptachords. We can check the degrees
 of freedom of all 38 heptachordal set classes in 12edo:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_12edo_heptachords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">38</span>, <span class="va">sc</span>, card<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span>
 <span><span class="va">heptachord_freedoms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_12edo_heptachords</span>, <span class="fl">2</span>, <span class="va">howfree</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">heptachord_freedoms</span><span class="op">)</span></span>
@@ -492,7 +505,7 @@ we can find much better structural approximations. In particular,
 musicMCT has a function that will find a quantized representative of any
 scalar color, in the lowest n-note equal division of the octave where
 such a quantization exists.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">quantized_overtone_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quantize_color.html">quantize_color</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">quantized_overtone_color</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $set</span></span>
@@ -515,7 +528,7 @@ it is to the <code>overtone_scale</code>, and let’s verify that it
 belongs to the same “color” as the <code>overtone_scale</code> by
 verifying that it has the same sign vector as the scale it
 approximates:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">overtone_scale</span>, digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.00 2.04 3.86 5.51 7.02 8.41 9.69</span></span>
 <span><span class="fu"><a href="../reference/convert.html">convert</a></span><span class="op">(</span><span class="va">quantized_overtone_color</span><span class="op">$</span><span class="va">set</span>, <span class="fl">30</span>, <span class="fl">12</span><span class="op">)</span></span>
@@ -558,7 +571,7 @@ function <code><a href="../reference/comparesignvecs.html">comparesignvecs()</a>
 two sign vectors represent adjacent colors, <code>0</code> if two sign
 vectors are identical, and <code>-1</code> if the colors are neither the
 same nor adjacent.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">overtone_sv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvectors</span>, <span class="fl">2</span>, <span class="va">comparesignvecs</span>, signvecY<span class="op">=</span><span class="va">overtone_sv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 7-33 7-34 7-31 7-28 7-29 7-27 7-34 </span></span>
@@ -596,7 +609,7 @@ all these colors (in the form of an adjacency list)</li>
 working directory, which you can find by calling <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> in
 R. Then import the files into your R session with the following
 commands:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">representative_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_scales.rds"</span><span class="op">)</span></span>
 <span><span class="va">representative_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_signvectords.rds"</span><span class="op">)</span></span>
 <span><span class="va">color_adjacencies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"color_adjacencies.rds"</span><span class="op">)</span></span></code></pre></div>
@@ -606,7 +619,7 @@ identify each color in a MCT hyperplane arrangement (“Modal Color
 Theory,” 28). If you try to look up a scale’s color number without the
 <code>representative_signvectors</code> saved, you’ll probably get a
 <code>NULL</code> result:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/colornum.html">colornum</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; NULL</span></span></code></pre></div>
 <p>but if you do have the file, you’ll discover that the
@@ -622,7 +635,7 @@ to color <code>1824025</code>, we want the list element
 work on your device unless you have <code>color_adjacencies</code> saved
 and loaded into R, but its objective is to find the most regular scale
 that the <code>overtone_scale</code> is structurally adjacent to:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">os_adjacent_colors</span> <span class="op">&lt;-</span> <span class="va">color_adjacencies</span><span class="op">[[</span><span class="fl">7</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fu"><a href="../reference/colornum.html">colornum</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">os_adjacent_scales</span> <span class="op">&lt;-</span> <span class="va">representative_scales</span><span class="op">[[</span><span class="fl">7</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="va">os_adjacent_colors</span><span class="op">]</span></span>
 <span><span class="va">regularity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">os_adjacent_scales</span>, <span class="fl">2</span>, <span class="va">countsvzeroes</span><span class="op">)</span></span>
@@ -635,7 +648,7 @@ Converted to familiar semitone measurements, this is the scale (0.00,
 1.71, 3.43, 5.14, 6.86, 8.57, 9.43). To understand better how this scale
 “regularizes” the <code>overtone_scale</code>, let’s consider the two
 scales in terms of their ranked step sizes:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/asword.html">asword</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 6 5 4 3 2 1 7</span></span>
 <span><span class="va">best_simple_approximation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert.html">convert</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">11</span><span class="op">)</span>, <span class="fl">14</span>, <span class="fl">12</span><span class="op">)</span></span>
@@ -662,7 +675,7 @@ to <span class="math inline">\(\hat{6}\)</span> is smaller (because all
 its step sizes get smaller until the last one). We can see that
 contradiction by comparing the 10th place of their respective sign
 vectors:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">overtone_scale</span><span class="op">)</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">best_simple_approximation</span><span class="op">)</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span></span>
@@ -673,7 +686,7 @@ vectors:</p>
 in terms of voice-leading distance, not clearly closer to the
 <code>overtone_scale</code> than our
 <code>best_simple_approximation</code> is:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/minimize_vl.html">minimize_vl</a></span><span class="op">(</span><span class="va">overtone_scale</span>, <span class="va">acoustic_scale</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0.000 -0.039  0.137  0.487 -0.020  0.595  0.312</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/minimize_vl.html">minimize_vl</a></span><span class="op">(</span><span class="va">overtone_scale</span>, <span class="va">best_simple_approximation</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
@@ -725,9 +738,9 @@ degree the internal structure of the scale, as described in “Modal Color
 Theory,” 7-11). Using musicMCT we can make quick mock-ups of brightness
 graphs with <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>. First let’s take a look at
 the <code>acoustic_scale</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span></code></pre></div>
-<p><img src="musicMCT_files/figure-html/unnamed-chunk-33-1.png" width="480"></p>
+<p><img src="musicMCT_files/figure-html/unnamed-chunk-34-1.png" width="480"></p>
 <p>The information in this graph is displayed in the same way as Figure
 2b of “Modal Color Theory” (p. 8), though you’ll notice a few
 differences if you compare the article’s figure to the one in this
@@ -757,9 +770,9 @@ structure of the scale by making the chain of whole steps bow out to the
 left at the middle, giving the graph a diamond-like shape.</p>
 <p>Let’s now take a look at the brightness graph for the
 <code>overtone_scale</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">overtone_scale</span>, numdigits<span class="op">=</span><span class="fl">1</span>, show_sums<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="musicMCT_files/figure-html/unnamed-chunk-34-1.png" width="480"></p>
+<p><img src="musicMCT_files/figure-html/unnamed-chunk-35-1.png" width="480"></p>
 <p>This looks pretty messy! The graph is less connected (i.e. there are
 fewer arrows) and the vertical placement of its nodes seems haphazard.
 This reflects the fact that the overtone scale has less regularity as
@@ -778,9 +791,9 @@ brightest individual note of the scale.</p>
 quantization of the <code>overtone_scale</code> to a division of the
 octave into 30 steps. Let’s see what the brightness graph of that
 approximation looks like:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">quantized_overtone_color</span><span class="op">$</span><span class="va">set</span>, edo<span class="op">=</span><span class="fl">30</span>, show_sums<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="musicMCT_files/figure-html/unnamed-chunk-35-1.png" width="480"></p>
+<p><img src="musicMCT_files/figure-html/unnamed-chunk-36-1.png" width="480"></p>
 <p>That’s impressively close to the graph for the actual
 <code>overtone_scale</code>! (In truth, we got a little lucky here: many
 colors offer enough room for variation that
@@ -803,16 +816,16 @@ considerable variety from one to the next. This gives a glimpse of the
 range of possible structures for seven note scales. Simply change the
 number <code>4</code> in the line of code below to any value from
 <code>1</code> to <code>7</code> to check the different scales:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="musicMCT_files/figure-html/unnamed-chunk-36-1.png" width="480"></p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="musicMCT_files/figure-html/unnamed-chunk-37-1.png" width="480"></p>
 <p>Finally, let’s take a look at the brightness graph for our
 <code>best_simple_approximation</code>. I’m going to suppress its
 listing of the pitch-classes in each mode, since without manual tweaking
 they overlap to the point of illegibility:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">best_simple_approximation</span>, show_pitches<span class="op">=</span><span class="cn">FALSE</span>, show_sums<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="musicMCT_files/figure-html/unnamed-chunk-37-1.png" width="480"></p>
+<p><img src="musicMCT_files/figure-html/unnamed-chunk-38-1.png" width="480"></p>
 <p>This feels right to me. At a glance, it’s a lot like the graph for
 the <code>overtone_scale</code> but without all the mess. All the modes
 beneath VII are now neatly lined up on a single row at the bottom.

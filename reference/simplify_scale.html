@@ -33,6 +33,7 @@ pp. 31-32.'></head><body>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/satbq/musicMCT/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -42,7 +43,7 @@ pp. 31-32.'></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Best ways to regularize a scale</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/satbq/musicMCT/blob/main/R/simplify_scale.R" class="external-link"><code>R/simplify_scale.R</code></a></small>
       <div class="d-none name"><code>simplify_scale.Rd</code></div>
     </div>
 
@@ -84,10 +85,11 @@ initial is zero? Defaults to <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-ineqmat">ineqmat<a class="anchor" aria-label="anchor" href="#arg-ineqmat"></a></dt>
-<dd><p>Defaults to <code>NULL</code>, in which case the function assumes
-you want to use the standard hyperplane arrangement of MCT. But you can
-enter a different matrix that contains normal vectors for any hyperplane
-arrangement in the same format as the standard ineqmats.</p></dd>
+<dd><p>Specifies which hyperplane arrangement to consider. By default (or by,
+explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
+of <code><a href="makeineqmat.html">getineqmat()</a></code>, but can be set to "white" or "roth", giving the <code>ineqmat</code>s of
+<code><a href="make_white_ineqmat.html">make_white_ineqmat()</a></code> and <code><a href="make_roth_ineqmat.html">make_roth_ineqmat()</a></code>. For other arrangements, the desired
+inequality matrix can be entered directly.</p></dd>
 
 
 <dt id="arg-scales">scales<a class="anchor" aria-label="anchor" href="#arg-scales"></a></dt>
