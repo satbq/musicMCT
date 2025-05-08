@@ -1,8 +1,8 @@
 test_that("signvector works with default ineqmat", {
   expect_length(signvector(pi), 0)
-  expect_equal(signvector(c(0,7)),1)
-  expect_equal(signvector(c(0,3,7)), c(-1, -1, -1))
-  expect_equal(signvector(c(0,2,7,9)),
+  expect_equal(signvector(c(0, 7)),1)
+  expect_equal(signvector(c(0, 3, 7)), c(-1, -1, -1))
+  expect_equal(signvector(c(0, 2, 7, 9)),
                c(-1, 0, 1, -1, 1, -1, 1, 1))
   expect_equal(signvector(c(0,2,4,5), edo=6),
                c(0, 1, 1, 1, 1, 0, 1, 0))
@@ -24,9 +24,9 @@ test_that("signvector accepts non-default ineqmats", {
 })
 
 test_that("svzero_fingerprint works", {
-  expect_equal(svzero_fingerprint(c(0,1,3,5,7,9)),
+  expect_equal(svzero_fingerprint(c(0, 1, 3, 5, 7, 9)),
                                   c(4, 6, 2))
-  expect_equal(svzero_fingerprint(c(0,3,6,9)),
+  expect_equal(svzero_fingerprint(c(0, 3, 6, 9)),
                                   c(2, 4, 2))
 })
 
@@ -41,6 +41,6 @@ test_that("svzero_fingerprint accepts non-default ineqmats", {
                             0, -2, 0, 2, -1,
                             -1, 1, 0, 0, -0.25), 
                           byrow=TRUE, nrow=9)
-  expect_equal(svzero_fingerprint(c(0,3,4,7), ineqmat=novel_ineqmat),
+  expect_equal(svzero_fingerprint(c(0, 3, 4, 7), ineqmat=novel_ineqmat),
                c(2, 0 ,0))
 })

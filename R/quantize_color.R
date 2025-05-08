@@ -185,7 +185,7 @@ quantize_hue <- function(set,
   if (use_white) {
     whole_white_ineqmat <- make_white_ineqmat(card)
     white_svzeroes <- whichsvzeroes(set, ineqmat=whole_white_ineqmat, edo=edo, rounder=rounder)
-    white_ineqmat <- whole_white_ineqmat[white_svzeroes,]
+    white_ineqmat <- whole_white_ineqmat[white_svzeroes, ]
     hue_ineqmat <- rbind(hue_ineqmat, white_ineqmat)
   }
 
@@ -201,7 +201,9 @@ quantize_hue <- function(set,
     hue_ineqmat <- rbind(hue_ineqmat, colorful_ineqmat)
   }
   
-  hue_ineqmat <- hue_ineqmat[-1,]
+  hue_ineqmat <- hue_ineqmat[-1, ]
+  if (!inherits(hue_ineqmat, "matrix")) hue_ineqmat <- t(hue_ineqmat)
+
   signvec <- signvector(set, ineqmat=hue_ineqmat, edo=edo, rounder=rounder)
   word <- asword(set, edo=edo, rounder=rounder)
 

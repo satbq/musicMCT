@@ -50,7 +50,7 @@ project_onto <- function(set,
     return(set)
   }
   card <- length(set)
-  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   central_set <- coord_to_edo(set, edo=edo)
 
@@ -125,7 +125,7 @@ match_flat <- function(set,
                        edo=12, 
                        rounder=10) {
   card <- length(set)
-  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+  ineqmat <- choose_ineqmat(set, ineqmat)
   
   if (length(target_scale) != card) {
     stop("set and target_scale must have the same number of notes!")
@@ -206,7 +206,7 @@ populate_flat <- function(set,
                           magnitude=2,
                           distance=1) {
   card <- length(set)
-  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+  ineqmat <- choose_ineqmat(set, ineqmat)
   vary_distance <- FALSE
   if (is.null(target_scale) && is.null(target_rows)) {
     target_scale <- set

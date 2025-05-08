@@ -110,8 +110,7 @@ primary_hue <- function(set,
                         ineqmat=NULL,
                         edo=12,
                         rounder=10) {
-  card <- length(set)
-  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   type <- match.arg(type)
   colors_to_try <- switch(type,

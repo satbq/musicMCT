@@ -65,9 +65,8 @@ approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12
 #' @export
 set_from_signvector <- function(signvec, card, nmax=12, reconvert=FALSE, ineqmat=NULL,
                                 edo=12, rounder=10) {
-  if (is.null(ineqmat)) { 
-    ineqmat <- getineqmat(card)
-  }
+
+  ineqmat <- choose_ineqmat(edoo(card), ineqmat)
 
   ineqmat_step_rows <- get_relevant_rows(1, ineqmat=ineqmat)
   step_ineqmat <- ineqmat[ineqmat_step_rows,]

@@ -24,11 +24,11 @@
 #'
 #' @export
 signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
-  if (is.null(ineqmat)) {
-    card <- length(set)
-    if (card < 2) { return(integer(0)) }
-    ineqmat <- getineqmat(card)
+  if (is.null(ineqmat) && length(set) < 2) {
+    return(integer(0))
   }
+
+  ineqmat <- choose_ineqmat(set, ineqmat)
   set <- c(set, edo)
   res <- ineqmat %*% set
   res <- sign(round(res, digits=rounder))
@@ -116,10 +116,7 @@ countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #'
 #' @export
 svzero_fingerprint <- function(set, ineqmat=NULL, edo=12, rounder=10) {
-  if (is.null(ineqmat)) {
-    card <- length(set)
-    ineqmat <- getineqmat(card)
-  }
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   count_twos <- function(vec) sum(abs(vec)==2)
   two_count <- apply(ineqmat, 1, count_twos)

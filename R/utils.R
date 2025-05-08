@@ -70,5 +70,35 @@ insist_matrix <- function(x) {
 #' @noRd
 units_mod <- function(edo) which(sapply(1:edo, coprime_to_edo, edo=edo)==TRUE)
 
+#' Supply an ineqmat from a choice of hyperplane arrangements
+#'
+#' Allows users to supply a manual ineqmat if desired, but also to call on
+#' any of the standard hyperplane arrangements that have a make_x_ineqmat()
+#' function defined for them.
+#'
+#' @inheritParams tnprime
+#' @param x Specify the desired ineqmat. Either enter a matrix (the ineqmat
+#'   itself) or a character string naming one of the available conventional
+#'   ineqmats ("mct" for modal color theory, "white", or "roth"). Defaults
+#'   to the "mct" ineqmats if unspecified.
+#'
+#' @returns A matrix (such as getineqmat() or make_roth_ineqmat() produce)
+#' @noRd
+choose_ineqmat <- function(set, x=c("mct", "white", "roth")) {
+  if (inherits(x, "matrix")) {
+    return(x)
+  }
 
+  if (is.null(x)) x <- "mct"
+
+  card <- length(set)
+
+  x <- match.arg(x)
+  create_ineqmat <- switch(x,
+                           mct = getineqmat,
+                           white = make_white_ineqmat,
+                           roth = make_roth_ineqmat)
+
+  create_ineqmat(card)
+}
 

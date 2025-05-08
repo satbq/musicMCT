@@ -9,10 +9,11 @@ howfree(set, ineqmat = NULL, edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{ineqmat}{Defaults to \code{NULL}, in which case the function assumes
-you want to use the standard hyperplane arrangement of MCT. But you can
-enter a different matrix that contains normal vectors for any hyperplane
-arrangement in the same format as the standard ineqmats.}
+\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by,
+explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
+of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white" or "roth", giving the \code{ineqmat}s of
+\code{\link[=make_white_ineqmat]{make_white_ineqmat()}} and \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}. For other arrangements, the desired
+inequality matrix can be entered directly.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
@@ -41,5 +42,11 @@ just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
 howfree(c_natural_minor)
 howfree(c_melodic_minor)
 howfree(just_diatonic)
+
+howfree(c(0, 4, 7))
+howfree(c(0, 4, 7), ineqmat="white")
+
+howfree(c(0, 2, 6), ineqmat="mct")
+howfree(c(0, 2, 6), ineqmat="roth")
 
 }

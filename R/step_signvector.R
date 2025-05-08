@@ -8,14 +8,14 @@
 #' @returns A vectors of signs, `-1`, `0`, and `1`, corresponding to the step-related
 #'   hyperplanes in the defined `ineqmat`.
 #' @examples
-#' step_signvector(sc(7,35)) # Half the length of a full sign vector for heptachords:
-#' signvector(sc(7,35))
+#' step_signvector(sc(7, 35)) # Half the length of a full sign vector for heptachords:
+#' signvector(sc(7, 35))
+#'
 #' @export
 step_signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   card <- length(set)
-  if (is.null(ineqmat)) {
-    ineqmat <- getineqmat(card)
-  }
+
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   step_rows <- ineqmat[get_relevant_rows(1, ineqmat=ineqmat), ]
   signvector(set, ineqmat=step_rows, edo=edo, rounder=rounder)

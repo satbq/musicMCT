@@ -23,6 +23,12 @@
 #' howfree(c_melodic_minor)
 #' howfree(just_diatonic)
 #'
+#' howfree(c(0, 4, 7))
+#' howfree(c(0, 4, 7), ineqmat="white")
+#'
+#' howfree(c(0, 2, 6), ineqmat="mct")
+#' howfree(c(0, 2, 6), ineqmat="roth")
+#'
 #' @export
 howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   card <- length(set)
@@ -30,9 +36,7 @@ howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
     return(0) 
   }
 
-  if (is.null(ineqmat)) {
-    ineqmat <- getineqmat(card)
-  }
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   zeroesflat <- ineqmat[whichsvzeroes(set, ineqmat, edo, rounder), ]
   rank <- qr(zeroesflat)$rank

@@ -129,7 +129,7 @@ simplify_scale <- function(set,
   }
 
   card <- length(set)
-  if (is.null(ineqmat)) ineqmat <- getineqmat(card)
+  ineqmat <- choose_ineqmat(set, ineqmat)
 
   set_colornum <- colornum(set, 
                            ineqmat=ineqmat, 
