@@ -28,25 +28,27 @@ to yourself very loudly. Everyone does it."
 
 # Introduction
 
-One of the major difficulties in understanding the geometries of Modal Color Theory is the
-fact that they usually involve more than three dimensions. The important case of seven-note
-scales involves a hyperplane arrangement in six dimensions, and generally `n`-note scales
-must be modeled in `n-1` dimensions. The purpose of this vignette is to show how we can
-use musicMCT to explore the geometries by visualizing cross-sections of them, even
-though we can't visualize an entire space at once.
+When I'm reasoning geometrically about the 6-D space of heptachords, that's exactly what I
+do. I imagine two normal planes intersecting at a line in 3-D space, but I will the picture
+really hard to be six dimensional. It's not a great approach.
 
-The strategy that we're going to use to explore heptachordal scale space is inspired
-by the venerable practice of building scales by combining two tetrachords.
-This practice is recorded in ancient Greek music theory and forms an important part
+Fortunately, R can help us visualize the scale-space geometries two or three dimensions at
+a time. This won't be a picture of the whole space all at once, but at least it can be an
+accurate picture of a subspace, not just a cheerfully vague mental image. This vignette
+models using musicMCT to depict a few specific cross-sections of the hyperplane arrangements.
+
+We're going to explore the specific but important case of heptachords, using a strategy 
+inspired by the old practice of building scales by combining two tetrachords.
+This practice derives from ancient Greek music theory and forms an important part
 of the theory of Arabic maqamat. I should stress, though, that this vignette is 
 *inspired by* those theories, not an attempt to explain or reformulate them. I'm
 not an expert in either subject, and a maqam is not simply a scale in the elementary
 sense modeled by Modal Color Theory. I do suspect that part of the appeal of tetrachordal
 thinking is the way that it simplifies the range of possibilities that a musician
-must consider when using a scale: that simplification is a point of commonality between
+must consider when using a scale. That simplification is a point of commonality between
 the visualization we're about to do and the actual musical practices of Ancient Greek and
 Arabic classical musics (to the extent I understand them). I'd like to think that this
-commonality might be enough to allow MCT's mathematical model to enrich our understanding
+commonality could be enough to allow MCT's mathematical model to enrich our understanding
 of these theories, but for this vignette our goal is simply the technical problem of
 simplifying high-dimensional spaces.
 
@@ -57,10 +59,10 @@ built from two tetrachords with the following structure:
 
 * The higher tetrachord is an exact transposition of the lower tetrachord up by 7 semitones.
 * The lower tetrachord has a fixed first pitch of 0 and a fixed final pitch of 5.
-* Thus the last pitch of the higher tetrachord is exactly an octave above the first pitch of the lower.
+* The higher tetrachord's last pitch is thus exactly an octave above the first pitch of the lower.
 * The middle two pitches of the lower tetrachord are freely variable, as long as they stay in the right order. (That is, they must be above 0, less than 5, and the second pitch must be lower than the third pitch.)
 
-Transpositional combination of this sort is easy to achieve in musicMCT with the function
+Transpositional combination of this sort is easy to perform in musicMCT with the function
 [tc()]. Let's see how the normal 12-equal major scale can be derived as the transpositional
 combination of an (0, 2, 4, 5) tetrachord at a perfect fifth:
 
@@ -111,25 +113,34 @@ tc(c(0, sd2, sd3, j(4)), c(0, j(5)))
 # (Note the use of j() to define acoustically pure fourth and fifth.)
 ```
 
-This would crete a plane of scales that's parallel to and just slightly offset from the
-plane that we will visualize. The points on the planes would correlate to each other 
-one-to-one, as slight variations in the "saturation" of the same hues.
+This would create a plane of scales that's parallel to and just slightly offset from the
+plane that we will visualize. The points on the planes would correspond to each other 
+one-to-one as slight variations in the "saturation" of the same hues.
 
 Let's plot our first few scales on this plane. There are several relatively familiar
 scales that all have the desired tetrachordal structure:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
-ionian <- scale_from_genus(c(2, 4))
-dorian <- scale_from_genus(c(2, 3))
-phrygian <- scale_from_genus(c(1, 3))
-double_harmonic <- scale_from_genus(c(1, 4))
-enharmonic <- scale_from_genus(c(.5, 1))
+ionian <- scale_from_genus(c(2, 4)) #1
+dorian <- scale_from_genus(c(2, 3)) #2
+phrygian <- scale_from_genus(c(1, 3)) #3
+double_harmonic <- scale_from_genus(c(1, 4)) #4
+enharmonic <- scale_from_genus(c(.5, 1)) #5
 
-demo_scales <- rbind(ionian, dorian, phrygian, double_harmonic, enharmonic)
-plot(demo_scales[, 2], demo_scales[, 3], pch=sapply(1:5, toString), 
-     xlab="Height of scale degree 2", xlim=c(-.05, 5.05),
-     ylab="Height of scale degree 3", ylim=c(-.01, 5.01))
-grid(col="gray35")
+demo_scales <- cbind(ionian, dorian, phrygian, double_harmonic, enharmonic)
+tetra_plot <- function(scales, title, ...) {
+  par(bg='aliceblue')
+  plot(scales[2,], 
+       scales[3, ], 
+       xlab="Height of scale degree 2", xlim=c(-.05, 5.05),
+       ylab="Height of scale degree 3", ylim=c(-.01, 5.01),
+       ...)
+  grid(col="gray35")
+  graphics::mtext(side=3, title, font=2, line=1)
+}
+tetra_plot(demo_scales, 
+           "Location of 5 Reference Scales in the tc() Plane",
+           pch=sapply(1:5, toString)) 
 ```
 
 The scales are marked by numbers in the order that we defined them: the ionian scale
@@ -138,7 +149,6 @@ landmarks while we populate the space with more scales.
 
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
-
 colorfunc <- function(x) tanh(x-min(x))
 
 numpoints <- 4000
@@ -148,11 +158,11 @@ inputs <- rbind(xs, ys)
 inputs <- apply(inputs, 2, sort)
 sets <- apply(inputs, 2, scale_from_genus)
 ratios <- apply(sets, 2, ratio)
-par(bg='aliceblue')
-plot(sets[2,], sets[3,], col=hsv(colorfunc(ratios)), pch=20, 
-     xlab="Height of scale degree 2", 
-     ylab="Height of scale degree 3")
-grid(col="gray35")
+
+tetra_plot(sets, 
+           "Brightness Ratio of Scales in the tc() Plane", 
+           col=hsv(colorfunc(ratios)), 
+           pch=20)
 ```
 
 

@@ -22,7 +22,7 @@
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
-#' @param ineqmat Specifies which hyperplane arrangement to consider. By default (or by,
+#' @param ineqmat Specifies which hyperplane arrangement to consider. By default (or by
 #'   explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements 
 #'   of [getineqmat()], but can be set to "white" or "roth", giving the `ineqmat`s of 
 #'   [make_white_ineqmat()] and [make_roth_ineqmat()]. For other arrangements, the desired 

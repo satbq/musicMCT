@@ -15,7 +15,7 @@ the name of \code{x} as the file name if you enter nothing.}
 \item{period}{The frequency ratio at which your scale repeats; defaults to \code{2} which
 indicates an octave-repeating scale.}
 
-\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by,
+\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
 of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white" or "roth", giving the \code{ineqmat}s of
 \code{\link[=make_white_ineqmat]{make_white_ineqmat()}} and \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}. For other arrangements, the desired

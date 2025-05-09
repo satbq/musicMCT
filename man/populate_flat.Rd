@@ -29,7 +29,7 @@ rows must be linearly independent.}
 \item{start_zero}{Boolean: should the result be transposed so that its pitch
 initial is zero? Defaults to \code{TRUE}.}
 
-\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by,
+\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
 of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white" or "roth", giving the \code{ineqmat}s of
 \code{\link[=make_white_ineqmat]{make_white_ineqmat()}} and \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}. For other arrangements, the desired
