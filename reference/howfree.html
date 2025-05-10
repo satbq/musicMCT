@@ -88,7 +88,7 @@ Color Theory," pp. 26-27, for more discussion.</p>
 
 
 <dt id="arg-ineqmat">ineqmat<a class="anchor" aria-label="anchor" href="#arg-ineqmat"></a></dt>
-<dd><p>Specifies which hyperplane arrangement to consider. By default (or by,
+<dd><p>Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
 of <code><a href="makeineqmat.html">getineqmat()</a></code>, but can be set to "white" or "roth", giving the <code>ineqmat</code>s of
 <code><a href="make_white_ineqmat.html">make_white_ineqmat()</a></code> and <code><a href="make_roth_ineqmat.html">make_roth_ineqmat()</a></code>. For other arrangements, the desired
@@ -113,7 +113,7 @@ number of decimal places to round to when testing for equality.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">c_natural_minor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">c_melodic_minor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">just_diatonic</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">/</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">just_diatonic</span> <span class="op">&lt;-</span> <span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">howfree</span><span class="op">(</span><span class="va">c_natural_minor</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span><span class="fu">howfree</span><span class="op">(</span><span class="va">c_melodic_minor</span><span class="op">)</span></span></span>
