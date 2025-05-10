@@ -85,7 +85,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #' #### A more complicated graph
 #' werck_ratios <- c(1, 256/243, 64*sqrt(2)/81, 32/27, (256/243)*2^(1/4), 4/3, 
 #'   1024/729, (8/9)*2^(3/4), 128/81, (1024/729)*2^(1/4), 16/9, (128/81)*2^(1/4))
-#' werckmeister_3 <- 12 * log2(werck_ratios)
+#' werckmeister_3 <- z(werck_ratios)
 #' brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
 #' 
 #' @returns `NULL` and plots a brightness graph in the graphic device

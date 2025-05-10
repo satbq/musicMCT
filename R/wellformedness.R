@@ -44,10 +44,10 @@
 #' @returns Boolean answering "Is the scale MOS?" (if allow_de=FALSE) or "Is the scale well-formed
 #'   in any sense?" (if allow_de=TRUE).
 #' @examples
-#' iswellformed(sc(7,35))
-#' iswellformed(c(0,2,4,6))
-#' iswellformed(c(0,1,6,7))
-#' iswellformed(c(0,1,6,7), allow_de=TRUE)
+#' iswellformed(sc(7, 35))
+#' iswellformed(c(0, 2, 4, 6))
+#' iswellformed(c(0, 1, 6, 7))
+#' iswellformed(c(0, 1, 6, 7), allow_de=TRUE)
 #' iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
 #' @export
 iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
@@ -114,8 +114,8 @@ equivocate <- function(setword, lowerbound, windowsize) {
 #' @returns Boolean: is the set n-wise well formed?
 #'
 #' @examples
-#' meantone_diatonic <- c(0,2,4,5,7,9,11)
-#' just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+#' meantone_diatonic <- c(0, 2, 4, 5, 7, 9, 11)
+#' just_diatonic <- j(dia)
 #' some_weird_thing <- convert(c(0, 1, 3, 6, 8, 12, 14), 17, 12)
 #' example_scales <- cbind(meantone_diatonic, just_diatonic, some_weird_thing)
 #'

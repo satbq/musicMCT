@@ -62,9 +62,9 @@ some of the most important landmarks in the geometry of MCT. See "Modal Color Th
 for MOS/NDWF scales to all scale structures.
 }
 \examples{
-iswellformed(sc(7,35))
-iswellformed(c(0,2,4,6))
-iswellformed(c(0,1,6,7))
-iswellformed(c(0,1,6,7), allow_de=TRUE)
+iswellformed(sc(7, 35))
+iswellformed(c(0, 2, 4, 6))
+iswellformed(c(0, 1, 6, 7))
+iswellformed(c(0, 1, 6, 7), allow_de=TRUE)
 iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
 }

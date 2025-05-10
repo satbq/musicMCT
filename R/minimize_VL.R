@@ -63,13 +63,13 @@ crossingfree_vls <- function(source,
 #' diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
 #' minimize_vl(diatonic_scale, tn(diatonic_scale, 7))
 #'
-#' d_major <- c(2,6,9)
+#' d_major <- c(2, 6, 9)
 #' minimize_vl(c_major, d_major)
 #' minimize_vl(c_major, d_major, no_ties=TRUE)
 #' minimize_vl(c_major, d_major, method="euclidean", no_ties=FALSE)
 #'
-#' minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean")
-#' minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
+#' minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean")
+#' minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean", no_ties=TRUE)
 #' @export
 minimize_vl<- function(source, 
                        goal, 
@@ -293,7 +293,7 @@ tndists <- function(set,
 #'
 #' @examples
 #' major_triad_12tet <- c(0, 4, 7)
-#' major_triad_just <- 12 * log2(c(1, 5/4, 3/2))
+#' major_triad_just <- z(1, 5/4, 3/2)
 #' major_triad_19tet <- c(0, 6, 11)
 #'
 #' flex_points(major_triad_12tet, method="euclidean", subdivide=1000)

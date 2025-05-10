@@ -17,7 +17,7 @@
 #' maqam_rast <- c(0, 2, 3.5, 5, 7, 9, 10.5)
 #' convert(maqam_rast, 12, 24)
 #' 
-#' perfect_fifth <- 12 * log2(3/2)
+#' perfect_fifth <- z(3/2)
 #' lydian_scale <- sort((perfect_fifth * (0:6)) %% 12)
 #' convert(lydian_scale, 12, 53)
 #' 

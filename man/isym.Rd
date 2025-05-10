@@ -56,7 +56,7 @@ isym(c(0, 2, 4, 8))
 #### Continuous Values
 qcm_fifth <- meantone_fifth()
 qcm_dia <- sort(((0:6)*qcm_fifth)\%\%12)
-just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+just_dia <- j(dia)
 isym(qcm_dia)
 isym(just_dia)
 

@@ -18,7 +18,7 @@ Given a pitch-class set (in 12edo only), look up Forte 1973's catalog
 number for the corresponding set class.
 }
 \examples{
-fortenum(c(0,4,7))
-fortenum(c(0,3,7))
-fortenum(c(4,8,11))
+fortenum(c(0, 4, 7))
+fortenum(c(0, 3, 7))
+fortenum(c(4, 8, 11))
 }

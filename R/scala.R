@@ -27,7 +27,7 @@
 #' @export
 writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   # Period defined as a frequency ratio (i.e. 2 for octave-repeading scales)
-  periodCents <- 1200 * log2(period)
+  periodCents <- z(period, edo=1200)
 
   if (missing(filename)) {
     filename <- deparse(substitute(x))

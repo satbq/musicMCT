@@ -38,7 +38,7 @@ Color Theory," pp. 26-27, for more discussion.
 \examples{
 c_natural_minor <- c(0, 2, 3, 5, 7, 8, 10)
 c_melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
-just_diatonic <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+just_diatonic <- j(dia)
 howfree(c_natural_minor)
 howfree(c_melodic_minor)
 howfree(just_diatonic)

@@ -20,7 +20,7 @@
 #' @returns Numeric array of unique elements (vector if `MARGIN` is 0;
 #'   matrix otherwise)
 #' @examples
-#' just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+#' just_dia <- j(dia)
 #' intervals_in_just_dia <- sort(as.vector(sim(just_dia)))
 #' failed_unique_intervals <- unique(intervals_in_just_dia)
 #' fpunique_intervals <- fpunique(intervals_in_just_dia)

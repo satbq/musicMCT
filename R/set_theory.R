@@ -46,9 +46,9 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("fortenums"))
 #' @returns Character string in the form n-x where n is the number of notes
 #'   in the set and x is the ordinal position in Forte's list.
 #' @examples
-#' fortenum(c(0,4,7))
-#' fortenum(c(0,3,7))
-#' fortenum(c(4,8,11))
+#' fortenum(c(0, 4, 7))
+#' fortenum(c(0, 3, 7))
+#' fortenum(c(4, 8, 11))
 #' @export
 fortenum <- function(set) {
   condensed_set <- unique(set %% 12)
@@ -286,7 +286,7 @@ primeform <- function(set, edo=12, rounder=10) {
 #' #### Continuous Values
 #' qcm_fifth <- meantone_fifth()
 #' qcm_dia <- sort(((0:6)*qcm_fifth)%%12)
-#' just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+#' just_dia <- j(dia)
 #' isym(qcm_dia)
 #' isym(just_dia)
 #' 

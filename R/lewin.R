@@ -34,7 +34,7 @@
 #'
 #' ifunc(c(0, 2, 4, 7, 9), show_zeroes=FALSE)
 #'
-#' just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+#' just_dia <- j(dia)
 #' ifunc(just_dia)
 #' ifunc(just_dia, display_digits=4)
 #'

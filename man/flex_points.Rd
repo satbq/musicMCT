@@ -46,7 +46,7 @@ of \code{subdivide}.)
 }
 \examples{
 major_triad_12tet <- c(0, 4, 7)
-major_triad_just <- 12 * log2(c(1, 5/4, 3/2))
+major_triad_just <- z(1, 5/4, 3/2)
 major_triad_19tet <- c(0, 6, 11)
 
 flex_points(major_triad_12tet, method="euclidean", subdivide=1000)

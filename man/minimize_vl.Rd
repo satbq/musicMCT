@@ -48,11 +48,11 @@ minimize_vl(c_major, ab_minor)
 diatonic_scale <- c(0, 2, 4, 5, 7, 9, 11)
 minimize_vl(diatonic_scale, tn(diatonic_scale, 7))
 
-d_major <- c(2,6,9)
+d_major <- c(2, 6, 9)
 minimize_vl(c_major, d_major)
 minimize_vl(c_major, d_major, no_ties=TRUE)
 minimize_vl(c_major, d_major, method="euclidean", no_ties=FALSE)
 
-minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean")
-minimize_vl(c(0,4,7,10), c(7,7,11,2), method="euclidean", no_ties=TRUE)
+minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean")
+minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean", no_ties=TRUE)
 }

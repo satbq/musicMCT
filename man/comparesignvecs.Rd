@@ -27,7 +27,7 @@ structure is a good approximation of the 5-limit just structure.
 \examples{
 meantone_major_sv <- signvector(c(0, 2, 4, 5, 7, 9, 11))
 meantone_dorian_sv <- signvector(c(0, 2, 3, 5, 7, 9, 10))
-just_major <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+just_major <- j(dia)
 just_dorian <- sim(just_major)[,2] 
 just_major_sv <- signvector(just_major)
 just_dorian_sv <- signvector(just_dorian)
