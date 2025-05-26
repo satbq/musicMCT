@@ -59,9 +59,9 @@ flat from a list of linearly independent rows in \code{ineqmat} which define
 the flat. \code{match_flat()} determines the target by extrapolating from a
 given scale on that flat. Note that while the projection lies on
 the desired flat (i.e. it will have all of the necessary \code{0}s in its
-sign vector), it will not necessarily belong to any particular \emph{color}
-(i.e. projection doesn't give you control over the \code{1}s and \code{-1}s of
-the sign vector.
+sign vector), it will not necessarily belong to any particular \emph{color}.
+(That is, projection doesn't give you control over the \code{1}s and \code{-1}s of
+the sign vector.)
 }
 \examples{
 minor_triad <- c(0, 3, 7)

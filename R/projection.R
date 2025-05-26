@@ -6,9 +6,9 @@
 #' the flat. `match_flat()` determines the target by extrapolating from a 
 #' given scale on that flat. Note that while the projection lies on
 #' the desired flat (i.e. it will have all of the necessary `0`s in its
-#' sign vector), it will not necessarily belong to any particular *color*
-#' (i.e. projection doesn't give you control over the `1`s and `-1`s of
-#' the sign vector.
+#' sign vector), it will not necessarily belong to any particular *color*.
+#' (That is, projection doesn't give you control over the `1`s and `-1`s of
+#' the sign vector.)
 #'
 #' @inheritParams tnprime
 #' @inheritParams signvector

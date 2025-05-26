@@ -104,6 +104,10 @@ brightness_comparisons <- function(set, edo=12, rounder=10) {
 #'
 #' @export
 eps <- function(set, edo=12, rounder=10) {
+  if (length(set) < 2) {
+    return(integer(0))
+  }
+
   modes <- t(sim(set, edo))
   chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
   diffs <- outer(rowSums(modes), rowSums(modes),'-')
@@ -115,6 +119,10 @@ eps <- function(set, edo=12, rounder=10) {
 #' @rdname eps
 #' @export
 delta <- function(set, edo=12, rounder=10) {
+  if (length(set) < 2) {
+    return(integer(0))
+  }
+
   modes <- t(sim(set, edo))
   chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
   diag(chart) <- -1
@@ -129,5 +137,9 @@ delta <- function(set, edo=12, rounder=10) {
 #' @rdname eps
 #' @export
 ratio <- function(set, edo=12, rounder=10) {
-  return(delta(set, edo, rounder)/eps(set, edo, rounder))
+  if (length(set) < 2) {
+    return(integer(0))
+  }
+
+  delta(set, edo, rounder)/eps(set, edo, rounder)
 }
