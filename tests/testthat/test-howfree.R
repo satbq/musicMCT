@@ -27,4 +27,8 @@ test_that("howfree accepts alternate ineqmats", {
                           byrow=TRUE, nrow=9)
   expect_equal(howfree(c(0,3,4,8)), 2)
   expect_equal(howfree(c(0,3,4,8), ineqmat=novel_ineqmat), 1)
+
+  expect_equal(howfree(c(0, 3, 6), ineqmat="rosy"), 0)
+  expect_equal(howfree(c(0, 2, 4, 5, 7, 9, 11), ineqmat="rosy"), 0)
+  expect_equal(howfree(c(0, 4, 7), ineqmat="white"), 1)
 })

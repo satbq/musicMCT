@@ -89,9 +89,11 @@ strictly_proper <- function(set, edo=12, rounder=10) {
 #' propriety is a scalar feature (like modal "color") which is defined by a scale's position in 
 #' the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
 #' all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
-#' define these properties are different from the ones of Modal Color Theory. This function creates
-#' the `ineqmats` needed to study those arrangements, similar to what [makeineqmat()] does for MCT
-#' arrangements. This function is still somewhat experimental and needs further vetting.
+#' define these properties are different from the ones of Modal Color Theory. `make_roth_ineqmat()`
+#' creates the `ineqmats` needed to study those arrangements, similar to what [makeineqmat()] does 
+#' for MCT arrangements. `make_rosy_ineqmat()` creates the combination of Rothenberg and MCT arrangements.
+#' (The name puns on the "Roth" of Rothenberg meaning "red," lending a reddish
+#' or rosy tint to the "colors" of the MCT arrangement.)
 #'
 #' Each row of a Rothenberg `ineqmat` represents a hyperplane, just like the rows produced by
 #' [makeineqmat()]. The rows are normalized so that their first non-zero entry is either `1` or `-1`,
@@ -181,3 +183,9 @@ make_roth_ineqmat <- function(card) {
   unique(res, MARGIN=1)
 }
 
+
+#' @rdname make_roth_ineqmat
+#' @export
+make_rosy_ineqmat <- function(card) {
+  rbind(getineqmat(card), make_roth_ineqmat(card))
+}

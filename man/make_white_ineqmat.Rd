@@ -2,9 +2,12 @@
 % Please edit documentation in R/make_white_ineqmat.R
 \name{make_white_ineqmat}
 \alias{make_white_ineqmat}
+\alias{make_pastel_ineqmat}
 \title{Define hyperplanes for quasi-white arrangements}
 \usage{
 make_white_ineqmat(card)
+
+make_pastel_ineqmat(card)
 }
 \arguments{
 \item{card}{The cardinality of the scale(s) to be studied}
@@ -29,12 +32,10 @@ In many cases, it is desirable to use a combination of the MCT \code{ineqmat} fr
 \code{\link[=makeineqmat]{makeineqmat()}} and the quasi-white \code{ineqmat} from \code{make_white_ineqmat()}. Generally
 these are distinct, but they do have some shared hyperplanes in even cardinalities
 related to formal tritones (intervals that divide the scale exactly in half).
-Therefore it's normally a good idea to use something along the lines of:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{my_ineqmat <- unique(rbind(makeineqmat(card), make_white_ineqmat(card)), MARGIN=1)
-}\if{html}{\out{</div>}}
-
-to get rid of the duplicated hyerplanes.
+Therefore, the function \code{make_pastel_ineqmat()} exists to give the result of combining
+them with duplicates removed. (The moniker "pastel" is
+meant to suggest combining the \emph{colors} of MCT arrangements with a \emph{white} pigment
+from quasi-white arrangements.)
 }
 \examples{
 major_triad <- c(0, 4, 7)

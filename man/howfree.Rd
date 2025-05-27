@@ -11,9 +11,9 @@ howfree(set, ineqmat = NULL, edo = 12, rounder = 10)
 
 \item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
-of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white" or "roth", giving the \code{ineqmat}s of
-\code{\link[=make_white_ineqmat]{make_white_ineqmat()}} and \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}. For other arrangements, the desired
-inequality matrix can be entered directly.}
+of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white," "roth", or "pastel," giving the \code{ineqmat}s
+of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}}, \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}, and \code{\link[=make_pastel_ineqmat]{make_pastel_ineqmat()}}. For other
+arrangements, the desired inequality matrix can be entered directly.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 

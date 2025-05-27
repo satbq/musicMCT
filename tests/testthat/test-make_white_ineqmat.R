@@ -9,3 +9,8 @@ test_that("make_white_ineqmat works", {
 
   expect_snapshot(make_white_ineqmat(12))
 })
+
+test_that("make_pastel_ineqmat works", {
+  expect_equal(dim(make_pastel_ineqmat(4)), c(12, 5))
+  expect_snapshot(make_pastel_ineqmat(6))
+})

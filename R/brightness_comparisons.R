@@ -105,7 +105,7 @@ brightness_comparisons <- function(set, edo=12, rounder=10) {
 #' @export
 eps <- function(set, edo=12, rounder=10) {
   if (length(set) < 2) {
-    return(integer(0))
+    return(NA)
   }
 
   modes <- t(sim(set, edo))
@@ -120,7 +120,7 @@ eps <- function(set, edo=12, rounder=10) {
 #' @export
 delta <- function(set, edo=12, rounder=10) {
   if (length(set) < 2) {
-    return(integer(0))
+    return(NA)
   }
 
   modes <- t(sim(set, edo))
@@ -138,7 +138,7 @@ delta <- function(set, edo=12, rounder=10) {
 #' @export
 ratio <- function(set, edo=12, rounder=10) {
   if (length(set) < 2) {
-    return(integer(0))
+    return(NA)
   }
 
   delta(set, edo, rounder)/eps(set, edo, rounder)

@@ -2,9 +2,12 @@
 % Please edit documentation in R/propriety.R
 \name{make_roth_ineqmat}
 \alias{make_roth_ineqmat}
+\alias{make_rosy_ineqmat}
 \title{Define hyperplanes for Rothenberg arrangements}
 \usage{
 make_roth_ineqmat(card)
+
+make_rosy_ineqmat(card)
 }
 \arguments{
 \item{card}{The cardinality of the scale(s) to be studied}
@@ -18,9 +21,11 @@ Although the Rothenberg propriety of a single scale can be computed directly wit
 propriety is a scalar feature (like modal "color") which is defined by a scale's position in
 the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
 all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
-define these properties are different from the ones of Modal Color Theory. This function creates
-the \code{ineqmats} needed to study those arrangements, similar to what \code{\link[=makeineqmat]{makeineqmat()}} does for MCT
-arrangements. This function is still somewhat experimental and needs further vetting.
+define these properties are different from the ones of Modal Color Theory. \code{make_roth_ineqmat()}
+creates the \code{ineqmats} needed to study those arrangements, similar to what \code{\link[=makeineqmat]{makeineqmat()}} does
+for MCT arrangements. \code{make_rosy_ineqmat()} creates the combination of Rothenberg and MCT arrangements.
+(The name puns on the "Roth" of Rothenberg meaning "red," lending a reddish
+or rosy tint to the "colors" of the MCT arrangement.)
 }
 \details{
 Each row of a Rothenberg \code{ineqmat} represents a hyperplane, just like the rows produced by

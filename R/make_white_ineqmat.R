@@ -15,11 +15,10 @@
 #' [makeineqmat()] and the quasi-white `ineqmat` from `make_white_ineqmat()`. Generally
 #' these are distinct, but they do have some shared hyperplanes in even cardinalities
 #' related to formal tritones (intervals that divide the scale exactly in half).
-#' Therefore it's normally a good idea to use something along the lines of:
-#' ```
-#' my_ineqmat <- unique(rbind(makeineqmat(card), make_white_ineqmat(card)), MARGIN=1)
-#' ```
-#' to get rid of the duplicated hyerplanes.
+#' Therefore, the function `make_pastel_ineqmat()` exists to give the result of combining
+#' them with duplicates removed. (The moniker "pastel" is
+#' meant to suggest combining the *colors* of MCT arrangements with a *white* pigment
+#' from quasi-white arrangements.)
 #'
 #' @inheritParams makeineqmat
 #'
@@ -65,4 +64,11 @@ make_white_ineqmat <- function(card) {
   # Scale each row so the constant column is -1
   # for comparison with original makeineqmat() results.
   ineqmat/-ineqmat[,card+1]  
+}
+
+#' @rdname make_white_ineqmat
+#' @export
+make_pastel_ineqmat <- function(card) {
+  new_ineqmat <- rbind(getineqmat(card), make_white_ineqmat(card))
+  unique(new_ineqmat, MARGIN=1)
 }

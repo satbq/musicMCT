@@ -584,3 +584,11 @@ This feels right to me. At a glance, it's a lot like the graph for the `overtone
 are now neatly lined up on a single row at the bottom. That's the visual equivalent of our search for regularity and color adjacency in the 
 previous section. This is something I like about brightness graphs: they summarize, in a picture or two, ideas that one could spend several
 thousand words developing.
+
+
+---
+
+
+```{r, echo=FALSE, background="#000000"}
+print(paste0("Last updated on ", format(Sys.Date(), "%d %B %Y"), collapse=" "))
+```

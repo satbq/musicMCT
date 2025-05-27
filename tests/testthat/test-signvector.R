@@ -23,6 +23,17 @@ test_that("signvector accepts non-default ineqmats", {
                c(1, 0, -1, -1, -1, -1, -1, -1, 0))
 })
 
+test_that("count and whichsvzeroes work", {
+  expect_equal(countsvzeroes(c(0, 2, 4, 5, 7, 9, 11)), 22)
+  expect_equal(countsvzeroes(c(0, 4, 8)), 3)
+  expect_equal(countsvzeroes(c(0, 4, 8), ineqmat="white"), 3)
+  expect_equal(countsvzeroes(c(0, 4, 8), ineqmat="roth"), 0)
+  expect_equal(countsvzeroes(c(0, 4, 8), ineqmat="pastel"), 6)
+
+  expect_equal(whichsvzeroes(c(0, 2, 5, 7)), 2)
+  expect_equal(whichsvzeroes(c(0, 2, 5, 7), ineqmat="roth"), c(4, 7))
+})
+
 test_that("svzero_fingerprint works", {
   expect_equal(svzero_fingerprint(c(0, 1, 3, 5, 7, 9)),
                                   c(4, 6, 2))

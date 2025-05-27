@@ -24,9 +24,9 @@
 #' @inheritParams fpunique
 #' @param ineqmat Specifies which hyperplane arrangement to consider. By default (or by
 #'   explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements 
-#'   of [getineqmat()], but can be set to "white" or "roth", giving the `ineqmat`s of 
-#'   [make_white_ineqmat()] and [make_roth_ineqmat()]. For other arrangements, the desired 
-#'   inequality matrix can be entered directly.
+#'   of [getineqmat()], but can be set to "white," "roth", or "pastel," giving the `ineqmat`s 
+#'   of [make_white_ineqmat()], [make_roth_ineqmat()], and [make_pastel_ineqmat()]. For other 
+#'   arrangements, the desired inequality matrix can be entered directly.
 #' @param signvector_list A list of signvectors to use as the reference by 
 #'   which `colornum` assigns a value. Defaults to `NULL` and will attempt to
 #'   use `representative_signvectors`, which needs to be downloaded and assigned

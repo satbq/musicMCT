@@ -79,12 +79,14 @@ units_mod <- function(edo) which(sapply(1:edo, coprime_to_edo, edo=edo)==TRUE)
 #' @inheritParams tnprime
 #' @param x Specify the desired ineqmat. Either enter a matrix (the ineqmat
 #'   itself) or a character string naming one of the available conventional
-#'   ineqmats ("mct" for modal color theory, "white", or "roth"). Defaults
+#'   ineqmats ("mct" for modal color theory, "white", or "roth"). Important
+#'   combinations of those arrangements are also possible: "pastel" combines
+#'   "mct" and "white"; "rosy" combines "mct" and "roth". Defaults
 #'   to the "mct" ineqmats if unspecified.
 #'
 #' @returns A matrix (such as getineqmat() or make_roth_ineqmat() produce)
 #' @noRd
-choose_ineqmat <- function(set, x=c("mct", "white", "roth")) {
+choose_ineqmat <- function(set, x=c("mct", "white", "roth", "pastel", "rosy")) {
   if (inherits(x, "matrix")) {
     return(x)
   }
@@ -97,7 +99,9 @@ choose_ineqmat <- function(set, x=c("mct", "white", "roth")) {
   create_ineqmat <- switch(x,
                            mct = getineqmat,
                            white = make_white_ineqmat,
-                           roth = make_roth_ineqmat)
+                           roth = make_roth_ineqmat,
+                           pastel = make_pastel_ineqmat,
+                           rosy = make_rosy_ineqmat)
 
   create_ineqmat(card)
 }
