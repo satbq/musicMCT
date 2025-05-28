@@ -27,6 +27,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/visualizing_higher_dimensions.html">Visualizing Higher Dimensions</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/satbq/musicMCT/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -62,7 +63,7 @@
 
 <dt id="arg-setword">setword<a class="anchor" aria-label="anchor" href="#arg-setword"></a></dt>
 <dd><p>A vector representing the ranked step sizes of a scale (e.g.
-<code>c(2,2,1,2,2,2,1)</code> for the diatonic). The distinct values of the <code>setword</code>
+<code>c(2, 2, 1, 2, 2, 2, 1)</code> for the diatonic). The distinct values of the <code>setword</code>
 should be consecutive integers. If you want to test a step word instead of
 a list of pitch classes, <code>set</code> must be entered as <code>NULL</code>.</p></dd>
 
@@ -83,7 +84,8 @@ number of decimal places to round to when testing for equality.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Boolean answering "Is the scale MOS?" (if allow_de=FALSE) or "Is the scale well-formed
+    <p>Boolean answering "Is the scale MOS (with equivalence interval equal to
+the period)?" (if allow_de=FALSE) or "Is the scale well-formed
 in any sense?" (if allow_de=TRUE).</p>
     </div>
     <div class="section level2">
@@ -127,7 +129,7 @@ for MOS/NDWF scales to all scale structures.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span><span class="fu">iswellformed</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span>, allow_de<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">iswellformed</span><span class="op">(</span><span class="cn">NULL</span>, setword<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">iswellformed</span><span class="op">(</span><span class="cn">NULL</span>, setword<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>

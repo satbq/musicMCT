@@ -43,6 +43,7 @@
 <li><a class="dropdown-item" href="../articles/visualizing_higher_dimensions.html">Visualizing Higher Dimensions</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -237,7 +238,7 @@ that looks like it has dimension <span class="math inline">\(k\)</span>
 in the <code><a href="../reference/tc.html">tc()</a></code> plane will actually have dimension <span class="math inline">\(k+1\)</span> in the overall space. Our
 visualization is a 2-D plane but it smuggles in a third dimension, which
 is the one that travels in and out along the hues in Figure 1. (This
-dimention is what MCT calls “saturation”; it can be manipulated with
+dimension is what MCT calls “saturation”; it can be manipulated with
 <code><a href="../reference/saturate.html">saturate()</a></code>.) You might compare this to looking at a street
 map of a city, which is inherently 2-D but where you can easily imagine
 an invisible height dimension.</p>
@@ -771,7 +772,7 @@ of detail at the center of the plot which is hard to make out in Figure
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">v</span>, z<span class="op">=</span><span class="va">ratio_values2</span>, col<span class="op">=</span><span class="va">fig11_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">v</span>, z<span class="op">=</span><span class="va">ratio_values2</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"\"Brightness Ratio\" in the tc() Plane's Most Interesting Zone"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"\"Brightness Ratio\" at Center of tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Make the legend</span></span>
 <span><span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">fig11_palette</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>

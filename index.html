@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Analysis of Musical Scale Structure • musicMCT</title>
+<title>Analyze the Structure of Musical Scales • musicMCT</title>
 <!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
   window.MathJax = {
     chtml: {
@@ -16,9 +16,9 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Analysis of Musical Scale Structure">
-<meta name="description" content='Analysis of musical scales (as well as modes, grooves, etc.) in the vein of Sherrill (forthcoming 2025). Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as "brightness graphs" which visualize these properties.'>
-<meta property="og:description" content='Analysis of musical scales (as well as modes, grooves, etc.) in the vein of Sherrill (forthcoming 2025). Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as "brightness graphs" which visualize these properties.'>
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Analyze the Structure of Musical Scales">
+<meta name="description" content="Analysis of musical scales (&amp; modes, grooves, etc.) in the vein of Sherrill 2025 &lt;https://collections.lib.utah.edu/ark:/87278/s6d2gr78&gt;. The initials MCT in the package title refer to the article's title: &quot;Modal Color Theory.&quot; Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as &quot;brightness graphs&quot; which visualize these properties.">
+<meta property="og:description" content="Analysis of musical scales (&amp; modes, grooves, etc.) in the vein of Sherrill 2025 &lt;https://collections.lib.utah.edu/ark:/87278/s6d2gr78&gt;. The initials MCT in the package title refer to the article's title: &quot;Modal Color Theory.&quot; Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as &quot;brightness graphs&quot; which visualize these properties.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -45,6 +45,7 @@
 <li><a class="dropdown-item" href="articles/visualizing_higher_dimensions.html">Visualizing Higher Dimensions</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -68,8 +69,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of musicMCT from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the latest released version of musicMCT from <a href="https://cran.r-project.org/web/packages/" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"musicMCT"</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, you can install the development version of musicMCT from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"satbq/musicMCT"</span><span class="op">)</span></span></code></pre></div>
 <p>In addition to the package itself, you will probably want to use the following large files which contain data about the MCT geometries:</p>
@@ -82,7 +86,7 @@
 <a href="https://github.com/satbq/modalcolortheory/blob/main/color_adjacencies.rds" class="external-link">color_adjacencies.rds</a> (~130 MB) contains information about the adjacency relationships between all these colors (in the form of an adjacency list)</li>
 </ul>
 <p>Download these files, save them to your working directory, and load them with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">representative_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_scales.rds"</span><span class="op">)</span></span>
 <span><span class="va">representative_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"representative_signvectords.rds"</span><span class="op">)</span></span>
 <span><span class="va">color_adjacencies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"color_adjacencies.rds"</span><span class="op">)</span></span></code></pre></div>
@@ -92,7 +96,7 @@
 </h2>
 <p>For a detailed introduction to using this package, please see the <a href="https://satbq.github.io/musicMCT/articles/musicMCT.html">introductory vignette</a>.</p>
 <p>As a very quick example, let’s define the most common “just intonation” version of the major scale and run a few tests on it:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satbq.github.io/musicMCT/">musicMCT</a></span><span class="op">)</span></span>
 <span><span class="va">just_dia_frequency_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">9</span><span class="op">/</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">/</span><span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">just_dia</span> <span class="op">&lt;-</span> <span class="fl">12</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">just_dia_frequency_ratios</span><span class="op">)</span></span>
