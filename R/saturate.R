@@ -17,8 +17,8 @@
 #'   potentially to the point where the set moves past some OPTIC boundary.
 #'   If r < 0, the result is an "involution" of the set.
 #'
-#' @returns `saturate` returns another scale (a numeric vector of 
-#'   same length as set).
+#' @returns Numeric vector of same length as `set` (another scale on the
+#'   same hue)
 #' 
 #' @examples
 #' lydian <- c(0, 2, 4, 6, 7, 9, 11)

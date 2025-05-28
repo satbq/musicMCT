@@ -36,19 +36,20 @@
 #' @inheritParams tnprime
 #' @inheritParams fpunique
 #' @param setword A vector representing the ranked step sizes of a scale (e.g.
-#'   `c(2,2,1,2,2,2,1)` for the diatonic). The distinct values of the `setword`
+#'   `c(2, 2, 1, 2, 2, 2, 1)` for the diatonic). The distinct values of the `setword`
 #'   should be consecutive integers. If you want to test a step word instead of 
 #'   a list of pitch classes, `set` must be entered as `NULL`.
 #' @param allow_de Should the function test for degenerate well-formed and distributionally even scales too?
 #'   Defaults to `FALSE`.
-#' @returns Boolean answering "Is the scale MOS?" (if allow_de=FALSE) or "Is the scale well-formed
+#' @returns Boolean answering "Is the scale MOS (with equivalence interval equal to
+#'   the period)?" (if allow_de=FALSE) or "Is the scale well-formed
 #'   in any sense?" (if allow_de=TRUE).
 #' @examples
 #' iswellformed(sc(7, 35))
 #' iswellformed(c(0, 2, 4, 6))
 #' iswellformed(c(0, 1, 6, 7))
 #' iswellformed(c(0, 1, 6, 7), allow_de=TRUE)
-#' iswellformed(NULL, setword=c(2,2,1,2,1,2,1))
+#' iswellformed(NULL, setword=c(2, 2, 1, 2, 1, 2, 1))
 #' @export
 iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
   if (is.null(set)) { 

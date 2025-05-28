@@ -156,7 +156,7 @@ two-dimensional (like the plane containing all of hues 1, 2, and 3) will show up
 as a single line (i.e. the line connecting the three visible points in Figure 1). More generally, any structure
 that looks like it has dimension $k$ in the `tc()` plane will actually have dimension $k+1$ in the overall space.
 Our visualization is a 2-D plane but it smuggles in a third dimension, which is the one that travels in and out along the
-hues in Figure 1. (This dimention is what MCT calls "saturation"; it can be manipulated with `saturate()`.) You might
+hues in Figure 1. (This dimension is what MCT calls "saturation"; it can be manipulated with `saturate()`.) You might
 compare this to looking at a street map of a city, which is inherently 2-D but where you can easily imagine an invisible 
 height dimension.
 
@@ -680,7 +680,7 @@ par(bg="aliceblue")
 image(u, v, z=ratio_values2, col=fig11_palette,
       xlab="Height of Scale Degree 2", ylab="Height of Scale Degree 3")
 contour(u, v, z=ratio_values2, add=TRUE)
-mtext(side=3, "\"Brightness Ratio\" in the tc() Plane's Most Interesting Zone", font=2, line=1)
+mtext(side=3, "\"Brightness Ratio\" at Center of tc() Plane", font=2, line=1)
 
 # Make the legend
 color_legend <- as.raster(matrix(rev(fig11_palette), ncol=1))

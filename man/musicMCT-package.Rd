@@ -4,9 +4,9 @@
 \name{musicMCT-package}
 \alias{musicMCT}
 \alias{musicMCT-package}
-\title{musicMCT: Analysis of Musical Scale Structure}
+\title{musicMCT: Analyze the Structure of Musical Scales}
 \description{
-Analysis of musical scales (as well as modes, grooves, etc.) in the vein of Sherrill (forthcoming 2025). Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, & Tymoczko (2008) \doi{10.1126/science.1153021}. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as "brightness graphs" which visualize these properties.
+Analysis of musical scales (& modes, grooves, etc.) in the vein of Sherrill 2025 \url{https://collections.lib.utah.edu/ark:/87278/s6d2gr78}. Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, & Tymoczko (2008) \doi{10.1126/science.1153021}. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as "brightness graphs" which visualize these properties.
 }
 \seealso{
 Useful links:

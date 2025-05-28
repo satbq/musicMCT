@@ -10,7 +10,7 @@ fortenum(set)
 \item{set}{Numeric vector of pitch-classes in the set}
 }
 \value{
-Character string in the form n-x where n is the number of notes
+Character string in the form "n-x" where n is the number of notes
 in the set and x is the ordinal position in Forte's list.
 }
 \description{

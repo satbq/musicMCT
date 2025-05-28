@@ -41,6 +41,9 @@ hex2 <- c(0, 1, 3, 5, 6, 9)
 countsvzeroes(hex1) == countsvzeroes(hex2)
 svzero_fingerprint(hex1)
 svzero_fingerprint(hex2)
-# Compare brightnessgraph(hex1) and brightnessgraph(hex2)
+
+# Their brightness graphs make their difference more apparent:
+brightnessgraph(hex1)
+brightnessgraph(hex2)
 
 }

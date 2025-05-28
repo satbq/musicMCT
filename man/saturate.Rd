@@ -19,8 +19,8 @@ If r < 0, the result is an "involution" of the set.}
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }
 \value{
-\code{saturate} returns another scale (a numeric vector of
-same length as set).
+Numeric vector of same length as \code{set} (another scale on the
+same hue)
 }
 \description{
 Saturation parameterizes scale structures along a single degree of freedom

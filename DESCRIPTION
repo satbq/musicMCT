@@ -1,9 +1,18 @@
 Package: musicMCT
-Title: Analysis of Musical Scale Structure
+Title: Analyze the Structure of Musical Scales
 Version: 0.0.0.9000
 Authors@R: 
     person("Paul", "Sherrill", , "paul.sherrill@utah.edu", role = c("aut", "cre","cph"), comment = c(ORCID = "0009-0002-3617-016X"))
-Description: Analysis of musical scales (as well as modes, grooves, etc.) in the vein of Sherrill (forthcoming 2025). Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, & Tymoczko (2008) <doi:10.1126/science.1153021>. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as "brightness graphs" which visualize these properties.
+Description: Analysis of musical scales (& modes, grooves, etc.) in the vein of
+    Sherrill 2025 <https://collections.lib.utah.edu/ark:/87278/s6d2gr78>.
+    The initials MCT in the package title refer to the article's title: "Modal
+    Color Theory." Offers support for conventional musical pitch class set
+    theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin
+    (1987, ISBN: 9780300034936), as well as for the continuous geometries of
+    Callender, Quinn, & Tymoczko (2008) <doi:10.1126/science.1153021>.
+    Identifies structural properties of scales and calculates derived values
+    (sign vector, color number, brightness ratio, etc.). Creates plots such as
+    "brightness graphs" which visualize these properties.
 License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

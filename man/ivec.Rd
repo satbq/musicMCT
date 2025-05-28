@@ -19,8 +19,8 @@ The classic summary of a set's dyadic subset content from pitch-class set theory
 The name \code{ivec} is short for \strong{i}nterval-class \strong{vec}tor.
 }
 \examples{
-ivec(c(0,1,4,6))
-ivec(c(0,1,3,7))
+ivec(c(0, 1, 4, 6))
+ivec(c(0, 1, 3, 7))
 
 #### Z-related sextuple in 24edo:
 sextuple <- matrix(

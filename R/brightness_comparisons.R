@@ -35,7 +35,7 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #' @examples
 #' # Because the diatonic scale, sc7-35, is non-degenerate well-formed, the only
 #' # 0 entries should be on its diagonal.
-#' brightness_comparisons(sc(7,35))
+#' brightness_comparisons(sc(7, 35))
 #' 
 #' mystic_chord <- sc(6,34)
 #' colSums(sim(mystic_chord)) # The sum brightnesses of the mystic chord's 6 modes
@@ -83,7 +83,7 @@ brightness_comparisons <- function(set, edo=12, rounder=10) {
 #' @returns Single non-negative numeric value
 #'
 #' @examples
-#' harmonic_minor <- c(0,2,3,5,7,8,11)
+#' harmonic_minor <- c(0, 2, 3, 5, 7, 8, 11)
 #' hypersaturated_harmonic_minor <- saturate(2, harmonic_minor)
 #' c(delta(harmonic_minor), eps(harmonic_minor))
 #' c(delta(hypersaturated_harmonic_minor), eps(hypersaturated_harmonic_minor))
@@ -93,10 +93,10 @@ brightness_comparisons <- function(set, edo=12, rounder=10) {
 #' ratio(hypersaturated_harmonic_minor)
 #'
 #' #### Sort all 12tet heptachords by brightness ratio
-#' heptas12 <- unique(apply(combn(12,7),2,primeform),MARGIN=2)
+#' heptas12 <- unique(apply(combn(12, 7), 2, primeform),MARGIN=2)
 #' hepta_ratios <- apply(heptas12, 2, ratio)
-#' sorted_heptas <- heptas12[,order(hepta_ratios)]
-#' colnames(sorted_heptas) <- apply(sorted_heptas,2,fortenum)
+#' sorted_heptas <- heptas12[, order(hepta_ratios)]
+#' colnames(sorted_heptas) <- apply(sorted_heptas, 2, fortenum)
 #' sorted_heptas
 #' 
 #' #### Compare evenness to ratio for 12tet hetpachords

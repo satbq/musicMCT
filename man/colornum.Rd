@@ -54,9 +54,9 @@ that value returned by entering a trichord, tetrachord, etc.
 }
 \examples{
 colornum(edoo(5))
-colornum(c(0,3,7))
-colornum(c(0,2,7))
-colornum(c(0,1,3,7))
-colornum(c(0,1,3,6,10,15,21), edo=33)
-colornum(c(0,2,4,5,7,9,11))
+colornum(c(0, 3, 7))
+colornum(c(0, 2, 7))
+colornum(c(0, 1, 3, 7))
+colornum(c(0, 1, 3, 6, 10, 15, 21), edo=33)
+colornum(c(0, 2, 4, 5, 7, 9, 11))
 }

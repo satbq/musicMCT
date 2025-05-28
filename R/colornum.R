@@ -37,11 +37,11 @@
 #'   is specified or `representative_signvectors` is loaded; otherwise `NULL`
 #' @examples
 #' colornum(edoo(5))
-#' colornum(c(0,3,7))
-#' colornum(c(0,2,7))
-#' colornum(c(0,1,3,7))
-#' colornum(c(0,1,3,6,10,15,21), edo=33)
-#' colornum(c(0,2,4,5,7,9,11))
+#' colornum(c(0, 3, 7))
+#' colornum(c(0, 2, 7))
+#' colornum(c(0, 1, 3, 7))
+#' colornum(c(0, 1, 3, 6, 10, 15, 21), edo=33)
+#' colornum(c(0, 2, 4, 5, 7, 9, 11))
 #' @export
 colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10) {
   if (evenness(set, edo=edo) < 10^(-rounder) ) { 

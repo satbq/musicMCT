@@ -43,7 +43,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("fortenums"))
 #' number for the corresponding set class.
 #'
 #' @inheritParams tnprime
-#' @returns Character string in the form n-x where n is the number of notes
+#' @returns Character string in the form "n-x" where n is the number of notes
 #'   in the set and x is the ordinal position in Forte's list.
 #' @examples
 #' fortenum(c(0, 4, 7))
@@ -107,13 +107,13 @@ compactest_mode <- function(modes, rounder=10) {
 #'   Tn-prime form
 #' @examples
 #' tnprime(c(2, 6, 9))
-#' tnprime(c(0, 3, 6, 9, 14),edo=16)
+#' tnprime(c(0, 3, 6, 9, 14), edo=16)
 #' @export
 tnprime <- function(set, edo=12, rounder=10) {
   set <- sort(set %% edo)
   card <- length(set)
   if (card == 1) { return(0) }
-  if (card == 0) { return(integer(0))}
+  if (card == 0) { return(integer(0)) }
 
   modes <- sim(set, edo)
   modes <- compactest_mode(modes, rounder=rounder)
@@ -400,8 +400,8 @@ tsym_degree <- function(set, ...) length(tsym_index(set, ...))
 #' @inheritParams tnprime
 #' @returns Numeric vector of length `floor(edo/2)`
 #' @examples
-#' ivec(c(0,1,4,6))
-#' ivec(c(0,1,3,7))
+#' ivec(c(0, 1, 4, 6))
+#' ivec(c(0, 1, 3, 7))
 #' 
 #' #### Z-related sextuple in 24edo:
 #' sextuple <- matrix(

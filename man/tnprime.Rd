@@ -26,5 +26,5 @@ all minor triads return (0, 3, 7).
 }
 \examples{
 tnprime(c(2, 6, 9))
-tnprime(c(0, 3, 6, 9, 14),edo=16)
+tnprime(c(0, 3, 6, 9, 14), edo=16)
 }

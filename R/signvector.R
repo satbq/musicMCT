@@ -112,7 +112,10 @@ countsvzeroes <- function(set, ineqmat=NULL, edo=12, rounder=10) {
 #' countsvzeroes(hex1) == countsvzeroes(hex2)
 #' svzero_fingerprint(hex1)
 #' svzero_fingerprint(hex2)
-#' # Compare brightnessgraph(hex1) and brightnessgraph(hex2)
+#'
+#' # Their brightness graphs make their difference more apparent:
+#' brightnessgraph(hex1)
+#' brightnessgraph(hex2)
 #'
 #' @export
 svzero_fingerprint <- function(set, ineqmat=NULL, edo=12, rounder=10) {

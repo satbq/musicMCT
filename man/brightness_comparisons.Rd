@@ -37,7 +37,7 @@ even though mixolydian intervenes in the brightness graph.)
 \examples{
 # Because the diatonic scale, sc7-35, is non-degenerate well-formed, the only
 # 0 entries should be on its diagonal.
-brightness_comparisons(sc(7,35))
+brightness_comparisons(sc(7, 35))
 
 mystic_chord <- sc(6,34)
 colSums(sim(mystic_chord)) # The sum brightnesses of the mystic chord's 6 modes
