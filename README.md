@@ -34,7 +34,7 @@ tuning data: musicMCT might be useful to you!
 ## Installation
 
 You can install the latest released version of musicMCT from
-[CRAN](https://cran.r-project.org/web/packages/) with:
+[CRAN](https://CRAN.R-project.org/) with:
 
 ``` r
 install.packages("musicMCT")
