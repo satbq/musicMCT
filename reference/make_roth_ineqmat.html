@@ -9,15 +9,19 @@
 propriety is a scalar feature (like modal &quot;color&quot;) which is defined by a scale's position in
 the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
 all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
-define these properties are different from the ones of Modal Color Theory. This function creates
-the ineqmats needed to study those arrangements, similar to what makeineqmat() does for MCT
-arrangements. This function is still somewhat experimental and needs further vetting."><meta property="og:description" content="Although the Rothenberg propriety of a single scale can be computed directly with isproper(),
+define these properties are different from the ones of Modal Color Theory. make_roth_ineqmat()
+creates the ineqmats needed to study those arrangements, similar to what makeineqmat() does
+for MCT arrangements. make_rosy_ineqmat() creates the combination of Rothenberg and MCT arrangements.
+(The name puns on the &quot;Roth&quot; of Rothenberg meaning &quot;red,&quot; lending a reddish
+or rosy tint to the &quot;colors&quot; of the MCT arrangement.)"><meta property="og:description" content="Although the Rothenberg propriety of a single scale can be computed directly with isproper(),
 propriety is a scalar feature (like modal &quot;color&quot;) which is defined by a scale's position in
 the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
 all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
-define these properties are different from the ones of Modal Color Theory. This function creates
-the ineqmats needed to study those arrangements, similar to what makeineqmat() does for MCT
-arrangements. This function is still somewhat experimental and needs further vetting."></head><body>
+define these properties are different from the ones of Modal Color Theory. make_roth_ineqmat()
+creates the ineqmats needed to study those arrangements, similar to what makeineqmat() does
+for MCT arrangements. make_rosy_ineqmat() creates the combination of Rothenberg and MCT arrangements.
+(The name puns on the &quot;Roth&quot; of Rothenberg meaning &quot;red,&quot; lending a reddish
+or rosy tint to the &quot;colors&quot; of the MCT arrangement.)"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -60,14 +64,18 @@ arrangements. This function is still somewhat experimental and needs further vet
 propriety is a scalar feature (like modal "color") which is defined by a scale's position in
 the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
 all determined by a scale's relationship to a hyperplane arrangement, but the arrangements which
-define these properties are different from the ones of Modal Color Theory. This function creates
-the <code>ineqmats</code> needed to study those arrangements, similar to what <code><a href="makeineqmat.html">makeineqmat()</a></code> does for MCT
-arrangements. This function is still somewhat experimental and needs further vetting.</p>
+define these properties are different from the ones of Modal Color Theory. <code>make_roth_ineqmat()</code>
+creates the <code>ineqmats</code> needed to study those arrangements, similar to what <code><a href="makeineqmat.html">makeineqmat()</a></code> does
+for MCT arrangements. <code>make_rosy_ineqmat()</code> creates the combination of Rothenberg and MCT arrangements.
+(The name puns on the "Roth" of Rothenberg meaning "red," lending a reddish
+or rosy tint to the "colors" of the MCT arrangement.)</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_roth_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_roth_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">make_rosy_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">

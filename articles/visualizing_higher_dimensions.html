@@ -86,11 +86,11 @@ Networks for Machine Learning</em>)</p>
 </h2>
 <p>The hardest part of using Modal Color Theory is the high number of
 dimensions that it needs to describe most scales. A scale with <span class="math inline">\(n\)</span> notes lives in a space of <span class="math inline">\(n-1\)</span> dimensions. (The <span class="math inline">\(-1\)</span> comes from the fact that we consider
-scales to be transpositionally equivalent, so you can assume that the
-first step of every scale is 0.) This means that pentachords, the
-smallest collection that we’re likely to really consider to be
-scale-like, need to be understood in four dimensions–already not easy to
-visualize–and it only gets worse from there.</p>
+scales to be transpositionally equivalent, so you can assume that <span class="math inline">\(\hat{1}\)</span> of every scale is 0.) This means
+that pentachords, the smallest collection that we’re likely to really
+consider to be scale-like, need to be understood in four
+dimensions–already not easy to visualize–and it only gets worse from
+there.</p>
 <p>Fortunately, R can help us visualize the scale-space geometries two
 or three dimensions at a time. This won’t be a picture of the whole
 space all at once, but it’s a lot better than nothing. This vignette
@@ -160,26 +160,31 @@ scale:</p>
 <code class="sourceCode R"><span><span class="va">scale_from_genus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">genus</span><span class="op">)</span> <span class="op">{</span></span>
 <span> <span class="va">sd2</span> <span class="op">&lt;-</span> <span class="va">genus</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span> <span class="va">sd3</span> <span class="op">&lt;-</span> <span class="va">genus</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span> <span class="kw">if</span> <span class="op">(</span><span class="va">sd2</span> <span class="op">&gt;</span> <span class="va">sd3</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span></span>
+<span> <span class="op">}</span></span>
 <span> <span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">sd2</span>, <span class="va">sd3</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Since the space of such scales is only two dimensional, it will be
 easy to visualize on a normal x-y plot. The space is a planar slice
 through the complete 6-D heptachord space. For concision, I’ll call it
-the “tc() plane” since we can build any scale in it with tc().</p>
-<p>To understand the tc() plane’s relationship to the whole heptachord
+the “[tc()] plane” since we can build any scale in it with [tc()].</p>
+<p>To understand the [tc()] plane’s relationship to the whole heptachord
 space, recall that every “hue” in MCT is a ray that emanates outward
 from the perfectly even scale at the center of the space (in this case,
 seven-tone equal temperament). The perfectly even heptachord cannot be
 constructed by <code>scale_from_genus()</code>, so it does not lie on
-the tc() plane. Therefore, each point in our visualization will be an
-intersection between some hue and our tc() plane. You might think of our
-visualization as a window pane that we’re looking through: each spot on
-the pane actually corresponds to a line of sight in our field of view.
-Figure 1 sketches this schematically, but remember that the actual tc()
-plane is embedded in a 6-D space rather than the normal 3-D world:</p>
+the [tc()] plane. Therefore, each point in our visualization will be an
+intersection between some hue and our [tc()] plane. You might think of
+our visualization as a window pane that we’re looking through: each spot
+on the pane actually corresponds to a line of sight in our field of
+view. Figure 1 sketches this schematically, but remember that the actual
+[tc()] plane is embedded in a 6-D space rather than the normal 3-D
+world:</p>
 <p><img src="img/vhd_plane_embedding.png" width="75%"></p>
 <p><strong>Figure 1: Schematic representation of the tc() plane in
 heptachord space</strong></p>
+<p><br></p>
 <p>Figure 1 is not a precise picture of heptachord space, but as a step
 toward interpreting our actual visualizations, we might imagine that the
 ray labeled “hue 1” represents the hue of meantone major scales. Another
@@ -189,34 +194,35 @@ represented as the pattern of steps LLSLLLS where L and S represent
 large and small steps. As long as L &gt; S and the pattern of 5 large
 and 2 small steps adds up to a full octave, any choice of specific
 values for L and S will result in a scale that lies along this hue. The
-point where hue #1 intersects the tc() plane will be specifically the
+point where hue #1 intersects the [tc()] plane will be specifically the
 scale where L=2 and S=1, which is to say exactly the familiar major
 scale from 12-tone equal temperament. (We know that the intersection
-between the hue and the tc() plane must be this specific scale, because
-our tc() construction guarantees that the interval of disjunction
-between the two tetrachords is exactly 2 semitones, which forces our
-hand with regard to all the other L and S step sizes.)</p>
+between the hue and the [tc()] plane must be this specific scale,
+because our [tc()] construction guarantees that the interval of
+disjunction between the two tetrachords is exactly 2 semitones, which
+forces our hand with regard to all the other L and S step sizes.)</p>
 <p>Similarly, we might imagine that “hue 3” represents well-formed
 heptachords with the step pattern SLLLSLL, which is to say all tunings
 of the phrygian octave species. The visible point on both hue 3 and the
-tc() plane is then 12tet phrygian: (0, 1, 3, 5, 7, 8, 10).</p>
+[tc()] plane is then 12tet phrygian: (0, 1, 3, 5, 7, 8, 10).</p>
 <p>Hue 2 has been drawn to lie in between hues 1 and 3: all three hues
-lie on a single plane in heptachord space which cuts across the tc()
-plane. The plane containing hues 1, 2, and 3 intersects the tc() plane
+lie on a single plane in heptachord space which cuts across the [tc()]
+plane. The plane containing hues 1, 2, and 3 intersects the [tc()] plane
 in a line, so the three “visible points” in Figure 1 all lie on a line
-in the tc() plane. The visible point of hue 2 must be some intermediate
-scale between ionian and phrygian. If it were exactly half way between
-those two diatonic modes, its values would simply an average of ionian
-and phrygian: (0, 1.5, 3.5, 5, 7, 8.5, 10.5). This would actually be
-another well-formed scale with the step pattern SLSLSLS. But, given the
-way I’ve drawn the figure, it looks to me like hue 2 is slightly closer
-to hue 3 than hue 1, so we might guess that it represents the scale (0,
-1.4, 3.4, 5, 7, 8.4, 10.4). This has the step pattern SLMLSLM (where M
-represents a <strong>m</strong>edium step size somewhere between the
-<strong>s</strong>mall and <strong>l</strong>arge steps). This is not
-coincidentally a pattern that fits David Clampitt’s definition of a
-“pairwise well-formed” scale. Such scales are always two-dimensional
-subspaces that run from one well-formed hue to another.</p>
+in the [tc()] plane. The visible point of hue 2 must be some
+intermediate scale between ionian and phrygian. If it were exactly half
+way between those two diatonic modes, its values would simply an average
+of ionian and phrygian: (0, 1.5, 3.5, 5, 7, 8.5, 10.5). This would
+actually be another well-formed scale with the step pattern SLSLSLS.
+But, given the way I’ve drawn the figure, it looks to me like hue 2 is
+slightly closer to hue 3 than hue 1, so we might guess that it
+represents the scale (0, 1.4, 3.4, 5, 7, 8.4, 10.4). This has the step
+pattern SLMLSLM (where M represents a <strong>m</strong>edium step size
+somewhere between the <strong>s</strong>mall and <strong>l</strong>arge
+steps). This is not coincidentally a pattern that fits David Clampitt’s
+definition of a “pairwise well-formed” scale. Such scales are always
+two-dimensional subspaces that run from one well-formed hue to
+another.</p>
 <p>If you aren’t familiar with well-formed and pairwise well-formed
 scales, don’t worry too much about the preceding paragraph. The
 important point is that a scalar subspace which is inherently
@@ -224,18 +230,18 @@ two-dimensional (like the plane containing all of hues 1, 2, and 3) will
 show up in our visualization as a single line (i.e. the line connecting
 the three visible points in Figure 1). More generally, any structure
 that looks like it has dimension <span class="math inline">\(k\)</span>
-in the tc() plane will actually have dimension <span class="math inline">\(k+1\)</span> in the overall space. Our
+in the [tc()] plane will actually have dimension <span class="math inline">\(k+1\)</span> in the overall space. Our
 visualization is a 2-D plane but it smuggles in a third dimension, which
 is the one that travels in and out along the hues in Figure 1. (This
 dimention is what MCT calls “saturation”; it can be manipulated with
-saturate().) You might compare this to looking at a street map of a
+[saturate()].) You might compare this to looking at a street map of a
 city, which is inherently 2-D but where you can easily imagine an
 invisible height dimension.</p>
 </div>
 <div class="section level3">
-<h3 id="visualizing-scalar-colors">Visualizing Scalar Colors<a class="anchor" aria-label="anchor" href="#visualizing-scalar-colors"></a>
+<h3 id="familiar-scales-as-landmarks">Familiar Scales as Landmarks<a class="anchor" aria-label="anchor" href="#familiar-scales-as-landmarks"></a>
 </h3>
-<p>Now that we know what the tc() plane is and have a sense of how it
+<p>Now that we know what the [tc()] plane is and have a sense of how it
 relates to the overall heptachord space, let’s start actually
 visualizing it. We’ll begin by plotting a few specific scales to use as
 reference points. Among scales that have familiar names in Western music
@@ -260,13 +266,14 @@ structure:</p>
 <span>       ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.01</span>, <span class="fl">5.01</span><span class="op">)</span>,</span>
 <span>       <span class="va">...</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span>
-<span>  <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="va">title</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="va">title</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">demo_scales</span>, </span>
 <span>           <span class="st">"Location of 5 Reference Scales in the tc() Plane"</span>,</span>
 <span>           pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">toString</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
 <p><strong>Figure 2</strong></p>
+<p><br></p>
 <p>The scales are marked by numbers in the order that we defined them:
 the ionian scale is “1”, dorian “2”, and so on. It will be useful to
 keep these points in mind as landmarks while we populate the space with
@@ -275,20 +282,20 @@ just like they were in Figure 1. This is just a coincidence. In our
 plot, dorian is #2 and doesn’t lie on a straight line between 1 and 3,
 so it doesn’t correspond to “hue #2” from Figure 1. We’ll come back to
 that “hue #2” shortly.)</p>
-<p>The tc() plane has an inversional symmetry that’s just barely visible
-in this initial plot, but which becomes more conspicuous as we add
-scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and scale 4
-(double harmonic, {0, 1, 4, 5, 7, 8, 11}) are symmetrical under <span class="math inline">\(T_0 I\)</span>. All scales in the tc() plane that
-lie on the northwest-southeast line from #2 to #4 have this same
+<p>The [tc()] plane has an inversional symmetry that’s just barely
+visible in this initial plot, but which becomes more conspicuous as we
+add scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and scale 4
+(double harmonic, {0, 1, 4, 5, 7, 8, 11}) are symmetrical under <span class="math inline">\(T_0 I\)</span>. All scales in the [tc()] plane
+that lie on the northwest-southeast line from #2 to #4 have this same
 symmetry. Moreover, pairs of scales that are reflections across that
 line are transformed into each other by <span class="math inline">\(T_0
 I\)</span>. That’s the transformation that takes C major (at point 1) to
 C phrygian (at point 3). Similarly, we could imagine reflecting the
-scale built from the enharmonic genus at 5 across the line of
+scale built from the enharmonic genus at point 5 across the line of
 inversional symmetry, which should give a new scale in the top right
 quadrant of the graph, with quarter-tone steps clustered toward the top
 of its tetrachords. Let’s verify that this works and plot the new scale
-as point 6:</p>
+as point #6:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Invert the original enharmonic scale:</span></span>
 <span><span class="va">inverted_enharmonic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tn.html">tni</a></span><span class="op">(</span><span class="va">enharmonic</span>, <span class="fl">0</span><span class="op">)</span></span>
@@ -309,21 +316,36 @@ as point 6:</p>
 <span>           pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">toString</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png" width="480"></p>
 <p><strong>Figure 3</strong></p>
-<p>Let’s now try to visualize the landscape of the whole plane, not just
+<p><br></p>
+<p>That definitely starts to make the symmetry of the space more
+visually clear. Before we move on, let’s encapsulate the work we’ve done
+with a new function, <code>show_landmarks()</code>, which lets us add
+reminders of these six scales to any new plots we create:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">show_landmarks</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">demo_scales</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">demo_scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">2.5</span>, col<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">demo_scales</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">demo_scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">toString</span><span class="op">)</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="visualize-all-the-colors">Visualize all the colors!<a class="anchor" aria-label="anchor" href="#visualize-all-the-colors"></a>
+</h3>
+<p>Let’s now take a look at the landscape of the whole plane, not just
 individual points on it. The simplest question we might ask is “how many
-distinct scalar colors can be visualized on the tc() plane?” We can
+distinct scalar colors can be visualized on the [tc()] plane?” We can
 answer that by randomly sampling many points on the plane, calculating
 their sign vectors, and counting how many distinct sign vectors result.
 First we’ll do that only as a numeric computation, sampling 4000 points
 in the plane:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">num_points</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
 <span><span class="va">parhypatai</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">num_points</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">lichanoi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">num_points</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">parhypatai</span>, <span class="va">lichanoi</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span>MARGIN<span class="op">=</span><span class="fl">2</span>, FUN<span class="op">=</span><span class="va">sort</span><span class="op">)</span></span>
 <span><span class="va">random_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="fl">2</span>, <span class="va">scale_from_genus</span><span class="op">)</span></span>
 <span><span class="va">all_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
-<span><span class="va">unique_signvectors</span> <span class="op">&lt;-</span> <span class="va">all_signvectors</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span>MARGIN<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span>MARGIN<span class="op">=</span><span class="fl">2</span>, FUN<span class="op">=</span><span class="va">toString</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">unique_signvectors</span> <span class="op">&lt;-</span> <span class="va">all_signvectors</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span>MARGIN<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span>MARGIN<span class="op">=</span><span class="fl">2</span>, FUN<span class="op">=</span><span class="va">toString</span><span class="op">)</span></span>
+<span><span class="va">unique_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">unique_signvectors</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">unique_signvectors</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 26</span></span></code></pre></div>
 <p>This tells us that the scales we’ve sampled represent 26 different
@@ -331,10 +353,10 @@ scalar colors. We can see them by plotting all the scales, coloring each
 point to reflect which scalar “color” it belongs to. (Of course, the
 association between each visual color and the scalar structure it
 represents is arbitrary: there’s nothing essentially more blue or red
-about one scale structure than another.) I’m also going to include
-labels for the six “landmark” scales from Figure 3, plotted as numbers
-rather than colored points:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+about one scale structure than another.) Let’s also include the six
+“landmark” scales from Figure 3, plotted as numbers rather than colored
+points:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">match_sv</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sv</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">unique_signvectors</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/toString.html" class="external-link">toString</a></span><span class="op">(</span><span class="va">sv</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -342,45 +364,43 @@ rather than colored points:</p>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">res</span></span>
 <span><span class="op">}</span></span>
+<span></span>
 <span><span class="va">scalar_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvectors</span>, <span class="fl">2</span>, <span class="va">match_sv</span><span class="op">)</span></span>
-<span><span class="va">display_colors</span> <span class="op">&lt;-</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">[</span><span class="va">scalar_colors</span><span class="op">]</span></span>
+<span><span class="va">display_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">[</span><span class="va">scalar_colors</span><span class="op">]</span></span>
+<span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">random_scales</span>, </span>
 <span>           <span class="st">"26 Scalar Colors in the tc() Plane"</span>,</span>
 <span>           col<span class="op">=</span><span class="va">display_colors</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">show_landmarks</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">demo_scales</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">demo_scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">2.5</span>, col<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">demo_scales</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">demo_scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">toString</span><span class="op">)</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-11-1.png" width="480"></p>
 <p><strong>Figure 4</strong></p>
+<p><br></p>
 <p>Each colored polygon in this figure represents a different scale
-structure. For instance, landmark scale #4 (the “double harmonic” scale)
-sits at the boundary between two right triangles (reddish purple to its
-lower left and yellow-green to its upper right). Scales inside those
-colored polygons have three degrees of freedom to vary their pitches
-without fundamentally altering their structure: up/down and left/right
-as visualized and also in/out along their line of saturation. (Recall
+structure. For instance, landmark #4 (the “double harmonic” scale) sits
+at the boundary between two right triangles (reddish purple to its lower
+left and yellow-green to its upper right). Scales inside those colored
+polygons have three degrees of freedom to vary their pitches without
+fundamentally altering their structure: up/down and left/right as
+visualized and also in/out along their line of saturation. (Recall
 Figure 1.) All of the scales that Figure 4 plots as colored points have
 these 3 degrees of freedom: our random sample of scales on the plane
 didn’t produce any 1- or 2-D scales because it’s very unlikely that a
 randomly generated scale will have more regularity than what is required
-by our definition of scale_from_genus(). Nonetheless, we can still see
-the 1- and 2-D scales in Figure 4 as the boundaries between colored
-polygons. Landmark scale #4 (double harmonic), for instance, is 2-D
-because it lies directly on the line segment that separates the reddish
-purple and yellow-green triangles:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+by our definition of scale_from_genus(). Nonetheless, we can see the 1-
+and 2-D scales in Figure 4 as the boundaries between colored polygons.
+Landmark scale #4 (double harmonic), for instance, is 2-D because it
+lies directly on the line segment that separates the reddish purple and
+yellow-green triangles:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">double_harmonic</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
-<p>Scalar colors with only one degree of freedom show up on the tc()
+<p>Scalar colors with only one degree of freedom show up on the [tc()]
 plane as points where multiple lines intersect. All three diatonic modes
 that we can visualize (landmarks #1, #2, and #3) are at such
 intersections, and (like all well-formed scales) that have only one
 degree of freedom:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">ionian</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">dorian</span><span class="op">)</span></span>
@@ -393,16 +413,16 @@ through defining them with a specific function, along the lines of
 scale_from_genus(), but musicMCT also allows us to project a given scale
 onto any “flat” (i.e. intersection of hyperplanes) in the arrangement.
 If we know the specific hyperplanes that we want to project onto, we can
-use project_onto(); but if we have a specific scale that already lies on
-the desired flat, we can use match_flat(). To see this latter function
-in action, let’s project all 4000 sampled scales onto the same flat as
-the double harmonic scale: we should end up with 4000 points all lying
-on the same northwest-southeast diagonal line as double harmonic. I’ll
-plot the new projected scales a black points, as well as the colorful
-points from Figure 4.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+use [project_onto()]; but if we have a specific scale that already lies
+on the desired flat, we can use [match_flat()]. To see this latter
+function in action, let’s project all 4000 sampled scales onto the same
+flat as the double harmonic scale: we should end up with 4000 points all
+lying on the same northwest-southeast diagonal line as double harmonic
+itself. I’ll plot the new projected scales a black points, in addition
+to the colorful points from Figure 4.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">match_flat</span>, target_scale<span class="op">=</span><span class="va">double_harmonic</span><span class="op">)</span></span>
-<span><span class="va">colors_for_projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"#000000"</span>, <span class="va">num_points</span><span class="op">)</span></span>
+<span><span class="va">colors_for_projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="va">num_points</span><span class="op">)</span></span>
 <span><span class="va">scales_for_fig5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="va">projected_scales</span><span class="op">)</span></span>
 <span><span class="va">colors_for_fig5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">display_colors</span>, <span class="va">colors_for_projected_scales</span><span class="op">)</span></span>
 <span></span>
@@ -411,15 +431,38 @@ points from Figure 4.</p>
 <span>           col<span class="op">=</span><span class="va">colors_for_fig5</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-13-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-14-1.png" width="480"></p>
 <p><strong>Figure 5</strong></p>
+<p><br></p>
 <p>Now that we have specific examples of scales on that flat to work
 with, we can explore whatever properties we’re interested in. For
-instance, we might wonder the scales’ evenness changes as we vary along
-the line. We’ll calculate the evenness of each scale the lies on the
-flat and plot the points so that more even scales are represented by
-larger points.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+instance, <a href="https://doi.org/10.1007/978-3-642-04579-0_46" class="external-link">Clampitt 2009</a>
+tells us that the <code>double_harmonic</code> scale is “pairwise
+well-formed.” (In fact, it’s an example of the unusual class of
+<em>singular</em> pairwise-well formed scales.) Do all the scales that
+lie on its flat have that property, too?</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_for_pwf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">projected_scales</span>, <span class="fl">2</span>, <span class="va">isgwf</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">test_for_pwf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; test_for_pwf</span></span>
+<span><span class="co">#&gt; TRUE </span></span>
+<span><span class="co">#&gt; 4000</span></span></code></pre></div>
+<p>All 4000 of our <code>projected_scales</code> return
+<code>TRUE</code>: they’re all pairwise well-formed! It’s not hard to
+show that this is true in general: like well-formedness, pairwise
+well-formedness is either always true or always false for the 2-D scales
+on a given flat.</p>
+</div>
+<div class="section level3">
+<h3 id="optimizing-evenness-on-the-double-harmonic-flat">Optimizing evenness on the “double harmonic” flat<a class="anchor" aria-label="anchor" href="#optimizing-evenness-on-the-double-harmonic-flat"></a>
+</h3>
+<p>Properties that can only be true or false aren’t terribly interesting
+to visualize, so let’s also play around with a property that can take
+continuous values. For instance, might wonder the scales’ [evenness()]
+changes as we vary along the line. We’ll calculate the evenness of each
+scale that lies on the flat and plot the points so that more even scales
+are represented by larger points.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">evenness_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">projected_scales</span>, <span class="fl">2</span>, <span class="va">evenness</span><span class="op">)</span></span>
 <span><span class="va">sizes_for_fig6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">num_points</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">-</span><span class="va">evenness_values</span><span class="op">)</span></span>
 <span></span>
@@ -429,22 +472,23 @@ larger points.</p>
 <span>           pch<span class="op">=</span><span class="fl">20</span>,</span>
 <span>           cex<span class="op">=</span><span class="va">sizes_for_fig6</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-14-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-16-1.png" width="480"></p>
 <p><strong>Figure 6</strong></p>
+<p><br></p>
 <p>You can see that the largest points (and thus the most even scales)
 lie in the zone between landmarks 2 and 4. The scales get very uneven as
 we move toward the top left corner of the plot. This makes sense,
-because the point (0, 5) at the top left of the tc() plane represents a
-scale whose second step is 0 (the same as the first step) and whose
-third step is 5 (the same as the fourth step): such a scale is very
-uneven because its “stepwise motion” varies widely between not moving at
-all and making large leaps.</p>
-<p>Now, most of the detail in the tc() plane lies in the square bounded
-by landmarks 1, 2, 3, and 4. It’s hard to tell exactly how many colors
-lie in that region, and similarly hard to tell exactly where the
+because the point (0, 5) at the top left of the [tc()] plane represents
+a scale whose <span class="math inline">\(\hat{2}\)</span> is 0 (the
+same as <span class="math inline">\(\hat{1}\)</span>) and whose <span class="math inline">\(\hat{3}\)</span> is 5 (the same as <span class="math inline">\(\hat{4}\)</span>): such a scale is very uneven
+because its “stepwise motion” varies widely between not moving at all
+and making large leaps.</p>
+<p>Now, most of the detail in the [tc()] plane lies in the square
+bounded by landmarks 1, 2, 3, and 4. It’s hard to tell exactly how many
+colors lie in that region, and similarly hard to tell exactly where the
 thickest point on the diagonal black line is. We can zoom in to get a
 better view of that part of the plane:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">zoomed_tetra_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scales</span>, <span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scales</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>, </span>
@@ -453,7 +497,7 @@ better view of that part of the plane:</p>
 <span>       ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.99</span>, <span class="fl">4.01</span><span class="op">)</span>,</span>
 <span>       <span class="va">...</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span>
-<span>  <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="va">title</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="va">title</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">zoomed_parhypatai</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">num_points</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -462,7 +506,7 @@ better view of that part of the plane:</p>
 <span><span class="va">zoomed_sets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">zoomed_inputs</span>, <span class="fl">2</span>, <span class="va">scale_from_genus</span><span class="op">)</span></span>
 <span><span class="va">zoomed_signvectors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">zoomed_sets</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
 <span><span class="va">zoomed_scalar_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">zoomed_signvectors</span>, <span class="fl">2</span>, <span class="va">match_sv</span><span class="op">)</span></span>
-<span><span class="va">zoomed_display_colors</span> <span class="op">&lt;-</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">[</span><span class="va">zoomed_scalar_colors</span><span class="op">]</span></span>
+<span><span class="va">zoomed_display_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">[</span><span class="va">zoomed_scalar_colors</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">points_for_fig7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">zoomed_sets</span>, <span class="va">projected_scales</span><span class="op">)</span></span>
 <span><span class="va">colors_for_fig7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">zoomed_display_colors</span>, <span class="va">colors_for_projected_scales</span><span class="op">)</span></span>
@@ -474,21 +518,22 @@ better view of that part of the plane:</p>
 <span>                  pch<span class="op">=</span><span class="fl">20</span>,</span>
 <span>                  cex<span class="op">=</span><span class="va">sizes_for_fig7</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-15-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-17-1.png" width="480"></p>
 <p><strong>Figure 7</strong></p>
+<p><br></p>
 <p>I’ve exaggerated the variation in the black line’s thickness to help
 us see where the most even scale lies in Figure 7. The line seems to be
 thickest at about an x value of 1.6 and a y value of 3.4. Of course, we
 don’t have to eyeball this, since we can just check the evenness values
 directly:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">which_most_even</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span></span>
 <span><span class="va">projected_scales</span><span class="op">[</span>, <span class="va">which_most_even</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1]  0.000000  1.642429  3.357571  5.000000  7.000000  8.642429 10.357571</span></span></code></pre></div>
 <p>We might have guessed that the maximum evenness was at the round
 numbers of <span class="math inline">\(1 \frac{2}{3}\)</span> and <span class="math inline">\(3 \frac{1}{3}\)</span>, but the real answer is is
 somewhat more surprising:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">naive_guess</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="op">(</span><span class="fl">2</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">+</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">actual_optimum</span> <span class="op">&lt;-</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -496,11 +541,15 @@ somewhat more surprising:</p>
 <span><span class="co">#&gt; [1] 0.2519763</span></span>
 <span><span class="fu"><a href="../reference/evenness.html">evenness</a></span><span class="op">(</span><span class="va">actual_optimum</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2474358</span></span></code></pre></div>
-<p>Since evenness() returns lower values for more even scales, the
-<code>actual_optimum</code> scale with scale degree 2 at 23/14 semitones
-(about 1.6428) is in fact the most even scale on the black line in
-Figure 7. Let’s plot it as landmark 7:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>Since [evenness()] returns lower values for more even scales, the
+<code>actual_optimum</code> scale with scale degree 2 at <span class="math inline">\(\frac{23}{14}\)</span> semitones (about 1.6428) is
+in fact the most even scale on the black line in Figure 7. (The numbers
+<span class="math inline">\(\frac{23}{14}\)</span> and <span class="math inline">\(\frac{47}{14}\)</span> may feel a bit less like
+they come out of nowhere when we notice that their difference is <span class="math inline">\(\frac{12}{7}\)</span>, meaning that the scale has
+a step from <span class="math inline">\(\hat{2}\)</span> to <span class="math inline">\(\hat{3}\)</span> which exactly matches the
+equiheptatonic scale’s step size.) Let’s plot this scale as landmark
+7:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">zoomed_tetra_plot</span><span class="op">(</span><span class="va">points_for_fig7</span>, </span>
 <span>                  <span class="st">"Most Even Scale at the Point Labeled #7"</span>,</span>
 <span>                  col<span class="op">=</span><span class="va">colors_for_fig7</span>,</span>
@@ -509,14 +558,15 @@ Figure 7. Let’s plot it as landmark 7:</p>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span>, pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">2.5</span>, col<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span>, pch<span class="op">=</span><span class="st">"7"</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-18-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png" width="480"></p>
 <p><strong>Figure 8</strong></p>
+<p><br></p>
 <p>I was surprised by this when I wrote my first draft of this vignette,
 especially since the <code>naive_guess</code> scale is not only a
 rounder number but a more regular scale. It’s at the point where 3 lines
 intersect just down and right of landmark 7: it’s thus one-dimensional
 and, as it turns out, well-formed:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">naive_guess</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="fu"><a href="../reference/iswellformed.html">iswellformed</a></span><span class="op">(</span><span class="va">naive_guess</span><span class="op">)</span></span>
@@ -528,143 +578,227 @@ is devoted to the notion that basic musical structures (like consonant
 triads and the diatonic scale) are overdetermined, points where many
 neat features overlap. There’s certainly truth to this, but our example
 of the <code>naive_guess</code> and <code>actual_optimum</code> scales
-is a reminder that often the situation is more comparable to the tension
-between Pythagorean and just meantone tunings of the diatonic scale: two
+is a reminder that often the situation is more like the tension between
+Pythagorean and Ptolemaic “syntonic” tunings of the diatonic scale: two
 desirable properties can be optimized by scales that are quite similar
-but ultimately distinct from each other. Hopefully this vignette shows
+but ultimately distinct from one another. Hopefully this vignette shows
 how pairing direct computation with visualization strategies can help us
 explore and understand such relationships.</p>
+<p><br><br></p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="smoother-images">Smoother Images<a class="anchor" aria-label="anchor" href="#smoother-images"></a>
+</h2>
+<p>Our approach in the previous section involved randomly sampling
+scales as its first step. This is especially convenient for quick
+prototyping and situations where you might want to run many computations
+on concrete data points. But an obvious downside of the method, seen in
+Figures 4-7, is that random sampling produces a blotchy image with gaps
+between the sampled points. If your goal is primarily to create a good
+image, R has better tools, particularly the function [image()]. This
+function requires a bit more care in the way you enter data as the price
+of entry for much better pictures.</p>
 <div class="section level3">
-<h3 id="smoother-images">Smoother Images<a class="anchor" aria-label="anchor" href="#smoother-images"></a>
+<h3 id="familiar-ground">Familiar Ground<a class="anchor" aria-label="anchor" href="#familiar-ground"></a>
 </h3>
-<p>Our aproach in the previous section involved sampling scales randomly
-as the first step in visualization. This is especially convenient for
-quick prototyping and situations where you might want to run many
-computations on concrete. data points. But an obvious downside of the
-method, in Figures 4-7, is that random sampling produces a blotchy image
-with gaps between the sampled points. R has other visualization tools,
-particularly the function image(), which have many advantages from a
-purely visual perspective.</p>
-<p>Let’s use image() rather than tetra_plot() to reconstruct Figure
+<p>To see how it works, let’s first use [image()] to reconstruct Figure
 4:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">grid_subdivisions</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.001</span>, <span class="fl">4.999</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define a grid that covers the tc() plane evenly.</span></span>
+<span><span class="co"># x and y both range from 0 to 5 but with slight offsets so that we only see 3-D scales:</span></span>
+<span><span class="va">grid_subdivisions</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.001</span>, <span class="fl">4.999</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span> </span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.98</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Don't plot scales where second step is higher than third step:</span></span>
-<span><span class="va">order_filter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span> </span>
+<span><span class="co"># Calculate the scale structures. (Cf. the definition of `scalar_colors` for Figure 4.)</span></span>
+<span><span class="va">color_from_point</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">match_sv</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">scalar_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">color_from_point</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">define_colors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">order_filter</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">match_sv</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">scalar_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">define_colors</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FFFFFF"</span>, <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Create visuals</span></span>
+<span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aliceblue"</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">scalar_colors</span>, col<span class="op">=</span><span class="va">color_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
-<span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"26 Scalar Colors in the tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"26 Scalar Colors in the tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-22-1.png" width="480"></p>
 <p><strong>Figure 9</strong></p>
+<p><br></p>
 <p>Each region in this figure is now a continuous patch of color. The
 boundaries between colors ought to be straight lines, though in Figure 9
-the diagonal lines are pixelated. That’s because R still creates the
-plot by dividing the plane into discrete points to color. We could get a
-smoother-looking plot by dividing the image more finely: you could try
-increasing <code>grid_subdivisions</code> in the above code block to a
-number greater than 100, though the larger it gets, the more time is
-required to create the image.</p>
-<p>The image() function is especially useful for visualizing values that
-vary more continuously than the scalar regions we’ve been plotting so
-far. One such value is the evenness of each scale, as we explored in
-Figures 6-8. Let’s use image() to plot the evenness of all points on the
-tc() plane. I’ll also add a cross to show the location of landmark scale
-#7 from Figure 8.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+the diagonal lines are pixelated. That’s because [image()] creates the
+plot by dividing the plane into a grid of squares to be colored. We
+could get a smoother-looking plot by dividing the image more finely: you
+could try increasing <code>grid_subdivisions</code> in the above code
+block to a number greater than 100, though the larger it gets, the more
+time is required to create the image.</p>
+</div>
+<div class="section level3">
+<h3 id="other-properties">Other Properties<a class="anchor" aria-label="anchor" href="#other-properties"></a>
+</h3>
+<p>The [image()] function is especially useful for visualizing features
+that vary continuously. One such value is scalar [evenness()], as we
+explored in Figures 6-8. Let’s use [image()] to plot the evenness of all
+points on the [tc()] plane. I’ll also add a white “x” to show the
+location of landmark scale #7 from Figure 8.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Position plot and legend</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the evenness values</span></span>
-<span><span class="va">measure_evenness</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">order_filter</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/evenness.html">evenness</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">measure_evenness</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/evenness.html">evenness</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">evenness_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">measure_evenness</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">fig10_palette</span> <span class="op">&lt;-</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
+<span><span class="va">fig10_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">evenness_values</span>, col<span class="op">=</span><span class="va">fig10_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span>, pch<span class="op">=</span><span class="fl">4</span>, col<span class="op">=</span><span class="st">"white"</span>, cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"Evenness of Scales in the tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Make the legend</span></span>
 <span><span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">fig10_palette</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span></span>
-<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span></span>
+<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Evenness"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
 <p><strong>Figure 10</strong></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<p><br></p>
+<p>The most even scales (dark green) are centered around the “x” that
+represents landmark #7 (the <code>actual_optimum</code> from before).
+This tells us that the <code>actual_optimum</code> is not only the most
+even scale on the flat of <code>double_harmonic</code> but also the most
+even scale on the entire [tc()] plane. Otherwise, Figure 10 doesn’t tell
+us much that seems interesting: evenness decreases as you move away from
+the <code>actual_optimum</code> in any direction. (It decreases fastest
+if you move along the line of inversional symmetry and slowest if you
+move perpendicular to that line.)</p>
+<p>A much more interesting picture emerges if we plot the so-called
+“brightness ratio” value for the scales on the [tc()] plane (values that
+can be calculated with musicMCT’s [ratio()] function).</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the brightness ratio values</span></span>
-<span><span class="va">measure_ratio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">order_filter</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">measure_ratio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">ratio_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">measure_ratio</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">fig11_palette</span> <span class="op">&lt;-</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Tofino"</span><span class="op">)</span></span>
+<span><span class="va">fig11_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">ratio_values</span>, col<span class="op">=</span><span class="va">fig11_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">'"Brightness Ratio" Values in the tc() Plane'</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Make the legend</span></span>
 <span><span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">fig11_palette</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span></span>
-<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span></span>
+<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
 <p><strong>Figure 11</strong></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">colorfunc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html" class="external-link">tanh</a></span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">numpoints</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
-<span></span>
-<span><span class="va">ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">ratio</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">random_scales</span>, </span>
-<span>           <span class="st">"Brightness Ratio of Scales in the tc() Plane"</span>, </span>
-<span>           col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></span><span class="op">(</span><span class="fu">colorfunc</span><span class="op">(</span><span class="va">ratios</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-23-1.png" width="480"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">all_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">signvector</span><span class="op">)</span></span>
-<span><span class="va">all_signvecs_str</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvecs</span>, <span class="fl">2</span>, <span class="va">toString</span><span class="op">)</span></span>
-<span><span class="va">unique_signvecs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all_signvecs_str</span><span class="op">)</span></span>
-<span><span class="va">signvec_id</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">signvec</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">unique_signvecs</span><span class="op">==</span><span class="va">signvec</span><span class="op">)</span></span>
-<span><span class="va">all_signvec_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">all_signvecs_str</span>, <span class="va">signvec_id</span><span class="op">)</span></span>
-<span><span class="va">all_signvec_ids</span> <span class="op">&lt;-</span> <span class="va">all_signvec_ids</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">all_signvec_ids</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">random_scales</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>, <span class="va">random_scales</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></span><span class="op">(</span><span class="va">all_signvec_ids</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">20</span>, </span>
-<span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
-<span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" width="480"></p>
+<p><br></p>
+<p>This is our clearest picture yet of the space’s inversional symmetry.
+We can see a few spots in the [tc()] plane where the color become a deep
+brown, representing high [ratio()] values. As I argue in “Modal Color
+Theory,” low “brightness ratio” values seem to be a desirable property,
+particularly when the value drops below 1 so that a scale’s [delta()]
+value is smaller than [eps()]. There are indeed some parts of the plane
+where [ratio()] dips below 1. While the legend shows that this
+corresponds to dark greek colors, the color scheme doesn’t make the
+distinction between <code>&gt; 1</code> and <code>&lt; 1</code> really
+easy to spot. We could play around with other color schemes, but we
+could instead take advantage of another function that works nicely in
+tandem with [image()]: [contour()] can plot contour lines that show us
+where specific values in the plot occur:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">numpoints</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
-<span><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">numpoints</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">numpoints</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="va">inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">xs</span>, <span class="va">ys</span><span class="op">)</span></span>
-<span><span class="va">inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="fl">2</span>, <span class="va">sort</span><span class="op">)</span></span>
-<span><span class="va">sets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="fl">2</span>, <span class="va">scale_from_genus</span><span class="op">)</span></span>
-<span><span class="va">evs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">sets</span>, <span class="fl">2</span>, <span class="va">evenness</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sets</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>, <span class="va">sets</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/hsv.html" class="external-link">hsv</a></span><span class="op">(</span>h<span class="op">=</span><span class="fu">colorfunc</span><span class="op">(</span><span class="va">evs</span><span class="op">)</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">20</span>, </span>
-<span>     xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, </span>
-<span>     ylab<span class="op">=</span><span class="st">"Height of scale degree 3"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"gray35"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-25-1.png" width="480"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the brightness ratio values</span></span>
+<span><span class="va">measure_ratio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">ratio_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">measure_ratio</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fig11_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">ratio_values</span>, col<span class="op">=</span><span class="va">fig11_palette</span>,</span>
+<span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">'Contour Plot of "Brightness Ratio" in the tc() Plane'</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add the contour plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">ratio_values</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make the legend</span></span>
+<span><span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">fig11_palette</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-25-1.png" width="672"></p>
+<p><strong>Figure 12</strong></p>
+<p><br></p>
+<p>From this, we certainly have a much clearer picture of which scales
+have a [ratio()] value below 1. But, as before, there’s a lot of detail
+at the center of the plot which is hard to make out in Figure 12, so
+let’s zoom in to the central square like we did in Figure 7.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid_subdivisions</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1.001</span>, <span class="fl">1.999</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
+<span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3.98</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ratio_values2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">v</span>, <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html" class="external-link">Vectorize</a></span><span class="op">(</span><span class="va">measure_ratio</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fig11_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">v</span>, z<span class="op">=</span><span class="va">ratio_values2</span>, col<span class="op">=</span><span class="va">fig11_palette</span>,</span>
+<span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">v</span>, z<span class="op">=</span><span class="va">ratio_values2</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"\"Brightness Ratio\" in the tc() Plane's Most Interesting Zone"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make the legend</span></span>
+<span><span class="va">color_legend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">fig11_palette</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">ratio_values2</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values2</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-26-1.png" width="672"></p>
+<p><strong>Figure 13</strong></p>
+<p><br></p>
+<p>We can see a lot more detail here! Some of the shapes in this picture
+look pretty interesting, and so far I don’t know the whole story behind
+them. One thing that is good to note is that our color scale has shifted
+slightly: the highest [ratio()] shown in Figure 13 is about 4.73,
+slightly more than Figure 13’s maximum value of 3.89. That’s because
+we’ve zoomed further in toward the highly concentrated brown patches,
+like the one centered at (1.5, 3.5). The brown patches’ centers are all
+points that represent scales with one degree of freedom. For instance,
+the point (1.5, 3.5) is an intersection of 4 distinct lines as you can
+check by going back to Figure 9. These 1-D scales actually tend to have
+very <em>low</em> [ratio()] values. For instance:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<p>gives the result of 0 because that scale is yet another one in the
+[tc()] plane with the property of well-formedness. Scales that get
+<em>close</em> to well-formed scales (or other scales of high
+regularity) tend to experience steep increases in their [ratio()] value.
+This means that visualizations of [ratio()] like Figure 13 can often be
+used to spot high-regularity scales by the patches of high “brightness
+ratio” that tend to surround them. (The very regular scales like
+<code>scale_from_genus(c(1.5, 3.5))</code> don’t themselves show up on
+Figure 13 because, like Figure 4, Figure 13 only plots scales with three
+degrees of freedom. Even if the more regular scales were plotted
+directly on the figure, since they represent only single points they
+would be largely drowned out by the more numerous 3-D scales.)</p>
+<hr>
+<pre><code><span><span class="co">#&gt; [1] "Last updated on 28 May 2025"</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

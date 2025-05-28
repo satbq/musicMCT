@@ -76,7 +76,9 @@ matrices as inputs to functions with an <code>ineqmat</code> parameter.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_white_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_white_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">make_pastel_ineqmat</span><span class="op">(</span><span class="va">card</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -97,9 +99,10 @@ matrices as inputs to functions with an <code>ineqmat</code> parameter.</p>
 <code><a href="makeineqmat.html">makeineqmat()</a></code> and the quasi-white <code>ineqmat</code> from <code>make_white_ineqmat()</code>. Generally
 these are distinct, but they do have some shared hyperplanes in even cardinalities
 related to formal tritones (intervals that divide the scale exactly in half).
-Therefore it's normally a good idea to use something along the lines of:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>my_ineqmat <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">rbind</span>(<span class="fu">makeineqmat</span>(card), <span class="fu">make_white_ineqmat</span>(card)), <span class="at">MARGIN=</span><span class="dv">1</span>)</span></code></pre><p></p></div>
-<p>to get rid of the duplicated hyerplanes.</p>
+Therefore, the function <code>make_pastel_ineqmat()</code> exists to give the result of combining
+them with duplicates removed. (The moniker "pastel" is
+meant to suggest combining the <em>colors</em> of MCT arrangements with a <em>white</em> pigment
+from quasi-white arrangements.)</p>
     </div>
 
     <div class="section level2">
