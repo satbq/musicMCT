@@ -65,9 +65,9 @@ sim(melodic_minor)
 Note the top line's syntax, which defines the melodic minor scale. We'll be using it a lot!
 The arrow `<-` assigns the value on the right side to the variable name on the left side. 
 The `c( ... )` on the right side of this statement is the standard way to tell R to 
-treat a bunch of things as a single collection. (See [c()]. musicMCT also has a couple
-functions that are meant to mimic [c()] while letting you enter intervals as just-intonation
-frequency ratios instead of pitch-space distances: see [j()] and [z()].)
+treat a bunch of things as a single collection. (See `c()`. musicMCT also has a couple
+functions that are meant to mimic `c()` while letting you enter intervals as just-intonation
+frequency ratios instead of pitch-space distances: see `j()` and `z()`.)
 
 Pitch-classes are represented by numbers: C=0, C-sharp = 1, and so on. For familiar sets in 12edo
 (12 **e**qual **d**ivisions of the **o**ctave), these are all integers. Later
@@ -589,6 +589,4 @@ thousand words developing.
 ---
 
 
-```{r, echo=FALSE, background="#000000"}
-print(paste0("Last updated on ", format(Sys.Date(), "%d %B %Y"), collapse=" "))
-```
+**Last updated:** 28 May 2025
