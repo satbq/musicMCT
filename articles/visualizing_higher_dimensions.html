@@ -113,6 +113,7 @@ them). I’d like to think that this commonality could be enough to allow
 MCT’s mathematical model to enrich our understanding of these theories,
 but for this vignette our focus is only the technical problem of
 simplifying high-dimensional spaces.</p>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="seven-notes-tetrachords-and-two-dimensions">Seven Notes, Tetrachords, and Two Dimensions<a class="anchor" aria-label="anchor" href="#seven-notes-tetrachords-and-two-dimensions"></a>
@@ -139,9 +140,9 @@ less than 5, and the second pitch must be lower than the third
 pitch.)</li>
 </ul>
 <p>Transpositional combination of this sort is easy to perform in
-musicMCT with the function [tc()]. Let’s see how the normal 12-equal
-major scale can be derived as the transpositional combination of an (0,
-2, 4, 5) tetrachord at a perfect fifth:</p>
+musicMCT with the function <code><a href="../reference/tc.html">tc()</a></code>. Let’s see how the normal
+12-equal major scale can be derived as the transpositional combination
+of an (0, 2, 4, 5) tetrachord at a perfect fifth:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tc.html">tc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  2  4  5  7  9 11</span></span></code></pre></div>
@@ -168,19 +169,20 @@ scale:</p>
 <p>Since the space of such scales is only two dimensional, it will be
 easy to visualize on a normal x-y plot. The space is a planar slice
 through the complete 6-D heptachord space. For concision, I’ll call it
-the “[tc()] plane” since we can build any scale in it with [tc()].</p>
-<p>To understand the [tc()] plane’s relationship to the whole heptachord
-space, recall that every “hue” in MCT is a ray that emanates outward
-from the perfectly even scale at the center of the space (in this case,
-seven-tone equal temperament). The perfectly even heptachord cannot be
-constructed by <code>scale_from_genus()</code>, so it does not lie on
-the [tc()] plane. Therefore, each point in our visualization will be an
-intersection between some hue and our [tc()] plane. You might think of
-our visualization as a window pane that we’re looking through: each spot
-on the pane actually corresponds to a line of sight in our field of
-view. Figure 1 sketches this schematically, but remember that the actual
-[tc()] plane is embedded in a 6-D space rather than the normal 3-D
-world:</p>
+the “<code><a href="../reference/tc.html">tc()</a></code> plane” since we can build any scale in it with
+<code><a href="../reference/tc.html">tc()</a></code>.</p>
+<p>To understand the <code><a href="../reference/tc.html">tc()</a></code> plane’s relationship to the whole
+heptachord space, recall that every “hue” in MCT is a ray that emanates
+outward from the perfectly even scale at the center of the space (in
+this case, seven-tone equal temperament). The perfectly even heptachord
+cannot be constructed by <code>scale_from_genus()</code>, so it does not
+lie on the <code><a href="../reference/tc.html">tc()</a></code> plane. Therefore, each point in our
+visualization will be an intersection between some hue and our
+<code><a href="../reference/tc.html">tc()</a></code> plane. You might think of our visualization as a
+window pane that we’re looking through: each spot on the pane actually
+corresponds to a line of sight in our field of view. Figure 1 sketches
+this schematically, but remember that the actual <code><a href="../reference/tc.html">tc()</a></code> plane
+is embedded in a 6-D space rather than the normal 3-D world:</p>
 <p><img src="img/vhd_plane_embedding.png" width="75%"></p>
 <p><strong>Figure 1: Schematic representation of the tc() plane in
 heptachord space</strong></p>
@@ -194,35 +196,37 @@ represented as the pattern of steps LLSLLLS where L and S represent
 large and small steps. As long as L &gt; S and the pattern of 5 large
 and 2 small steps adds up to a full octave, any choice of specific
 values for L and S will result in a scale that lies along this hue. The
-point where hue #1 intersects the [tc()] plane will be specifically the
-scale where L=2 and S=1, which is to say exactly the familiar major
-scale from 12-tone equal temperament. (We know that the intersection
-between the hue and the [tc()] plane must be this specific scale,
-because our [tc()] construction guarantees that the interval of
-disjunction between the two tetrachords is exactly 2 semitones, which
-forces our hand with regard to all the other L and S step sizes.)</p>
+point where hue #1 intersects the <code><a href="../reference/tc.html">tc()</a></code> plane will be
+specifically the scale where L=2 and S=1, which is to say exactly the
+familiar major scale from 12-tone equal temperament. (We know that the
+intersection between the hue and the <code><a href="../reference/tc.html">tc()</a></code> plane must be
+this specific scale, because our <code><a href="../reference/tc.html">tc()</a></code> construction
+guarantees that the interval of disjunction between the two tetrachords
+is exactly 2 semitones, which forces our hand with regard to all the
+other L and S step sizes.)</p>
 <p>Similarly, we might imagine that “hue 3” represents well-formed
 heptachords with the step pattern SLLLSLL, which is to say all tunings
 of the phrygian octave species. The visible point on both hue 3 and the
-[tc()] plane is then 12tet phrygian: (0, 1, 3, 5, 7, 8, 10).</p>
+<code><a href="../reference/tc.html">tc()</a></code> plane is then 12tet phrygian: (0, 1, 3, 5, 7, 8,
+10).</p>
 <p>Hue 2 has been drawn to lie in between hues 1 and 3: all three hues
-lie on a single plane in heptachord space which cuts across the [tc()]
-plane. The plane containing hues 1, 2, and 3 intersects the [tc()] plane
-in a line, so the three “visible points” in Figure 1 all lie on a line
-in the [tc()] plane. The visible point of hue 2 must be some
-intermediate scale between ionian and phrygian. If it were exactly half
-way between those two diatonic modes, its values would simply an average
-of ionian and phrygian: (0, 1.5, 3.5, 5, 7, 8.5, 10.5). This would
-actually be another well-formed scale with the step pattern SLSLSLS.
-But, given the way I’ve drawn the figure, it looks to me like hue 2 is
-slightly closer to hue 3 than hue 1, so we might guess that it
-represents the scale (0, 1.4, 3.4, 5, 7, 8.4, 10.4). This has the step
-pattern SLMLSLM (where M represents a <strong>m</strong>edium step size
-somewhere between the <strong>s</strong>mall and <strong>l</strong>arge
-steps). This is not coincidentally a pattern that fits David Clampitt’s
-definition of a “pairwise well-formed” scale. Such scales are always
-two-dimensional subspaces that run from one well-formed hue to
-another.</p>
+lie on a single plane in heptachord space which cuts across the
+<code><a href="../reference/tc.html">tc()</a></code> plane. The plane containing hues 1, 2, and 3
+intersects the <code><a href="../reference/tc.html">tc()</a></code> plane in a line, so the three “visible
+points” in Figure 1 all lie on a line in the <code><a href="../reference/tc.html">tc()</a></code> plane.
+The visible point of hue 2 must be some intermediate scale between
+ionian and phrygian. If it were exactly half way between those two
+diatonic modes, its values would simply an average of ionian and
+phrygian: (0, 1.5, 3.5, 5, 7, 8.5, 10.5). This would actually be another
+well-formed scale with the step pattern SLSLSLS. But, given the way I’ve
+drawn the figure, it looks to me like hue 2 is slightly closer to hue 3
+than hue 1, so we might guess that it represents the scale (0, 1.4, 3.4,
+5, 7, 8.4, 10.4). This has the step pattern SLMLSLM (where M represents
+a <strong>m</strong>edium step size somewhere between the
+<strong>s</strong>mall and <strong>l</strong>arge steps). This is not
+coincidentally a pattern that fits David Clampitt’s definition of a
+“pairwise well-formed” scale. Such scales are always two-dimensional
+subspaces that run from one well-formed hue to another.</p>
 <p>If you aren’t familiar with well-formed and pairwise well-formed
 scales, don’t worry too much about the preceding paragraph. The
 important point is that a scalar subspace which is inherently
@@ -230,19 +234,19 @@ two-dimensional (like the plane containing all of hues 1, 2, and 3) will
 show up in our visualization as a single line (i.e. the line connecting
 the three visible points in Figure 1). More generally, any structure
 that looks like it has dimension <span class="math inline">\(k\)</span>
-in the [tc()] plane will actually have dimension <span class="math inline">\(k+1\)</span> in the overall space. Our
+in the <code><a href="../reference/tc.html">tc()</a></code> plane will actually have dimension <span class="math inline">\(k+1\)</span> in the overall space. Our
 visualization is a 2-D plane but it smuggles in a third dimension, which
 is the one that travels in and out along the hues in Figure 1. (This
 dimention is what MCT calls “saturation”; it can be manipulated with
-[saturate()].) You might compare this to looking at a street map of a
-city, which is inherently 2-D but where you can easily imagine an
-invisible height dimension.</p>
+<code><a href="../reference/saturate.html">saturate()</a></code>.) You might compare this to looking at a street
+map of a city, which is inherently 2-D but where you can easily imagine
+an invisible height dimension.</p>
 </div>
 <div class="section level3">
 <h3 id="familiar-scales-as-landmarks">Familiar Scales as Landmarks<a class="anchor" aria-label="anchor" href="#familiar-scales-as-landmarks"></a>
 </h3>
-<p>Now that we know what the [tc()] plane is and have a sense of how it
-relates to the overall heptachord space, let’s start actually
+<p>Now that we know what the <code><a href="../reference/tc.html">tc()</a></code> plane is and have a sense
+of how it relates to the overall heptachord space, let’s start actually
 visualizing it. We’ll begin by plotting a few specific scales to use as
 reference points. Among scales that have familiar names in Western music
 theory, there are several that have the desired tetrachordal
@@ -282,20 +286,20 @@ just like they were in Figure 1. This is just a coincidence. In our
 plot, dorian is #2 and doesn’t lie on a straight line between 1 and 3,
 so it doesn’t correspond to “hue #2” from Figure 1. We’ll come back to
 that “hue #2” shortly.)</p>
-<p>The [tc()] plane has an inversional symmetry that’s just barely
-visible in this initial plot, but which becomes more conspicuous as we
-add scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and scale 4
-(double harmonic, {0, 1, 4, 5, 7, 8, 11}) are symmetrical under <span class="math inline">\(T_0 I\)</span>. All scales in the [tc()] plane
-that lie on the northwest-southeast line from #2 to #4 have this same
-symmetry. Moreover, pairs of scales that are reflections across that
-line are transformed into each other by <span class="math inline">\(T_0
-I\)</span>. That’s the transformation that takes C major (at point 1) to
-C phrygian (at point 3). Similarly, we could imagine reflecting the
-scale built from the enharmonic genus at point 5 across the line of
-inversional symmetry, which should give a new scale in the top right
-quadrant of the graph, with quarter-tone steps clustered toward the top
-of its tetrachords. Let’s verify that this works and plot the new scale
-as point #6:</p>
+<p>The <code><a href="../reference/tc.html">tc()</a></code> plane has an inversional symmetry that’s just
+barely visible in this initial plot, but which becomes more conspicuous
+as we add scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and
+scale 4 (double harmonic, {0, 1, 4, 5, 7, 8, 11}) are symmetrical under
+<span class="math inline">\(T_0 I\)</span>. All scales in the
+<code><a href="../reference/tc.html">tc()</a></code> plane that lie on the northwest-southeast line from #2
+to #4 have this same symmetry. Moreover, pairs of scales that are
+reflections across that line are transformed into each other by <span class="math inline">\(T_0 I\)</span>. That’s the transformation that
+takes C major (at point 1) to C phrygian (at point 3). Similarly, we
+could imagine reflecting the scale built from the enharmonic genus at
+point 5 across the line of inversional symmetry, which should give a new
+scale in the top right quadrant of the graph, with quarter-tone steps
+clustered toward the top of its tetrachords. Let’s verify that this
+works and plot the new scale as point #6:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Invert the original enharmonic scale:</span></span>
 <span><span class="va">inverted_enharmonic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tn.html">tni</a></span><span class="op">(</span><span class="va">enharmonic</span>, <span class="fl">0</span><span class="op">)</span></span>
@@ -328,15 +332,15 @@ reminders of these six scales to any new plots we create:</p>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="visualize-all-the-colors">Visualize all the colors!<a class="anchor" aria-label="anchor" href="#visualize-all-the-colors"></a>
+<h3 id="visualize-all-the-colors">Visualize all the colors<a class="anchor" aria-label="anchor" href="#visualize-all-the-colors"></a>
 </h3>
 <p>Let’s now take a look at the landscape of the whole plane, not just
 individual points on it. The simplest question we might ask is “how many
-distinct scalar colors can be visualized on the [tc()] plane?” We can
-answer that by randomly sampling many points on the plane, calculating
-their sign vectors, and counting how many distinct sign vectors result.
-First we’ll do that only as a numeric computation, sampling 4000 points
-in the plane:</p>
+distinct scalar colors can be visualized on the <code><a href="../reference/tc.html">tc()</a></code>
+plane?” We can answer that by randomly sampling many points on the
+plane, calculating their sign vectors, and counting how many distinct
+sign vectors result. First we’ll do that only as a numeric computation,
+sampling 4000 points in the plane:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">num_points</span> <span class="op">&lt;-</span> <span class="fl">4000</span></span>
 <span><span class="va">parhypatai</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">num_points</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
@@ -395,11 +399,11 @@ yellow-green triangles:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">double_harmonic</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
-<p>Scalar colors with only one degree of freedom show up on the [tc()]
-plane as points where multiple lines intersect. All three diatonic modes
-that we can visualize (landmarks #1, #2, and #3) are at such
-intersections, and (like all well-formed scales) that have only one
-degree of freedom:</p>
+<p>Scalar colors with only one degree of freedom show up on the
+<code><a href="../reference/tc.html">tc()</a></code> plane as points where multiple lines intersect. All
+three diatonic modes that we can visualize (landmarks #1, #2, and #3)
+are at such intersections, and (like all well-formed scales) that have
+only one degree of freedom:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">ionian</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -413,13 +417,13 @@ through defining them with a specific function, along the lines of
 scale_from_genus(), but musicMCT also allows us to project a given scale
 onto any “flat” (i.e. intersection of hyperplanes) in the arrangement.
 If we know the specific hyperplanes that we want to project onto, we can
-use [project_onto()]; but if we have a specific scale that already lies
-on the desired flat, we can use [match_flat()]. To see this latter
-function in action, let’s project all 4000 sampled scales onto the same
-flat as the double harmonic scale: we should end up with 4000 points all
-lying on the same northwest-southeast diagonal line as double harmonic
-itself. I’ll plot the new projected scales a black points, in addition
-to the colorful points from Figure 4.</p>
+use <code><a href="../reference/project_onto.html">project_onto()</a></code>; but if we have a specific scale that
+already lies on the desired flat, we can use <code><a href="../reference/project_onto.html">match_flat()</a></code>.
+To see this latter function in action, let’s project all 4000 sampled
+scales onto the same flat as the double harmonic scale: we should end up
+with 4000 points all lying on the same northwest-southeast diagonal line
+as double harmonic itself. I’ll plot the new projected scales a black
+points, in addition to the colorful points from Figure 4.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">match_flat</span>, target_scale<span class="op">=</span><span class="va">double_harmonic</span><span class="op">)</span></span>
 <span><span class="va">colors_for_projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="va">num_points</span><span class="op">)</span></span>
@@ -427,7 +431,7 @@ to the colorful points from Figure 4.</p>
 <span><span class="va">colors_for_fig5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">display_colors</span>, <span class="va">colors_for_projected_scales</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">scales_for_fig5</span>,</span>
-<span>           <span class="st">"Double Harmonic Scale's Flat as a Line of Black Points"</span>,</span>
+<span>           <span class="st">"Double Harmonic's Flat as a Line of Black Points"</span>,</span>
 <span>           col<span class="op">=</span><span class="va">colors_for_fig5</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -458,10 +462,10 @@ on a given flat.</p>
 </h3>
 <p>Properties that can only be true or false aren’t terribly interesting
 to visualize, so let’s also play around with a property that can take
-continuous values. For instance, might wonder the scales’ [evenness()]
-changes as we vary along the line. We’ll calculate the evenness of each
-scale that lies on the flat and plot the points so that more even scales
-are represented by larger points.</p>
+continuous values. For instance, might wonder the scales’
+<code><a href="../reference/evenness.html">evenness()</a></code> changes as we vary along the line. We’ll
+calculate the evenness of each scale that lies on the flat and plot the
+points so that more even scales are represented by larger points.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">evenness_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">projected_scales</span>, <span class="fl">2</span>, <span class="va">evenness</span><span class="op">)</span></span>
 <span><span class="va">sizes_for_fig6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">num_points</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">-</span><span class="va">evenness_values</span><span class="op">)</span></span>
@@ -478,16 +482,17 @@ are represented by larger points.</p>
 <p>You can see that the largest points (and thus the most even scales)
 lie in the zone between landmarks 2 and 4. The scales get very uneven as
 we move toward the top left corner of the plot. This makes sense,
-because the point (0, 5) at the top left of the [tc()] plane represents
-a scale whose <span class="math inline">\(\hat{2}\)</span> is 0 (the
-same as <span class="math inline">\(\hat{1}\)</span>) and whose <span class="math inline">\(\hat{3}\)</span> is 5 (the same as <span class="math inline">\(\hat{4}\)</span>): such a scale is very uneven
+because the point (0, 5) at the top left of the <code><a href="../reference/tc.html">tc()</a></code> plane
+represents a scale whose <span class="math inline">\(\hat{2}\)</span> is
+0 (the same as <span class="math inline">\(\hat{1}\)</span>) and whose
+<span class="math inline">\(\hat{3}\)</span> is 5 (the same as <span class="math inline">\(\hat{4}\)</span>): such a scale is very uneven
 because its “stepwise motion” varies widely between not moving at all
 and making large leaps.</p>
-<p>Now, most of the detail in the [tc()] plane lies in the square
-bounded by landmarks 1, 2, 3, and 4. It’s hard to tell exactly how many
-colors lie in that region, and similarly hard to tell exactly where the
-thickest point on the diagonal black line is. We can zoom in to get a
-better view of that part of the plane:</p>
+<p>Now, most of the detail in the <code><a href="../reference/tc.html">tc()</a></code> plane lies in the
+square bounded by landmarks 1, 2, 3, and 4. It’s hard to tell exactly
+how many colors lie in that region, and similarly hard to tell exactly
+where the thickest point on the diagonal black line is. We can zoom in
+to get a better view of that part of the plane:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">zoomed_tetra_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scales</span>, <span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
@@ -541,12 +546,16 @@ somewhat more surprising:</p>
 <span><span class="co">#&gt; [1] 0.2519763</span></span>
 <span><span class="fu"><a href="../reference/evenness.html">evenness</a></span><span class="op">(</span><span class="va">actual_optimum</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2474358</span></span></code></pre></div>
-<p>Since [evenness()] returns lower values for more even scales, the
-<code>actual_optimum</code> scale with scale degree 2 at <span class="math inline">\(\frac{23}{14}\)</span> semitones (about 1.6428) is
-in fact the most even scale on the black line in Figure 7. (The numbers
-<span class="math inline">\(\frac{23}{14}\)</span> and <span class="math inline">\(\frac{47}{14}\)</span> may feel a bit less like
-they come out of nowhere when we notice that their difference is <span class="math inline">\(\frac{12}{7}\)</span>, meaning that the scale has
-a step from <span class="math inline">\(\hat{2}\)</span> to <span class="math inline">\(\hat{3}\)</span> which exactly matches the
+<p>Since <code><a href="../reference/evenness.html">evenness()</a></code> returns lower values for more even
+scales, the <code>actual_optimum</code> scale with scale degree 2 at
+<span class="math inline">\(\frac{23}{14}\)</span> semitones (about
+1.6428) is in fact the most even scale on the black line in Figure 7.
+(The numbers <span class="math inline">\(\frac{23}{14}\)</span> and
+<span class="math inline">\(\frac{47}{14}\)</span> may feel a bit less
+like they come out of nowhere when we notice that their difference is
+<span class="math inline">\(\frac{12}{7}\)</span>, meaning that the
+scale has a step from <span class="math inline">\(\hat{2}\)</span> to
+<span class="math inline">\(\hat{3}\)</span> which exactly matches the
 equiheptatonic scale’s step size.) Let’s plot this scale as landmark
 7:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -584,7 +593,7 @@ desirable properties can be optimized by scales that are quite similar
 but ultimately distinct from one another. Hopefully this vignette shows
 how pairing direct computation with visualization strategies can help us
 explore and understand such relationships.</p>
-<p><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div class="section level2">
@@ -596,14 +605,14 @@ prototyping and situations where you might want to run many computations
 on concrete data points. But an obvious downside of the method, seen in
 Figures 4-7, is that random sampling produces a blotchy image with gaps
 between the sampled points. If your goal is primarily to create a good
-image, R has better tools, particularly the function [image()]. This
-function requires a bit more care in the way you enter data as the price
-of entry for much better pictures.</p>
+image, R has better tools, particularly the function
+<code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code>. This function requires a bit more care in the way
+you enter data as the price of entry for much better pictures.</p>
 <div class="section level3">
 <h3 id="familiar-ground">Familiar Ground<a class="anchor" aria-label="anchor" href="#familiar-ground"></a>
 </h3>
-<p>To see how it works, let’s first use [image()] to reconstruct Figure
-4:</p>
+<p>To see how it works, let’s first use <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code> to
+reconstruct Figure 4:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a grid that covers the tc() plane evenly.</span></span>
 <span><span class="co"># x and y both range from 0 to 5 but with slight offsets so that we only see 3-D scales:</span></span>
@@ -627,21 +636,22 @@ of entry for much better pictures.</p>
 <p><br></p>
 <p>Each region in this figure is now a continuous patch of color. The
 boundaries between colors ought to be straight lines, though in Figure 9
-the diagonal lines are pixelated. That’s because [image()] creates the
-plot by dividing the plane into a grid of squares to be colored. We
-could get a smoother-looking plot by dividing the image more finely: you
-could try increasing <code>grid_subdivisions</code> in the above code
-block to a number greater than 100, though the larger it gets, the more
-time is required to create the image.</p>
+the diagonal lines are pixelated. That’s because <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code>
+creates the plot by dividing the plane into a grid of squares to be
+colored. We could get a smoother-looking plot by dividing the image more
+finely: you could try increasing <code>grid_subdivisions</code> in the
+above code block to a number greater than 100, though the larger it
+gets, the more time is required to create the image.</p>
 </div>
 <div class="section level3">
 <h3 id="other-properties">Other Properties<a class="anchor" aria-label="anchor" href="#other-properties"></a>
 </h3>
-<p>The [image()] function is especially useful for visualizing features
-that vary continuously. One such value is scalar [evenness()], as we
-explored in Figures 6-8. Let’s use [image()] to plot the evenness of all
-points on the [tc()] plane. I’ll also add a white “x” to show the
-location of landmark scale #7 from Figure 8.</p>
+<p>The <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code> function is especially useful for
+visualizing features that vary continuously. One such value is scalar
+<code><a href="../reference/evenness.html">evenness()</a></code>, as we explored in Figures 6-8. Let’s use
+<code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code> to plot the evenness of all points on the
+<code><a href="../reference/tc.html">tc()</a></code> plane. I’ll also add a white “x” to show the location
+of landmark scale #7 from Figure 8.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Position plot and legend</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -671,14 +681,15 @@ location of landmark scale #7 from Figure 8.</p>
 represents landmark #7 (the <code>actual_optimum</code> from before).
 This tells us that the <code>actual_optimum</code> is not only the most
 even scale on the flat of <code>double_harmonic</code> but also the most
-even scale on the entire [tc()] plane. Otherwise, Figure 10 doesn’t tell
-us much that seems interesting: evenness decreases as you move away from
-the <code>actual_optimum</code> in any direction. (It decreases fastest
-if you move along the line of inversional symmetry and slowest if you
-move perpendicular to that line.)</p>
+even scale on the entire <code><a href="../reference/tc.html">tc()</a></code> plane. Otherwise, Figure 10
+doesn’t tell us much that seems interesting: evenness decreases as you
+move away from the <code>actual_optimum</code> in any direction. (It
+decreases fastest if you move along the line of inversional symmetry and
+slowest if you move perpendicular to that line.)</p>
 <p>A much more interesting picture emerges if we plot the so-called
-“brightness ratio” value for the scales on the [tc()] plane (values that
-can be calculated with musicMCT’s [ratio()] function).</p>
+“brightness ratio” value for the scales on the <code><a href="../reference/tc.html">tc()</a></code> plane
+(values that can be calculated with musicMCT’s <code><a href="../reference/eps.html">ratio()</a></code>
+function).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -703,18 +714,19 @@ can be calculated with musicMCT’s [ratio()] function).</p>
 <p><strong>Figure 11</strong></p>
 <p><br></p>
 <p>This is our clearest picture yet of the space’s inversional symmetry.
-We can see a few spots in the [tc()] plane where the color become a deep
-brown, representing high [ratio()] values. As I argue in “Modal Color
-Theory,” low “brightness ratio” values seem to be a desirable property,
-particularly when the value drops below 1 so that a scale’s [delta()]
-value is smaller than [eps()]. There are indeed some parts of the plane
-where [ratio()] dips below 1. While the legend shows that this
-corresponds to dark greek colors, the color scheme doesn’t make the
-distinction between <code>&gt; 1</code> and <code>&lt; 1</code> really
-easy to spot. We could play around with other color schemes, but we
-could instead take advantage of another function that works nicely in
-tandem with [image()]: [contour()] can plot contour lines that show us
-where specific values in the plot occur:</p>
+We can see a few spots in the <code><a href="../reference/tc.html">tc()</a></code> plane where the color
+become a deep brown, representing high <code><a href="../reference/eps.html">ratio()</a></code> values. As I
+argue in “Modal Color Theory,” low “brightness ratio” values seem to be
+a desirable property, particularly when the value drops below 1 so that
+a scale’s <code><a href="../reference/eps.html">delta()</a></code> value is smaller than <code><a href="../reference/eps.html">eps()</a></code>.
+There are indeed some parts of the plane where <code><a href="../reference/eps.html">ratio()</a></code> dips
+below 1. While the legend shows that this corresponds to dark greek
+colors, the color scheme doesn’t make the distinction between
+<code>&gt; 1</code> and <code>&lt; 1</code> really easy to spot. We
+could play around with other color schemes, but we could instead take
+advantage of another function that works nicely in tandem with
+<code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code>: <code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour()</a></code> can plot contour lines that
+show us where specific values in the plot occur:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -742,9 +754,9 @@ where specific values in the plot occur:</p>
 <p><strong>Figure 12</strong></p>
 <p><br></p>
 <p>From this, we certainly have a much clearer picture of which scales
-have a [ratio()] value below 1. But, as before, there’s a lot of detail
-at the center of the plot which is hard to make out in Figure 12, so
-let’s zoom in to the central square like we did in Figure 7.</p>
+have a <code><a href="../reference/eps.html">ratio()</a></code> value below 1. But, as before, there’s a lot
+of detail at the center of the plot which is hard to make out in Figure
+12, so let’s zoom in to the central square like we did in Figure 7.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -774,31 +786,80 @@ let’s zoom in to the central square like we did in Figure 7.</p>
 <p>We can see a lot more detail here! Some of the shapes in this picture
 look pretty interesting, and so far I don’t know the whole story behind
 them. One thing that is good to note is that our color scale has shifted
-slightly: the highest [ratio()] shown in Figure 13 is about 4.73,
-slightly more than Figure 13’s maximum value of 3.89. That’s because
-we’ve zoomed further in toward the highly concentrated brown patches,
-like the one centered at (1.5, 3.5). The brown patches’ centers are all
-points that represent scales with one degree of freedom. For instance,
-the point (1.5, 3.5) is an intersection of 4 distinct lines as you can
-check by going back to Figure 9. These 1-D scales actually tend to have
-very <em>low</em> [ratio()] values. For instance:</p>
+slightly: the highest <code><a href="../reference/eps.html">ratio()</a></code> shown in Figure 13 is about
+4.73, slightly more than Figure 13’s maximum value of 3.89. That’s
+because we’ve zoomed further in toward the highly concentrated brown
+patches, like the one centered at (1.5, 3.5). The brown patches’ centers
+are all points that represent scales with one degree of freedom. For
+instance, the point (1.5, 3.5) is an intersection of 4 distinct lines as
+you can check by going back to Figure 9. These 1-D scales actually tend
+to have very <em>low</em> <code><a href="../reference/eps.html">ratio()</a></code> values. For instance:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
 <p>gives the result of 0 because that scale is yet another one in the
-[tc()] plane with the property of well-formedness. Scales that get
-<em>close</em> to well-formed scales (or other scales of high
-regularity) tend to experience steep increases in their [ratio()] value.
-This means that visualizations of [ratio()] like Figure 13 can often be
-used to spot high-regularity scales by the patches of high “brightness
-ratio” that tend to surround them. (The very regular scales like
+<code><a href="../reference/tc.html">tc()</a></code> plane with the property of well-formedness. Scales
+that get <em>close</em> to well-formed scales (or other scales of high
+regularity) tend to experience steep increases in their
+<code><a href="../reference/eps.html">ratio()</a></code> value. This means that visualizations of
+<code><a href="../reference/eps.html">ratio()</a></code> like Figure 13 can often be used to spot
+high-regularity scales by the patches of high “brightness ratio” that
+tend to surround them. The very regular scales like
 <code>scale_from_genus(c(1.5, 3.5))</code> don’t themselves show up on
 Figure 13 because, like Figure 4, Figure 13 only plots scales with three
 degrees of freedom. Even if the more regular scales were plotted
-directly on the figure, since they represent only single points they
-would be largely drowned out by the more numerous 3-D scales.)</p>
+directly on the figure, they would be largely drowned out by the more
+numerous 3-D scales since they represent only individual points.</p>
+</div>
+<div class="section level3">
+<h3 id="a-caveat">A Caveat<a class="anchor" aria-label="anchor" href="#a-caveat"></a>
+</h3>
+<p>Visualizing a space can have powerful effects, making the space feel
+more real and more intuitively graspable. This is certainly a good
+reason to do it, and the intuitions that you can build about MCT spaces
+from exercises like this vignette are legitimately useful. But while
+doing so we also need to remind ourselves of the limitations of the
+method chosen. In the case of the <code><a href="../reference/tc.html">tc()</a></code> plane, a significant
+danger lies in how drastically it oversimplifies the heptachord
+arrangement: the <code><a href="../reference/tc.html">tc()</a></code> plane itself is a tiny sliver of the
+space. We shouldn’t let its simplicity mislead us. For instance, looking
+back at Figure 9, we see that the well-formed major scale (landmark #1)
+is surrounded by 6 distinct colorful regions (i.e. six 3-D structures)
+and 6 line segments (i.e. six 2-D structures). Those six neighboring
+colors are a minuscule fraction of all the colors that neighbor the
+major scale’s line. It has 22,506 neighbors (plus one for the “white”
+equiheptatonic). Most of these are 4-, 5-, or 6-D and could never have
+shown up on the <code><a href="../reference/tc.html">tc()</a></code> plane. But 332 of its neighbors are
+2-D and 2852 of them are 3-D. Imagine 332 line segments that all touch
+landmark 1, not just 6 of them! That’s a good reminder of the real
+complexity of the space.</p>
+</div>
+<div class="section level3">
+<h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h3>
+<p>To wrap up briefly, the steps we’ve taken to build the above figures
+demonstrate a few options for visualizing structures in the Modal Color
+Theory spaces. In my own exploration of these spaces, I’ve found it very
+helpful to be able to cook up images that give me some visual sense of
+what’s going on in a region of interest. We’ve seen how one useful
+approach can be to define some subspace–some slice through the many
+dimensions of all possible scales–like the <code><a href="../reference/tc.html">tc()</a></code> plane, to
+reason about its relationship to the overall space, and to learn to
+recognize various structures that occur within it (like the point
+representing the meantone major scale or the line representing the
+double harmonic scale’s flat). Sometimes, just learning to read a figure
+and checking our visual intuitions against numerical values can lead to
+interesting &amp; novel observations, like in our discussion of the
+<code>naive_guess</code> and <code>actual_optimum</code> scales around
+Figures 7 and 8.</p>
+<p>Finally, I’d be remiss not to mention that throughout this vignette
+all of the images we’ve seen (except for Figure 1, which I made in an
+external graphics program) were produced by functions that come with
+default installations of R. There are many packages that supplement R’s
+basic graphics capacities, such as the package ggplot2, which might come
+in handy for projects that have more complicated plotting needs.</p>
 <hr>
-<pre><code><span><span class="co">#&gt; [1] "Last updated on 28 May 2025"</span></span></code></pre>
+<p><strong>Last updated:</strong> 28 May 2025</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
