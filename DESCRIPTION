@@ -13,7 +13,7 @@ Description: Analysis of musical scales (& modes, grooves, etc.) in the vein of
     Identifies structural properties of scales and calculates derived values
     (sign vector, color number, brightness ratio, etc.). Creates plots such as
     "brightness graphs" which visualize these properties.
-License: GPL (>= 3) + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
