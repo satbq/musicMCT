@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">musicMCT</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -264,7 +264,9 @@ structure:</p>
 <code>tetra_plot()</code> and feed our scales into it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tetra_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scales</span>, <span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
+<span>  <span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scales</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span>, </span>
 <span>       <span class="va">scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
 <span>       xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">.05</span>, <span class="fl">5.05</span><span class="op">)</span>,</span>
@@ -285,8 +287,7 @@ keep these points in mind as landmarks while we populate the space with
 more scales. (Note, by the way, that ionian is #1 and phrygian is #3
 just like they were in Figure 1. This is just a coincidence. In our
 plot, dorian is #2 and doesn’t lie on a straight line between 1 and 3,
-so it doesn’t correspond to “hue #2” from Figure 1. We’ll come back to
-that “hue #2” shortly.)</p>
+so it doesn’t correspond to “hue #2” from Figure 1.)</p>
 <p>The <code><a href="../reference/tc.html">tc()</a></code> plane has an inversional symmetry that’s just
 barely visible in this initial plot, but which becomes more conspicuous
 as we add scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and
@@ -496,7 +497,8 @@ where the thickest point on the diagonal black line is. We can zoom in
 to get a better view of that part of the plane:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">zoomed_tetra_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scales</span>, <span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
+<span>  <span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">'aliceblue'</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">scales</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>, </span>
 <span>       <span class="va">scales</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span>, </span>
 <span>       xlab<span class="op">=</span><span class="st">"Height of scale degree 2"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">2.05</span><span class="op">)</span>,</span>
@@ -573,9 +575,9 @@ equiheptatonic scale’s step size.) Let’s plot this scale as landmark
 <p><br></p>
 <p>I was surprised by this when I wrote my first draft of this vignette,
 especially since the <code>naive_guess</code> scale is not only a
-rounder number but a more regular scale. It’s at the point where 3 lines
-intersect just down and right of landmark 7: it’s thus one-dimensional
-and, as it turns out, well-formed:</p>
+rounder number but also a more regular scale. It’s at the point where 3
+lines intersect just down and right of landmark 7: it’s thus
+one-dimensional and, as it turns out, well-formed:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/howfree.html">howfree</a></span><span class="op">(</span><span class="va">naive_guess</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -627,7 +629,7 @@ reconstruct Figure 4:</p>
 <span></span>
 <span><span class="co"># Create visuals</span></span>
 <span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aliceblue"</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
+<span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">scalar_colors</span>, col<span class="op">=</span><span class="va">color_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"26 Scalar Colors in the tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
@@ -655,6 +657,7 @@ visualizing features that vary continuously. One such value is scalar
 of landmark scale #7 from Figure 8.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Position plot and legend</span></span>
+<span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the evenness values</span></span>
@@ -675,7 +678,7 @@ of landmark scale #7 from Figure 8.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Evenness"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-23-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
 <p><strong>Figure 10</strong></p>
 <p><br></p>
 <p>The most even scales (dark green) are centered around the “x” that
@@ -692,7 +695,8 @@ slowest if you move perpendicular to that line.)</p>
 (values that can be calculated with musicMCT’s <code><a href="../reference/eps.html">ratio()</a></code>
 function).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the brightness ratio values</span></span>
 <span><span class="va">measure_ratio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -711,7 +715,7 @@ function).</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-26-1.png" width="672"></p>
 <p><strong>Figure 11</strong></p>
 <p><br></p>
 <p>This is our clearest picture yet of the space’s inversional symmetry.
@@ -729,7 +733,8 @@ advantage of another function that works nicely in tandem with
 <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image()</a></code>: <code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour()</a></code> can plot contour lines that
 show us where specific values in the plot occur:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot the brightness ratio values</span></span>
 <span><span class="va">measure_ratio</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">scale_from_genus</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/eps.html">ratio</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -751,7 +756,7 @@ show us where specific values in the plot occur:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-25-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png" width="672"></p>
 <p><strong>Figure 12</strong></p>
 <p><br></p>
 <p>From this, we certainly have a much clearer picture of which scales
@@ -759,7 +764,8 @@ have a <code><a href="../reference/eps.html">ratio()</a></code> value below 1. B
 of detail at the center of the plot which is hard to make out in Figure
 12, so let’s zoom in to the central square like we did in Figure 7.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>no.readonly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, widths<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">grid_subdivisions</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1.001</span>, <span class="fl">1.999</span>, length.out<span class="op">=</span><span class="va">grid_subdivisions</span><span class="op">)</span></span>
@@ -781,7 +787,7 @@ of detail at the center of the plot which is hard to make out in Figure
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-26-1.png" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-30-1.png" width="672"></p>
 <p><strong>Figure 13</strong></p>
 <p><br></p>
 <p>We can see a lot more detail here! Some of the shapes in this picture
@@ -828,7 +834,7 @@ back at Figure 9, we see that the well-formed major scale (landmark #1)
 is surrounded by 6 distinct colorful regions (i.e. six 3-D structures)
 and 6 line segments (i.e. six 2-D structures). Those six neighboring
 colors are a minuscule fraction of all the colors that neighbor the
-major scale’s line. It has 22,506 neighbors (plus one for the “white”
+major scale’s hue. It has 22,506 neighbors (plus one for the “white”
 equiheptatonic). Most of these are 4-, 5-, or 6-D and could never have
 shown up on the <code><a href="../reference/tc.html">tc()</a></code> plane. But 332 of its neighbors are
 2-D and 2852 of them are 3-D. Imagine 332 line segments that all touch
@@ -860,7 +866,7 @@ default installations of R. There are many packages that supplement R’s
 basic graphics capacities, such as the package ggplot2, which might come
 in handy for projects that have more complicated plotting needs.</p>
 <hr>
-<p><strong>Last updated:</strong> 28 May 2025</p>
+<p><strong>Last updated:</strong> 3 June 2025</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
