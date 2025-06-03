@@ -180,7 +180,9 @@ To see these scales on the plane, we define the function `tetra_plot()` and feed
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 tetra_plot <- function(scales, title, ...) {
-  par(bg='aliceblue')
+  oldpar <- par(bg='aliceblue')
+  on.exit(par(oldpar))
+
   plot(scales[2, ], 
        scales[3, ], 
        xlab="Height of scale degree 2", xlim=c(-.05, 5.05),
@@ -203,8 +205,7 @@ The scales are marked by numbers in the order that we defined them: the ionian s
 is "1", dorian "2", and so on. It will be useful to keep these points in mind as
 landmarks while we populate the space with more scales. (Note, by the way, that ionian is #1 and
 phrygian is #3 just like they were in Figure 1. This is just a coincidence. In our plot, dorian is #2
-and doesn't lie on a straight line between 1 and 3, so it doesn't correspond to "hue #2" from Figure 1.
-We'll come back to that "hue #2" shortly.)
+and doesn't lie on a straight line between 1 and 3, so it doesn't correspond to "hue #2" from Figure 1.)
 
 The `tc()` plane has an inversional symmetry that's just barely visible in this initial plot, but which
 becomes more conspicuous as we add scales. Both scale 2 (dorian, {0, 2, 3, 5, 7, 9, 10}) and scale
@@ -407,7 +408,8 @@ We can zoom in to get a better view of that part of the plane:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 zoomed_tetra_plot <- function(scales, title, ...) {
-  par(bg='aliceblue')
+  oldpar <- par(bg='aliceblue')
+  on.exit(par(oldpar))
   plot(scales[2,], 
        scales[3, ], 
        xlab="Height of scale degree 2", xlim=c(0.95, 2.05),
@@ -485,8 +487,8 @@ points(23/14, 47/14, pch="7", font=2)
 
 
 I was surprised by this when I wrote my first draft of this vignette, especially since the `naive_guess` scale
-is not only a rounder number but a more regular scale. It's at the point where 3 lines intersect just down and right
-of landmark 7: it's thus one-dimensional and, as it turns out, well-formed:
+is not only a rounder number but also a more regular scale. It's at the point where 3 lines intersect just down 
+and right of landmark 7: it's thus one-dimensional and, as it turns out, well-formed:
 
 ```{r}
 howfree(naive_guess)
@@ -531,11 +533,15 @@ scalar_colors <- outer(x, y, Vectorize(color_from_point))
 
 # Create visuals
 color_palette <- c("aliceblue", palette.colors(26, palette="Polychrome 36"))
-par(bg="aliceblue")
+oldpar <- par(bg="aliceblue")
 image(x, y, z=scalar_colors, col=color_palette,
       xlab="Height of Scale Degree 2", ylab="Height of Scale Degree 3")
 mtext(side=3, "26 Scalar Colors in the tc() Plane", font=2, line=1)
 show_landmarks()
+```
+
+```{r, echo=FALSE}
+par(oldpar)
 ```
 
 **Figure 9**
@@ -557,6 +563,7 @@ I'll also add a white "x" to show the location of landmark scale #7 from Figure 
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE}
 # Position plot and legend
+oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
 # Plot the evenness values
@@ -579,6 +586,10 @@ rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
 
+```{r, echo=FALSE}
+par(oldpar)
+```
+
 **Figure 10**
 
 <br>
@@ -595,6 +606,7 @@ A much more interesting picture emerges if we plot the so-called "brightness rat
 plane (values that can be calculated with musicMCT's `ratio()` function).
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE}
+oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
 # Plot the brightness ratio values
@@ -616,6 +628,10 @@ rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
 
+```{r, echo=FALSE}
+par(oldpar)
+```
+
 **Figure 11**
 
 <br>
@@ -632,6 +648,7 @@ us where specific values in the plot occur:
 
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE}
+oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
 # Plot the brightness ratio values
@@ -656,6 +673,10 @@ rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
 
+```{r, echo=FALSE}
+par(oldpar)
+```
+
 **Figure 12**
 
 <br>
@@ -667,6 +688,7 @@ Figure 7.
 
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE}
+oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
 grid_subdivisions <- 100
@@ -689,6 +711,10 @@ ymax <- max(ratio_values2[!is.na(ratio_values)])
 plot(c(0, 1), c(ymin, ymax), type="n", axes=FALSE, xlab="", ylab="Brightness Ratio")
 rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
+```
+
+```{r, echo=FALSE}
+par(oldpar)
 ```
 
 **Figure 13**
@@ -722,7 +748,7 @@ while doing so we also need to remind ourselves of the limitations of the method
 danger lies in how drastically it oversimplifies the heptachord arrangement: the `tc()` plane itself is a tiny sliver of the space. We shouldn't
 let its simplicity mislead us. For instance, looking back at Figure 9, we see that the well-formed major scale (landmark #1) is surrounded
 by 6 distinct colorful regions (i.e. six 3-D structures) and 6 line segments (i.e. six 2-D structures). Those six neighboring colors are
-a minuscule fraction of all the colors that neighbor the major scale's line. It has 22,506 neighbors (plus one for the "white" equiheptatonic).
+a minuscule fraction of all the colors that neighbor the major scale's hue. It has 22,506 neighbors (plus one for the "white" equiheptatonic).
 Most of these are 4-, 5-, or 6-D and could never have shown up on the `tc()` plane. But 332 of its neighbors are 2-D and 2852 of them are 3-D.
 Imagine 332 line segments that all touch landmark 1, not just 6 of them! That's a good reminder of the real complexity of the space.
 
@@ -744,4 +770,4 @@ R's basic graphics capacities, such as the package ggplot2, which might come in 
 ---
 
 
-**Last updated:** 28 May 2025
+**Last updated:** 3 June 2025

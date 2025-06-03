@@ -14,6 +14,7 @@
 #' @inheritParams fpunique
 #' @inheritParams signvector
 #' @param x Numeric vector: the scale to export
+#' @param path String specifying path where Scala file should be saved. No default and cannot be missing.
 #' @param filename String (in quotation marks): what to name your Scala file. Defaults to using
 #'   the name of `x` as the file name if you enter nothing.
 #' @param period The frequency ratio at which your scale repeats; defaults to `2` which
@@ -21,11 +22,21 @@
 #' @returns Invisible `NULL`
 #' @examples
 #' neat_pentachord <- convert(c(0, 1, 4, 9, 11), 15, 12)
-#' \dontrun{
-#'   writeSCL(neat_pentachord, "neat_pentachord.scl")
+#' \donttest{
+#' writeSCL(neat_pentachord, path=tempdir(), "neat_pentachord.scl")
 #' }
 #' @export
-writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
+writeSCL <- function(x, 
+                     path, 
+                     filename, 
+                     period=2, 
+                     ineqmat=NULL, 
+                     edo=12, 
+                     rounder=10) {
+  if (missing(path)) {
+    stop("Please specify a path")
+  }
+
   # Period defined as a frequency ratio (i.e. 2 for octave-repeading scales)
   periodCents <- z(period, edo=1200)
 
@@ -38,11 +49,11 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
     filename <- paste0(filename, ".scl")
   }
 
-  ###Comment with the filename
+  # Comment with the filename
 
   line0 <- paste0("! ",filename)
 
-  ###The scale description
+  # Scale description
   card <- length(x)
   freedom <- howfree(x)
   svzeroes <- countsvzeroes(x, ineqmat=ineqmat, edo=edo, rounder=rounder)
@@ -61,7 +72,6 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
     }
   }
 
-
   if (freedom==1) { 
     degree <- "degree" 
   } else { 
@@ -75,14 +85,54 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   }
 
   if (nameColor==TRUE) {
-    line1 <- paste0("A ", card, "-note scale of color ", color, " with ", freedom, " ", degree, " of freedom. Period: ", round(periodCents,3), " cents. Ratio: ", scaleratio, "; evenness: ", how_even, " (wrt. ", edo, " steps to period); on ", svzeroes, " ", zeroes, ".")
+    line1 <- paste0("A ", 
+                    card, 
+                    "-note scale of color ", 
+                    color, 
+                    " with ", 
+                    freedom, 
+                    " ", 
+                    degree, 
+                    " of freedom. Period: ", 
+                    round(periodCents,3), 
+                    " cents. Ratio: ", 
+                    scaleratio, 
+                    "; evenness: ", 
+                    how_even, 
+                    " (wrt. ", 
+                    edo, 
+                    " steps to period); on ", 
+                    svzeroes, 
+                    " ", 
+                    zeroes, 
+                    ".")
   } else {
-    line1 <- paste0("A ", card, "-note scale with ", freedom, " ", degree, " of freedom. Period: ", round(periodCents,3), " cents. Ratio: ", scaleratio, "; evenness: ", how_even, " (wrt. ", edo, " steps to period); on ", svzeroes, " ", zeroes, ".")
+    line1 <- paste0("A ", 
+                    card, 
+                    "-note scale with ", 
+                    freedom, 
+                    " ", 
+                    degree, 
+                    " of freedom. Period: ", 
+                    round(periodCents,3), 
+                    " cents. Ratio: ", 
+                    scaleratio, 
+                    "; evenness: ", 
+                    how_even, 
+                    " (wrt. ", 
+                    edo, 
+                    " steps to period); on ", 
+                    svzeroes, 
+                    " ", 
+                    zeroes, 
+                    ".")
   }
 
-  if (how_even < 10^-rounder) { line1 <- paste0("A ", card, "-note equal division of ", round(periodCents, 3), " cents.") }
+  if (how_even < 10^-rounder) { 
+    line1 <- paste0("A ", card, "-note equal division of ", round(periodCents, 3), " cents.") 
+  }
 
-  ###The data for Scala
+  # The data for Scala
 
   line2 <- paste(card)
   line3 <- "! "
@@ -90,7 +140,7 @@ writeSCL <- function(x, filename, period=2, ineqmat=NULL, edo=12, rounder=10) {
   scaledef <- convert(x, edo, periodCents)[-1]
   scaledef <- format(scaledef, nsmall=1, digits=(rounder+2))
 
-  fileConn <- file(filename)
+  fileConn <- file(file.path(path,filename))
   writeLines(c(line0, line1, line2, line3, scaledef), fileConn)
   close(fileConn)
   invisible()

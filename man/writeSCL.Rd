@@ -4,10 +4,12 @@
 \alias{writeSCL}
 \title{Create a Scala tuning file from a given scale}
 \usage{
-writeSCL(x, filename, period = 2, ineqmat = NULL, edo = 12, rounder = 10)
+writeSCL(x, path, filename, period = 2, ineqmat = NULL, edo = 12, rounder = 10)
 }
 \arguments{
 \item{x}{Numeric vector: the scale to export}
+
+\item{path}{String specifying path where Scala file should be saved. No default and cannot be missing.}
 
 \item{filename}{String (in quotation marks): what to name your Scala file. Defaults to using
 the name of \code{x} as the file name if you enter nothing.}
@@ -42,7 +44,7 @@ from MCT functions, like the color number, degrees of freedom, number of sign-ve
 }
 \examples{
 neat_pentachord <- convert(c(0, 1, 4, 9, 11), 15, 12)
-\dontrun{
-  writeSCL(neat_pentachord, "neat_pentachord.scl")
+\donttest{
+writeSCL(neat_pentachord, path=tempdir(), "neat_pentachord.scl")
 }
 }

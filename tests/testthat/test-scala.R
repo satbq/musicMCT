@@ -1,9 +1,11 @@
 test_that("writeSCL then readSCL returns input scale", {
   test_scale <- c(0, 2, 4, 7)
-  tempSCL <- withr::local_tempfile(
-    pattern="scltest-",fileext=".scl")
-  writeSCL(test_scale, tempSCL)
-  expect_equal(readSCL(tempSCL), test_scale)
+  tempSCLfolder <- withr::local_tempdir(pattern="scltest")
+  scale <- "test_scale.scl"
+  file_to_read <- file.path(tempSCLfolder, scale)
+
+  writeSCL(test_scale, tempSCLfolder, scale)
+  expect_equal(readSCL(file_to_read), test_scale)
 })
 
 test_that("readSCL correctly reads cents-based .scl file", {
