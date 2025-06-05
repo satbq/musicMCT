@@ -5,11 +5,11 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/musicMCT)](https://CRAN.R-project.org/package=musicMCT)
 [![R-CMD-check](https://github.com/satbq/musicMCT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/satbq/musicMCT/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/satbq/musicMCT/graph/badge.svg)](https://app.codecov.io/gh/satbq/musicMCT)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/musicMCT)](https://CRAN.R-project.org/package=musicMCT)
 <!-- badges: end -->
 
 The “MCT” in musicMCT stands for **Modal Color Theory**, a theory of
@@ -36,7 +36,7 @@ tuning data: musicMCT might be useful to you!
 ## Installation
 
 You can install the latest released version of musicMCT from
-[CRAN](https://CRAN.R-project.org/) with:
+[CRAN](https://cran.r-project.org/package=musicMCT) with:
 
 ``` r
 install.packages("musicMCT")
