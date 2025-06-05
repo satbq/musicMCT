@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/satbq/musicMCT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/satbq/musicMCT/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/satbq/musicMCT/graph/badge.svg)](https://app.codecov.io/gh/satbq/musicMCT)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/musicMCT)](https://CRAN.R-project.org/package=musicMCT)
 <!-- badges: end -->
 
 The “MCT” in musicMCT stands for **Modal Color Theory**, a theory of
