@@ -1,5 +1,8 @@
 # musicMCT (development version)
 
+* `vl_generators()` now throws a warning instead of an error when `set` is 
+  perfectly even, returning a 2-by-0 matrix.
+
 # musicMCT 0.1.2
 
 * Updated writeSCL() to require user to enter a path.

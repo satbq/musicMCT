@@ -1,5 +1,6 @@
 test_that("vl_generators works", {
-  expect_error(vl_generators(c(0, 4, 8)))
+  expect_warning(vlgen_dim <- dim(vl_generators(c(0, 4, 8))))
+  expect_equal(vlgen_dim, c(2, 0))
 
   generic_intervals <- c(1, 2)
   specific_intervals <- c(5, 9)

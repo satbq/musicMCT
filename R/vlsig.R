@@ -35,7 +35,8 @@ vl_generators <- function(set, edo=12, rounder=10) {
   card <- length(set)
 
   if (evenness(set, edo=edo) < tiny) {
-    stop("Perfectly even scales have no voice-leading generators")
+    warning("Perfectly even scales have no voice-leading generators")
+    return(matrix(c(numeric(0), numeric(0)), nrow=2))
   }
 
   scalar_interval_matrix <- sim(set,edo)
