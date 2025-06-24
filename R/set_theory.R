@@ -494,3 +494,87 @@ tc <- function(set, multiplier=NULL, edo=12, rounder=10) {
   sort(fpunique(all_pcs, rounder=rounder))
 }
 
+
+#' Visualize a set in pitch-class space
+#'
+#' No-frills way to plot the elements of a set on the circular "clockface"
+#' of pc-set theory pedagogy. (See e.g. Straus 2016, ISBN: 9781324045076.)
+#'
+#' @inheritParams tnprime
+#' 
+#' @returns Invisible copy of the input `set`
+#'
+#' @examples
+#' just_diatonic <- j(dia)
+#' clockface(just_diatonic)
+#'
+#' double_tresillo <- c(0, 3, 6, 9, 12, 14)
+#' clockface(double_tresillo, edo=16)
+#'
+#' @export
+clockface <- function(set, edo=12) {
+  radius <- 2
+  rim_radius <- 1.2 * radius
+  note_circle_offset <- radius * -.0075
+  num_circle_points <- 100
+  circle_points <- seq(0, 2*pi, length.out=num_circle_points) 
+
+  hours <- 0:(edo-1)
+  display_digits <- sapply(hours, toString)
+
+  get_position <- function(x, rad=radius) c(rad*cos(2*pi*x/edo), rad*sin(2*pi*x/edo))
+  digit_positions <- sapply(hours, get_position, rad=radius)
+  note_positions <- sapply(set, get_position, rad=radius)
+
+  rotation_matrix <- matrix(c(0, -1, 1, 0), nrow=2)
+  change_orientation <- function(vec) {
+    vec <- rotation_matrix %*% vec
+    c(vec[1], -vec[2])
+  }
+
+  digit_positions <- digit_positions |>
+                       apply(MARGIN=2, FUN=change_orientation) |>
+                       t()
+
+  note_positions <- note_positions |>
+                      apply(MARGIN=2, FUN=change_orientation) |>
+                      t()
+  note_positions[, 2] <- note_positions[, 2] + note_circle_offset
+
+  plot(digit_positions, 
+       type="n", 
+       axes=FALSE, 
+       xlab="", 
+       ylab="", 
+       asp=1, 
+       xlim=1.2*c(-radius, radius),  ylim=1.2*c(-radius, radius))
+  graphics::text(digit_positions, labels=display_digits)
+
+  oldpar <- graphics::par(new=TRUE)
+
+  plot(rim_radius*cbind(cos(circle_points), sin(circle_points)), 
+       type="l", 
+       axes=FALSE, 
+       xlab="", 
+       ylab="", 
+       asp=1, 
+       xlim=1.2*c(-radius, radius),  
+       ylim=1.2*c(-radius, radius))
+
+  graphics::par(new=TRUE)
+  plot(note_positions, 
+       pch=1, 
+       cex=3.5, 
+       lwd=3,
+       axes=FALSE, 
+       xlab="", 
+       ylab="", 
+       asp=1, 
+       xlim=1.2*c(-radius, radius),
+       ylim=1.2*c(-radius, radius))
+  graphics::mtext(paste("Clockface Representation of ", deparse(substitute(set)), " in ", edo, "-edo", sep=""))
+
+  graphics::par(oldpar)
+  invisible(set)
+}
+

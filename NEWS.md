@@ -4,6 +4,8 @@
   perfectly even, returning a 2-by-0 matrix.
 * `brightnessgraph()` now returns an invisible copy of the igraph graph object
   underlying the plotted brightness graph, instead of an invisible `NULL`.
+* New `clockface()` offers a simple plotting mechanism to visualize sets on
+  a pitch-class clockface (with numbers corresponding to any equal temperament).
 
 # musicMCT 0.1.2
 

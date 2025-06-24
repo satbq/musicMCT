@@ -177,3 +177,13 @@ test_that("tc works", {
                c(0, 2, 4, 7, 9))
 })
 
+test_that("clockface works", {
+  just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
+  jdia_cf <- function() clockface(just_dia)
+  vdiffr::expect_doppelganger("Clockface plot of just dia", jdia_cf)
+
+  double_tresillo <- c(0, 3, 6, 9, 12, 14)
+  dt_cf <- function() clockface(double_tresillo, edo=16)
+  vdiffr::expect_doppelganger("Clockface plot of double tresillo", dt_cf)
+})
+
