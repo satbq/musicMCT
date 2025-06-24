@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# musicMCT
+# musicMCT <a href="https://satbq.github.io/musicMCT/"><img src="man/figures/logo.png" align="right" height="138" alt="musicMCT website" /></a>
 
 <!-- badges: start -->
 

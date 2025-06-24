@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# musicMCT
+# musicMCT <a href="https://satbq.github.io/musicMCT/"><img src="man/figures/logo.png" align="right" height="138" alt="musicMCT website" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/musicMCT)](https://CRAN.R-project.org/package=musicMCT)
