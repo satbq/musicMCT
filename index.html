@@ -19,6 +19,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Analyze the Structure of Musical Scales">
 <meta name="description" content="Analysis of musical scales (&amp; modes, grooves, etc.) in the vein of Sherrill 2025 &lt;https://collections.lib.utah.edu/ark:/87278/s6d2gr78&gt;. The initials MCT in the package title refer to the article's title: &quot;Modal Color Theory.&quot; Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as &quot;brightness graphs&quot; which visualize these properties.">
 <meta property="og:description" content="Analysis of musical scales (&amp; modes, grooves, etc.) in the vein of Sherrill 2025 &lt;https://collections.lib.utah.edu/ark:/87278/s6d2gr78&gt;. The initials MCT in the package title refer to the article's title: &quot;Modal Color Theory.&quot; Offers support for conventional musical pitch class set theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin (1987, ISBN: 9780300034936), as well as for the continuous geometries of Callender, Quinn, &amp; Tymoczko (2008) &lt;doi:10.1126/science.1153021&gt;. Identifies structural properties of scales and calculates derived values (sign vector, color number, brightness ratio, etc.). Creates plots such as &quot;brightness graphs&quot; which visualize these properties.">
+<meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -60,8 +61,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="musicmct">musicMCT<a class="anchor" aria-label="anchor" href="#musicmct"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="musicmct-">musicMCT 
+<a class="anchor" aria-label="anchor" href="#musicmct-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
 <p>The “MCT” in musicMCT stands for <strong>Modal Color Theory</strong>, a theory of musical scale structure developed by Paul Sherrill, “Modal Color Theory,” <em>Journal of Music Theory</em> 69/1 (2025): 1-49. The goal of this package is to give musicians and music scholars computational tools that make it easier to work with this theory. In a nutshell, Modal Color Theory models musical scales as points in a geometry. The locations of those points relative to various hyperplane arrangements tell us a lot about the scales’ internal structures and mutual relationships. The shape of those hyperplane arrangements gets pretty complex: for the important case of seven-note scales, the main arrangement has 42 hyperplanes in a 6-dimensional space! Computational tools are therefore very helpful.</p>
