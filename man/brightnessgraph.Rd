@@ -31,7 +31,7 @@ brightnessgraph(
 number of decimal places to round to when testing for equality.}
 }
 \value{
-\code{NULL} and plots a brightness graph in the graphic device
+Invisibly, an igraph graph object (the structure of the plotted brightness graph)
 }
 \description{
 Discussed in "Modal Color Theory" (pp. 7-11), the brightness graph of a scale is a Hasse diagram

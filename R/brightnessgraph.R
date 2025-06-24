@@ -88,7 +88,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #' werckmeister_3 <- z(werck_ratios)
 #' brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
 #' 
-#' @returns `NULL` and plots a brightness graph in the graphic device
+#' @returns Invisibly, an igraph graph object (the structure of the plotted brightness graph)
 #' @export
 brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
                             edo=12, rounder=10) {
@@ -165,9 +165,9 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
 
   if (class(label_matrix)[1]=="character") label_matrix <- as.matrix(label_matrix)
 
-  label_vector <- apply(label_matrix,1,paste,collapse="")
+  label_vector <- apply(label_matrix, 1, paste, collapse="")
 
   bg <- igraph::graph_from_adjacency_matrix(reduced_comparisons)
-  plot(bg,layout=layout_matrix, vertex.shape="none", vertex.label=label_vector)
-  invisible()
+  plot(bg, layout=layout_matrix, vertex.shape="none", vertex.label=label_vector)
+  invisible(bg)
 }

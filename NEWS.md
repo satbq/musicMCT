@@ -2,6 +2,8 @@
 
 * `vl_generators()` now throws a warning instead of an error when `set` is 
   perfectly even, returning a 2-by-0 matrix.
+* `brightnessgraph()` now returns an invisible copy of the igraph graph object
+  underlying the plotted brightness graph, instead of an invisible `NULL`.
 
 # musicMCT 0.1.2
 
