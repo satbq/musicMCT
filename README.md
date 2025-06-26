@@ -22,7 +22,7 @@ those points relative to various hyperplane arrangements tell us a lot
 about the scales’ internal structures and mutual relationships. The
 shape of those hyperplane arrangements gets pretty complex: for the
 important case of seven-note scales, the main arrangement has 42
-hyperplanes in a 6-dimensional space! Computational tools are therefore
+hyperplanes in a 6-dimensional space. Computational tools are therefore
 very helpful.
 
 If you’ve ever wondered why a piece of music uses one scale rather than
@@ -31,7 +31,7 @@ lydian being “bright” and locrian being “dark”; if you’ve ever wanted 
 design your own microtonal scale from scratch; if you’re a theorist who
 wants a geometrical perspective on concepts like voice leading and
 maximal evenness; if you’re an ethnomusicologist looking to interpret
-tuning data: musicMCT might be useful to you!
+tuning data: musicMCT might be useful to you.
 
 ## Installation
 
@@ -119,12 +119,14 @@ print(quantized_just_dia)
 #> [1] 15
 
 # Finally, let's see a rough brightness graph for the scale. (R can assemble the
-# necessary information, but musicMCT doesn't yet make the graphs pretty!)
+# necessary information, but musicMCT doesn't yet make the graphs pretty.)
 brightnessgraph(quantized_just_dia$set, edo=quantized_just_dia$edo)
 ```
 
 <img src="man/figures/README-example-1.png" width="75%" />
 
-## Acknowledgements
+## Acknowledgments
 
-Thanks to Nate Mitchell for designing the package’s hex sticker logo.
+Thanks to [Nate
+Mitchell](https://www.natethetheorist.com/graphic-design) for designing
+the package’s hex sticker logo.
