@@ -30,7 +30,7 @@ for \code{whichsvzeroes}
 }
 \description{
 As "Modal Color Theory" (p. 26) describes, one useful measure of a scale's
-regularity is the number of zeroes in its sign vector. This indicates how
+\strong{regularity} is the number of zeroes in its sign vector. This indicates how
 many hyperplanes a scale lies \emph{on}, a geometrical fact whose musical
 interpretation is, roughly speaking, how many times two generic intervals equal each other
 in specific size. (I say only "roughly speaking" because one hyperplane usually

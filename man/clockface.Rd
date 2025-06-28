@@ -16,7 +16,7 @@ Invisible copy of the input \code{set}
 }
 \description{
 No-frills way to plot the elements of a set on the circular "clockface"
-of pc-set theory pedagogy. (See e.g. Straus 2016, ISBN:9781324045076.)
+of pc-set theory pedagogy. (See e.g. Straus 2016, ISBN: 9781324045076.)
 }
 \examples{
 just_diatonic <- j(dia)
