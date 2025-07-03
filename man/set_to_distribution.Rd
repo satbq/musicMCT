@@ -2,12 +2,24 @@
 % Please edit documentation in R/dft.R
 \name{set_to_distribution}
 \alias{set_to_distribution}
+\alias{distribution_to_set}
 \alias{s2d}
+\alias{d2s}
 \title{Convert between pitch-class sets and distributions}
 \usage{
 set_to_distribution(set, edo = 12, rounder = 10)
 
+distribution_to_set(
+  distro,
+  multiset = TRUE,
+  reconvert = TRUE,
+  edo = 12,
+  rounder = 10
+)
+
 s2d(...)
+
+d2s(...)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set. May be a
@@ -19,6 +31,14 @@ set with repetitions removed. Entries must be integers.}
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
 
+\item{distro}{Numeric vector representing a pitch-class distribution.}
+
+\item{multiset}{Boolean. Should distribution_to_set() return a multiset if
+element weights are greater than 1? Defaults to \code{TRUE}.}
+
+\item{reconvert}{Boolean. Should the scale be converted to the input edo?
+Defaults to \code{TRUE}.}
+
 \item{...}{Arguments to be passed from s2d() or d2s() to unabbreviated
 functions.}
 }
@@ -26,8 +46,8 @@ functions.}
 set_to_distribution() returns a numeric vector with length
 \code{edo}, whose \code{i}th entry represents the weight assigned to pitch-class
 \code{i} in the distribution. distribution_to_set() returns a (multi)set
-represented by listing its elements. (Non-integer weights are rounded
-\emph{up} to the next highest integer.)
+represented by listing its elements in a vector. (Non-integer weights are rounded
+\emph{up} to the next highest integer if \code{multiset} is \code{TRUE}.)
 }
 \description{
 For applications of the Discrete Fourier Transform to pitch-class

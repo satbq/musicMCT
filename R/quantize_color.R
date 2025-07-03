@@ -82,7 +82,7 @@ try_scale_from_word <- function(signvec,
 #'   Although every real color should have a rational representation in some mod k universe, for some colors
 #'   that k must be very high. Increasing nmax makes the function run longer but might be necessary
 #'   if small chromatic universes don't produce a result. Defaults to `12`.
-#' @param reconvert Boolean. Should the scale be converted to 12edo? Defaults to `FALSE`.
+#' @param reconvert Boolean. Should the scale be converted to the input edo? Defaults to `FALSE`.
 #'
 #' @returns If `reconvert=FALSE`, a list of two elements: element 1 is `set` with a vector of integers
 #'   representing the quantized scale; element 2 is `edo` representing the number k of unit steps in the

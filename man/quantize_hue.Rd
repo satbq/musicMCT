@@ -14,7 +14,7 @@ Although every real color should have a rational representation in some mod k un
 that k must be very high. Increasing nmax makes the function run longer but might be necessary
 if small chromatic universes don't produce a result. Defaults to \code{12}.}
 
-\item{reconvert}{Boolean. Should the scale be converted to 12edo? Defaults to \code{FALSE}.}
+\item{reconvert}{Boolean. Should the scale be converted to the input edo? Defaults to \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 

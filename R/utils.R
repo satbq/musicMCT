@@ -134,7 +134,7 @@ choose_ineqmat <- function(set, x=c("mct", "white", "roth", "pastel", "rosy")) {
 #'
 #' @export
 ianring <- function(set) {
-  set_as_distro <- sign(s2d(set, edo=12, rounder=10))
+  set_as_distro <- sign(set_to_distribution(set, edo=12, rounder=10))
   weights <- 2^(0:11)
   value <- as.integer(sum(set_as_distro %*% weights))
 

@@ -10,7 +10,7 @@
   about the input set on Ian Ring's website 
   [The Exciting Universe of Music Theory](https://ianring.com/musictheory).
 * New functions for basic applications of the DFT to set theory are added. These 
-  include `set_to_distribution()`.
+  include `set_to_distribution()`, `distribution_to_set()`.
 
 # musicMCT 0.1.2
 
