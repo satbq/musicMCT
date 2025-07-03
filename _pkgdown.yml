@@ -88,6 +88,11 @@ reference:
   - tsym
   - zmate
 
+- title: Discrete Fourier Transform
+  desc: Applications of the DFT to set theory, a la Lewin, Quinn, et al.
+- contents:
+  - set_to_distribution
+
 - title: Subsets
   desc: Tools for exploring subset-superset relationships in scales
 - contents:
@@ -125,5 +130,6 @@ reference:
 - title: Input/Output
   desc: Ways to read & save data for use outside of R
 - contents:
+  - ianring
   - readSCL
   - writeSCL
