@@ -91,6 +91,7 @@ reference:
 - title: Discrete Fourier Transform
   desc: Applications of the DFT to set theory, a la Lewin, Quinn, et al.
 - contents:
+  - dft
   - set_to_distribution
 
 - title: Subsets

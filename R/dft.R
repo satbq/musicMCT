@@ -85,17 +85,62 @@ s2d <- function(...) set_to_distribution(...)
 #' @export
 d2s <- function(...) distribution_to_set(...)
 
-
+#' The musical Discrete Fourier Transform of a pitch-class set
+#'
+#' Computes the magnitudes and phases of the DFT components for a given (multi)set
+#' which can be input as either a vector of elements or as a distribution.
+#' (See Amiot (2016) <doi:10.1007/978-3-319-45581-5> for an overview of applications
+#' of the DFT in this vein.) Entering a distribution takes priority over an entered `set`.
+#' 
+#' The scaling and orientation of phases corresponds to that used in Yust (2021)
+#' <doi:10.1093/mts/mtaa0017>: phases are reported as multiples of one kth of an
+#' octave (where the set is entered in k-edo), and oriented so that the $f_1$ component
+#' of a singleton points in the direction of the singleton (i.e. the phase of $f_1$ for
+#' pitch class 4 is 4). This differs from the phase values use in other publications,
+#' such as Yust (2015) <doi:10.1215/00222909-2863409>. Magnitudes are not squared, following
+#' Amiot (2016) rather than Yust (2021).
+#'
+#' @inheritParams tnprime
+#' @param distro Numeric vector representing a pitch-class distribution. Defaults
+#'  to `NULL` and overrides `set` and `edo` if entered.
+#'
+#' @returns A 2-by-k real matrix, where k is the number of independent components. The 
+#'  ith column corresponds to the (i-1)th component (so that the first column gives the
+#'  zeroth component). The first row gives the magnitudes of the components and the
+#'  second row gives the phases. (See details regarding interpretation of the values:
+#'  they are scaled by edo/(2*pi) from radians.)
+#'
+#' @examples
+#' # Compare to Yust (2021), Example 10
+#' reich_signature <- c(0, 1, 2, 4, 5, 7, 9, 10)
+#' dft(reich_signature)
+#' # Magnitudes differ from Yust by squaring:
+#' dft(reich_signature)[1, ]^2 
+#'
+#' reich_sig_distribution <- c(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0)
+#' dft(distro=reich_sig_distribution)
+#'
+#' # Z-related AITs differ in phase but not magnitude:
+#' ait1 <- c(0, 1, 4, 6)
+#' ait2 <- c(0, 1, 3, 7)
+#' dft(ait1)
+#' dft(ait2)
+#'
+#' @export
 dft <- function(set, distro=NULL, edo=12, rounder=10) {
+  if (!is.null(distro)) edo <- length(distro)
   num_components <- floor(edo/2) + 1
 
-  if (is.null(distro)) distro <- set_to_distribution(set, edo, rounder)
+  if (is.null(distro)) {
+    distro <- set_to_distribution(set=set, edo=edo, rounder=rounder)
+  }
   
   complex_vals <- stats::fft(distro)
   complex_vals <- complex_vals[1:num_components]
   magnitude <- Mod(complex_vals)
   phase <- Arg(complex_vals)
-  phase <- (edo/(2*pi)) * phase
+  phase <- (-edo/(2*pi)) * phase
+  phase <- phase %% edo
 
   res <- rbind(magnitude, phase)
 

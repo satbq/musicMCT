@@ -25,3 +25,20 @@ test_that("distribution_to_set works", {
   expect_equal(d2s(param_test, multiset=FALSE), c(0, 6))
   expect_equal(d2s(param_test, rounder=1), c(0, 6))
 })
+
+test_that("dft works", {
+  ait_dft <- dft(c(0, 1, 4, 6))
+  nameless_ait_dft <- ait_dft
+  colnames(nameless_ait_dft) <- NULL
+  ait_distro <- c(1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+  expect_equal(nameless_ait_dft[1,], 
+               c(4, sqrt(2), 2, sqrt(2), 2, sqrt(2), 2))
+  expect_equal(nameless_ait_dft[2,], 
+               c(0, 2.5, 0, 1.5, 2, 6.5, 0))
+  expect_equal(dft(distro=ait_distro), ait_dft)
+
+  aug9_dft <- dft(c(0, 3, 6), edo=9)[1,]
+  names(aug9_dft) <- NULL
+  expect_equal(aug9_dft, c(3, 0, 0, 3, 0))
+
+})
