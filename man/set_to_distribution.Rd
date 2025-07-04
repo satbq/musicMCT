@@ -63,4 +63,14 @@ set_to_distribution(c(0, 4, 7))
 s2d(c(0, 4, 7)) # Same result but quicker to type
 s2d(c(0, 4, 4, 7)) # The doubled third is reflected by the value 2 in the result
 
+minor_triad_distro <- c(2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+distribution_to_set(minor_triad_distro)
+d2s(minor_triad_distro, multiset=FALSE)
+
+# distribution_to_set automatically converts to 12edo, which
+# can sometimes be undesirable, as in this case:
+tresillo_distro <- c(1, 0, 0, 1, 0, 0, 1, 0)
+d2s(tresillo_distro) 
+d2s(tresillo_distro, reconvert=FALSE)
+
 }

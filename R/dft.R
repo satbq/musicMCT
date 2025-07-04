@@ -31,6 +31,16 @@
 #' s2d(c(0, 4, 7)) # Same result but quicker to type
 #' s2d(c(0, 4, 4, 7)) # The doubled third is reflected by the value 2 in the result
 #' 
+#' minor_triad_distro <- c(2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+#' distribution_to_set(minor_triad_distro)
+#' d2s(minor_triad_distro, multiset=FALSE)
+#'
+#' # distribution_to_set automatically converts to 12edo, which
+#' # can sometimes be undesirable, as in this case:
+#' tresillo_distro <- c(1, 0, 0, 1, 0, 0, 1, 0)
+#' d2s(tresillo_distro) 
+#' d2s(tresillo_distro, reconvert=FALSE)
+#'
 #' @export
 set_to_distribution <- function(set, edo=12, rounder=10) {
   set <- set %% edo
@@ -115,7 +125,7 @@ d2s <- function(...) distribution_to_set(...)
 #' reich_signature <- c(0, 1, 2, 4, 5, 7, 9, 10)
 #' dft(reich_signature)
 #' # Magnitudes differ from Yust by squaring:
-#' dft(reich_signature)[1, ]^2 
+#' round(dft(reich_signature)[1, ]^2, digits=3)
 #'
 #' reich_sig_distribution <- c(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0)
 #' dft(distro=reich_sig_distribution)

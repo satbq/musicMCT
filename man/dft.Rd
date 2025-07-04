@@ -44,7 +44,7 @@ Amiot (2016) rather than Yust (2021).
 reich_signature <- c(0, 1, 2, 4, 5, 7, 9, 10)
 dft(reich_signature)
 # Magnitudes differ from Yust by squaring:
-dft(reich_signature)[1, ]^2 
+round(dft(reich_signature)[1, ]^2, digits=3)
 
 reich_sig_distribution <- c(1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0)
 dft(distro=reich_sig_distribution)
