@@ -151,6 +151,8 @@ dft <- function(set, distro=NULL, edo=12, rounder=10) {
   phase <- Arg(complex_vals)
   phase <- (-edo/(2*pi)) * phase
   phase <- phase %% edo
+  too_close_to_edo <- which((edo - phase) < 10^(-1*rounder))
+  phase[too_close_to_edo] <- 0
 
   res <- rbind(magnitude, phase)
 
