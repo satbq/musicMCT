@@ -69,7 +69,17 @@ distribution_to_set(), respectively.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_to_distribution</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">s2d</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">distribution_to_set</span><span class="op">(</span></span>
+<span>  <span class="va">distro</span>,</span>
+<span>  multiset <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  reconvert <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  edo <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">s2d</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">d2s</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,6 +101,20 @@ set with repetitions removed. Entries must be integers.</p></dd>
 number of decimal places to round to when testing for equality.</p></dd>
 
 
+<dt id="arg-distro">distro<a class="anchor" aria-label="anchor" href="#arg-distro"></a></dt>
+<dd><p>Numeric vector representing a pitch-class distribution.</p></dd>
+
+
+<dt id="arg-multiset">multiset<a class="anchor" aria-label="anchor" href="#arg-multiset"></a></dt>
+<dd><p>Boolean. Should distribution_to_set() return a multiset if
+element weights are greater than 1? Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-reconvert">reconvert<a class="anchor" aria-label="anchor" href="#arg-reconvert"></a></dt>
+<dd><p>Boolean. Should the scale be converted to the input edo?
+Defaults to <code>TRUE</code>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments to be passed from s2d() or d2s() to unabbreviated
 functions.</p></dd>
@@ -101,8 +125,8 @@ functions.</p></dd>
     <p>set_to_distribution() returns a numeric vector with length
 <code>edo</code>, whose <code>i</code>th entry represents the weight assigned to pitch-class
 <code>i</code> in the distribution. distribution_to_set() returns a (multi)set
-represented by listing its elements. (Non-integer weights are rounded
-<em>up</em> to the next highest integer.)</p>
+represented by listing its elements in a vector. (Non-integer weights are rounded
+<em>up</em> to the next highest integer if <code>multiset</code> is <code>TRUE</code>.)</p>
     </div>
 
     <div class="section level2">
