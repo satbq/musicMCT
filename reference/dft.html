@@ -107,9 +107,9 @@ Amiot (2016) rather than Yust (2021).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Compare to Yust (2021), Example 10</span></span></span>
 <span class="r-in"><span><span class="va">reich_signature</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">dft</span><span class="op">(</span><span class="va">reich_signature</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           f0        f1           f2 f3 f4        f5 f6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> magnitude  8 0.7320508 1.110223e-16  2  2  2.732051  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> phase      0 1.0000000 0.000000e+00  3  4 11.000000  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           f0        f1 f2 f3 f4        f5 f6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> magnitude  8 0.7320508  0  2  2  2.732051  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase      0 1.0000000  0  3  4 11.000000  0</span>
 <span class="r-in"><span><span class="co"># Magnitudes differ from Yust by squaring:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dft</span><span class="op">(</span><span class="va">reich_signature</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">^</span><span class="fl">2</span>, digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     f0     f1     f2     f3     f4     f5     f6 </span>
@@ -117,9 +117,9 @@ Amiot (2016) rather than Yust (2021).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">reich_sig_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">dft</span><span class="op">(</span>distro<span class="op">=</span><span class="va">reich_sig_distribution</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           f0        f1           f2 f3 f4        f5 f6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> magnitude  8 0.7320508 1.110223e-16  2  2  2.732051  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> phase      0 1.0000000 0.000000e+00  3  4 11.000000  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           f0        f1 f2 f3 f4        f5 f6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> magnitude  8 0.7320508  0  2  2  2.732051  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase      0 1.0000000  0  3  4 11.000000  0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Z-related AITs differ in phase but not magnitude:</span></span></span>
 <span class="r-in"><span><span class="va">ait1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span></span></span>
