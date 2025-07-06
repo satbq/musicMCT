@@ -33,8 +33,9 @@ of the DFT in this vein.) Entering a distribution takes priority over an entered
 \details{
 The scaling and orientation of phases corresponds to that used in Yust (2021)
 \url{doi:10.1093/mts/mtaa0017}: phases are reported as multiples of one kth of an
-octave (where the set is entered in k-edo), and oriented so that the $f_1$ component
-of a singleton points in the direction of the singleton (i.e. the phase of $f_1$ for
+octave (where the set is entered in k-edo), and oriented so that the \eqn{\hat{f}_1}
+component of a singleton points in the direction of the singleton
+(i.e. the phase of \eqn{\hat{f}_1} for
 pitch class 4 is 4). This differs from the phase values use in other publications,
 such as Yust (2015) \url{doi:10.1215/00222909-2863409}. Magnitudes are not squared, following
 Amiot (2016) rather than Yust (2021).
