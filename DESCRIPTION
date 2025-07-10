@@ -4,7 +4,7 @@ Version: 0.1.2.9000
 Authors@R: 
     person("Paul", "Sherrill", , "paul.sherrill@utah.edu", role = c("aut", "cre","cph"), comment = c(ORCID = "0009-0002-3617-016X"))
 Description: Analysis of musical scales (& modes, grooves, etc.) in the vein of
-    Sherrill 2025 <https://collections.lib.utah.edu/ark:/87278/s6d2gr78>.
+    Sherrill 2025 <doi:10.1215/00222909-11595194>.
     The initials MCT in the package title refer to the article's title: "Modal
     Color Theory." Offers support for conventional musical pitch class set
     theory as developed by Forte (1973, ISBN: 9780300016109) and David Lewin

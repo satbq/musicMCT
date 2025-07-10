@@ -12,9 +12,9 @@
 * New functions for basic applications of the DFT to set theory are added. These 
   include `set_to_distribution()`, `distribution_to_set()`, and `dft()`.
 
-## New behaviors for quantization functions (`quantize_color()`, `quantize_hue()`, 
-   and `set_from_signvector()`).
-
+## New behaviors for quantization functions 
+* Affected functions are `quantize_color()`, `quantize_hue()`, 
+  and `set_from_signvector()`.
 * Upon failure, quantization functions now return a result whose format matches
   expected success format depending on value of `reconvert` parameter. That is,
   if `reconvert=TRUE`, failure to quantize results in a `NA` vector (as before), but
