@@ -10,6 +10,7 @@ set_from_signvector(
   nmax = 12,
   reconvert = FALSE,
   ineqmat = NULL,
+  target_edo = NULL,
   edo = 12,
   rounder = 10
 )
@@ -34,6 +35,9 @@ of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white," "roth", "
 and \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}}. For other
 arrangements, the desired inequality matrix can be entered directly.}
 
+\item{target_edo}{Numeric (expected integer) determining a specific equal division of the octave to
+quantize to. Defaults to \code{NULL}, in which any potential \code{edo} will be accepted.}
+
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
@@ -43,9 +47,8 @@ number of decimal places to round to when testing for equality.}
 If \code{reconvert=FALSE}, a list of two elements: element 1 is \code{set} with a vector of integers
 representing the realized scale; element 2 is \code{edo} representing the number k of unit steps in the
 mod k universe. If \code{reconvert=TRUE}, returns a single numeric vector converted to measurement relative
-to 12-tone equal tempered semitones. May also return a vector
-of \code{NA}s of length \code{card} if no suitable scale was found beneath the limit given by
-\code{nmax}.
+to 12-tone equal tempered semitones. Values may be \code{NA} if no suitable quantization was found beneath
+the limit given by nmax or in target_edo (if specified).
 }
 \description{
 This function attempts to take in a sign vector (and associated cardinality
@@ -63,7 +66,7 @@ use this function on many sign vectors at the same time.
 set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, -1), 4)
 
 # But this one, which changes only the last entry of the previous sign vector
-# has no solution so will return four `NA` values.
+# has no solution so will return only `NA`s.
 set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, 1), 4)
   
 }

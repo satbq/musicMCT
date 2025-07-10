@@ -4,7 +4,14 @@
 \alias{quantize_hue}
 \title{Find a scale mod k that matches a given hue}
 \usage{
-quantize_hue(set, nmax = 12, reconvert = FALSE, edo = 12, rounder = 10)
+quantize_hue(
+  set,
+  nmax = 12,
+  reconvert = FALSE,
+  target_edo = NULL,
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -16,6 +23,9 @@ if small chromatic universes don't produce a result. Defaults to \code{12}.}
 
 \item{reconvert}{Boolean. Should the scale be converted to the input edo? Defaults to \code{FALSE}.}
 
+\item{target_edo}{Numeric (expected integer) determining a specific equal division of the octave to
+quantize to. Defaults to \code{NULL}, in which any potential \code{edo} will be accepted.}
+
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
@@ -25,9 +35,8 @@ number of decimal places to round to when testing for equality.}
 If \code{reconvert=FALSE}, a list of two elements: element 1 is \code{set} with a vector of integers
 representing the quantized scale; element 2 is \code{edo} representing the number k of unit steps in the
 mod k universe. If \code{reconvert=TRUE}, returns a single numeric vector measured relative
-to the unit step size input as \code{edo}: these generally will not be integers. May also return a vector
-of \code{NA}s the same length as \code{set} if no suitable quantization was found beneath the limit given by
-\code{nmax}.
+to the unit step size input as \code{edo}: these generally will not be integers. Values may be NA if no
+suitable quantization was found beneath the limit given by nmax or in target_edo (if specified).
 }
 \description{
 Given any scale, attempts to find a scale defined as integers mod k
@@ -49,5 +58,8 @@ quantize_hue(j(dia), nmax=15) # Fails no matter how high you set nmax.
 quasi_guido <- convert(c(0, 2, 4, 5, 7, 9), 13, 12)
 quantize_color(quasi_guido)
 quantize_hue(quasi_guido)
+
+quantize_hue(c(0, 1, 4, 6))
+quantize_hue(c(0, 1, 4, 6), target_edo=16)
 
 }

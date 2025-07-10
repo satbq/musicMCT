@@ -532,13 +532,8 @@ clockface <- function(set, edo=12) {
     c(vec[1], -vec[2])
   }
 
-  digit_positions <- digit_positions |>
-                       apply(MARGIN=2, FUN=change_orientation) |>
-                       t()
-
-  note_positions <- note_positions |>
-                      apply(MARGIN=2, FUN=change_orientation) |>
-                      t()
+  digit_positions <- t(apply(digit_positions, 2, change_orientation))
+  note_positions <- t(apply(note_positions, 2, change_orientation)) 
   note_positions[, 2] <- note_positions[, 2] + note_circle_offset
 
   plot(digit_positions, 

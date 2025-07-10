@@ -10,7 +10,7 @@ test_that("quantize_color basic functionality works", {
 
 test_that("quantize_color nmax parameter behaves as expected", {
   difficult_to_quantize <- convert(c(0, 1, 4, 8, 13, 19, 32), 34, 12)
-  expect_equal(sum(is.na(quantize_color(difficult_to_quantize))), 7)
+  expect_equal(sum(is.na(quantize_color(difficult_to_quantize, reconvert=TRUE))), 7)
   expect_equal(quantize_color(difficult_to_quantize, nmax=13)$set, c(0,1,4,8,13,19,32))
 })
 
@@ -39,5 +39,16 @@ test_that("quantize_hue works", {
   pyth_dia <- sort((12*log2(1.5)*(0:6))%%12)
   just_dia <- 12 * log2(c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8))
   expect_equal(quantize_hue(pyth_dia)$"set", c(0, 2, 4, 6, 7, 9, 11))
-  expect_equal(sum(is.na(quantize_hue(just_dia))), 7)
+  expect_equal(sum(is.na(quantize_hue(just_dia, reconvert=TRUE))), 7)
+})
+
+test_that("quantization param target_edo works", {
+  test1_res <- list(set=c(0, 4, 7, 9, 13, 16, 20), edo=22)
+  expect_equal(quantize_color(j(dia), target_edo=22), test1_res)
+
+  test2_res <- list(set=c(0, 2, 6, 9), edo=16)
+  expect_equal(quantize_hue(c(0, 1, 4, 6), target_edo=16), test2_res)
+
+  expect_equal(quantize_color(j(dia), target_edo=12, reconvert=TRUE),
+               rep(NA, 7))
 })

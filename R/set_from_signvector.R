@@ -50,21 +50,26 @@ approximate_from_signvector <- function(signvec, ineqmat=NULL, card=NULL, edo=12
 #' @returns If `reconvert=FALSE`, a list of two elements: element 1 is `set` with a vector of integers
 #'   representing the realized scale; element 2 is `edo` representing the number k of unit steps in the
 #'   mod k universe. If `reconvert=TRUE`, returns a single numeric vector converted to measurement relative
-#'   to 12-tone equal tempered semitones. May also return a vector
-#'   of `NA`s of length `card` if no suitable scale was found beneath the limit given by
-#'   `nmax`.
+#'   to 12-tone equal tempered semitones. Values may be `NA` if no suitable quantization was found beneath 
+#'   the limit given by nmax or in target_edo (if specified). 
 #'
 #' @examples
 #' # This first command produces a real tetrachord:
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, -1), 4)
 #'
 #' # But this one, which changes only the last entry of the previous sign vector
-#' # has no solution so will return four `NA` values.
+#' # has no solution so will return only `NA`s.
 #' set_from_signvector(c(-1, 1, 1, -1, -1, -1, 0, 1), 4)
 #'   
 #' @export
-set_from_signvector <- function(signvec, card, nmax=12, reconvert=FALSE, ineqmat=NULL,
-                                edo=12, rounder=10) {
+set_from_signvector <- function(signvec, 
+                                card, 
+                                nmax=12, 
+                                reconvert=FALSE, 
+                                ineqmat=NULL,
+                                target_edo=NULL,
+                                edo=12, 
+                                rounder=10) {
 
   ineqmat <- choose_ineqmat(edoo(card), ineqmat)
 
@@ -74,6 +79,12 @@ set_from_signvector <- function(signvec, card, nmax=12, reconvert=FALSE, ineqmat
   implied_word <- asword(set_from_word, edo=edo, rounder=rounder)
 
   # See quantize_color.r for try_scale_from_word()
-  try_scale_from_word(signvec=signvec, word=implied_word,
-                      nmax=nmax, reconvert=reconvert, ineqmat=ineqmat, edo=edo, rounder=rounder)
+  try_scale_from_word(signvec=signvec, 
+                      word=implied_word,
+                      nmax=nmax, 
+                      reconvert=reconvert, 
+                      ineqmat=ineqmat, 
+                      target_edo=target_edo,
+                      edo=edo, 
+                      rounder=rounder)
 }

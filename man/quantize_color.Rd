@@ -9,6 +9,7 @@ quantize_color(
   nmax = 12,
   reconvert = FALSE,
   ineqmat = NULL,
+  target_edo = NULL,
   edo = 12,
   rounder = 10
 )
@@ -30,6 +31,9 @@ of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white," "roth", "
 and \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}}. For other
 arrangements, the desired inequality matrix can be entered directly.}
 
+\item{target_edo}{Numeric (expected integer) determining a specific equal division of the octave to
+quantize to. Defaults to \code{NULL}, in which any potential \code{edo} will be accepted.}
+
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
@@ -39,9 +43,9 @@ number of decimal places to round to when testing for equality.}
 If \code{reconvert=FALSE}, a list of two elements: element 1 is \code{set} with a vector of integers
 representing the quantized scale; element 2 is \code{edo} representing the number k of unit steps in the
 mod k universe. If \code{reconvert=TRUE}, returns a single numeric vector measured relative
-to the unit step size input as \code{edo}: these generally will not be integers. May also return a vector
-of \code{NA}s the same length as \code{set} if no suitable quantization was found beneath the limit given by
-\code{nmax}.
+to the unit step size input as \code{edo}: these generally will not be integers. Values may be \code{NA}
+if no suitable quantization was found beneath the limit given by \code{nmax} or in \code{target_edo} (if
+specified).
 }
 \description{
 Modal Color Theory is useful for analyzing scales in continuous pitch-class
@@ -62,5 +66,8 @@ werck_ratios <- c(1, 256/243, 64*sqrt(2)/81, 32/27, (256/243)*2^(1/4), 4/3,
 werck3 <- z(werck_ratios)
 quantize_color(werck3)
 quantize_color(werck3, reconvert=TRUE)
+
+quantize_color(j(dia))
+quantize_color(j(dia), target_edo=22)
 
 }

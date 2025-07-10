@@ -12,7 +12,9 @@
 #' @param signvec Sign vector that you'd like the created scale to have.
 #'
 #' @returns Numeric vector of a satisfatory scale or a vector of `NA`s. Either
-#'   is the same length as `word`.
+#'   is the same length as `word`. If `reconvert=FALSE`, returns a list with
+#'   two elements: the first (`set`) is as above, the second (`edo`) species the
+#'   edo in which `set` is measured.
 #'
 #' @noRd
 try_scale_from_word <- function(signvec, 
@@ -20,17 +22,30 @@ try_scale_from_word <- function(signvec,
                                 nmax=12, 
                                 reconvert=FALSE, 
                                 ineqmat=NULL, 
+                                target_edo=NULL,
                                 edo=12, 
                                 rounder=10) {
   # Generate scales with a given step-word pattern until you create one whose sign vector matches input signvec.
   card <- length(word)
   letters <- sort(unique(word), decreasing=FALSE)
 
+  if (reconvert==TRUE) {
+    failure_state <- rep(NA, card)
+  } else {
+    failure_state <- list(set=rep(NA, card), edo=NA)
+  }
+
   startedo <- sum(word)
 
-  current_set <- cumsum(c(0,word))[1:card]
+  if (!is.null(target_edo) && (startedo > target_edo)) {
+    return(failure_state)
+  }
 
-  if (isTRUE(all.equal(signvector(current_set, ineqmat=ineqmat, edo=startedo, rounder=rounder), signvec))) {
+  current_set <- cumsum(c(0,word))[1:card]
+  cur_signvec <- signvector(current_set, ineqmat=ineqmat, edo=startedo, rounder=rounder)
+
+  if (isTRUE(all.equal(cur_signvec, signvec)) && 
+      (is.null(target_edo) || startedo == target_edo)) {
     result_list <- list(set=current_set, edo=startedo)
     if (reconvert==TRUE) {
       return(convert(result_list$"set", result_list$"edo", edo))
@@ -40,6 +55,19 @@ try_scale_from_word <- function(signvec,
   }
 
   options <- utils::combn(nmax,length(letters))
+
+  if (!is.null(target_edo)) {
+    check_option_edo <- function(option) option %*% as.numeric(table(word))
+    in_target_edo <- which(apply(options, 2, check_option_edo) == target_edo)
+
+    if (length(in_target_edo)==0) {
+      return(failure_state)
+    }
+
+    options <- options[, in_target_edo]
+    if (length(in_target_edo)==1) options <- insist_matrix(options)
+  }
+
   stop <- dim(options)[2]
 
   for (i in 1:stop) {
@@ -65,7 +93,7 @@ try_scale_from_word <- function(signvec,
     }
   }
 
-  rep(NA,card)
+  failure_state
 }
 
 #' Find a scale mod k that matches a given color
@@ -83,13 +111,15 @@ try_scale_from_word <- function(signvec,
 #'   that k must be very high. Increasing nmax makes the function run longer but might be necessary
 #'   if small chromatic universes don't produce a result. Defaults to `12`.
 #' @param reconvert Boolean. Should the scale be converted to the input edo? Defaults to `FALSE`.
+#' @param target_edo Numeric (expected integer) determining a specific equal division of the octave to 
+#'   quantize to. Defaults to `NULL`, in which any potential `edo` will be accepted.
 #'
 #' @returns If `reconvert=FALSE`, a list of two elements: element 1 is `set` with a vector of integers
 #'   representing the quantized scale; element 2 is `edo` representing the number k of unit steps in the
 #'   mod k universe. If `reconvert=TRUE`, returns a single numeric vector measured relative
-#'   to the unit step size input as `edo`: these generally will not be integers. May also return a vector
-#'   of `NA`s the same length as `set` if no suitable quantization was found beneath the limit given by
-#'   `nmax`.
+#'   to the unit step size input as `edo`: these generally will not be integers. Values may be `NA`
+#'   if no suitable quantization was found beneath the limit given by `nmax` or in `target_edo` (if 
+#'   specified).
 #'
 #' @examples
 #' qcm_fifth <- meantone_fifth()
@@ -103,14 +133,29 @@ try_scale_from_word <- function(signvec,
 #' quantize_color(werck3)
 #' quantize_color(werck3, reconvert=TRUE)
 #'
+#' quantize_color(j(dia))
+#' quantize_color(j(dia), target_edo=22)
+#'
 #' @export
-quantize_color <- function(set, nmax=12, reconvert=FALSE, ineqmat=NULL, edo=12, rounder=10) {
+quantize_color <- function(set, 
+                           nmax=12, 
+                           reconvert=FALSE, 
+                           ineqmat=NULL, 
+                           target_edo=NULL,
+                           edo=12, 
+                           rounder=10) {
   signvec <- signvector(set, ineqmat=ineqmat, edo=edo, rounder=rounder)
 
   word <- asword(set, edo, rounder)
 
-  try_scale_from_word(signvec=signvec, word=word, 
-                      nmax=nmax, reconvert=reconvert, ineqmat=ineqmat, edo=edo, rounder=rounder)
+  try_scale_from_word(signvec=signvec, 
+                      word=word, 
+                      nmax=nmax, 
+                      reconvert=reconvert, 
+                      ineqmat=ineqmat, 
+                      target_edo=target_edo,
+                      edo=edo, 
+                      rounder=rounder)
 }
 
 #' Create local hyperplanes for quantize_hue()
@@ -151,9 +196,8 @@ ineq_from_sdpair <- function(vec, central_set) {
 #' @returns If `reconvert=FALSE`, a list of two elements: element 1 is `set` with a vector of integers
 #'   representing the quantized scale; element 2 is `edo` representing the number k of unit steps in the
 #'   mod k universe. If `reconvert=TRUE`, returns a single numeric vector measured relative
-#'   to the unit step size input as `edo`: these generally will not be integers. May also return a vector
-#'   of `NA`s the same length as `set` if no suitable quantization was found beneath the limit given by
-#'   `nmax`.
+#'   to the unit step size input as `edo`: these generally will not be integers. Values may be NA if no 
+#'   suitable quantization was found beneath the limit given by nmax or in target_edo (if specified). 
 #'
 #' @examples
 #' meantone_diatonic <- sort(((0:6)*meantone_fifth())%%12)
@@ -164,10 +208,14 @@ ineq_from_sdpair <- function(vec, central_set) {
 #' quantize_color(quasi_guido)
 #' quantize_hue(quasi_guido)
 #'
+#' quantize_hue(c(0, 1, 4, 6))
+#' quantize_hue(c(0, 1, 4, 6), target_edo=16)
+#'
 #' @export
 quantize_hue <- function(set, 
                          nmax=12, 
                          reconvert=FALSE, 
+                         target_edo=NULL,
                          edo=12, 
                          rounder=10) {
   card <- length(set)
@@ -212,6 +260,7 @@ quantize_hue <- function(set,
                       nmax=nmax, 
                       reconvert=reconvert, 
                       ineqmat=hue_ineqmat, 
+                      target_edo=target_edo,
                       edo=edo, 
                       rounder=rounder
   )

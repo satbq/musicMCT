@@ -155,11 +155,11 @@ dft <- function(set, distro=NULL, edo=12, rounder=10) {
   too_close_to_edo <- which((edo - phase) < 10^(-1*rounder))
   phase[too_close_to_edo] <- 0
 
-  res <- rbind(magnitude, phase) |> round(digits=rounder+4)
+  res <- round(rbind(magnitude, phase), digits=rounder+4)
 
   fs <- rep("f", num_components)
   nums <- 0:(num_components-1)
-  f_num <- cbind(fs, nums) |> apply(MARGIN=1, FUN=paste, collapse="")
+  f_num <- apply(cbind(fs, nums), MARGIN=1, FUN=paste, collapse="")
   colnames(res) <- f_num
 
   res

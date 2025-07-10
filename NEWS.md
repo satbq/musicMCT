@@ -12,6 +12,17 @@
 * New functions for basic applications of the DFT to set theory are added. These 
   include `set_to_distribution()`, `distribution_to_set()`, and `dft()`.
 
+## New behaviors for quantization functions (`quantize_color()`, `quantize_hue()`, 
+   and `set_from_signvector()`).
+
+* Upon failure, quantization functions now return a result whose format matches
+  expected success format depending on value of `reconvert` parameter. That is,
+  if `reconvert=TRUE`, failure to quantize results in a `NA` vector (as before), but
+  if `reconvert=FALSE`, failure to quantize results in a list with entries `set` and
+  `edo`, both of which are `NA`.
+* Quantization functions gain a `target_edo` parameter, which allows user to search
+  for desired scales in a specific edo rather than all possible edos.
+
 # musicMCT 0.1.2
 
 * Updated writeSCL() to require user to enter a path.
