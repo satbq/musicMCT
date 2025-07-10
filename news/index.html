@@ -51,7 +51,13 @@
 <li>New <code><a href="../reference/clockface.html">clockface()</a></code> offers a simple plotting mechanism to visualize sets on a pitch-class clockface (with numbers corresponding to any equal temperament).</li>
 <li>New <code><a href="../reference/ianring.html">ianring()</a></code> creates a convenient way to open a browser window to information about the input set on Ian Ring’s website <a href="https://ianring.com/musictheory" class="external-link">The Exciting Universe of Music Theory</a>.</li>
 <li>New functions for basic applications of the DFT to set theory are added. These include <code><a href="../reference/set_to_distribution.html">set_to_distribution()</a></code>, <code><a href="../reference/set_to_distribution.html">distribution_to_set()</a></code>, and <code><a href="../reference/dft.html">dft()</a></code>.</li>
+</ul><div class="section level3">
+<h3 id="new-behaviors-for-quantization-functions-quantize_color-quantize_hue-development-version">New behaviors for quantization functions (<code>quantize_color()</code>, <code>quantize_hue()</code>,<a class="anchor" aria-label="anchor" href="#new-behaviors-for-quantization-functions-quantize_color-quantize_hue-development-version"></a></h3>
+<p>and <code><a href="../reference/set_from_signvector.html">set_from_signvector()</a></code>).</p>
+<ul><li>Upon failure, quantization functions now return a result whose format matches expected success format depending on value of <code>reconvert</code> parameter. That is, if <code>reconvert=TRUE</code>, failure to quantize results in a <code>NA</code> vector (as before), but if <code>reconvert=FALSE</code>, failure to quantize results in a list with entries <code>set</code> and <code>edo</code>, both of which are <code>NA</code>.</li>
+<li>Quantization functions gain a <code>target_edo</code> parameter, which allows user to search for desired scales in a specific edo rather than all possible edos.</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="musicmct-012">musicMCT 0.1.2<a class="anchor" aria-label="anchor" href="#musicmct-012"></a></h2><p class="text-muted">CRAN release: 2025-06-05</p>
 <ul><li>Updated writeSCL() to require user to enter a path.</li>

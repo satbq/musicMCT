@@ -69,6 +69,7 @@ be represented by integers in some mod k universe. See "Modal Color Theory,"
 <span>  nmax <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  reconvert <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ineqmat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_edo <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  edo <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -102,6 +103,11 @@ and <code><a href="make_roth_ineqmat.html">make_rosy_ineqmat()</a></code>. For o
 arrangements, the desired inequality matrix can be entered directly.</p></dd>
 
 
+<dt id="arg-target-edo">target_edo<a class="anchor" aria-label="anchor" href="#arg-target-edo"></a></dt>
+<dd><p>Numeric (expected integer) determining a specific equal division of the octave to
+quantize to. Defaults to <code>NULL</code>, in which any potential <code>edo</code> will be accepted.</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
@@ -116,9 +122,9 @@ number of decimal places to round to when testing for equality.</p></dd>
     <p>If <code>reconvert=FALSE</code>, a list of two elements: element 1 is <code>set</code> with a vector of integers
 representing the quantized scale; element 2 is <code>edo</code> representing the number k of unit steps in the
 mod k universe. If <code>reconvert=TRUE</code>, returns a single numeric vector measured relative
-to the unit step size input as <code>edo</code>: these generally will not be integers. May also return a vector
-of <code>NA</code>s the same length as <code>set</code> if no suitable quantization was found beneath the limit given by
-<code>nmax</code>.</p>
+to the unit step size input as <code>edo</code>: these generally will not be integers. Values may be <code>NA</code>
+if no suitable quantization was found beneath the limit given by <code>nmax</code> or in <code>target_edo</code> (if
+specified).</p>
     </div>
 
     <div class="section level2">
@@ -147,6 +153,21 @@ of <code>NA</code>s the same length as <code>set</code> if no suitable quantizat
 <span class="r-in"><span><span class="fu">quantize_color</span><span class="op">(</span><span class="va">werck3</span>, reconvert<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.000  0.375  1.500  2.625  3.375  4.875  5.250  6.750  7.500  8.250</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11]  9.750 10.500</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">quantize_color</span><span class="op">(</span><span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  3  5  6  9 11 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $edo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">quantize_color</span><span class="op">(</span><span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span>, target_edo<span class="op">=</span><span class="fl">22</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  4  7  9 13 16 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $edo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

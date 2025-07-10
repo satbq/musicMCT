@@ -79,6 +79,7 @@ use this function on many sign vectors at the same time.</p>
 <span>  nmax <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  reconvert <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ineqmat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_edo <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  edo <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -117,6 +118,11 @@ and <code><a href="make_roth_ineqmat.html">make_rosy_ineqmat()</a></code>. For o
 arrangements, the desired inequality matrix can be entered directly.</p></dd>
 
 
+<dt id="arg-target-edo">target_edo<a class="anchor" aria-label="anchor" href="#arg-target-edo"></a></dt>
+<dd><p>Numeric (expected integer) determining a specific equal division of the octave to
+quantize to. Defaults to <code>NULL</code>, in which any potential <code>edo</code> will be accepted.</p></dd>
+
+
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
 <dd><p>Number of unit steps in an octave. Defaults to <code>12</code>.</p></dd>
 
@@ -131,9 +137,8 @@ number of decimal places to round to when testing for equality.</p></dd>
     <p>If <code>reconvert=FALSE</code>, a list of two elements: element 1 is <code>set</code> with a vector of integers
 representing the realized scale; element 2 is <code>edo</code> representing the number k of unit steps in the
 mod k universe. If <code>reconvert=TRUE</code>, returns a single numeric vector converted to measurement relative
-to 12-tone equal tempered semitones. May also return a vector
-of <code>NA</code>s of length <code>card</code> if no suitable scale was found beneath the limit given by
-<code>nmax</code>.</p>
+to 12-tone equal tempered semitones. Values may be <code>NA</code> if no suitable quantization was found beneath
+the limit given by nmax or in target_edo (if specified).</p>
     </div>
 
     <div class="section level2">
@@ -148,9 +153,14 @@ of <code>NA</code>s of length <code>card</code> if no suitable scale was found b
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># But this one, which changes only the last entry of the previous sign vector</span></span></span>
-<span class="r-in"><span><span class="co"># has no solution so will return four `NA` values.</span></span></span>
+<span class="r-in"><span><span class="co"># has no solution so will return only `NA`s.</span></span></span>
 <span class="r-in"><span><span class="fu">set_from_signvector</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $set</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA NA NA NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $edo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span>  </span></span>
 </code></pre></div>
     </div>
