@@ -11,6 +11,9 @@
   [The Exciting Universe of Music Theory](https://ianring.com/musictheory).
 * New functions for basic applications of the DFT to set theory are added. These 
   include `set_to_distribution()`, `distribution_to_set()`, and `dft()`.
+* New `make_black_ineqmat()` and `make_gray_ineqmat()` allow new transposition-sensitive
+  hyperplane arrangements to be studied; ineqmat parameter for other functions (e.g. 
+  `signvector()` now accepts "black" and "gray" as options.
 
 ## New behaviors for quantization functions 
 * Affected functions are `quantize_color()`, `quantize_hue()`, 

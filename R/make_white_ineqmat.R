@@ -72,3 +72,52 @@ make_pastel_ineqmat <- function(card) {
   new_ineqmat <- rbind(getineqmat(card), make_white_ineqmat(card))
   unique(new_ineqmat, MARGIN=1)
 }
+
+#' Define hyperplanes for transposition-sensitive arrangements
+#'
+#' The "black" hyperplane arrangement compares a set's scale degrees
+#' individually to the pitches of `edoo(card)` (where `card` is the 
+#' number of notes in `set`). This primarily has the purpose of attending
+#' to the overall transposition level of a set. Most applications of Modal
+#' Color Theory assume transpositional equivalence, but occasionally it
+#' is useful to relax that assumption. Sum class (Straus 2018, 
+#' <doi:10.1215/00222909-7127694>) is a natural precise way to track
+#' this information, but the "black" arrangements do so qualitatively
+#' in the spirit of modal color theory. `make_black_ineqmat()` returns only
+#' the inequality matrix for the "black" arrangement, while `make_gray_ineqmat()`
+#' for convenience combines the results of [make_white_ineqmat()] and `make_black_ineqmat()`.
+#'
+#' @inheritParams makeineqmat
+#'
+#' @returns A `card` by `card+1` inequality matrix (for `make_black_ineqmat()`) or
+#'   the result of combining white and black inequality matrices (in that order) for
+#'   `make_gray_ineqmat()`.
+#'
+#' @examples
+#' # The set (1, 4, 7)'s elements are respectively below, equal to, and
+#' # above the pitches of edoo(3).
+#' test_set <- c(1, 4, 7)
+#' signvector(test_set, ineqmat=make_black_ineqmat(3))
+#'
+#' # The result changes if you transpose test_set down a semitone:
+#' signvector(test_set - 1, ineqmat=make_black_ineqmat(3))
+#'
+#' # The results from signvector(..., ineqmat=make_black_ineqmat) can
+#' # also be calculated with coord_to_edo():
+#' sign(coord_to_edo(test_set))
+#' sign(coord_to_edo(test_set - 1))
+#' @seealso [make_white_ineqmat()]
+#' @export
+make_black_ineqmat <- function(card) {
+  sd_columns <- diag(card)
+  last_column <- -1 * ((0:(card-1))/card)
+  res <- cbind(sd_columns, last_column)
+  colnames(res) <- NULL
+  res
+}
+
+#' @rdname make_black_ineqmat
+#' @export
+make_gray_ineqmat <- function(card) {
+  rbind(make_white_ineqmat(card), make_black_ineqmat(card))
+}

@@ -14,3 +14,10 @@ test_that("make_pastel_ineqmat works", {
   expect_equal(dim(make_pastel_ineqmat(4)), c(12, 5))
   expect_snapshot(make_pastel_ineqmat(6))
 })
+
+test_that("black and gray ineqmats work", {
+  expect_equal(dim(make_black_ineqmat(53)), c(53, 54))
+  expect_snapshot(make_black_ineqmat(7))
+  expect_equal(make_gray_ineqmat(5), 
+               rbind(make_white_ineqmat(5), make_black_ineqmat(5)))
+})
