@@ -20,4 +20,8 @@ test_that("black and gray ineqmats work", {
   expect_snapshot(make_black_ineqmat(7))
   expect_equal(make_gray_ineqmat(5), 
                rbind(make_white_ineqmat(5), make_black_ineqmat(5)))
+
+  expect_equal(signvector(c(0, 4, 7), ineqmat="black"), c(0, 0, -1))
+  expect_equal(signvector(c(1, 5, 8), ineqmat="black"), c(1, 1, 0))
 })
+

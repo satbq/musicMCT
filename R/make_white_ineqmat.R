@@ -1,8 +1,9 @@
-#' Define hyperplanes for quasi-white arrangements
+#' Define hyperplanes for white arrangements
 #'
+#' @description
 #' Although the hyperplane arrangements of Modal Color Theory determine most
 #' scalar properties, there are some potentially interesting questions which
-#' require different arrangements. This function makes "quasi-white" arrangements
+#' require different arrangements. This function makes "white" arrangements
 #' which consider how many of a scale's intervals correspond exactly to the 
 #' "white" or perfectly even color for their generic size. That is, for an 
 #' interval `x` belonging to generic size `g` in an `n` note scale, does
@@ -17,8 +18,19 @@
 #' related to formal tritones (intervals that divide the scale exactly in half).
 #' Therefore, the function `make_pastel_ineqmat()` exists to give the result of combining
 #' them with duplicates removed. (The moniker "pastel" is
-#' meant to suggest combining the *colors* of MCT arrangements with a *white* pigment
-#' from quasi-white arrangements.)
+#' meant to suggest combining the colors of MCT arrangements with a white pigment
+#' from white arrangements.)
+#'
+#' Just as the MCT arrangements are concretized by the files "representative_scales"
+#' and "representative_signvectors," the white and pastel arrangements are represented 
+#' by [offwhite_scales](https://github.com/satbq/modalcolortheory/blob/main/offwhite_scales.rds), 
+#' [offwhite_signvectors](https://github.com/satbq/modalcolortheory/blob/main/offwhite_signvectors.rds), 
+#' [pastel_scales](https://github.com/satbq/modalcolortheory/blob/main/pastel_scales.rds), and
+#' [pastel_signvectors](https://github.com/satbq/modalcolortheory/blob/main/pastel_signvectors.rds).
+#' This data has not been as thoroughly vetted as the files for the MCT arrangements, and currently
+#' white and pastel arrangements are only represented up through cardinality 6.
+#' The files are hosted at the [modalcolortheory repo](https://github.com/satbq/modalcolortheory)
+#' like representative_scales because they are too large to include in musicMCT.
 #'
 #' @inheritParams makeineqmat
 #'

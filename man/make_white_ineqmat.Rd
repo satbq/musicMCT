@@ -3,7 +3,7 @@
 \name{make_white_ineqmat}
 \alias{make_white_ineqmat}
 \alias{make_pastel_ineqmat}
-\title{Define hyperplanes for quasi-white arrangements}
+\title{Define hyperplanes for white arrangements}
 \usage{
 make_white_ineqmat(card)
 
@@ -18,7 +18,7 @@ A matrix with \code{card+1} columns and k rows, where k is the nth triangular nu
 \description{
 Although the hyperplane arrangements of Modal Color Theory determine most
 scalar properties, there are some potentially interesting questions which
-require different arrangements. This function makes "quasi-white" arrangements
+require different arrangements. This function makes "white" arrangements
 which consider how many of a scale's intervals correspond exactly to the
 "white" or perfectly even color for their generic size. That is, for an
 interval \code{x} belonging to generic size \code{g} in an \code{n} note scale, does
@@ -26,16 +26,26 @@ interval \code{x} belonging to generic size \code{g} in an \code{n} note scale, 
 two modes have identical sum brightnesses when the interval that separates
 their tonics is "white" in this way. Mostly you will want to use these
 matrices as inputs to functions with an \code{ineqmat} parameter.
-}
-\details{
+
 In many cases, it is desirable to use a combination of the MCT \code{ineqmat} from
 \code{\link[=makeineqmat]{makeineqmat()}} and the quasi-white \code{ineqmat} from \code{make_white_ineqmat()}. Generally
 these are distinct, but they do have some shared hyperplanes in even cardinalities
 related to formal tritones (intervals that divide the scale exactly in half).
 Therefore, the function \code{make_pastel_ineqmat()} exists to give the result of combining
 them with duplicates removed. (The moniker "pastel" is
-meant to suggest combining the \emph{colors} of MCT arrangements with a \emph{white} pigment
-from quasi-white arrangements.)
+meant to suggest combining the colors of MCT arrangements with a white pigment
+from white arrangements.)
+
+Just as the MCT arrangements are concretized by the files "representative_scales"
+and "representative_signvectors," the white and pastel arrangements are represented
+by \href{https://github.com/satbq/modalcolortheory/blob/main/offwhite_scales.rds}{offwhite_scales},
+\href{https://github.com/satbq/modalcolortheory/blob/main/offwhite_signvectors.rds}{offwhite_signvectors},
+\href{https://github.com/satbq/modalcolortheory/blob/main/pastel_scales.rds}{pastel_scales}, and
+\href{https://github.com/satbq/modalcolortheory/blob/main/pastel_signvectors.rds}{pastel_signvectors}.
+This data has not been as thoroughly vetted as the files for the MCT arrangements, and currently
+white and pastel arrangements are only represented up through cardinality 6.
+The files are hosted at the \href{https://github.com/satbq/modalcolortheory}{modalcolortheory repo}
+like representative_scales because they are too large to include in musicMCT.
 }
 \examples{
 major_triad <- c(0, 4, 7)
