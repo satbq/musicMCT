@@ -35,7 +35,7 @@
 #' @export
 optc_test <- function(set, edo=12, rounder=10, single_answer=TRUE) {
   basically_zero <- 10^(-rounder)
-  step_sizes <- sim(sort(set))[2,]
+  step_sizes <- sim(sort(set), edo=edo)[2,]
 
   satisfies_O <- max(set) < edo
   satisfies_P <- isTRUE( all.equal(set, sort(set), tolerance=basically_zero) )

@@ -10,7 +10,7 @@
 #'
 #' @noRd
 get_adjacent_sizes <- function(set, edo=12) {
-  sorted_generic_intervals <- apply(sim(set, edo), 1, sort)
+  sorted_generic_intervals <- apply(sim(set, edo=edo), 1, sort)
   all_intervals <- as.numeric(sorted_generic_intervals)
   diff(all_intervals)
 }

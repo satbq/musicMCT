@@ -39,7 +39,7 @@ vl_generators <- function(set, edo=12, rounder=10) {
     return(matrix(c(numeric(0), numeric(0)), nrow=2))
   }
 
-  scalar_interval_matrix <- sim(set,edo)
+  scalar_interval_matrix <- sim(set, edo=edo)
 
   reduced_comparisons <- bg_reduction(set=set, edo=edo, rounder=rounder)
   arrows_in_graph  <- which(reduced_comparisons==1, arr.ind=TRUE)
@@ -113,7 +113,7 @@ vlsig <- function(set, index=1, display_digits=2, edo=12, rounder=10) {
 
   chosen_tn_level <- tn_levels[2, index]
   chosen_generic_interval <- tn_levels[1, index]
-  modes <- sim(set, edo)
+  modes <- sim(set, edo=edo)
 
   goal_set <- rotate(set, -chosen_generic_interval) 
   goal_set[1:chosen_generic_interval] <- goal_set[1:chosen_generic_interval] - edo

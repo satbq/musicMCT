@@ -47,7 +47,7 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #' 
 #' @export
 brightness_comparisons <- function(set, edo=12, rounder=10) {
-  modes <- sim(set, edo)
+  modes <- sim(set, edo=edo)
   modes <- split(modes, col(modes))
   outer(modes, modes, Vectorize(modecompare), rounder=rounder)
 }
@@ -108,7 +108,7 @@ eps <- function(set, edo=12, rounder=10) {
     return(NA)
   }
 
-  modes <- t(sim(set, edo))
+  modes <- t(sim(set, edo=edo))
   chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
   diffs <- outer(rowSums(modes), rowSums(modes),'-')
   result <- chart * diffs
@@ -123,7 +123,7 @@ delta <- function(set, edo=12, rounder=10) {
     return(NA)
   }
 
-  modes <- t(sim(set, edo))
+  modes <- t(sim(set, edo=edo))
   chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
   diag(chart) <- -1
   chart <- (chart + 1)%%2

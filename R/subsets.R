@@ -35,7 +35,7 @@ intervalspectrum <- function(set, edo=12, rounder=10) {
     return(list()) 
   }
 
-  modes <- sim(set, edo)
+  modes <- sim(set, edo=edo)
   modes <- t(apply(modes, 1, sort))
   if (card == 2) { 
     return(list(fpunique(modes[2,], rounder=rounder))) 

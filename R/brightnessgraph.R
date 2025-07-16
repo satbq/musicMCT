@@ -14,7 +14,7 @@
 #' @noRd
 bg_reduction <- function(set, edo=12, rounder=10) {
   card <- length(set)
-  scalar_interval_matrix <- sim(set,edo)
+  scalar_interval_matrix <- sim(set,edo=edo)
   sums <- colSums(scalar_interval_matrix)
 
   comparisons <- -1*brightness_comparisons(set, edo, rounder)
@@ -93,7 +93,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
                             edo=12, rounder=10) {
   card <- length(set)
-  scalar_interval_matrix <- sim(set,edo)
+  scalar_interval_matrix <- sim(set,edo=edo)
   sums <- colSums(scalar_interval_matrix)
   y_coords <- sums
 
@@ -140,7 +140,7 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
   if (fixed_do==TRUE) {
     pitch_labels <- sapply(0:(card-1), rotate, x=set, edo=edo)
   } else {
-    pitch_labels <- sim(set,edo=edo)
+    pitch_labels <- sim(set, edo=edo)
   }
   pitch_labels <- apply(apply(pitch_labels,2, round, digits=numdigits), 2, paste, collapse=", ")
 

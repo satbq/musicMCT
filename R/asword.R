@@ -39,7 +39,7 @@ asword <- function(set, edo=12, rounder=10) {
   card <- length(set)
   result <- rep(0, card)
 
-  setsteps <- sim(set, edo)[2, ]
+  setsteps <- sim(set, edo=edo)[2, ]
   stepvals <- sort(fpunique(setsteps, 0, rounder))
 
   for (i in 1:card) {

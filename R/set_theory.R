@@ -115,7 +115,7 @@ tnprime <- function(set, edo=12, rounder=10) {
   if (card == 1) { return(0) }
   if (card == 0) { return(integer(0)) }
 
-  modes <- sim(set, edo)
+  modes <- sim(set, edo=edo)
   modes <- compactest_mode(modes, rounder=rounder)
 
   modes[1:card]

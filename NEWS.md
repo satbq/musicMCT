@@ -17,6 +17,8 @@
 * New data sets for pastel and white arrangements (for cardinalities <= 6) uploaded to
   [modalcolortheory repository](https://github.com/satbq/modalcolortheory) and linked
   in the documentation for [make_white_ineqmat()].
+* `sim()` gains a `goal` parameter, which allows it to calculate the interscalar
+  interval matrix for two sets.
 
 ## New behaviors for quantization functions 
 * Affected functions are `quantize_color()`, `quantize_hue()`, 
