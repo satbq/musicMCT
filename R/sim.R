@@ -19,7 +19,7 @@
 #' print(miyakobushi_modes)
 #'
 #' # Interscalar Interval Matrix:
-#' sim(c(0, 3, 6, 9), c(0, 4, 7, 10))
+#' sim(c(0, 3, 6, 10), c(0, 4, 7, 10))
 #'
 #' # Note that the interscalar matrices factor out transposition:
 #' minor <- c(0, 3, 7)
