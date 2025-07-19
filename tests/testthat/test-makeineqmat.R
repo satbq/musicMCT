@@ -4,6 +4,11 @@ test_that("makeineqmat works", {
                           -1, 1, 2,
                           0, -1, -1), nrow=3)
   expect_equal(makeineqmat(3), goal_matrix)
+
+  expect_identical(makeineqmat(1), integer(0))
+
+  dyad_ineqmat <- matrix(c(-2, 2, -1), nrow=1)
+  expect_equal(makeineqmat(2), dyad_ineqmat)
 })
 
 test_that("makeineqmat gives right dims", {

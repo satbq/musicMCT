@@ -29,6 +29,14 @@
 #'
 #' @export
 makeineqmat <- function(card) {
+  if (card < 2) {
+    return(integer(0))
+  }
+
+  if (card==2) {
+    return(matrix(c(-2, 2, -1), nrow=1))
+  }
+
   # Creates a row for the inequality matrix, given the "roots" of the two intervals to be compared
   # (specified as zero-indexed scale degrees) and the generic size of the interval (zero-indexed).
   generateRow <- function(firstroot, secondroot, genericival) {

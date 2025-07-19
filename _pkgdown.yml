@@ -32,6 +32,7 @@ reference:
   - get_relevant_rows
   - ineqmats
   - make_black_ineqmat
+  - make_offset_ineqmat
   - make_roth_ineqmat
   - make_white_ineqmat
   - makeineqmat
