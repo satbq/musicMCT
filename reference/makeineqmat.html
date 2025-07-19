@@ -112,7 +112,8 @@ cardinality. If so, it is retrieved; if not, it is created using <code>makeineqm
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">makeineqmat</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Cute: is step 1 &gt; step 2?</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2  2 -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   -2    2   -1</span>
 <span class="r-in"><span><span class="fu">makeineqmat</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="co"># Cute: step 1 &gt; step 2? step 1 &gt; step 3? step 2 &gt; step 3?</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   -1    2   -1    0</span>
