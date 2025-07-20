@@ -2,10 +2,13 @@
 % Please edit documentation in R/propriety.R
 \name{make_roth_ineqmat}
 \alias{make_roth_ineqmat}
+\alias{get_roth_ineqmat}
 \alias{make_rosy_ineqmat}
 \title{Define hyperplanes for Rothenberg arrangements}
 \usage{
 make_roth_ineqmat(card)
+
+get_roth_ineqmat(card)
 
 make_rosy_ineqmat(card)
 }
@@ -26,8 +29,7 @@ creates the \code{ineqmats} needed to study those arrangements, similar to what 
 for MCT arrangements. \code{make_rosy_ineqmat()} creates the combination of Rothenberg and MCT arrangements.
 (The name puns on the "Roth" of Rothenberg meaning "red," lending a reddish
 or rosy tint to the "colors" of the MCT arrangement.)
-}
-\details{
+
 Each row of a Rothenberg \code{ineqmat} represents a hyperplane, just like the rows produced by
 \code{\link[=makeineqmat]{makeineqmat()}}. The rows are normalized so that their first non-zero entry is either \code{1} or \code{-1},
 and their orientations are assigned so that a strictly proper set will return only \code{-1}s for its
@@ -37,7 +39,9 @@ hyperplanes do \emph{not} all intersect at the perfectly even scale. (It is clea
 because perfectly even scales have no ambiguities.) These arrangements also grow in complexity
 much faster than the MCT arrangements do: for tetrachords, MCT arrangements have 8 hyperplanes while
 Rothenberg arrangements have 22. For heptachords, those numbers increase to 42 and 259, respectively.
-Thus, this function runs slowly when called on cardinalities of only modest size (e.g. 12-24).
+Thus, this function runs slowly when called on cardinalities of only modest size (e.g. 12-24). Matrices
+for cardinalities up through 24 have been precomputed and are stored in \code{roth_ineqmats}; \code{get_roth_ineqmat()}
+attempts to access them from that file rather than generating them from scratch.
 }
 \examples{
 c_major <- c(0, 2, 4, 5, 7, 9, 11)

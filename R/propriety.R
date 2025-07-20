@@ -85,6 +85,7 @@ strictly_proper <- function(set, edo=12, rounder=10) {
 
 #' Define hyperplanes for Rothenberg arrangements
 #'
+#' @description
 #' Although the Rothenberg propriety of a single scale can be computed directly with [isproper()],
 #' propriety is a scalar feature (like modal "color") which is defined by a scale's position in 
 #' the geometry of continuous pc-set space. That is, propriety, contradictions, and ambiguities are
@@ -104,7 +105,9 @@ strictly_proper <- function(set, edo=12, rounder=10) {
 #' because perfectly even scales have no ambiguities.) These arrangements also grow in complexity
 #' much faster than the MCT arrangements do: for tetrachords, MCT arrangements have 8 hyperplanes while
 #' Rothenberg arrangements have 22. For heptachords, those numbers increase to 42 and 259, respectively.
-#' Thus, this function runs slowly when called on cardinalities of only modest size (e.g. 12-24).
+#' Thus, this function runs slowly when called on cardinalities of only modest size (e.g. 12-24). Matrices
+#' for cardinalities up through 24 have been precomputed and are stored in `roth_ineqmats`; `get_roth_ineqmat()`
+#' attempts to access them from that file rather than generating them from scratch.
 #'
 #' @inheritParams makeineqmat
 #'
@@ -123,6 +126,9 @@ strictly_proper <- function(set, edo=12, rounder=10) {
 #'
 #' @export
 make_roth_ineqmat <- function(card) {
+  if (card < 3) {
+    return(integer(0))
+  }
 
   quasimod <- function(x) {
     normal_mod <- x %% card
@@ -171,21 +177,35 @@ make_roth_ineqmat <- function(card) {
   roots <- 0:(card-1)
   intervals <- 1:(card-1)
   combinations <- expand.grid(roots, roots, intervals, intervals)
-  combinations <- combinations[combinations[,3] < combinations[,4],]
+  combinations <- combinations[combinations[, 3] < combinations[, 4], ]
 
-  firstroots <- combinations[,1]
-  secondroots <- combinations[,2]
-  g1s <- combinations[,3]
-  g2s <- combinations[,4]
+  firstroots <- combinations[, 1]
+  secondroots <- combinations[, 2]
+  g1s <- combinations[, 3]
+  g2s <- combinations[, 4]
 
   res <- t(mapply(roth_row, firstroot=firstroots, secondroot=secondroots, g1=g1s, g2=g2s))
  
   unique(res, MARGIN=1)
 }
 
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("roth_ineqmats"))
+
+#' @rdname make_roth_ineqmat
+#' @export
+get_roth_ineqmat <- function(card) {
+  if (exists("roth_ineqmats")) {
+    if (card <= length(roth_ineqmats)) {
+      return(roth_ineqmats[[card]])
+    }
+  } 
+  make_roth_ineqmat(card)
+}
+
 
 #' @rdname make_roth_ineqmat
 #' @export
 make_rosy_ineqmat <- function(card) {
-  rbind(getineqmat(card), make_roth_ineqmat(card))
+  rbind(getineqmat(card), get_roth_ineqmat(card))
 }
+
