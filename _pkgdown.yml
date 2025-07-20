@@ -38,6 +38,7 @@ reference:
   - makeineqmat
   - populate_flat
   - project_onto
+  - roth_ineqmats
 
 - subtitle: Sign vectors
   desc: Work directly with the information contained in a sign vector
