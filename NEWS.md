@@ -14,13 +14,13 @@
 * New `make_black_ineqmat()` and `make_gray_ineqmat()` allow new transposition-sensitive
   hyperplane arrangements to be studied; ineqmat parameter for other functions (e.g. 
   `signvector()` now accepts "black" and "gray" as options.
-* New data set `roth_ineqmats.rda` with precomputed results from [make_roth_ineqmat()];
+* New data set `roth_ineqmats.rda` with precomputed results from `make_roth_ineqmat()`;
   accessed with new `get_roth_ineqmat()`.
 * New `make_offset_ineqmat()` creates version of standard ineqmats (MCT, white, black, etc.)
   which have been translated to be centered on an arbitrary set.
 * New data sets for pastel and white arrangements (for cardinalities <= 6) uploaded to
   [modalcolortheory repository](https://github.com/satbq/modalcolortheory) and linked
-  in the documentation for [make_white_ineqmat()].
+  in the documentation for `make_white_ineqmat()`.
 * `sim()` gains a `goal` parameter, which allows it to calculate the interscalar
   interval matrix for two sets.
 

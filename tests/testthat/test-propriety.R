@@ -14,6 +14,11 @@ test_that("isproper works", {
 test_that("make_roth_ineqmat works", {
   expect_equal(dim(make_roth_ineqmat(3))[1], 6)
   expect_equal(dim(make_roth_ineqmat(4))[1], 22)
+  expect_identical(make_roth_ineqmat(2), integer(0))
+  expect_identical(make_roth_ineqmat(1), integer(0))
+  expect_identical(get_roth_ineqmat(2), integer(0))
+  expect_equal(get_roth_ineqmat(25), make_roth_ineqmat(25))
 
   expect_snapshot(make_roth_ineqmat(7))
 })
+
