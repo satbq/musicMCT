@@ -1,6 +1,6 @@
 Package: musicMCT
 Title: Analyze the Structure of Musical Scales
-Version: 0.1.2.9000
+Version: 0.2.0
 Authors@R: 
     person("Paul", "Sherrill", , "paul.sherrill@utah.edu", role = c("aut", "cre","cph"), comment = c(ORCID = "0009-0002-3617-016X"))
 Description: Analysis of musical scales (& modes, grooves, etc.) in the vein of
