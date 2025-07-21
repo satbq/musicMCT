@@ -7,11 +7,14 @@
   `signvector()` now accepts "black" and "gray" as options.
 * New `make_offset_ineqmat()` creates version of standard ineqmats (MCT, white, black, etc.)
   which have been translated to be centered on an arbitrary set.
+* Creation functions for ineqmats (`makeineqmat()`, `make_black_ineqmat()`, `make_white_ineqmat()`,
+  `make_roth_ineqmat()`) now return a consistent value (`integer(0)`) rather than various errors
+  when `card` is small.
+* New data set `roth_ineqmats.rda` with precomputed results from `make_roth_ineqmat()`;
+  accessed with new `get_roth_ineqmat()`.
 * New data sets for pastel and white arrangements (for cardinalities <= 6) uploaded to
   [modalcolortheory repository](https://github.com/satbq/modalcolortheory) and linked
   in the documentation for `make_white_ineqmat()`.
-* New data set `roth_ineqmats.rda` with precomputed results from `make_roth_ineqmat()`;
-  accessed with new `get_roth_ineqmat()`.
 
 ## New behaviors for quantization functions 
 * Affected functions are `quantize_color()`, `quantize_hue()`, 

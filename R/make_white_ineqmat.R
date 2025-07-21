@@ -59,6 +59,10 @@
 #'
 #' @export
 make_white_ineqmat <- function(card) {
+  if (card < 2) {
+    return(integer(0))
+  }
+
   index_pairs <- utils::combn(card, 2)
   generic_sizes <- index_pairs[2,] - index_pairs[1,]
   pairs_and_sizes <- rbind(index_pairs, generic_sizes)
@@ -121,6 +125,9 @@ make_pastel_ineqmat <- function(card) {
 #' @seealso [make_white_ineqmat()]
 #' @export
 make_black_ineqmat <- function(card) {
+  if (card < 1) {
+    return(integer(0))
+  }
   sd_columns <- diag(card)
   last_column <- -1 * ((0:(card-1))/card)
   res <- cbind(sd_columns, last_column)
