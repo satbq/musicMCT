@@ -14,6 +14,7 @@ Analysis of musical scales (& modes, grooves, etc.) in the vein of Sherrill 2025
 Useful links:
 \itemize{
   \item \url{https://satbq.github.io/musicMCT/}
+  \item \url{https://github.com/satbq/musicMCT}
   \item Report bugs at \url{https://github.com/satbq/musicMCT/issues}
 }
 

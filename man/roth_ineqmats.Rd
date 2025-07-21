@@ -14,7 +14,7 @@ The last column of the matrix contains constants that translate the hyperplane a
 from the origin.
 }
 \source{
-The data in \code{ineqmats} can be recreated with the command
+The data in \code{roth_ineqmats} can be recreated with the command
 \code{sapply(1:24, make_roth_ineqmat)}.
 }
 \usage{
