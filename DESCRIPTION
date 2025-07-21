@@ -33,6 +33,6 @@ Suggests:
     vdiffr,
     withr,
 VignetteBuilder: knitr
-URL: https://satbq.github.io/musicMCT/
+URL: https://satbq.github.io/musicMCT/, https://github.com/satbq/musicMCT
 BugReports: https://github.com/satbq/musicMCT/issues
 Config/testthat/edition: 3
