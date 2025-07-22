@@ -337,7 +337,7 @@ us to project a given scale onto any "flat" (i.e. intersection of hyperplanes) i
 hyperplanes that we want to project onto, we can use `project_onto()`; but if we have a specific scale that already lies on the
 desired flat, we can use `match_flat()`. To see this latter function in action, let's project all 4000 sampled scales onto 
 the same flat as the double harmonic scale: we should end up with 4000 points all lying on the same northwest-southeast diagonal
-line as double harmonic itself. I'll plot the new projected scales a black points, in addition to the colorful points from Figure 4.
+line as double harmonic itself. I'll plot the new projected scales as black points, in addition to the colorful points from Figure 4.
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 projected_scales <- apply(random_scales, 2, match_flat, target_scale=double_harmonic)
@@ -763,11 +763,11 @@ to learn to recognize various structures that occur within it (like the point re
 the double harmonic scale's flat). Sometimes, just learning to read a figure and checking our visual intuitions against numerical values
 can lead to interesting & novel observations, like in our discussion of the `naive_guess` and `actual_optimum` scales around Figures 7 and 8.
 
-Finally, I'd be remiss not to mention that throughout this vignette all of the images we've seen (except for Figure 1, which I made in an 
-external graphics program) were produced by functions that come with default installations of R. There are many packages that supplement
+Finally, I should mention that throughout this vignette all of the images we've seen (except for Figure 1, which I made in an 
+external graphics program) were produced only by functions that come with default installations of R. There are many packages that supplement
 R's basic graphics capacities, such as the package ggplot2, which might come in handy for projects that have more complicated plotting needs.
 
 ---
 
 
-**Last updated:** 3 June 2025
+**Last updated:** 22 July 2025
