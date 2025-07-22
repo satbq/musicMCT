@@ -423,7 +423,7 @@ already lies on the desired flat, we can use <code><a href="../reference/project
 To see this latter function in action, let’s project all 4000 sampled
 scales onto the same flat as the double harmonic scale: we should end up
 with 4000 points all lying on the same northwest-southeast diagonal line
-as double harmonic itself. I’ll plot the new projected scales a black
+as double harmonic itself. I’ll plot the new projected scales as black
 points, in addition to the colorful points from Figure 4.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">projected_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="fl">2</span>, <span class="va">match_flat</span>, target_scale<span class="op">=</span><span class="va">double_harmonic</span><span class="op">)</span></span>
@@ -858,14 +858,14 @@ and checking our visual intuitions against numerical values can lead to
 interesting &amp; novel observations, like in our discussion of the
 <code>naive_guess</code> and <code>actual_optimum</code> scales around
 Figures 7 and 8.</p>
-<p>Finally, I’d be remiss not to mention that throughout this vignette
-all of the images we’ve seen (except for Figure 1, which I made in an
-external graphics program) were produced by functions that come with
-default installations of R. There are many packages that supplement R’s
-basic graphics capacities, such as the package ggplot2, which might come
-in handy for projects that have more complicated plotting needs.</p>
+<p>Finally, I should mention that throughout this vignette all of the
+images we’ve seen (except for Figure 1, which I made in an external
+graphics program) were produced only by functions that come with default
+installations of R. There are many packages that supplement R’s basic
+graphics capacities, such as the package ggplot2, which might come in
+handy for projects that have more complicated plotting needs.</p>
 <hr>
-<p><strong>Last updated:</strong> 3 June 2025</p>
+<p><strong>Last updated:</strong> 22 July 2025</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
