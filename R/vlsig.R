@@ -45,17 +45,14 @@ vl_generators <- function(set, edo=12, rounder=10) {
   arrows_in_graph  <- which(reduced_comparisons==1, arr.ind=TRUE)
   from_which_mode <- arrows_in_graph[,1]
   generic_intervals <- (arrows_in_graph[,2] - from_which_mode) %% card
-  generic_intervals <- (generic_intervals + 1)
-  specific_intervals <- scalar_interval_matrix[cbind(generic_intervals, from_which_mode)]
-  
-  # Reformat the intervals so their display value is more human readable
-  generic_intervals <- (-1*(generic_intervals-1)) %% card
-  specific_intervals <- (-1 * specific_intervals) %% edo
+  generic_intervals <- (-1*generic_intervals) %% card
 
-  duplications <- duplicated(round(specific_intervals, digits=rounder))
+  gen_iv_internal <- generic_intervals + 1  
+  get_largest_specific <- function(generic_size) max(scalar_interval_matrix[generic_size, ])
+  specific_intervals <- sapply(gen_iv_internal, get_largest_specific)
+
   res <- rbind(generic_intervals, specific_intervals)
-  res <- res[, !duplications]
-  
+  res <- fpunique(res, MARGIN=2, rounder=rounder)
   res <- insist_matrix(res)
 
   res <- res[,order(res[1,])]
@@ -77,8 +74,7 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'
 #' @inheritParams vl_generators
 #' @inheritParams ifunc
-#' @param index Integer: which voice-leading generator should be displayed? Defaults to `1`, 
-#'   the one which induces the least amount of motion.
+#' @param index Integer: which voice-leading generator should be displayed? Defaults to `1`.
 #'
 #' @returns List with three elements:
 #'   * "vl" which shows the distance (in `edo` steps) that each voice moves

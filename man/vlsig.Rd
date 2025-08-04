@@ -9,8 +9,7 @@ vlsig(set, index = 1, display_digits = 2, edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{index}{Integer: which voice-leading generator should be displayed? Defaults to \code{1},
-the one which induces the least amount of motion.}
+\item{index}{Integer: which voice-leading generator should be displayed? Defaults to \code{1}.}
 
 \item{display_digits}{Integer: how many digits to display when naming any
 non-integral interval sizes. Defaults to 2.}

@@ -1,5 +1,7 @@
 # musicMCT (development version)
 
+* `vl_generators()` now gives correct results for sets which fail `optc_test()`
+
 # musicMCT 0.2.0
 
 ## New ineqmat features

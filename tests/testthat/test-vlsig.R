@@ -26,6 +26,8 @@ test_that("vl_generators works", {
   maj7_mat <-  matrix(c(1, 2, 4, 7), byrow=TRUE, nrow=2)
   rownames(maj7_mat) <- c("generic_intervals", "specific_intervals")
   expect_equal(vl_generators(maj7), maj7_mat)
+
+  expect_equal(dim(vl_generators(c(0, 0, 6, 0))), c(2, 3))
 })
 
 
