@@ -6,7 +6,24 @@ test_that("minimize_vl options behave as expected", {
   expect_equal(minimize_vl(CM, DM, method="euclidean"), c(2, 2, 2))
   expect_equal(minimize_vl(CM, DM, edo=10), c(-1, -2, -1))
   expect_error(minimize_vl(CM, DM, method="badmethod"))
-  expect_error(minimize_vl(c(0,3,7), c(0,3,7,10)))
+  expect_error(minimize_vl(c(0, 3, 7), c(0, 3, 7, 10)))
+})
+
+test_that("minimize_vl hamming distance works", {
+  guido_c <- c(0, 2, 4, 5, 7, 9)
+  guido_g <- c(0, 2, 4, 7, 9, 11)
+  expect_equal(minimize_vl(guido_c, guido_g, method="hamming"),
+               c(0, 0, 0, 6, 0, 0))
+
+  expect_equal(minimize_vl(j(dia), j(1, 2, 3, 4, 5, 6, 7), method="h"),
+               c(0, 0, 0, 0, 0, 0, 0))
+
+  expect_equal(minimize_vl(c(0, 2, 4, 4, 5), 
+                           c(0, 2, 4, 5, 7), 
+                           method="hamming"),
+               c(0, 0, 0, 3, 0))
+  expect_equal(minimize_vl(c(0, 2, 2), c(0, 2, 2), method="hamming"),
+               c(0, 0, 0))
 })
 
 test_that("whichmodebest works", {

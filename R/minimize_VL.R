@@ -39,8 +39,12 @@ crossingfree_vls <- function(source,
 
 #' Smallest voice leading between two sets
 #'
-#' Given a `source` set and a `goal` to move to, find the "strongly
-#' crossing-free" voice leading from `source` to `goal` with smallest size.
+#' Given a `source` set and a `goal` to move to, find the voice leading from `source` 
+#' to `goal` with smallest size. 
+#'
+#' Unless method="hamming", it is assumed that the minimal voice leading should be
+#' strongly crossing-free, so you might get strange results if your `source` and `goal`
+#' are not both in ascending order.
 #' 
 #' @param source Numeric vector, the pitch-class set at the start of your voice leading
 #' @param goal Numeric vector, the pitch-class set at the end of your voice leading
@@ -70,6 +74,10 @@ crossingfree_vls <- function(source,
 #'
 #' minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean")
 #' minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean", no_ties=TRUE)
+#'
+#' natural_hexachord <- c(0, 2, 4, 5, 7, 9)
+#' hard_hexachord <- c(7, 9, 11, 0, 2, 4)
+#' minimize_vl(natural_hexachord, hard_hexachord, method="hamming")
 #' @export
 minimize_vl<- function(source, 
                        goal, 
@@ -77,6 +85,31 @@ minimize_vl<- function(source,
                        no_ties=FALSE, 
                        edo=12,
                        rounder=10) {
+  is_hamming <- match.arg(method) == "hamming"
+  if (is_hamming) {
+    tiny <- 1 * 10^(-1 * rounder)
+    source <- round(source, digits=rounder)
+    goal <- round(goal, digits=rounder)
+    duplicated_source <- duplicated(source)
+    duplicated_goal <- duplicated(goal)
+    source_offsets <- stats::runif(sum(duplicated_source), 0, 1)
+    goal_offsets <- stats::runif(sum(duplicated_goal), 0, 1)
+    source[duplicated_source] <- source[duplicated_source] + tiny * source_offsets
+    goal[duplicated_goal] <- goal[duplicated_goal] + tiny * goal_offsets
+    
+    notes_to_move <- setdiff(source, goal)
+    goal_of_motion <- setdiff(goal, source)
+    if (length(notes_to_move) != length(goal_of_motion)) {
+      stop("Error detecting common tones.")
+    }
+    res <- rep(0, length(source))
+    if (length(notes_to_move) == 0) {
+      return(res)
+    }
+    moving_vl <- minimize_vl(notes_to_move, goal_of_motion, edo=edo, rounder=rounder, no_ties=TRUE)
+    res[source %in% notes_to_move] <- round(moving_vl, digits=rounder)
+    return(res)     
+  }
 
   vl_data <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo, rounder=rounder)
 

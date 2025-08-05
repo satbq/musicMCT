@@ -37,8 +37,13 @@ are equivalent, the array can be a matrix with \code{m} rows where \code{m} is t
 of equally small voice leadings.
 }
 \description{
-Given a \code{source} set and a \code{goal} to move to, find the "strongly
-crossing-free" voice leading from \code{source} to \code{goal} with smallest size.
+Given a \code{source} set and a \code{goal} to move to, find the voice leading from \code{source}
+to \code{goal} with smallest size.
+}
+\details{
+Unless method="hamming", it is assumed that the minimal voice leading should be
+strongly crossing-free, so you might get strange results if your \code{source} and \code{goal}
+are not both in ascending order.
 }
 \examples{
 c_major <- c(0, 4, 7)
@@ -55,4 +60,8 @@ minimize_vl(c_major, d_major, method="euclidean", no_ties=FALSE)
 
 minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean")
 minimize_vl(c(0, 4, 7, 10), c(7, 7, 11, 2), method="euclidean", no_ties=TRUE)
+
+natural_hexachord <- c(0, 2, 4, 5, 7, 9)
+hard_hexachord <- c(7, 9, 11, 0, 2, 4)
+minimize_vl(natural_hexachord, hard_hexachord, method="hamming")
 }
