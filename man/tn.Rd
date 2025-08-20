@@ -7,7 +7,15 @@
 \alias{charm}
 \title{Transposition and Inversion}
 \usage{
-tn(set, n, sorted = TRUE, edo = 12, rounder = 10)
+tn(
+  set,
+  n,
+  sorted = TRUE,
+  octave_equivalence = TRUE,
+  optic = NULL,
+  edo = 12,
+  rounder = 10
+)
 
 tni(set, n, edo = 12, sorted = TRUE)
 
@@ -23,6 +31,13 @@ index of transposition or inversion.}
 
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}
+
+\item{octave_equivalence}{Do you want to normalize the result so that all values are
+between 0 and \code{edo}? Boolean, defaults to \code{TRUE}.}
+
+\item{optic}{String the OPTIC symmetries to apply. Defaults to \code{NULL},
+applying symmetries most appropriate to the given function. If specified, overrides
+parameters \code{sorted} and \code{octave_equivalence}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
@@ -59,6 +74,7 @@ but NB also vice versa.)
 c_major <- c(0, 4, 7)
 tn(c_major, 2)
 tn(c_major, -10)
+tn(c_major, -10, optic="p") # Equivalent to tn(c_major, -10, octave_equivalence=FALSE)
 tni(c_major, 7)
 tni(c_major, 7, sorted=FALSE)
 tn(c(0, 1, 6, 7), 6)

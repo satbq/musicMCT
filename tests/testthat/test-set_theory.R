@@ -49,6 +49,25 @@ test_that("tn works", {
   expect_equal(tn(tetra, -6), c(0, 6, 8, 9))
   expect_equal(tn(tetra, 8, sorted=FALSE), c(8, 10, 11, 2))
   expect_equal(tn(tetra, 8, edo=31), c(8, 10, 11, 14))
+
+  c_maj <- c(0, 4, 7)
+  expect_equal(tn(c_maj, -10), c(2, 6, 9))
+  expect_equal(tn(c_maj, -10, octave_equivalence=FALSE), c(-10, -6, -3))
+  expect_equal(tn(c_maj, -10, optic="p"), c(-10, -6, -3))
+  expect_equal(tn(c_maj, -10, optic=""), c(-10, -6, -3))
+  expect_warning(tn(c_maj, 5, optic="opti"))
+  expect_warning(tn(c_maj, 5, optic="q"))
+  
+  satb_cmaj <- c(0, 4, 7, 12)
+  expect_equal(tn(satb_cmaj, 5), c(0, 5, 5, 9))
+  expect_equal(tn(satb_cmaj, 5, optic=""), c(5, 9, 12, 17))
+  expect_equal(tn(satb_cmaj, 5, optic="o"), c(5, 9, 0, 5))
+  expect_equal(tn(satb_cmaj, 5, optic="p"), c(5, 9, 12, 17))
+  expect_equal(tn(satb_cmaj, 5, optic="c"), c(5, 9, 12, 17))
+  expect_equal(tn(satb_cmaj, 5, optic="op"), c(0, 5, 5, 9))
+  expect_equal(tn(satb_cmaj, 5, optic="oc"), c(5, 9, 0))
+  expect_equal(tn(satb_cmaj, 5, optic="pc"), c(5, 9, 12, 17))
+  expect_equal(tn(satb_cmaj, 5, optic="opc"), c(0, 5, 9))  
 })
 
 test_that("tni works", {

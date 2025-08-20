@@ -151,11 +151,17 @@ tnprime <- function(set, edo=12, rounder=10) {
 #'   index of transposition or inversion.
 #' @param sorted Do you want the result to be in ascending order? Boolean,
 #'   defaults to `TRUE`.
+#' @param octave_equivalence Do you want to normalize the result so that all values are
+#'   between 0 and `edo`? Boolean, defaults to `TRUE`.
+#' @param optic String the OPTIC symmetries to apply. Defaults to `NULL`,
+#'   applying symmetries most appropriate to the given function. If specified, overrides 
+#'   parameters `sorted` and `octave_equivalence`.
 #' @returns Numeric vector of same length as `set`
 #' @examples
 #' c_major <- c(0, 4, 7)
 #' tn(c_major, 2)
 #' tn(c_major, -10)
+#' tn(c_major, -10, optic="p") # Equivalent to tn(c_major, -10, octave_equivalence=FALSE)
 #' tni(c_major, 7)
 #' tni(c_major, 7, sorted=FALSE)
 #' tn(c(0, 1, 6, 7), 6)
@@ -172,15 +178,36 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' lydian <- rotate(tn(ionian, 7, sorted=FALSE), 3)
 #' lydian - ionian
 #' @export
-tn <- function(set, n, sorted=TRUE, edo=12, rounder=10) {
+tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12, rounder=10) {
   tiny <- 10^(-1 * rounder)
-  res <- ((set%%edo) + (n%%edo)) %% edo
-  close_to_edo <- which(abs(res - edo) < tiny)
-  res[close_to_edo] <- 0
-  if (sorted == FALSE) { 
-    return(res)
+
+  if (is.null(optic)) {
+    symmetries <- c(o = octave_equivalence, p = sorted, t = FALSE, i = FALSE, c = FALSE)
+  } else {
+    symmetries <- optic_choices(optic)
   }
-  sort(res)
+
+  if (symmetries["o"]) {
+    res <- ((set%%edo) + (n%%edo)) %% edo
+    close_to_edo <- which(abs(res - edo) < tiny)
+    res[close_to_edo] <- 0
+  } else {
+    res <- set + n
+  }
+
+  if (symmetries["p"]) {
+    res <- sort(res)
+  }
+
+  if (symmetries["t"] || symmetries["i"]) {
+    warning("T and I symmetries don't make sense in this context and have not been applied.")
+  }
+
+  if (symmetries["c"]) {
+    res <- fpunique(res, rounder=rounder)
+  }
+
+  res
 }
 
 #' @rdname tn

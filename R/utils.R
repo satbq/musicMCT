@@ -118,15 +118,13 @@ choose_ineqmat <- function(set,
 #'
 #' Throws a warning if the user's input seems to specify symmetries that aren't defined.
 #'
-#' @x A string (or name that will be coerced to a string) of relevant symmetries
+#' @param x A string (or name that will be coerced to a string) of relevant symmetries
 #' 
 #' @returns A vector of 5 boolean values, answering "Should X symmetry be assumed?" for
 #'  X = octave, permutation, transposition, inversion, and cardinality, respectively.
 #'
 #' @noRd
 optic_choices <- function(x) {
-  x <- toString(substitute(x))
-
   has_o <- grepl("o", x, fixed=TRUE)
   has_p <- grepl("p", x, fixed=TRUE)
   has_t <- grepl("t", x, fixed=TRUE)  
@@ -135,10 +133,14 @@ optic_choices <- function(x) {
 
   should_warn <- grepl("[^ optic]", x, fixed=FALSE)
   if (should_warn) {
-    warning("You seem to have specified some non-OPTIC symmetry. Check your 'optic' parameter.")
+    warning("You seem to have specified some non-OPTIC symmetry. Check your 'optic' parameter.",
+            call.=FALSE)
   }
 
-  c(has_o, has_p, has_t, has_i, has_c)
+  res <- c(has_o, has_p, has_t, has_i, has_c)
+  names(res) <- c("o", "p", "t", "i", "c")
+
+  res
 }
 
 #' Look up a scale at Ian Ring's *Exciting Universe of Music Theory*
