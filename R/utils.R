@@ -109,6 +109,38 @@ choose_ineqmat <- function(set,
   create_ineqmat(card)
 }
 
+#' Process inputs from optic parameter
+#'
+#' Some functions like tn() have a parameter "optic" which allows the
+#' user to specify what symmetries they want to consider in a voice-leading
+#' space. This function does some initial processing of the input for that
+#' parameter that can be shared between functions using it.
+#'
+#' Throws a warning if the user's input seems to specify symmetries that aren't defined.
+#'
+#' @x A string (or name that will be coerced to a string) of relevant symmetries
+#' 
+#' @returns A vector of 5 boolean values, answering "Should X symmetry be assumed?" for
+#'  X = octave, permutation, transposition, inversion, and cardinality, respectively.
+#'
+#' @noRd
+optic_choices <- function(x) {
+  x <- toString(substitute(x))
+
+  has_o <- grepl("o", x, fixed=TRUE)
+  has_p <- grepl("p", x, fixed=TRUE)
+  has_t <- grepl("t", x, fixed=TRUE)  
+  has_i <- grepl("i", x, fixed=TRUE)
+  has_c <- grepl("c", x, fixed=TRUE)
+
+  should_warn <- grepl("[^ optic]", x, fixed=FALSE)
+  if (should_warn) {
+    warning("You seem to have specified some non-OPTIC symmetry. Check your 'optic' parameter.")
+  }
+
+  c(has_o, has_p, has_t, has_i, has_c)
+}
+
 #' Look up a scale at Ian Ring's *Exciting Universe of Music Theory*
 #'
 #' Ian Ring's website [*The Exciting Universe 
