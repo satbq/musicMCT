@@ -1,3 +1,3 @@
-test_that("ianring function calculates index value correctly", {
-  expect_equal(ianring(c(0, 2, 4, 5, 7, 9, 11)), 2741)
+test_that("utils work", {
+  expect_true(coprime_to_edo(5,12))
 })
