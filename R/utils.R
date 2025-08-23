@@ -142,3 +142,23 @@ optic_choices <- function(x) {
 
   res
 }
+
+#' Cardinality Fuse
+#'
+#' Implements cardinality reduction following Hook (2023, 416-8).
+#'
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector with immediate repetitions (up to rounding) removed
+#' 
+#' @noRd
+c_fuse <- function(set, rounder=10) {
+  tiny <- 10^(-1 * rounder)
+  adjacencies <- abs(diff(set))
+  repetitions <- which((adjacencies < tiny) == TRUE) + 1
+  if (length(repetitions)==0) {
+    set 
+  } else {
+    set[-repetitions]
+  }
+}

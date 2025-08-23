@@ -65,7 +65,7 @@ test_that("tn works", {
   expect_equal(tn(satb_cmaj, 5, optic="p"), c(5, 9, 12, 17))
   expect_equal(tn(satb_cmaj, 5, optic="c"), c(5, 9, 12, 17))
   expect_equal(tn(satb_cmaj, 5, optic="op"), c(0, 5, 5, 9))
-  expect_equal(tn(satb_cmaj, 5, optic="oc"), c(5, 9, 0))
+  expect_equal(tn(satb_cmaj, 5, optic="oc"), c(5, 9, 0, 5))
   expect_equal(tn(satb_cmaj, 5, optic="pc"), c(5, 9, 12, 17))
   expect_equal(tn(satb_cmaj, 5, optic="opc"), c(0, 5, 9))  
 })

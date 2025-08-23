@@ -204,7 +204,7 @@ tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12,
   }
 
   if (symmetries["c"]) {
-    res <- fpunique(res, rounder=rounder)
+    res <- c_fuse(res, rounder=rounder)
   }
 
   res
@@ -222,8 +222,19 @@ tni <- function(set, n, edo=12, sorted=TRUE) {
 
 #' @rdname tn
 #' @export
-startzero <- function(set, sorted=TRUE, edo=12, rounder=10) {
-  tn(set, -set[1], sorted=sorted, edo=edo, rounder=rounder)
+startzero <- function(set, 
+                      sorted=TRUE, 
+                      octave_equivalence=TRUE, 
+                      optic=NULL,
+                      edo=12, 
+                      rounder=10) {
+  tn(set,
+     -set[1], 
+     sorted=sorted, 
+     octave_equivalence=octave_equivalence,
+     optic=optic,
+     edo=edo, 
+     rounder=rounder)
 }
 
 #' @rdname tn
@@ -250,6 +261,8 @@ strange_charm_compare <- function(x, y, rounder=10) {
 
   modes[1:card]
 }
+
+
 
 #' Prime form of a set using Rahn's algorithm
 #'

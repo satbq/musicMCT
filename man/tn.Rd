@@ -19,7 +19,14 @@ tn(
 
 tni(set, n, edo = 12, sorted = TRUE)
 
-startzero(set, sorted = TRUE, edo = 12, rounder = 10)
+startzero(
+  set,
+  sorted = TRUE,
+  octave_equivalence = TRUE,
+  optic = NULL,
+  edo = 12,
+  rounder = 10
+)
 
 charm(set, edo = 12, rounder = 10)
 }
