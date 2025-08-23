@@ -109,6 +109,7 @@ reference:
   desc: Tools that make it convenient to manipulate objects in R
 - contents:
   - fpunique
+  - fpmod
   - rotate
 
 - title: Voice Leading

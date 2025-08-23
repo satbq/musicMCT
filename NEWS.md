@@ -2,6 +2,7 @@
 
 * `vl_generators()` now gives correct results for sets which fail `optc_test()`
 * `minimize_vl()` now returns better results when `method="hamming"` by allowing for voice crossings (#4).
+* New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `startzero()`, and so on gain an `optic` parameter which allows the user

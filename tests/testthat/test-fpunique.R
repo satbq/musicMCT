@@ -8,3 +8,14 @@ test_that("fpunique works", {
   expect_equal(dim(fpunique(sim(just_atonal), MARGIN=2))[2], 2)
   expect_equal(dim(fpunique(t(sim(just_atonal)), MARGIN=1))[1], 2)
 })
+
+test_that("fpmod works", {
+  pretty_small <- 1e-9
+  satb_maj <- c(0, 4, 7, 12-pretty_small)
+  satb_maj_19 <- c(0, 6, 11, 19-pretty_small)
+
+  expect_equal(fpmod(satb_maj), satb_maj)
+  expect_equal(fpmod(satb_maj, rounder=8), c(0, 4, 7, 0))
+  expect_equal(fpmod(satb_maj_19, edo=19), satb_maj_19)
+  expect_equal(fpmod(satb_maj_19, edo=19, rounder=8), c(0, 6, 11, 0))
+})

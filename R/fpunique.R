@@ -40,3 +40,31 @@ fpunique <- function(x, MARGIN=0, rounder=10) {
     return(x[ , !duplicated( round(x, rounder), MARGIN=2 ) ] )
   }
 }
+
+
+#' Modulo division with rounding
+#'
+#' When working with sets in continuous pitch-class spaces (i.e., where
+#' octave equivalence is needed), R's normal operator for modulo division
+#' `%%` does not always give ideal results. Values that are very close to
+#' (but below) the octave appear to be far from 0. This function uses 
+#' rounding to give octave-equivalent results that music theorists expect.
+#'
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector the same length as `set`
+#'
+#' @examples
+#' really_small <- 1e-13
+#' c_major <- c(0, 4, 7, 12-really_small)
+#' c_major %% 12
+#' fpmod(c_major, 12)
+#'
+#' @export
+fpmod <- function(set, edo=12, rounder=10) {
+  tiny <- 10^(-1 * rounder)
+  res <- set %% edo
+  close_to_edo <- which(abs(res - edo) < tiny)
+  res[close_to_edo] <- 0
+  res
+}

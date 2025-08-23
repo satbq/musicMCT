@@ -151,9 +151,7 @@ dft <- function(set, distro=NULL, edo=12, rounder=10) {
   magnitude <- Mod(complex_vals)
   phase <- Arg(complex_vals)
   phase <- (-edo/(2*pi)) * phase
-  phase <- phase %% edo
-  too_close_to_edo <- which((edo - phase) < 10^(-1*rounder))
-  phase[too_close_to_edo] <- 0
+  phase <- fpmod(phase, edo=edo, rounder=rounder)
 
   res <- round(rbind(magnitude, phase), digits=rounder+4)
 

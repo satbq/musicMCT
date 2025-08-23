@@ -187,18 +187,11 @@ tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12,
     symmetries <- optic_choices(optic)
   }
 
-  if (symmetries["o"]) {
-    res <- ((set%%edo) + (n%%edo)) %% edo
-    close_to_edo <- which(abs(res - edo) < tiny)
-    res[close_to_edo] <- 0
-  } else {
-    res <- set + n
-  }
+  res <- set + n
+  if (symmetries["o"]) res <- fpmod(res, edo=edo, rounder=rounder)
 
-  if (symmetries["p"]) {
-    res <- sort(res)
-  }
-
+  if (symmetries["p"]) res <- sort(res)
+ 
   if (symmetries["t"] || symmetries["i"]) {
     warning("T and I symmetries don't make sense in this context and have not been applied.")
   }

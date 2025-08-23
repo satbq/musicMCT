@@ -54,7 +54,7 @@ ifunc <- function(x,
                   show_zeroes=TRUE) {
   if (is.null(y)) y <- x
 
-  intervals <- as.numeric(outer(y, x, "-") %% edo)
+  intervals <- as.numeric(fpmod(outer(y, x, "-"), edo=edo, rounder=rounder))
 
   all_integers <- isTRUE(all.equal(intervals, round(intervals, 0)))
 
