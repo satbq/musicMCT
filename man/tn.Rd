@@ -17,7 +17,15 @@ tn(
   rounder = 10
 )
 
-tni(set, n, edo = 12, sorted = TRUE)
+tni(
+  set,
+  n,
+  sorted = TRUE,
+  octave_equivalence = TRUE,
+  optic = NULL,
+  edo = 12,
+  rounder = 10
+)
 
 startzero(
   set,

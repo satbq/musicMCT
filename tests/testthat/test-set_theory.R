@@ -77,6 +77,17 @@ test_that("tni works", {
   expect_equal(tni(tetra, -11), c(1, 7, 10, 11))
   expect_equal(tni(tetra, 8, sorted=FALSE), c(8, 6, 5, 2))
   expect_equal(tni(tetra, 3, edo=19), c(0, 1, 3, 16))
+
+  test_multiset <- c(0, 1, 0)
+  expect_equal(tni(test_multiset, 0), c(0, 0, 11)) 
+  expect_equal(tni(test_multiset, 0, optic=""), c(0, -1, 0)) 
+  expect_equal(tni(test_multiset, 0, optic="o"), c(0, 11, 0))  
+  expect_equal(tni(test_multiset, 0, optic="opc"), c(0, 11)) 
+
+  expect_equal(tni(test_multiset, 0, edo=53), c(0, 0, 52)) 
+  expect_equal(tni(test_multiset, 0, optic="", edo=53), c(0, -1, 0)) 
+  expect_equal(tni(test_multiset, 0, optic="o", edo=53), c(0, 52, 0)) 
+  expect_equal(tni(test_multiset, 0, optic="opc", edo=53), c(0, 52)) 
 })
 
 test_that("startzero works", {

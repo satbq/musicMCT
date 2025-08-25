@@ -5,8 +5,8 @@
 * New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
 
 ## More flexible handling of OPTIC symmetries
-* Set theory functions including `tn()`, `startzero()`, and so on gain an `optic` parameter which allows the user
-  to specify which symmetries to consider.
+* Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the
+  user to specify the OPTIC symmetries to consider.
 
 # musicMCT 0.2.0
 

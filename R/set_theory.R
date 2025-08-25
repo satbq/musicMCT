@@ -85,9 +85,9 @@ compactest_mode <- function(modes, rounder=10) {
       return(modes)
     }
 
-    top <- min(modes[i,])
-    index <- which(abs(modes[i,] - top) < tiny)
-    modes <- modes[,index]
+    top <- min(modes[i, ])
+    index <- which(abs(modes[i, ] - top) < tiny)
+    modes <- modes[, index]
   }
 
   modes
@@ -205,12 +205,36 @@ tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12,
 
 #' @rdname tn
 #' @export
-tni <- function(set, n, edo=12, sorted=TRUE) {
-  res <- ((n%%edo) - (set%%edo)) %% edo
-  if (sorted == FALSE) { 
-    return(res) 
+tni <- function(set, 
+                n, 
+                sorted=TRUE, 
+                octave_equivalence=TRUE, 
+                optic=NULL, 
+                edo=12, 
+                rounder=10) {
+  tiny <- 10^(-1 * rounder)
+
+  if (is.null(optic)) {
+    symmetries <- c(o = octave_equivalence, p = sorted, t = FALSE, i = FALSE, c = FALSE)
+  } else {
+    symmetries <- optic_choices(optic)
   }
-  sort(res)
+
+  res <- n - set
+ 
+  if (symmetries["o"]) res <- fpmod(res, edo=edo, rounder=rounder)
+
+  if (symmetries["p"]) res <- sort(res)
+ 
+  if (symmetries["t"] || symmetries["i"]) {
+    warning("T and I symmetries don't make sense in this context and have not been applied.")
+  }
+
+  if (symmetries["c"]) {
+    res <- c_fuse(res, rounder=rounder)
+  }
+
+  res
 }
 
 #' @rdname tn
@@ -232,7 +256,9 @@ startzero <- function(set,
 
 #' @rdname tn
 #' @export
-charm <- function(set, edo=12, rounder=10) tnprime(tni(set, 0, edo), edo, rounder)
+charm <- function(set, edo=12, rounder=10) {
+  tnprime(tni(set, 0, edo=edo), edo=edo, rounder=rounder)
+}
 
 #' Apply compactest_mode to both inversions of a set
 #'
