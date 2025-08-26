@@ -23,6 +23,12 @@ Numeric vector with the desired normal form of \code{set}
 Following Hook (2023, 416-18, ISBN: 9780190246013), calculates a normal
 form for the input \code{set} using any combination of OPTIC symmetries.
 }
+\details{
+This function is designed for flexibility in the \code{optic} parameter, not speed.
+In situations where you need to calculate a large number of OPTIC- or OPTC-normal
+forms, you should use \code{primeform()} or \code{tnprime()} respectively, which are considerably
+faster.
+}
 \examples{
 # See Exercise 10.4.8 in Hook (2023, 420):
 eroica <- c(-25, -13, -6, -3, 0, 3)
@@ -37,4 +43,8 @@ random_symmetries <- paste(random_symmetries, collapse="")
 print(random_symmetries)
 normal_form(alpha, optic=random_symmetries)
 
+}
+\seealso{
+\code{\link[=primeform]{primeform()}}, \code{\link[=tnprime]{tnprime()}}, and \code{\link[=startzero]{startzero()}} for faster functions
+dedicated to specific symmetry combinations
 }

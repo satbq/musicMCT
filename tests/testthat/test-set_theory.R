@@ -115,6 +115,16 @@ test_that("normal_form works", {
   expect_equal(normal_form(c(-2, 1), optic="pi"), c(-1, 2))
   expect_equal(normal_form(c(0, 6), edo=7, optic="op"), c(6, 0))
 
+  two_as <- c(-3, -3)
+  expect_equal(normal_form(two_as, optic="t"), c(0, 0))
+  expect_equal(normal_form(two_as, optic="tc"), 0)
+  expect_equal(normal_form(two_as, optic="i"), c(3, 3))
+  expect_equal(normal_form(two_as, optic="ic"), 3)
+  expect_equal(normal_form(two_as, optic="oc"), 9)
+  expect_equal(normal_form(two_as, optic="c"), -3)
+  expect_equal(normal_form(two_as, optic="o"), c(9, 9))
+  expect_equal(normal_form(two_as, optic="pc"), -3)
+
   alpha <- c(-5, -11, 14, 9, 14, 14, 2)
   expect_equal(normal_form(alpha, optic="optic"), c(0, 1, 5, 7))
 

@@ -375,6 +375,11 @@ hook_tiebreak <- function(mat, octave_equivalence=TRUE, edo=12, rounder=10) {
 #' Following Hook (2023, 416-18, ISBN: 9780190246013), calculates a normal
 #' form for the input `set` using any combination of OPTIC symmetries.
 #'
+#' This function is designed for flexibility in the `optic` parameter, not speed.
+#' In situations where you need to calculate a large number of OPTIC- or OPTC-normal
+#' forms, you should use `primeform()` or `tnprime()` respectively, which are considerably
+#' faster.
+#'
 #' @inheritParams tnprime
 #' @param optic String: the OPTIC symmetries to apply. Defaults to "opc".
 #'
@@ -394,9 +399,15 @@ hook_tiebreak <- function(mat, octave_equivalence=TRUE, edo=12, rounder=10) {
 #' print(random_symmetries)
 #' normal_form(alpha, optic=random_symmetries)
 #'
+#' @seealso [primeform()], [tnprime()], and [startzero()] for faster functions
+#'  dedicated to specific symmetry combinations
 #' @export
 # currently fails for hook's demo set under PI
 normal_form <- function(set, optic="opc", edo=12, rounder=10) {
+  if (length(set) == 0) {
+    return(numeric(0))
+  }
+
   optic <- tolower(optic)
   symmetries <- optic_choices(optic)
   optc_only <- gsub("i", "", optic)
@@ -408,6 +419,17 @@ normal_form <- function(set, optic="opc", edo=12, rounder=10) {
 
   if (symmetries["c"]) set <- c_fuse(set, rounder=rounder)
 
+  if (length(set)==1) {
+    if (symmetries["t"]) {
+      return(0)
+    }
+    if (symmetries["i"]) {
+      return(abs(set))
+    } else {
+      return(set)
+    }
+  }
+
   if (symmetries["o"] && symmetries["p"]) {
     modes <- sim(set, edo=edo, rounder=rounder)
 
@@ -416,12 +438,18 @@ normal_form <- function(set, optic="opc", edo=12, rounder=10) {
     ideal_mode <- pack_left(modes, octave_equivalence=FALSE, edo=edo, rounder=rounder)
     options <- sapply(set, tn, set=ideal_mode, sorted=FALSE, edo=edo, rounder=rounder)
 
-    option_matches <- function(opt) {
-      length(setdiff(round(opt, digits=rounder), round(set, digits=rounder))) == 0
+    option_matches <- function(opt, dig=rounder) {
+      length(setdiff(round(opt, digits=dig), round(set, digits=dig))) == 0
     }
 
     indices <- apply(options, 2, option_matches)
     index <- which(indices==TRUE)
+
+    if (length(index) < 1) {
+      indices <- apply(options, 2, option_matches, dig=rounder+1)
+      index <- which(indices==TRUE)
+    }
+
     set <- options[, index]
   }
 
