@@ -281,7 +281,71 @@ strange_charm_compare <- function(x, y, rounder=10) {
   modes[1:card]
 }
 
+#' Pack a set to the left
+#'
+#' Like Rahn's algorithm but doesn't apply T-equivalence, so can be used to find
+#' the traditional "normal order" of a pitch-class set.
+#'
+#' @inheritParams tnprime
+#'
+#' @returns Numeric vector the same length as `set`
+#'
+#' @noRd
+pack_left <- function(set, edo=12, rounder=10) {
+# Currently fails for c(1,6,7,0) but not c(1,6,7,12)
+  card <- length(set)
+  modes <- sim(set, edo=edo, rounder=rounder)
 
+  most_compact <- round(compactest_mode(modes, rounder=rounder), rounder)
+  mode_strings <- apply(round(modes, rounder), 2, toString)
+  if (inherits(most_compact, "matrix")) {
+    most_compact_string <- toString(most_compact[, 1])
+  } else {
+    most_compact_string <- toString(most_compact)
+  }
+  positions <- which(mode_strings == most_compact_string)
+
+  all_rotations <- sapply(0:(card-1), rotate, x=set, transpose_up=FALSE, edo=edo)
+  if (length(positions)==1) {
+    return(all_rotations[, positions])
+  }
+
+  options_to_try <- all_rotations[, positions]
+  option_strings <- apply(options_to_try, 2, toString)
+  best_option <- order(option_strings)[1]
+  all_rotations[, positions[best_option]]
+}
+
+#' Hook's OPTIC normal forms
+#'
+#' Following Hook (2023, 416-18, ISBN: 9780190246013), calculates a normal
+#' form for the input `set` using any combination of OPTIC symmetries.
+#'
+#' @inheritParams tnprime
+#' @param optic String: the OPTIC symmetries to apply. Defaults to "opc".
+#'
+#' @returns Numeric vector with the desired normal form of `set`
+#'
+#' @examples
+#' 5+5
+#'
+#' @export
+normal_form <- function(set, optic="opc", edo=12, rounder=10) {
+  symmetries <- optic_choices(optic)
+  tiny <- 10^(-1 * rounder)
+
+  if (symmetries["o"]) {
+    set <- set %% edo
+    close_to_edo <- which(abs(set - edo) < tiny)
+    set[close_to_edo] <- 0
+  }
+
+  if (symmetries["p"]) set <- sort(set)
+
+  if (symmetries["c"]) set <- c_fuse(set, rounder=rounder)
+
+  set
+}
 
 #' Prime form of a set using Rahn's algorithm
 #'
