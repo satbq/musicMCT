@@ -7,6 +7,8 @@
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the
   user to specify the OPTIC symmetries to consider.
+* New `normal_form()` calculates the normal form of a set under any combination of OPTIC symmetries, following
+  the algorithm described by Hook (2023, 416-8).
 
 # musicMCT 0.2.0
 

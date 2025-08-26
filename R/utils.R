@@ -118,13 +118,14 @@ choose_ineqmat <- function(set,
 #'
 #' Throws a warning if the user's input seems to specify symmetries that aren't defined.
 #'
-#' @param x A string (or name that will be coerced to a string) of relevant symmetries
+#' @param x A string of relevant symmetries (i.e., some substring of "optic")
 #' 
 #' @returns A vector of 5 boolean values, answering "Should X symmetry be assumed?" for
 #'  X = octave, permutation, transposition, inversion, and cardinality, respectively.
 #'
 #' @noRd
 optic_choices <- function(x) {
+  x <- tolower(x)
   has_o <- grepl("o", x, fixed=TRUE)
   has_p <- grepl("p", x, fixed=TRUE)
   has_t <- grepl("t", x, fixed=TRUE)  

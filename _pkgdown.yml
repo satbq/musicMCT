@@ -81,6 +81,7 @@ reference:
   - ifunc
   - isym
   - ivec
+  - normal_form
   - primeform
   - sc
   - sc_comp
