@@ -44,6 +44,13 @@ to \code{goal} with smallest size.
 Unless method="hamming", it is assumed that the minimal voice leading should be
 strongly crossing-free, so you might get strange results if your \code{source} and \code{goal}
 are not both in ascending order.
+
+Using method="hamming" in principle should only care about preserving common tones, with
+no other restrictions on how voices move. This gives a profusion of tied voice leadings,
+which is not generally useful. This function therefore eliminates many of the options by
+requiring that the voices which aren't common tones make a minimal voice leading by the
+taxicab metric. Nevertheless, for multisets, method="hamming" can still return many tied
+possibilities.
 }
 \examples{
 c_major <- c(0, 4, 7)

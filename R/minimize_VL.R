@@ -46,6 +46,13 @@ crossingfree_vls <- function(source,
 #' strongly crossing-free, so you might get strange results if your `source` and `goal`
 #' are not both in ascending order.
 #' 
+#' Using method="hamming" in principle should only care about preserving common tones, with
+#' no other restrictions on how voices move. This gives a profusion of tied voice leadings,
+#' which is not generally useful. This function therefore eliminates many of the options by
+#' requiring that the voices which aren't common tones make a minimal voice leading by the 
+#' taxicab metric. Nevertheless, for multisets, method="hamming" can still return many tied
+#' possibilities.
+#' 
 #' @param source Numeric vector, the pitch-class set at the start of your voice leading
 #' @param goal Numeric vector, the pitch-class set at the end of your voice leading
 #' @param method What distance metric should be used? Defaults to `"taxicab"` 
@@ -86,19 +93,9 @@ minimize_vl<- function(source,
                        edo=12,
                        rounder=10) {
   is_hamming <- match.arg(method) == "hamming"
-  if (is_hamming) {
-    tiny <- 1 * 10^(-1 * rounder)
-    source <- round(source, digits=rounder)
-    goal <- round(goal, digits=rounder)
-    duplicated_source <- duplicated(source)
-    duplicated_goal <- duplicated(goal)
-    source_offsets <- stats::runif(sum(duplicated_source), 0, 1)
-    goal_offsets <- stats::runif(sum(duplicated_goal), 0, 1)
-    source[duplicated_source] <- source[duplicated_source] + tiny * source_offsets
-    goal[duplicated_goal] <- goal[duplicated_goal] + tiny * goal_offsets
-    
-    notes_to_move <- setdiff(source, goal)
-    goal_of_motion <- setdiff(goal, source)
+  if (is_hamming) {  
+    notes_to_move <- multiset_diff(source, goal)
+    goal_of_motion <- multiset_diff(goal, source)
     if (length(notes_to_move) != length(goal_of_motion)) {
       stop("Error detecting common tones.")
     }
@@ -107,8 +104,34 @@ minimize_vl<- function(source,
       return(res)
     }
     moving_vl <- minimize_vl(notes_to_move, goal_of_motion, edo=edo, rounder=rounder, no_ties=TRUE)
-    res[source %in% notes_to_move] <- round(moving_vl, digits=rounder)
-    return(res)     
+    moving_index <- source %in% notes_to_move
+    if (sum(moving_index) == length(notes_to_move)) {
+      res[moving_index] <- moving_vl
+      return(res)
+    } else {
+      match_val <- function(val, set) which(abs(set - val) < 10^(-1*rounder))
+      positions <- lapply(notes_to_move, match_val, source)
+      position_combos <- expand.grid(positions)
+      if (inherits(position_combos, "matrix")) {
+        duplicate_test <- colSums(apply(position_combos, 1, duplicated))
+        no_duplicates <- which(duplicate_test==0)
+        position_combos <- position_combos[no_duplicates, ]
+      }
+      set_from_combo <- function(combo) {
+        new_set <- res
+        new_set[combo] <- moving_vl
+        new_set
+      }
+      all_possible_vls <- t(apply(position_combos, 1, set_from_combo))
+      colnames(all_possible_vls) <- NULL
+      rownames(all_possible_vls) <- NULL
+
+      if (no_ties) {
+        return(all_possible_vls[1, ])
+      } else {
+        return(all_possible_vls)
+      }
+    }
   }
 
   vl_data <- crossingfree_vls(source=source, goal=goal, method=method, edo=edo, rounder=rounder)

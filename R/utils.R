@@ -163,3 +163,32 @@ c_fuse <- function(set, rounder=10) {
     set[-repetitions]
   }
 }
+
+
+#' Difference of multisets
+#'
+#' Calculate the asymmetric difference between two multisets.
+#'
+#' @param set1, set2 The multisets to be compared
+#' @inheritParams tnprime
+#'
+#' @returns Vector of the entries of set1 with any entries of set2 removed
+#'   (counting multiplicities)
+#'
+#' @noRd
+multiset_diff <- function(set1, set2, rounder=10) {
+  set1_uniques <- fpunique(set1, rounder=rounder)
+  set2_uniques <- fpunique(set2, rounder=rounder)
+
+  tiny <- 10^(-1 * rounder)
+  count_instances <- function(val, set) {
+    value_matches <- abs(set - val) < tiny
+    sum(value_matches)
+  }
+
+  counts_in_set1 <- sapply(set1_uniques, count_instances, set=set1)
+  counts_in_set2 <- sapply(set1_uniques, count_instances, set=set2)
+  result_counts <- counts_in_set1 - counts_in_set2
+  result_counts[result_counts < 0] <- 0
+  unlist(mapply(rep, set1_uniques, result_counts))  
+}

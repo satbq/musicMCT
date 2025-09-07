@@ -18,12 +18,26 @@ test_that("minimize_vl hamming distance works", {
   expect_equal(minimize_vl(j(dia), j(1, 2, 3, 4, 5, 6, 7), method="h"),
                c(0, 0, 0, 0, 0, 0, 0))
 
+  two_options_mat <- matrix(c(0, 0, 3, 0, 0, 0, 0, 0, 3, 0),
+                            nrow=2, byrow=TRUE)
   expect_equal(minimize_vl(c(0, 2, 4, 4, 5), 
                            c(0, 2, 4, 5, 7), 
                            method="hamming"),
-               c(0, 0, 0, 3, 0))
+               two_options_mat)
   expect_equal(minimize_vl(c(0, 2, 2), c(0, 2, 2), method="hamming"),
                c(0, 0, 0))
+
+  expect_equal(minimize_vl(c(0, 1, 1, 2, 6), 
+                           c(11, 0, 1, 1, 5), 
+                           method="hamming"),
+               c(0, 0, 0, -3, -1))
+
+  wt_1 <- c(0, 2, 2)
+  wt_2 <- c(0, 0, 2)
+  res_mat <- matrix(c(0, -2, 0, 0, 0, -2), nrow=2, byrow=TRUE)
+  expect_equal(minimize_vl(wt_1, wt_2, method="h"), res_mat)
+  expect_equal(minimize_vl(wt_1, wt_2, method="h", no_ties=TRUE),
+               c(0, -2, 0))
 })
 
 test_that("whichmodebest works", {
