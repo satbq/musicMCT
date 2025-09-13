@@ -34,17 +34,21 @@ of \code{"vls"} correspond to the columns of \code{"sets"}, but the rows of \cod
 of the input \code{set}, which may not match the normal form of the output \code{sets}. (See the last example.)
 }
 \description{
-Clampitt (2007, 467) \url{doi:10.1007/978-3-642-04579-0_46} defines two sets to be Q-related
+Clampitt (2007, 467) \url{doi:10.1007/978-3-642-04579-0_46} defines two $n$-note sets to be Q-related
 if they:
 \itemize{
 \item Have all but one tone in common
 \item Are related by \code{\link[=tni]{tni()}}
-\item Have a strictly crossing-free voice leading which preserves all possible common tones
+\item Have a strictly crossing-free voice leading which preserves all $n-1$ common tones
 This function finds all sets which are Q-related to an input \code{set} in this sense. The relation
 is defined to generalize the smooth voice leadings between consonant triads and diatonic scales
 to other sets, in particular demonstrating that non-singular pairwise well-formed scales (see \code{\link[=isgwf]{isgwf()}})
 demonstrate similarly nice voice leading properties.
 }
+
+(Strictly speaking, Clampitt includes \code{\link[=tn]{tn()}} in the second part of the definition. However, the first
+criterion is only possible under \code{\link[=tn]{tn()}} if the set is generated and therefore inversionally symmetrical.
+Therefore if a set satisfies Clampitt's definition by \code{\link[=tn]{tn()}}, it also satisfies the \code{\link[=tni]{tni()}} requirement.)
 
 If the third part of the definition is relaxed, allowing the voice leading to involve voice crossing,
 Clampitt (1997, 121) identifies this as the Q*-relation. The Q*-relation can be computed

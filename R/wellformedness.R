@@ -151,15 +151,19 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' Voice leadings between inversions with maximal common tones
 #'
 #' @description
-#' Clampitt (2007, 467) <doi:10.1007/978-3-642-04579-0_46> defines two sets to be Q-related
+#' Clampitt (2007, 467) <doi:10.1007/978-3-642-04579-0_46> defines two $n$-note sets to be Q-related
 #' if they:
 #' * Have all but one tone in common
 #' * Are related by [tni()]
-#' * Have a strictly crossing-free voice leading which preserves all possible common tones
+#' * Have a strictly crossing-free voice leading which preserves all $n-1$ common tones
 #' This function finds all sets which are Q-related to an input `set` in this sense. The relation
 #' is defined to generalize the smooth voice leadings between consonant triads and diatonic scales
 #' to other sets, in particular demonstrating that non-singular pairwise well-formed scales (see [isgwf()])
 #' demonstrate similarly nice voice leading properties.
+#'
+#' (Strictly speaking, Clampitt includes [tn()] in the second part of the definition. However, the first
+#' criterion is only possible under [tn()] if the set is generated and therefore inversionally symmetrical.
+#' Therefore if a set satisfies Clampitt's definition by [tn()], it also satisfies the [tni()] requirement.)
 #'
 #' If the third part of the definition is relaxed, allowing the voice leading to involve voice crossing,
 #' Clampitt (1997, 121) identifies this as the Q*-relation. The Q*-relation can be computed
