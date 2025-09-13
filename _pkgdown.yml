@@ -129,6 +129,7 @@ reference:
   desc: Concepts related to representations of scales as algebraic words
 - contents:
   - asword
+  - clampitt_q
   - isgwf
   - iswellformed
   - realize_setword

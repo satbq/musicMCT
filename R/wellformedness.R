@@ -146,3 +146,103 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 
   as.logical(prod(tests))
 }
+
+
+#' Voice leadings between inversions with maximal common tones
+#'
+#' @description
+#' Clampitt (2007, 467) <doi:10.1007/978-3-642-04579-0_46> defines two sets to be Q-related
+#' if they:
+#' * Have all but one tone in common
+#' * Are related by [tni()]
+#' * Have a strictly crossing-free voice leading which preserves all possible common tones
+#' This function finds all sets which are Q-related to an input `set` in this sense. The relation
+#' is defined to generalize the smooth voice leadings between consonant triads and diatonic scales
+#' to other sets, in particular demonstrating that non-singular pairwise well-formed scales (see [isgwf()])
+#' demonstrate similarly nice voice leading properties.
+#'
+#' If the third part of the definition is relaxed, allowing the voice leading to involve voice crossing,
+#' Clampitt (1997, 121) identifies this as the Q*-relation. The Q*-relation can be computed
+#' with this function by setting `method="hamming"`. (All other methods provided by [vl_dist()] give
+#' equivalent results in this context.)
+#'
+#' @inheritParams tnprime
+#' @param index Integer: which Q-related set and voice leading should be returned? Defaults to `0`,
+#'   in which case all options are returned.
+#' @inheritParams minimize_vl
+#'
+#' @seealso [isgwf()], [minimize_vl()], [normal_form()]
+#'
+#' @returns A list with two entries, `"sets"` and `"vls"`. The former is a matrix whose columns are
+#'   the sets which are Q-related to the input `set`, in OPC-normal form. The latter is a matrix
+#'   whose columns represent the voice-leading motions which transform `set` into its goals. The columns
+#'   of `"vls"` correspond to the columns of `"sets"`, but the rows of `"vls"` correspond to the order
+#'   of the input `set`, which may not match the normal form of the output `sets`. (See the last example.)
+#'
+#' @examples
+#' # The Neo-Riemannian P, L, and R transformations on triads are all Q-relations:
+#' major_triad <- c(0, 4, 7)
+#' clampitt_q(major_triad)
+#'
+#' # A well-formed scale like the diatonic has two Q-relations given by its signature transformations:
+#' major_scale <- c(0, 2, 4, 5, 7, 9, 11)
+#' clampitt_q(major_scale)
+#'
+#' # A non-singular pairwise well-formed scale also has Q-relations:
+#' clampitt_q(j(dia))
+#'
+#' # Set-class 7-31 is pairwise well-formed:
+#' clampitt_q(sc(7, 31))
+#' # It also has two additional Q*-related sets:
+#' clampitt_q(sc(7, 31), method="hamming")
+#'
+#' # Most other types of scales have at most one Q-relation:
+#' dominant_seventh <- c(0, 4, 7, 10)
+#' clampitt_q(dominant_seventh)
+#' 
+#' # The order of "sets" may not match the order of "vls":
+#' clampitt_q(c(0,1,4,7))
+#'
+#' @export
+clampitt_q <- function(set, 
+                       index=0, 
+                       method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
+                       edo=12, 
+                       rounder=10) {
+  card <- length(set)
+  tiny <- 10^(-1 * rounder)
+  method <- match.arg(method)
+
+  subsets <- utils::combn(set, card-1)
+  symmetry_index <- apply(subsets, 2, isym_index, edo=edo, rounder=rounder)
+  symmetry_index <- symmetry_index[!is.na(symmetry_index)]
+  goals <- sapply(symmetry_index, tni, set=set, edo=edo, rounder=rounder)
+  diffs <- apply(goals, 2, minimize_vl, source=set, method=method, edo=edo, rounder=rounder)
+
+  does_move <- abs(diffs) > tiny
+  moving_notes <- colSums(does_move)
+
+  kept_cols <- which(moving_notes==1)
+  goals <- goals[, kept_cols]
+  does_move <- does_move[, kept_cols]  
+  diffs <- diffs[, kept_cols]
+
+  if (length(kept_cols) < 2) {
+    goals <- insist_matrix(goals)
+    does_move <- insist_matrix(does_move)
+    diffs <- insist_matrix(diffs)
+  }
+
+  vls <- replicate(dim(goals)[2], rep(0, card))
+  vls[does_move] <- diffs[does_move]
+  if (length(vls)==0) vls <- matrix(nrow=card, ncol=0)
+
+  if (dim(goals)[2] > 0) goals <- apply(goals, 2, normal_form, optic="opc", edo=edo, rounder=rounder)
+
+  if (index > 0) {
+    goals <- goals[, index]
+    vls <- vls[, index]
+  }
+
+  list(sets = goals, vls = vls)
+}
