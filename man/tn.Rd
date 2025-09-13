@@ -50,7 +50,7 @@ defaults to \code{TRUE}.}
 \item{octave_equivalence}{Do you want to normalize the result so that all values are
 between 0 and \code{edo}? Boolean, defaults to \code{TRUE}.}
 
-\item{optic}{String the OPTIC symmetries to apply. Defaults to \code{NULL},
+\item{optic}{String: the OPTIC symmetries to apply. Defaults to \code{NULL},
 applying symmetries most appropriate to the given function. If specified, overrides
 parameters \code{sorted} and \code{octave_equivalence}.}
 

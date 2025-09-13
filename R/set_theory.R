@@ -153,7 +153,7 @@ tnprime <- function(set, edo=12, rounder=10) {
 #'   defaults to `TRUE`.
 #' @param octave_equivalence Do you want to normalize the result so that all values are
 #'   between 0 and `edo`? Boolean, defaults to `TRUE`.
-#' @param optic String the OPTIC symmetries to apply. Defaults to `NULL`,
+#' @param optic String: the OPTIC symmetries to apply. Defaults to `NULL`,
 #'   applying symmetries most appropriate to the given function. If specified, overrides 
 #'   parameters `sorted` and `octave_equivalence`.
 #' @returns Numeric vector of same length as `set`
