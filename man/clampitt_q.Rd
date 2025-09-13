@@ -73,7 +73,7 @@ dominant_seventh <- c(0, 4, 7, 10)
 clampitt_q(dominant_seventh)
 
 # The order of "sets" may not match the order of "vls":
-clampitt_q(c(0,1,4,7))
+clampitt_q(c(0, 1, 4, 7))
 
 }
 \seealso{

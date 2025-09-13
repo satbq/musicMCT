@@ -201,7 +201,7 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' clampitt_q(dominant_seventh)
 #' 
 #' # The order of "sets" may not match the order of "vls":
-#' clampitt_q(c(0,1,4,7))
+#' clampitt_q(c(0, 1, 4, 7))
 #'
 #' @export
 clampitt_q <- function(set, 
@@ -216,8 +216,21 @@ clampitt_q <- function(set,
   subsets <- utils::combn(set, card-1)
   symmetry_index <- apply(subsets, 2, isym_index, edo=edo, rounder=rounder)
   symmetry_index <- symmetry_index[!is.na(symmetry_index)]
+
+  if (length(symmetry_index) == 0) {
+    return(list(sets=matrix(nrow=card, ncol=0),
+                vls=matrix(nrow=card, ncol=0)))
+  }
+
   goals <- sapply(symmetry_index, tni, set=set, edo=edo, rounder=rounder)
-  diffs <- apply(goals, 2, minimize_vl, source=set, method=method, edo=edo, rounder=rounder)
+  diffs <- apply(goals, 
+                 2, 
+                 mvl_tiebreak, 
+                 source=set, 
+                 method=method, 
+                 tiebreak_method="hamming",
+                 edo=edo, 
+                 rounder=rounder)
 
   does_move <- abs(diffs) > tiny
   moving_notes <- colSums(does_move)

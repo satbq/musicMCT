@@ -142,6 +142,41 @@ minimize_vl<- function(source,
   vl_data$"vls"[index,]
 }
 
+
+#' minimize_vl with an explicit tiebreaker
+#'
+#' Essentially minimize_vl with parameter no_ties=TRUE but more 
+#' deterministic about how the ties are broken
+#'
+#' @inheritParams minimize_vl
+#' @param tiebreak_method What method (from the same list as param method)
+#'   should be used for tiebreaking?
+#'
+#' @returns Same as minimize_vl with no_ties=TRUE
+#'
+#' @noRd
+mvl_tiebreak <- function(source,
+                         goal,
+                         method=c("taxicab", "euclidean", "chebyshev", "hamming"),
+                         tiebreak_method="hamming",
+                         edo=12,
+                         rounder=10) {
+  res <- minimize_vl(source=source,
+                     goal=goal,
+                     method=method,
+                     no_ties=FALSE,
+                     edo=edo,
+                     rounder=rounder)
+
+  if (inherits(res, "matrix")) {
+    tiebreak_scores <- apply(res, 1, dist_func, method=tiebreak_method, rounder=rounder)
+    minimum_index <- which.min(tiebreak_scores)[1]
+    res <- res[minimum_index, ]
+  }  
+
+  res
+}
+
 #' Smallest crossing-free voice leading between two pitch-class sets
 #'
 #' Given source and goal pitch-class sets, which mode of the goal is closest to the source
