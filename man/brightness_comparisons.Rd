@@ -4,10 +4,12 @@
 \alias{brightness_comparisons}
 \title{Voice-leading brightness relationships for a scale's modes}
 \usage{
-brightness_comparisons(set, edo = 12, rounder = 10)
+brightness_comparisons(set, goal = NULL, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{goal}{Numeric vector of same length as set. Defaults to \code{NULL}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
@@ -15,19 +17,25 @@ brightness_comparisons(set, edo = 12, rounder = 10)
 number of decimal places to round to when testing for equality.}
 }
 \value{
-An n-by-n matrix where n is the size of the scale. Row i represents mode i of the scale
-in comparison to all 7 modes. If the entry in row i, column j is \code{-1}, then mode i is
+If \code{goal=NULL}, an n-by-n matrix where n is the size of the scale.
+Row i represents mode i of the scale
+in comparison to all n modes. If the entry in row i, column j is \code{-1}, then mode i is
 "voice-leading darker" than mode j. If \code{1}, mode i is "voice-leading brighter". If 0, mode i
 is neither brighter nor darker, either because contrary motion is involved or because mode i
 is identical to mode j. (Entries on the principal diagonal are always 0.)
+
+If \code{goal} is a set, the result is a 2n-by-2n matrix whose first n rows and columns represent
+the modes of \code{set} and whose last n rows and columns represent the modes of \code{goal}. (Thus the
+upper left n-by-n square is the same as if \code{goal} were \code{NULL} and the lower right n-by-n square
+is the result of entering \code{goal} as \code{set} with an empty goal parameter. The upper-right and
+lower-left quadrants of the matrix make comparisons between the modes of \code{set} and \code{goal}.) The
+meaning of entries \code{-1}, \code{0}, and \code{1} are as above.
 }
 \description{
 The essential step in creating the brightness graph of a scale's modes
 is to compute the pairwise comparisons between all the modes. Which ones are strictly
 brighter than others according to "voice-leading brightness" (see "Modal Color Theory," 6-7)?
 This function makes those pairwise comparisons in a manner that's useful for more computation.
-If you want a human-readable version of the same information, you should use \code{\link[=brightnessgraph]{brightnessgraph()}}
-instead.
 }
 \details{
 Note that the returned value shows all voice-leading brightness comparisons, not just
@@ -47,4 +55,11 @@ brightness_comparisons(mystic_chord)
 # ties, and voice-leading brightness can't break a sum-brightness tie.
 # (See "Modal Color Theory," 7.)
 
+major <- c(0, 4, 7)
+minor <- c(0, 3, 7)
+brightness_comparisons(major, minor)
+
+}
+\seealso{
+\code{\link[=brightnessgraph]{brightnessgraph()}} for a human-readable presentation of the same information.
 }

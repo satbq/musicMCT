@@ -17,7 +17,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
   scalar_interval_matrix <- sim(set,edo=edo)
   sums <- colSums(scalar_interval_matrix)
 
-  comparisons <- -1*brightness_comparisons(set, edo, rounder)
+  comparisons <- -1*brightness_comparisons(set, edo=edo, rounder=rounder)
   comparisons[which(comparisons<0)] <- 0
 
   # This section, up through the definition of "reduced comparisons," is a hack-y way to approximate the

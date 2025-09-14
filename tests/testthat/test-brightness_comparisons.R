@@ -5,6 +5,25 @@ test_that("brightness_comparisons matrix has correct values", {
                matrix(c(0, 1, 1, -1, 0, 0, -1, 0, 0),nrow=3))
 })
 
+test_that("brightness_comparisons goal param works", {
+  torb <- c(0, 4, 7, 14, 15)
+  brig <- c(0, 1, 8, 11, 15)
+  test_comps <- brightness_comparisons(torb, brig, edo=23)
+  dimnames(test_comps) <- NULL
+  result <- matrix(c(0, 0, -1, 0, -1, 0, -1, 0, 0, -1,
+                     0, 0, 0, 0, -1, 1, -1, 0, -1, 0,
+                     1, 0, 0, 0, 0, 1, 0, 1, 0, 0,
+                     0, 0, 0, 0, -1, 1, -1, 0, -1, -1,
+                     1, 1, 0, 1, 0, 1, 1, 1, 1, 0,
+                     0, -1, -1, -1, -1, 0, -1, 0, -1, -1,
+                     1, 1, 0, 1, -1, 1, 0, 0, 0, 0,
+                     0, 0, -1, 0, -1, 0, 0, 0, 0, -1,
+                     0, 1, 0, 1, -1, 1, 0, 0, 0, 0,
+                     1, 0, 0, 1, 0, 1, 0, 1, 0, 0),
+                     byrow=TRUE, nrow=10)
+  expect_equal(test_comps, result)
+})
+
 test_that("delta and eps work", {
   test_scale <- c(0, 2, 3, 5, 6, 7)
   expect_equal(delta(test_scale), 12)

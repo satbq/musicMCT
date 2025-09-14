@@ -17,8 +17,6 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #' is to compute the pairwise comparisons between all the modes. Which ones are strictly
 #' brighter than others according to "voice-leading brightness" (see "Modal Color Theory," 6-7)?
 #' This function makes those pairwise comparisons in a manner that's useful for more computation.
-#' If you want a human-readable version of the same information, you should use [brightnessgraph()]
-#' instead.
 #'
 #' Note that the returned value shows all voice-leading brightness comparisons, not just 
 #' the transitive reduction of those comparisons. (That is, dorian is shown as darker than ionian
@@ -26,11 +24,20 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
-#' @returns An n-by-n matrix where n is the size of the scale. Row i represents mode i of the scale
-#'   in comparison to all 7 modes. If the entry in row i, column j is `-1`, then mode i is
+#' @inheritParams sim
+#' @returns If `goal=NULL`, an n-by-n matrix where n is the size of the scale. 
+#'   Row i represents mode i of the scale
+#'   in comparison to all n modes. If the entry in row i, column j is `-1`, then mode i is
 #'   "voice-leading darker" than mode j. If `1`, mode i is "voice-leading brighter". If 0, mode i
 #'   is neither brighter nor darker, either because contrary motion is involved or because mode i
 #'   is identical to mode j. (Entries on the principal diagonal are always 0.)
+#'
+#'   If `goal` is a set, the result is a 2n-by-2n matrix whose first n rows and columns represent
+#'   the modes of `set` and whose last n rows and columns represent the modes of `goal`. (Thus the
+#'   upper left n-by-n square is the same as if `goal` were `NULL` and the lower right n-by-n square
+#'   is the result of entering `goal` as `set` with an empty goal parameter. The upper-right and 
+#'   lower-left quadrants of the matrix make comparisons between the modes of `set` and `goal`.) The
+#'   meaning of entries `-1`, `0`, and `1` are as above.
 #'
 #' @examples
 #' # Because the diatonic scale, sc7-35, is non-degenerate well-formed, the only
@@ -45,9 +52,20 @@ modecompare <- function(set, ref, rounder=10) sum(unique(sign(round(set - ref, r
 #' # ties, and voice-leading brightness can't break a sum-brightness tie.
 #' # (See "Modal Color Theory," 7.)
 #' 
+#' major <- c(0, 4, 7)
+#' minor <- c(0, 3, 7)
+#' brightness_comparisons(major, minor)
+#'
+#' @seealso [brightnessgraph()] for a human-readable presentation of the same information.
+#'
 #' @export
-brightness_comparisons <- function(set, edo=12, rounder=10) {
-  modes <- sim(set, edo=edo)
+brightness_comparisons <- function(set, goal=NULL, edo=12, rounder=10) {
+  modes <- sim(set, goal=NULL, edo=edo, rounder=rounder)
+
+  if (!is.null(goal)) {
+    modes <- cbind(modes, sim(goal, edo=edo, rounder=rounder))
+  }
+
   modes <- split(modes, col(modes))
   outer(modes, modes, Vectorize(modecompare), rounder=rounder)
 }
@@ -109,8 +127,9 @@ eps <- function(set, edo=12, rounder=10) {
   }
 
   modes <- t(sim(set, edo=edo))
-  chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
-  diffs <- outer(rowSums(modes), rowSums(modes),'-')
+  comps <- brightness_comparisons(set, edo=edo, rounder=rounder)
+  chart <- comps * comps
+  diffs <- outer(rowSums(modes), rowSums(modes), '-')
   result <- chart * diffs
 
   min(result[result > 0])
@@ -124,11 +143,12 @@ delta <- function(set, edo=12, rounder=10) {
   }
 
   modes <- t(sim(set, edo=edo))
-  chart <- brightness_comparisons(set, edo, rounder)*brightness_comparisons(set, edo, rounder)
+  comps <- brightness_comparisons(set, edo=edo, rounder=rounder)
+  chart <- comps * comps
   diag(chart) <- -1
   chart <- (chart + 1)%%2
 
-  diffs <- outer(rowSums(modes),rowSums(modes),'-')
+  diffs <- outer(rowSums(modes), rowSums(modes), '-')
   result <- chart * diffs
 
   max(result)
