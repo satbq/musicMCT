@@ -15,6 +15,10 @@ brightness are farther up on the graph. Arrows connect modes that can be compare
 brightness. The arrows only show a transitive reduction of all VL-brightness comparisons, so that if
 you can travel between two sets by only going &quot;up&quot; or &quot;down&quot; the arrows, the source and destination
 are indeed related by voice-leading brightness.
+If goal=NULL (as it is by default), the brightness graph includes simply the modes of set. However,
+goal can be any other scale of the same length as set, in which case the brightness graph includes
+modes of both sets and their interconnections. The modes of goal are represented by lower-case roman
+numerals, while upper-case numerals represent the modes of set.
 Various visual parameters can be configured: numdigits determines how many digits of each pitch-class
 to display; show_sums toggles on or off the sum brightness values; show_pitches toggles on or off
 the individual pitch classes of each mode; fixed_do, if set to TRUE switches the graph from showing
@@ -32,6 +36,10 @@ brightness are farther up on the graph. Arrows connect modes that can be compare
 brightness. The arrows only show a transitive reduction of all VL-brightness comparisons, so that if
 you can travel between two sets by only going &quot;up&quot; or &quot;down&quot; the arrows, the source and destination
 are indeed related by voice-leading brightness.
+If goal=NULL (as it is by default), the brightness graph includes simply the modes of set. However,
+goal can be any other scale of the same length as set, in which case the brightness graph includes
+modes of both sets and their interconnections. The modes of goal are represented by lower-case roman
+numerals, while upper-case numerals represent the modes of set.
 Various visual parameters can be configured: numdigits determines how many digits of each pitch-class
 to display; show_sums toggles on or off the sum brightness values; show_pitches toggles on or off
 the individual pitch classes of each mode; fixed_do, if set to TRUE switches the graph from showing
@@ -88,6 +96,10 @@ brightness are farther up on the graph. Arrows connect modes that can be compare
 brightness. The arrows only show a transitive reduction of all VL-brightness comparisons, so that if
 you can travel between two sets by only going "up" or "down" the arrows, the source and destination
 are indeed related by voice-leading brightness.</p>
+<p>If <code>goal=NULL</code> (as it is by default), the brightness graph includes simply the modes of <code>set</code>. However,
+<code>goal</code> can be any other scale of the same length as <code>set</code>, in which case the brightness graph includes
+modes of both sets and their interconnections. The modes of <code>goal</code> are represented by lower-case roman
+numerals, while upper-case numerals represent the modes of <code>set</code>.</p>
 <p>Various visual parameters can be configured: <code>numdigits</code> determines how many digits of each pitch-class
 to display; <code>show_sums</code> toggles on or off the sum brightness values; <code>show_pitches</code> toggles on or off
 the individual pitch classes of each mode; <code>fixed_do</code>, if set to <code>TRUE</code> switches the graph from showing
@@ -102,6 +114,7 @@ generated graphs as the starting point for manual fine tuning.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">brightnessgraph</span><span class="op">(</span></span>
 <span>  <span class="va">set</span>,</span>
+<span>  goal <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  numdigits <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  show_sums <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show_pitches <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -117,6 +130,10 @@ generated graphs as the starting point for manual fine tuning.</p>
 
 <dl><dt id="arg-set">set<a class="anchor" aria-label="anchor" href="#arg-set"></a></dt>
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
+
+
+<dt id="arg-goal">goal<a class="anchor" aria-label="anchor" href="#arg-goal"></a></dt>
+<dd><p>Numeric vector of same length as set. Defaults to <code>NULL</code>.</p></dd>
 
 
 <dt id="arg-numdigits">numdigits<a class="anchor" aria-label="anchor" href="#arg-numdigits"></a></dt>
@@ -164,6 +181,13 @@ number of decimal places to round to when testing for equality.</p></dd>
 <span class="r-in"><span><span class="va">werckmeister_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="z.html">z</a></span><span class="op">(</span><span class="va">werck_ratios</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">brightnessgraph</span><span class="op">(</span><span class="va">werckmeister_3</span>, show_sums<span class="op">=</span><span class="cn">FALSE</span>, show_pitches<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="brightnessgraph-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Graph for both inversions of the Tristan genus:</span></span></span>
+<span class="r-in"><span><span class="va">dom7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">halfdim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">brightnessgraph</span><span class="op">(</span><span class="va">dom7</span>, <span class="va">halfdim</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="brightnessgraph-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
