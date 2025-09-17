@@ -13,3 +13,9 @@ test_that("brightness graph images consistent", {
   hexa_bg <- function() brightnessgraph(test_hexachord, fixed_do=TRUE, show_sums=FALSE)
   vdiffr::expect_doppelganger("Brightness Graph for sc6-30", hexa_bg)
 })
+
+test_that("brightness graph goal param works", {
+  common_triad_bg <- function() brightnessgraph(c(0, 4, 7), c(0, 3, 7))
+  vdiffr::expect_doppelganger("Brightness Graph for sc3-11",
+                              common_triad_bg)
+})

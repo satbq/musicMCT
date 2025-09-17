@@ -2,8 +2,8 @@
 
 * `vl_generators()` now gives correct results for sets which fail `optc_test()`
 * `minimize_vl()` now returns better results when `method="hamming"` by allowing for voice crossings (#4).
-* `brightness_comparisons()` gains a `goal` parameter that allows voice-leading brightness relationships 
-  between modes of different sets to be studied.
+* `brightness_comparisons()` and `brightnessgraph()`gain a `goal` parameter that allows voice-leading brightness
+  relationships between different sets to be studied.
 * New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
 * New `clampitt_q()` finds the sets that are "Q-related" to an input (Clampitt 1997, 2007).
 

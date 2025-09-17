@@ -6,6 +6,7 @@
 \usage{
 brightnessgraph(
   set,
+  goal = NULL,
   numdigits = 2,
   show_sums = TRUE,
   show_pitches = TRUE,
@@ -16,6 +17,8 @@ brightnessgraph(
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{goal}{Numeric vector of same length as set. Defaults to \code{NULL}.}
 
 \item{numdigits}{Integer: how many digits of each pitch-class to show? Defaults to \code{2}.}
 
@@ -45,6 +48,11 @@ brightness. The arrows only show a transitive reduction of all VL-brightness com
 you can travel between two sets by only going "up" or "down" the arrows, the source and destination
 are indeed related by voice-leading brightness.
 
+If \code{goal=NULL} (as it is by default), the brightness graph includes simply the modes of \code{set}. However,
+\code{goal} can be any other scale of the same length as \code{set}, in which case the brightness graph includes
+modes of both sets and their interconnections. The modes of \code{goal} are represented by lower-case roman
+numerals, while upper-case numerals represent the modes of \code{set}.
+
 Various visual parameters can be configured: \code{numdigits} determines how many digits of each pitch-class
 to display; \code{show_sums} toggles on or off the sum brightness values; \code{show_pitches} toggles on or off
 the individual pitch classes of each mode; \code{fixed_do}, if set to \code{TRUE} switches the graph from showing
@@ -65,5 +73,11 @@ werck_ratios <- c(1, 256/243, 64*sqrt(2)/81, 32/27, (256/243)*2^(1/4), 4/3,
   1024/729, (8/9)*2^(3/4), 128/81, (1024/729)*2^(1/4), 16/9, (128/81)*2^(1/4))
 werckmeister_3 <- z(werck_ratios)
 brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
+
+
+#### Graph for both inversions of the Tristan genus:
+dom7 <- c(0, 4, 7, 10)
+halfdim <- c(0, 3, 6, 10)
+brightnessgraph(dom7, halfdim)
 
 }

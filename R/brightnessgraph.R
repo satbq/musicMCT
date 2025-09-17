@@ -9,15 +9,20 @@
 #'
 #' @returns Adjacency matrix (card by card) of the brightness graph's
 #'   transitive reduction. It's a directed graph, so only "ascending" 
-#'   adjacencies are included.
+#'   adjacencies are included. If goal is not null, the size is 2*card by 2*card.
 #'
 #' @noRd
-bg_reduction <- function(set, edo=12, rounder=10) {
+bg_reduction <- function(set, goal=NULL, edo=12, rounder=10) {
   card <- length(set)
-  scalar_interval_matrix <- sim(set,edo=edo)
+  scalar_interval_matrix <- sim(set, edo=edo, rounder=rounder)
   sums <- colSums(scalar_interval_matrix)
 
-  comparisons <- -1*brightness_comparisons(set, edo=edo, rounder=rounder)
+  if (!is.null(goal)) {
+    second_sim <- sim(set=goal, edo=edo, rounder=rounder)
+    sums <- c(sums, colSums(second_sim))
+  }
+
+  comparisons <- -1*brightness_comparisons(set, goal=goal, edo=edo, rounder=rounder)
   comparisons[which(comparisons<0)] <- 0
 
   # This section, up through the definition of "reduced comparisons," is a hack-y way to approximate the
@@ -39,8 +44,14 @@ bg_reduction <- function(set, edo=12, rounder=10) {
     return(which(path_lengths==2))
   }
 
-  reduced_comparisons <- matrix(0, nrow=card, ncol=card)
-  for (i in 1:card) {
+  if (is.null(goal)) {
+    matrix_dim <- card
+  } else {
+    matrix_dim <- 2*card
+  }
+
+  reduced_comparisons <- matrix(0, nrow=matrix_dim, ncol=matrix_dim)
+  for (i in 1:matrix_dim) {
     reduced_comparisons[i, get_neighbors(i)] <- 1
   }
   reduced_comparisons
@@ -60,6 +71,11 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #' you can travel between two sets by only going "up" or "down" the arrows, the source and destination
 #' are indeed related by voice-leading brightness.
 #'
+#' If `goal=NULL` (as it is by default), the brightness graph includes simply the modes of `set`. However,
+#' `goal` can be any other scale of the same length as `set`, in which case the brightness graph includes
+#' modes of both sets and their interconnections. The modes of `goal` are represented by lower-case roman
+#' numerals, while upper-case numerals represent the modes of `set`.
+#'
 #' Various visual parameters can be configured: `numdigits` determines how many digits of each pitch-class
 #' to display; `show_sums` toggles on or off the sum brightness values; `show_pitches` toggles on or off
 #' the individual pitch classes of each mode; `fixed_do`, if set to `TRUE` switches the graph from showing
@@ -72,6 +88,7 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
+#' @inheritParams sim
 #' @param numdigits Integer: how many digits of each pitch-class to show? Defaults to `2`.
 #' @param show_sums Boolean: should the graph show sum brightness values? Defaults to `TRUE`.
 #' @param show_pitches Boolean: should the graph show values for each note of the scale? Defaults to `TRUE`.
@@ -88,26 +105,48 @@ bg_reduction <- function(set, edo=12, rounder=10) {
 #' werckmeister_3 <- z(werck_ratios)
 #' brightnessgraph(werckmeister_3, show_sums=FALSE, show_pitches=FALSE)
 #' 
+#'
+#' #### Graph for both inversions of the Tristan genus:
+#' dom7 <- c(0, 4, 7, 10)
+#' halfdim <- c(0, 3, 6, 10)
+#' brightnessgraph(dom7, halfdim)
+#'
 #' @returns Invisibly, an igraph graph object (the structure of the plotted brightness graph)
 #' @export
-brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
+brightnessgraph <- function(set, goal=NULL, numdigits=2, show_sums=TRUE, show_pitches=TRUE, fixed_do=FALSE,
                             edo=12, rounder=10) {
   card <- length(set)
-  scalar_interval_matrix <- sim(set,edo=edo)
+  distinct_goal <- !is.null(goal)
+  num_modes <- card
+  if (distinct_goal) num_modes <- 2 * num_modes
+
+  scalar_interval_matrix <- sim(set, edo=edo, rounder=rounder)
   sums <- colSums(scalar_interval_matrix)
+  set_sums <- sums
+
+  if (distinct_goal) {
+    if (length(goal) != card) {
+      stop("Goal must have same length as set.")
+    }
+    second_sim <- sim(set=goal, edo=edo, rounder=rounder)
+    goal_sums <- colSums(second_sim)
+    sums <- c(set_sums, goal_sums)
+  }
+
   y_coords <- sums
 
-  reduced_comparisons <- bg_reduction(set=set, edo=edo, rounder=rounder)
+  reduced_comparisons <- bg_reduction(set=set, goal=goal, edo=edo, rounder=rounder)
 
   # Below determines labels and visual layout for the brightness graph.
+  middle <- ceiling(num_modes/2)
 
-  middle <- ceiling(card/2)
   if (card%%2) {
-    pillars <- rbind(order(sums)[1:middle], order(sums)[card:middle])
+    upper_middle <- middle + distinct_goal
+    pillars <- rbind(order(sums)[1:middle], order(sums)[num_modes:upper_middle])
   } else {
-    pillars <- rbind(order(sums)[1:middle], order(sums)[card:(middle+1)])
+    pillars <- rbind(order(sums)[1:middle], order(sums)[num_modes:(middle+1)])
 
-    if (sums[pillars[2,middle]]-sums[pillars[1, middle]] < 10^(-rounder)) {
+    if (sums[pillars[2, middle]]-sums[pillars[1, middle]] < 10^(-rounder)) {
       # This conditional checks for the most common type of overlap, which happens when two modes share the median
       # sum brightness for scales of even cardinality.
       # In principle this could be fixed by the while loop (using "bad_rows") below but I like the appearance that this
@@ -117,12 +156,13 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
       pillars[2, 1] <- tempvals[2]
     }
   }
+
   pick_pillar <- function(n) {
     height <- n
-    res <- which(pillars==height, arr.ind=TRUE)[1, 2]
-    return(res)
+    which(pillars==height, arr.ind=TRUE)[1, 2]
   }
-  x_coords <- sapply(1:card, pick_pillar)
+
+  x_coords <- sapply(1:num_modes, pick_pillar)
   x_offsets <- (x_coords %% 2) - .5
   x_coords <- x_coords * x_offsets
 
@@ -137,18 +177,27 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
     bad_rows <- duplicated(new_rounded_coordinates, MARGIN=1)
   }
 
-  if (fixed_do==TRUE) {
-    pitch_labels <- sapply(0:(card-1), rotate, x=set, edo=edo)
-  } else {
-    pitch_labels <- sim(set, edo=edo)
+  make_pitch_labels <- function(input_set) {
+    if (fixed_do==TRUE) {
+      pitch_labels <- sapply(0:(card-1), rotate, x=input_set, edo=edo)
+    } else {
+      pitch_labels <- sim(input_set, edo=edo)
+    }
+    pitch_labels
   }
-  pitch_labels <- apply(apply(pitch_labels,2, round, digits=numdigits), 2, paste, collapse=", ")
 
-  label_matrix <- cbind(as.character(utils::as.roman(1:card)),
-                        rep(" (",card),
-                        round(sums,digits=numdigits),
-                        rep(")",card),
-                        rep("\n",card),
+  pitch_labels <- make_pitch_labels(input_set=set)
+  if (distinct_goal) pitch_labels <- cbind(pitch_labels, make_pitch_labels(input_set=goal))
+
+  pitch_labels <- apply(apply(pitch_labels, 2, round, digits=numdigits), 2, paste, collapse=", ")
+
+  mode_numerals <- as.character(utils::as.roman(1:card))
+  if (distinct_goal) mode_numerals <- c(mode_numerals, tolower(mode_numerals))
+  label_matrix <- cbind(mode_numerals,
+                        rep(" (", num_modes),
+                        round(sums, digits=numdigits),
+                        rep(")", num_modes),
+                        rep("\n", num_modes),
                         pitch_labels)
 
   pitches_start_index <- 5
@@ -157,10 +206,10 @@ brightnessgraph <- function(set, numdigits=2, show_sums=TRUE, show_pitches=TRUE,
   sums_end_index <- 4
 
   if (show_pitches==FALSE) {
-    label_matrix <- label_matrix[,-(pitches_start_index:pitches_end_index)]
+    label_matrix <- label_matrix[, -(pitches_start_index:pitches_end_index)]
   }
   if (show_sums==FALSE) {
-    label_matrix <- label_matrix[,-(sums_start_index:sums_end_index)]
+    label_matrix <- label_matrix[, -(sums_start_index:sums_end_index)]
   }
 
   if (class(label_matrix)[1]=="character") label_matrix <- as.matrix(label_matrix)
