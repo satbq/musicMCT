@@ -61,8 +61,12 @@ vl_generators <- function(set, edo=12, rounder=10) {
 
 #' Elementary voice leadings
 #'
-#' Calculates the "**v**oice-**l**eading **sig**nature" of the set's elementary transpositions
-#' as determined by [vl_generators()]. 
+#' Calculate elementary voice leadings which represent motion by a single
+#' arrow on a [brightnessgraph()]. `vlsig()` finds "**v**oice-**l**eading **sig**nature" 
+#' of a set moving to transpositions of itself, as determined by [vl_generators()]. `inter_vlsig()`
+#' finds the elementary voice leadings from a set to some other set, i.e. where the `goal`
+#' parameter of [brightnessgraph()] is not `NULL`. By default, `inter_vlsig()` finds
+#' voice leadings for contextual inversions of a set.
 #'
 #' Note that the voice leadings determined by `vlsig()` can be different from the
 #' corresponding ones at the same \eqn{T_n} level in [vl_rolodex()]. The latter function
@@ -70,20 +74,37 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #' leadings derived from a set's [brightnessgraph()]. In particular, this means that
 #' `vlsig()` voice leadings will always be ascending, involve at least one common tone,
 #' and involve no contrary motion. See the `odd_pentachord` voice leadings in the Examples.
+#'
+#' For `vlsig()` the value "rotation" in the result is non-arbitrary: if the rotation value
+#' is n, the voice leading takes `set` to the nth mode of `set`. For `inter_vlsig()`, there
+#' is no canonical correspondence between modes of `set` and `goal`, except to assume that
+#' the input modes are the 1st mode of each scale. If `goal` is `NULL`, finding contextual
+#' inversions of `set`, the first mode of the inversion is taken to be the one that holds the 
+#' first and last pitches of `set` in common. These "rotation" values do not necessarily 
+#' correspond to the values of `inter_vlsig()`'s index parameter.
 #' 
 #'
 #' @inheritParams vl_generators
 #' @inheritParams ifunc
-#' @param index Integer: which voice-leading generator should be displayed? Defaults to `1`.
+#' @param index Integer: which voice-leading generator should be displayed? Defaults to `NULL`, 
+#'   displaying all voice leadings.
+#' @param goal For `inter_vlsig()` only, vector of the transposition type to voice lead to.
+#'   Defaults to `NULL`, producing voice leadings to the inversion of `set`.
+#' @param type For `inter_vlsig()` only. String: either "ascending" or "commontone". Prefer
+#'   ascending voice leadings (as for `vlsig()`) or common tones (as might be expected for 
+#'   contextual inversions)? Defaults to "ascending".
 #'
 #' @returns List with three elements:
 #'   * "vl" which shows the distance (in `edo` steps) that each voice moves
 #'   * "tn" which indicates the (chromatic) transposition achieved by the voice leading
 #'   * "rotation" which indicates the scalar transposition caused by the voice leading
+#'  If `index=NULL`, returns instead a matrix whose rows are
+#'  all the elementary voice leadings.
 #'
 #' @examples
+#' # Hook's elementary signature transformation
 #' major_scale <- c(0, 2, 4, 5, 7, 9, 11)
-#' vlsig(major_scale) # Hook's elementary signature transformation
+#' vlsig(major_scale, index=1)
 #'
 #' pure_major_triad <- j(1, 3, 5)
 #' vlsig(pure_major_triad, index=1)
@@ -93,9 +114,22 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #' vlsig(odd_pentachord, index=2, edo=15)
 #' vl_rolodex(odd_pentachord, edo=15)$"8" 
 #'
+#' # Contextual inversions for Tristan genus:
+#' inter_vlsig(c(0, 4, 7, 10))
+#'
+#' # Elementary voice leadings between unrelated sets:
+#' maj7 <- c(0, 4, 7, 11)
+#' min7 <- c(0, 3, 7, 10)
+#' inter_vlsig(min7, maj7)
+#' brightnessgraph(min7, maj7)
+#'
+#' # Elementary inversional VL for just diatonic which is NOT a Q-relation:
+#' inter_vlsig(j(dia), index=2)
+#'
 #' @export
-vlsig <- function(set, index=1, display_digits=2, edo=12, rounder=10) {
-  if (index < 1) {
+vlsig <- function(set, index=NULL, display_digits=2, edo=12, rounder=10) {
+  null_index <- is.null(index)
+  if (index < 1 && !null_index) {
     stop("Index must be positive!")
   }
 
@@ -103,21 +137,107 @@ vlsig <- function(set, index=1, display_digits=2, edo=12, rounder=10) {
   tn_levels <- vl_generators(set, edo=edo, rounder=rounder)
   rownames(tn_levels) <- NULL
 
-  if (index > dim(tn_levels)[2]) {
+  if (index > dim(tn_levels)[2] && !null_index) {
     stop(paste0(deparse(substitute(set)), " doesn't have that many VL generators!"))
   }
 
-  chosen_tn_level <- tn_levels[2, index]
-  chosen_generic_interval <- tn_levels[1, index]
-  modes <- sim(set, edo=edo)
+  if (null_index) {
+    num_generators <- dim(tn_levels)[2]
+    get_a_vl <- function(i) vlsig(set=set, index=i, display_digits=display_digits, edo=edo, rounder=rounder)$vl
+    all_vls <- sapply(1:num_generators, get_a_vl)
+    final_result <- t(all_vls)
+  } else {
+    chosen_tn_level <- tn_levels[2, index]
+    chosen_generic_interval <- tn_levels[1, index]
+    modes <- sim(set, edo=edo)
 
-  goal_set <- rotate(set, -chosen_generic_interval) 
-  goal_set[1:chosen_generic_interval] <- goal_set[1:chosen_generic_interval] - edo
-  goal_set <- goal_set + chosen_tn_level
+    goal_set <- rotate(set, -chosen_generic_interval) 
+    goal_set[1:chosen_generic_interval] <- goal_set[1:chosen_generic_interval] - edo
+    goal_set <- goal_set + chosen_tn_level
 
-  res <- goal_set - set
-  res <- round(res, display_digits)
-  list(vl=res, tn=chosen_tn_level, rotation=chosen_generic_interval)
+    res <- goal_set - set
+    res <- round(res, display_digits)
+
+    final_result <- list(vl=res, tn=chosen_tn_level, rotation=chosen_generic_interval)
+  } 
+
+  final_result
+}
+
+
+#' @rdname vlsig
+#' @export
+inter_vlsig <- function(set, 
+                        goal=NULL, 
+                        index=NULL, 
+                        type=c("ascending", "commontone"),
+                        display_digits=2, 
+                        edo=12, 
+                        rounder=10) {
+  card <- length(set)
+  use_commontone <- match.arg(type) == "commontone"
+
+  if (!is.null(goal) && length(goal) != card) {
+    stop("Goal must have same length as set.")
+  }
+
+  if (is.null(goal)) {
+    goal <- tni(set, set[card], edo=edo, rounder=rounder)
+  } else {
+    index <- NULL
+  }
+
+  arrows <- bg_reduction(set=set, goal=goal, edo=edo, rounder=rounder)
+  upper_right_quadrant <- arrows[1:card, (card+1):(2*card)]
+
+  modes <- sim(set, edo=edo, rounder=rounder)
+  interscalar <- sim(set, goal, edo=edo, rounder=rounder)
+  interscalar <- apply(interscalar, 2, startzero, optic="", edo=edo, rounder=rounder)
+
+  arrow_indices <- which(upper_right_quadrant==1, arr.ind=TRUE)
+
+  vl_from_arrow <- function(vec) rotate(interscalar[, vec[2]] - modes[, vec[1]], 1-vec[1])
+  vls <- apply(arrow_indices, 1, vl_from_arrow)
+
+  rounded_vls <- t(round(vls, digits=rounder))
+  vls <- t(fpunique(vls, MARGIN=2))
+
+  if (use_commontone) {
+    tiny <- 10^(-1 * rounder)
+    fp_eq <- function(x, y) abs(x-y) < tiny
+    modal_element <- function(vec) {
+      equivalences <- outer(vec, vec, fp_eq)  
+      match_count <- rowSums(equivalences)
+      most_matches <- max(match_count)
+      highly_matching <- which(match_count == most_matches)
+      highly_matching <- vec[highly_matching]
+      min(highly_matching)
+    }
+
+    tincture <- function(vl) vl - modal_element(vl)
+    vls <- t(apply(vls, 1, tincture)) 
+  }
+
+  if (is.null(index)) {
+    return(round(vls, display_digits))
+  }
+
+  chosen_vl <- vls[index, ]
+  chosen_goal <- set + chosen_vl
+
+  goal_modes <- sapply(0:(card-1), rotate, x=chosen_goal)
+  goal_sums <- (goal_modes + rev(set)) %% edo
+  sum_spread <- abs(apply(goal_sums, 2, max) - apply(goal_sums, 2, min))
+  tni_index <- goal_sums[1, which.min(sum_spread)]
+
+  unique_vls <- which(duplicated(rounded_vls, MARGIN=1)==FALSE)
+  rotation_index <- arrow_indices[unique_vls[index], ]
+  rotation_index <- (rotation_index[1] - rotation_index[2]) %% card
+  names(rotation_index) <- NULL
+
+  rounded_vl <- round(vls[index, ], display_digits)
+  res <- list(vl=rounded_vl, tni=tni_index, rotation=rotation_index)
+  res
 }
 
 

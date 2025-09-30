@@ -6,6 +6,8 @@
   relationships between different sets to be studied.
 * New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
 * New `clampitt_q()` finds the sets that are "Q-related" to an input (Clampitt 1997, 2007).
+* `vlsig()` parameter `index` now defaults to `NULL`, returning a matrix of all elementary voice-leadings.
+* New `inter_vlsig()` finds elementary voice leadings between sets of different Tn-types.
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the

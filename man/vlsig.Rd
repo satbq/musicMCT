@@ -2,14 +2,26 @@
 % Please edit documentation in R/vlsig.R
 \name{vlsig}
 \alias{vlsig}
+\alias{inter_vlsig}
 \title{Elementary voice leadings}
 \usage{
-vlsig(set, index = 1, display_digits = 2, edo = 12, rounder = 10)
+vlsig(set, index = NULL, display_digits = 2, edo = 12, rounder = 10)
+
+inter_vlsig(
+  set,
+  goal = NULL,
+  index = NULL,
+  type = c("ascending", "commontone"),
+  display_digits = 2,
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{index}{Integer: which voice-leading generator should be displayed? Defaults to \code{1}.}
+\item{index}{Integer: which voice-leading generator should be displayed? Defaults to \code{NULL},
+displaying all voice leadings.}
 
 \item{display_digits}{Integer: how many digits to display when naming any
 non-integral interval sizes. Defaults to 2.}
@@ -18,6 +30,13 @@ non-integral interval sizes. Defaults to 2.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
+
+\item{goal}{For \code{inter_vlsig()} only, vector of the transposition type to voice lead to.
+Defaults to \code{NULL}, producing voice leadings to the inversion of \code{set}.}
+
+\item{type}{For \code{inter_vlsig()} only. String: either "ascending" or "commontone". Prefer
+ascending voice leadings (as for \code{vlsig()}) or common tones (as might be expected for
+contextual inversions)? Defaults to "ascending".}
 }
 \value{
 List with three elements:
@@ -25,11 +44,17 @@ List with three elements:
 \item "vl" which shows the distance (in \code{edo} steps) that each voice moves
 \item "tn" which indicates the (chromatic) transposition achieved by the voice leading
 \item "rotation" which indicates the scalar transposition caused by the voice leading
+If \code{index=NULL}, returns instead a matrix whose rows are
+all the elementary voice leadings.
 }
 }
 \description{
-Calculates the "\strong{v}oice-\strong{l}eading \strong{sig}nature" of the set's elementary transpositions
-as determined by \code{\link[=vl_generators]{vl_generators()}}.
+Calculate elementary voice leadings which represent motion by a single
+arrow on a \code{\link[=brightnessgraph]{brightnessgraph()}}. \code{vlsig()} finds "\strong{v}oice-\strong{l}eading \strong{sig}nature"
+of a set moving to transpositions of itself, as determined by \code{\link[=vl_generators]{vl_generators()}}. \code{inter_vlsig()}
+finds the elementary voice leadings from a set to some other set, i.e. where the \code{goal}
+parameter of \code{\link[=brightnessgraph]{brightnessgraph()}} is not \code{NULL}. By default, \code{inter_vlsig()} finds
+voice leadings for contextual inversions of a set.
 }
 \details{
 Note that the voice leadings determined by \code{vlsig()} can be different from the
@@ -38,10 +63,19 @@ prioritizes minimal voice leadings, whereas \code{vlsig()} prioritizes \emph{ele
 leadings derived from a set's \code{\link[=brightnessgraph]{brightnessgraph()}}. In particular, this means that
 \code{vlsig()} voice leadings will always be ascending, involve at least one common tone,
 and involve no contrary motion. See the \code{odd_pentachord} voice leadings in the Examples.
+
+For \code{vlsig()} the value "rotation" in the result is non-arbitrary: if the rotation value
+is n, the voice leading takes \code{set} to the nth mode of \code{set}. For \code{inter_vlsig()}, there
+is no canonical correspondence between modes of \code{set} and \code{goal}, except to assume that
+the input modes are the 1st mode of each scale. If \code{goal} is \code{NULL}, finding contextual
+inversions of \code{set}, the first mode of the inversion is taken to be the one that holds the
+first and last pitches of \code{set} in common. These "rotation" values do not necessarily
+correspond to the values of \code{inter_vlsig()}'s index parameter.
 }
 \examples{
+# Hook's elementary signature transformation
 major_scale <- c(0, 2, 4, 5, 7, 9, 11)
-vlsig(major_scale) # Hook's elementary signature transformation
+vlsig(major_scale, index=1)
 
 pure_major_triad <- j(1, 3, 5)
 vlsig(pure_major_triad, index=1)
@@ -50,5 +84,17 @@ vlsig(pure_major_triad, index=2)
 odd_pentachord <- c(0, 1, 4, 9, 11) # in 15-edo
 vlsig(odd_pentachord, index=2, edo=15)
 vl_rolodex(odd_pentachord, edo=15)$"8" 
+
+# Contextual inversions for Tristan genus:
+inter_vlsig(c(0, 4, 7, 10))
+
+# Elementary voice leadings between unrelated sets:
+maj7 <- c(0, 4, 7, 11)
+min7 <- c(0, 3, 7, 10)
+inter_vlsig(min7, maj7)
+brightnessgraph(min7, maj7)
+
+# Elementary inversional VL for just diatonic which is NOT a Q-relation:
+inter_vlsig(j(dia), index=2)
 
 }
