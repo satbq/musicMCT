@@ -5,9 +5,17 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Elementary voice leadings — vlsig"><meta name="description" content="Calculates the &quot;voice-leading signature&quot; of the set's elementary transpositions
-as determined by vl_generators()."><meta property="og:description" content="Calculates the &quot;voice-leading signature&quot; of the set's elementary transpositions
-as determined by vl_generators()."><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Elementary voice leadings — vlsig"><meta name="description" content='Calculate elementary voice leadings which represent motion by a single
+arrow on a brightnessgraph(). vlsig() finds "voice-leading signature"
+of a set moving to transpositions of itself, as determined by vl_generators(). inter_vlsig()
+finds the elementary voice leadings from a set to some other set, i.e. where the goal
+parameter of brightnessgraph() is not NULL. By default, inter_vlsig() finds
+voice leadings for contextual inversions of a set.'><meta property="og:description" content='Calculate elementary voice leadings which represent motion by a single
+arrow on a brightnessgraph(). vlsig() finds "voice-leading signature"
+of a set moving to transpositions of itself, as determined by vl_generators(). inter_vlsig()
+finds the elementary voice leadings from a set to some other set, i.e. where the goal
+parameter of brightnessgraph() is not NULL. By default, inter_vlsig() finds
+voice leadings for contextual inversions of a set.'><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -46,13 +54,27 @@ as determined by vl_generators()."><meta property="og:image" content="https://sa
     </div>
 
     <div class="ref-description section level2">
-    <p>Calculates the "<strong>v</strong>oice-<strong>l</strong>eading <strong>sig</strong>nature" of the set's elementary transpositions
-as determined by <code><a href="vl_generators.html">vl_generators()</a></code>.</p>
+    <p>Calculate elementary voice leadings which represent motion by a single
+arrow on a <code><a href="brightnessgraph.html">brightnessgraph()</a></code>. <code>vlsig()</code> finds "<strong>v</strong>oice-<strong>l</strong>eading <strong>sig</strong>nature"
+of a set moving to transpositions of itself, as determined by <code><a href="vl_generators.html">vl_generators()</a></code>. <code>inter_vlsig()</code>
+finds the elementary voice leadings from a set to some other set, i.e. where the <code>goal</code>
+parameter of <code><a href="brightnessgraph.html">brightnessgraph()</a></code> is not <code>NULL</code>. By default, <code>inter_vlsig()</code> finds
+voice leadings for contextual inversions of a set.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vlsig</span><span class="op">(</span><span class="va">set</span>, index <span class="op">=</span> <span class="fl">1</span>, display_digits <span class="op">=</span> <span class="fl">2</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vlsig</span><span class="op">(</span><span class="va">set</span>, index <span class="op">=</span> <span class="cn">NULL</span>, display_digits <span class="op">=</span> <span class="fl">2</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">inter_vlsig</span><span class="op">(</span></span>
+<span>  <span class="va">set</span>,</span>
+<span>  goal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ascending"</span>, <span class="st">"commontone"</span><span class="op">)</span>,</span>
+<span>  display_digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  edo <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,7 +86,8 @@ as determined by <code><a href="vl_generators.html">vl_generators()</a></code>.<
 
 
 <dt id="arg-index">index<a class="anchor" aria-label="anchor" href="#arg-index"></a></dt>
-<dd><p>Integer: which voice-leading generator should be displayed? Defaults to <code>1</code>.</p></dd>
+<dd><p>Integer: which voice-leading generator should be displayed? Defaults to <code>NULL</code>,
+displaying all voice leadings.</p></dd>
 
 
 <dt id="arg-display-digits">display_digits<a class="anchor" aria-label="anchor" href="#arg-display-digits"></a></dt>
@@ -80,12 +103,25 @@ non-integral interval sizes. Defaults to 2.</p></dd>
 <dd><p>Numeric (expected integer), defaults to <code>10</code>:
 number of decimal places to round to when testing for equality.</p></dd>
 
+
+<dt id="arg-goal">goal<a class="anchor" aria-label="anchor" href="#arg-goal"></a></dt>
+<dd><p>For <code>inter_vlsig()</code> only, vector of the transposition type to voice lead to.
+Defaults to <code>NULL</code>, producing voice leadings to the inversion of <code>set</code>.</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>For <code>inter_vlsig()</code> only. String: either "ascending" or "commontone". Prefer
+ascending voice leadings (as for <code>vlsig()</code>) or common tones (as might be expected for
+contextual inversions)? Defaults to "ascending".</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>List with three elements:</p><ul><li><p>"vl" which shows the distance (in <code>edo</code> steps) that each voice moves</p></li>
 <li><p>"tn" which indicates the (chromatic) transposition achieved by the voice leading</p></li>
-<li><p>"rotation" which indicates the scalar transposition caused by the voice leading</p></li>
+<li><p>"rotation" which indicates the scalar transposition caused by the voice leading
+If <code>index=NULL</code>, returns instead a matrix whose rows are
+all the elementary voice leadings.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -95,12 +131,20 @@ prioritizes minimal voice leadings, whereas <code>vlsig()</code> prioritizes <em
 leadings derived from a set's <code><a href="brightnessgraph.html">brightnessgraph()</a></code>. In particular, this means that
 <code>vlsig()</code> voice leadings will always be ascending, involve at least one common tone,
 and involve no contrary motion. See the <code>odd_pentachord</code> voice leadings in the Examples.</p>
+<p>For <code>vlsig()</code> the value "rotation" in the result is non-arbitrary: if the rotation value
+is n, the voice leading takes <code>set</code> to the nth mode of <code>set</code>. For <code>inter_vlsig()</code>, there
+is no canonical correspondence between modes of <code>set</code> and <code>goal</code>, except to assume that
+the input modes are the 1st mode of each scale. If <code>goal</code> is <code>NULL</code>, finding contextual
+inversions of <code>set</code>, the first mode of the inversion is taken to be the one that holds the
+first and last pitches of <code>set</code> in common. These "rotation" values do not necessarily
+correspond to the values of <code>inter_vlsig()</code>'s index parameter.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">major_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">vlsig</span><span class="op">(</span><span class="va">major_scale</span><span class="op">)</span> <span class="co"># Hook's elementary signature transformation</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Hook's elementary signature transformation</span></span></span>
+<span class="r-in"><span><span class="va">major_scale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">vlsig</span><span class="op">(</span><span class="va">major_scale</span>, index<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 0 0 1 0 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -146,6 +190,36 @@ and involve no contrary motion. See the <code>odd_pentachord</code> voice leadin
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="VL_rolodex.html">vl_rolodex</a></span><span class="op">(</span><span class="va">odd_pentachord</span>, edo<span class="op">=</span><span class="fl">15</span><span class="op">)</span><span class="op">$</span><span class="st">"8"</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3  1  0 -1 -2</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Contextual inversions for Tristan genus:</span></span></span>
+<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    2    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    1    0    0    1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Elementary voice leadings between unrelated sets:</span></span></span>
+<span class="r-in"><span><span class="va">maj7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">min7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="va">min7</span>, <span class="va">maj7</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    1    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    0    0    0</span>
+<span class="r-in"><span><span class="fu"><a href="brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">min7</span>, <span class="va">maj7</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="vlsig-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Elementary inversional VL for just diatonic which is NOT a Q-relation:</span></span></span>
+<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span>, index<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $vl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.71 0.71 0.00 0.71 0.71 0.00 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tni</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.726274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rotation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

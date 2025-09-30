@@ -53,6 +53,9 @@
 <code><a href="../reference/brightness_comparisons.html">brightness_comparisons()</a></code> and <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>gain a <code>goal</code> parameter that allows voice-leading brightness relationships between different sets to be studied.</li>
 <li>New <code><a href="../reference/fpmod.html">fpmod()</a></code> allows for safer modulo division in contexts with octave equivalence.</li>
 <li>New <code><a href="../reference/clampitt_q.html">clampitt_q()</a></code> finds the sets that are “Q-related” to an input (Clampitt 1997, 2007).</li>
+<li>
+<code><a href="../reference/vlsig.html">vlsig()</a></code> parameter <code>index</code> now defaults to <code>NULL</code>, returning a matrix of all elementary voice-leadings.</li>
+<li>New <code><a href="../reference/vlsig.html">inter_vlsig()</a></code> finds elementary voice leadings between sets of different Tn-types.</li>
 </ul><div class="section level3">
 <h3 id="more-flexible-handling-of-optic-symmetries-development-version">More flexible handling of OPTIC symmetries<a class="anchor" aria-label="anchor" href="#more-flexible-handling-of-optic-symmetries-development-version"></a></h3>
 <ul><li>Set theory functions including <code><a href="../reference/tn.html">tn()</a></code>, <code><a href="../reference/tn.html">tni()</a></code>, <code><a href="../reference/tn.html">startzero()</a></code>, and so on gain an <code>optic</code> parameter, which allows the user to specify the OPTIC symmetries to consider.</li>
