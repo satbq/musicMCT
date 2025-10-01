@@ -65,15 +65,16 @@ test_that("isgwf setword parameter behaves", {
 
 test_that("clampitt_q works", {
   jd <- clampitt_q(j(dia))
+  jd$vls <- t(jd$vls)
   expect_equal(jd$set[1, 2] - jd$set[1, 1], j(4))
   expect_equal(jd$vls[4, 1], j(3)-j(m3)+j(synt))
   expect_equal(jd$vls[2, 2], -1 * j(synt))
 
-  expect_equal(clampitt_q(j(1, 2, 3, 5, 6))$vls[1, 2], -1 * j(m2))
+  expect_equal(t(clampitt_q(j(1, 2, 3, 5, 6))$vls)[1, 2], -1 * j(m2))
 
   expect_equal(clampitt_q(c(0, 2, 4, 5, 7, 9, 11), index=2),
                list(sets=c(6, 7, 9, 11, 0, 2, 4),
-                    vls=c(0, 0, 0, 1, 0, 0, 0)))
+                    vls=t(c(0, 0, 0, 1, 0, 0, 0))))
 
   hept <- clampitt_q(c(0, 1, 3, 4, 6, 7, 9))
   t_mat <- matrix(c(0, 0, 0, 0, 0, 0, 1, -2, 0, 0, 0, 0, 0, 0), ncol=2)
@@ -87,21 +88,21 @@ test_that("clampitt_q works", {
                     1, 0, 0, 0),
                   byrow=TRUE,
                   nrow=7)
-  expect_equal(hept$vls, t_mat)
-  expect_equal(hept_ham$vls, h_mat)
+  expect_equal(t(hept$vls), t_mat)
+  expect_equal(t(hept_ham$vls), h_mat)
 
   pent15 <- clampitt_q(c(0, 1, 4, 9, 11), edo=15, method="hamming")
-  expect_equal(pent15$vls, matrix(c(5, 0, 0, 0, 0), ncol=1))
+  expect_equal(t(pent15$vls), matrix(c(5, 0, 0, 0, 0), ncol=1))
 
   pent15_t <- clampitt_q(c(0, 1, 4, 9, 11), edo=15)
   expect_equal(unlist(lapply(pent15_t, length)), c(sets=0, vls=0))
 
   majb9 <- clampitt_q(c(0, 1, 4, 7))
   expect_equal(majb9$sets, matrix(c(1, 4, 7, 8), ncol=1))
-  expect_equal(majb9$vls, matrix(c(-4, 0, 0, 0), ncol=1))
+  expect_equal(t(majb9$vls), matrix(c(-4, 0, 0, 0), ncol=1))
 
   empty_result <- list(sets=matrix(nrow=4, ncol=0),
-                       vls=matrix(nrow=4, ncol=0))
+                       vls=matrix(nrow=0, ncol=4))
   expect_equal(clampitt_q(c(0, 1, 3, 4)), empty_result)
 
   maj7 <- c(0, 4, 5)
@@ -111,8 +112,8 @@ test_that("clampitt_q works", {
   maj7_vls <- matrix(c(0, 0, -3,
                        0, -3, 0,
                        6, 0, 0), nrow=3, byrow=TRUE)
-  expect_equal(clampitt_q(maj7), list(sets=maj7_sets, vls=maj7_vls))
+  expect_equal(clampitt_q(maj7), list(sets=maj7_sets, vls=t(maj7_vls)))
 
   utremi <- lapply(clampitt_q(c(0, 2, 4)), dim)
-  expect_equal(utremi, list(sets=c(3, 2), vls=c(3, 2)))
+  expect_equal(utremi, list(sets=c(3, 2), vls=c(2, 3)))
 })

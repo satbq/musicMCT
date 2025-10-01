@@ -110,7 +110,7 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'  all the elementary voice leadings.
 #'
 #' @seealso [vl_generators()] and [brightnessgraph()]
-#"
+#'
 #' @examples
 #' # Hook's elementary signature transformation
 #' major_scale <- c(0, 2, 4, 5, 7, 9, 11)

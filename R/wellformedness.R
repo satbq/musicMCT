@@ -151,7 +151,7 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' Voice leadings between inversions with maximal common tones
 #'
 #' @description
-#' Clampitt (2007, 467) <doi:10.1007/978-3-642-04579-0_46> defines two $n$-note sets to be Q-related
+#' Clampitt (2007, 467; \doi{doi:10.1007/978-3-642-04579-0_46}) defines two $n$-note sets to be Q-related
 #' if they:
 #' * Have all but one tone in common
 #' * Are related by [tni()]
@@ -171,7 +171,7 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' equivalent results in this context.)
 #'
 #' @inheritParams tnprime
-#' @param index Integer: which Q-related set and voice leading should be returned? Defaults to `0`,
+#' @param index Integer: which Q-related set and voice leading should be returned? Defaults to `NULL`,
 #'   in which case all options are returned.
 #' @inheritParams minimize_vl
 #'
@@ -179,8 +179,10 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #'
 #' @returns A list with two entries, `"sets"` and `"vls"`. The former is a matrix whose columns are
 #'   the sets which are Q-related to the input `set`, in OPC-normal form. The latter is a matrix
-#'   whose columns represent the voice-leading motions which transform `set` into its goals. The columns
-#'   of `"vls"` correspond to the columns of `"sets"`, but the rows of `"vls"` correspond to the order
+#'   whose rows represent the voice-leading motions which transform `set` into its goals.
+#'   (This follows the general practice of musicMCT of representing scales as columns and
+#'   voice leadings as rows.) The rows
+#'   of `"vls"` correspond to the columns of `"sets"`, but the columns of `"vls"` correspond to the order
 #'   of the input `set`, which may not match the normal form of the output `sets`. (See the last example.)
 #'
 #' @examples
@@ -209,7 +211,7 @@ isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #'
 #' @export
 clampitt_q <- function(set, 
-                       index=0, 
+                       index=NULL, 
                        method=c("taxicab", "euclidean", "chebyshev", "hamming"), 
                        edo=12, 
                        rounder=10) {
@@ -223,7 +225,7 @@ clampitt_q <- function(set,
 
   if (length(symmetry_index) == 0) {
     return(list(sets=matrix(nrow=card, ncol=0),
-                vls=matrix(nrow=card, ncol=0)))
+                vls=matrix(nrow=0, ncol=card)))
   }
 
   goals <- sapply(symmetry_index, tni, set=set, edo=edo, rounder=rounder)
@@ -256,10 +258,11 @@ clampitt_q <- function(set,
 
   if (dim(goals)[2] > 0) goals <- apply(goals, 2, normal_form, optic="opc", edo=edo, rounder=rounder)
 
-  if (index > 0) {
+  if (!is.null(index)) {
     goals <- goals[, index]
     vls <- vls[, index]
   }
 
+  vls <- t(vls)
   list(sets = goals, vls = vls)
 }

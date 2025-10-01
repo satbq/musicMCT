@@ -6,7 +6,7 @@
 \usage{
 clampitt_q(
   set,
-  index = 0,
+  index = NULL,
   method = c("taxicab", "euclidean", "chebyshev", "hamming"),
   edo = 12,
   rounder = 10
@@ -15,7 +15,7 @@ clampitt_q(
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{index}{Integer: which Q-related set and voice leading should be returned? Defaults to \code{0},
+\item{index}{Integer: which Q-related set and voice leading should be returned? Defaults to \code{NULL},
 in which case all options are returned.}
 
 \item{method}{What distance metric should be used? Defaults to \code{"taxicab"}
@@ -29,12 +29,14 @@ number of decimal places to round to when testing for equality.}
 \value{
 A list with two entries, \code{"sets"} and \code{"vls"}. The former is a matrix whose columns are
 the sets which are Q-related to the input \code{set}, in OPC-normal form. The latter is a matrix
-whose columns represent the voice-leading motions which transform \code{set} into its goals. The columns
-of \code{"vls"} correspond to the columns of \code{"sets"}, but the rows of \code{"vls"} correspond to the order
+whose rows represent the voice-leading motions which transform \code{set} into its goals.
+(This follows the general practice of musicMCT of representing scales as columns and
+voice leadings as rows.) The rows
+of \code{"vls"} correspond to the columns of \code{"sets"}, but the columns of \code{"vls"} correspond to the order
 of the input \code{set}, which may not match the normal form of the output \code{sets}. (See the last example.)
 }
 \description{
-Clampitt (2007, 467) \url{doi:10.1007/978-3-642-04579-0_46} defines two $n$-note sets to be Q-related
+Clampitt (2007, 467; \doi{doi:10.1007/978-3-642-04579-0_46}) defines two $n$-note sets to be Q-related
 if they:
 \itemize{
 \item Have all but one tone in common
