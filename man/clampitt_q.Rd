@@ -36,12 +36,12 @@ of \code{"vls"} correspond to the columns of \code{"sets"}, but the columns of \
 of the input \code{set}, which may not match the normal form of the output \code{sets}. (See the last example.)
 }
 \description{
-Clampitt (2007, 467; \doi{doi:10.1007/978-3-642-04579-0_46}) defines two $n$-note sets to be Q-related
+Clampitt (2007, 467; \doi{doi:10.1007/978-3-642-04579-0_46}) defines two \eqn{n}-note sets to be Q-related
 if they:
 \itemize{
 \item Have all but one tone in common
 \item Are related by \code{\link[=tni]{tni()}}
-\item Have a strictly crossing-free voice leading which preserves all $n-1$ common tones
+\item Have a strictly crossing-free voice leading which preserves all \eqn{n-1} common tones
 This function finds all sets which are Q-related to an input \code{set} in this sense. The relation
 is defined to generalize the smooth voice leadings between consonant triads and diatonic scales
 to other sets, in particular demonstrating that non-singular pairwise well-formed scales (see \code{\link[=isgwf]{isgwf()}})

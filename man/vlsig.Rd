@@ -106,7 +106,7 @@ inter_vlsig(min7, maj7)
 brightnessgraph(min7, maj7)
 
 # Elementary inversional VL for just diatonic which is NOT a Q-relation:
-inter_vlsig(j(dia), index=2)
+inter_vlsig(j(dia), index=3)
 
 }
 \seealso{

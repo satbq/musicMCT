@@ -137,7 +137,7 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #' brightnessgraph(min7, maj7)
 #'
 #' # Elementary inversional VL for just diatonic which is NOT a Q-relation:
-#' inter_vlsig(j(dia), index=2)
+#' inter_vlsig(j(dia), index=3)
 #'
 #' @export
 vlsig <- function(set, index=NULL, display_digits=2, edo=12, rounder=10) {
