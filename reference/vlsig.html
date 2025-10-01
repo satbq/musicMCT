@@ -117,12 +117,12 @@ contextual inversions)? Defaults to "ascending".</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>List with three elements:</p><ul><li><p>"vl" which shows the distance (in <code>edo</code> steps) that each voice moves</p></li>
-<li><p>"tn" which indicates the (chromatic) transposition achieved by the voice leading</p></li>
-<li><p>"rotation" which indicates the scalar transposition caused by the voice leading
-If <code>index=NULL</code>, returns instead a matrix whose rows are
-all the elementary voice leadings.</p></li>
-</ul></div>
+    <p>List with three elements:</p><ul><li><p>"vl" which shows the distance (in <code>edo</code> steps) that each voice moves,</p></li>
+<li><p>"tn" which indicates the (chromatic) transposition achieved by the voice leading,</p></li>
+<li><p>"rotation" which indicates the scalar transposition caused by the voice leading.</p></li>
+</ul><p>If <code>index=NULL</code>, returns instead a matrix whose rows are
+all the elementary voice leadings.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note that the voice leadings determined by <code>vlsig()</code> can be different from the
@@ -136,8 +136,18 @@ is n, the voice leading takes <code>set</code> to the nth mode of <code>set</cod
 is no canonical correspondence between modes of <code>set</code> and <code>goal</code>, except to assume that
 the input modes are the 1st mode of each scale. If <code>goal</code> is <code>NULL</code>, finding contextual
 inversions of <code>set</code>, the first mode of the inversion is taken to be the one that holds the
-first and last pitches of <code>set</code> in common. These "rotation" values do not necessarily
-correspond to the values of <code>inter_vlsig()</code>'s index parameter.</p>
+first and last pitches of <code>set</code> in common. These "rotation" values do not have a transparent
+relationship to the values of <code>inter_vlsig()</code>'s index parameter.</p>
+<p>For <code>inter_vlsig()</code> results are not as symmetric between <code>set</code> and <code>goal</code> as you might
+expect. Since these voice-leading functions study ascending arrows on a brightness graph
+the possibilities for <em>ascending from X to Y</em> are in principle somewhat different from
+the possibilities for <em>ascending from Y to X</em>. See the examples for the "Tristan genus."
+Note that this is still true when <code>type="commontone"</code>, which might lead to counterintuitive
+results.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="vl_generators.html">vl_generators()</a></code> and <code><a href="brightnessgraph.html">brightnessgraph()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -192,12 +202,19 @@ correspond to the values of <code>inter_vlsig()</code>'s index parameter.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3  1  0 -1 -2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Contextual inversions for Tristan genus:</span></span></span>
-<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dom7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">halfdim7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="va">dom7</span>, <span class="va">halfdim7</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    2    0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    0    1    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    1    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    1    0    1    0</span>
+<span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="va">halfdim7</span>, <span class="va">dom7</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    1    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    0    0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Elementary voice leadings between unrelated sets:</span></span></span>
 <span class="r-in"><span><span class="va">maj7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span><span class="op">)</span></span></span>
@@ -212,13 +229,13 @@ correspond to the values of <code>inter_vlsig()</code>'s index parameter.</p>
 <span class="r-in"><span><span class="co"># Elementary inversional VL for just diatonic which is NOT a Q-relation:</span></span></span>
 <span class="r-in"><span><span class="fu">inter_vlsig</span><span class="op">(</span><span class="fu"><a href="j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span>, index<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.71 0.71 0.00 0.71 0.71 0.00 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.22 0.00 0.22 0.22 0.22 0.22 0.22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tni</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.726274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.0782</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
