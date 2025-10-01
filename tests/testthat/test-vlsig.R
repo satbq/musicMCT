@@ -54,22 +54,28 @@ test_that("vlsig works", {
 
 test_that("inter_vlsig works", {
   jdia_matrix <- matrix(c(0, 0, 0, .92, 0, 0, 0,
-                   .71, .71, 0, .71, .71, 0, 0,
-                   .22, 0, .22, .22, .22, .22, .22),
+                   .22, 0, .22, .22, .22, .22, .22,
+                   .71, .71, 0, .71, .71, 0, 0),
                    nrow=3, byrow=TRUE)
   expect_equal(inter_vlsig(j(dia)), jdia_matrix)
   expect_equal(inter_vlsig(j(dia), index=1)$tni, j(7))
   expect_equal(inter_vlsig(j(dia), index=1)$rotation, 0)
 
-  triad_matrix <- matrix(c(0, 0, 2, 1, 0, 1, 0, 1, 1), 
+  triad_matrix <- matrix(c(1, 0, 1, 0, 1, 1, 0, 0, 2), 
                          nrow=3, byrow=TRUE)
   expect_equal(inter_vlsig(c(0, 4, 7)), triad_matrix)
 
   hexachord <- c(0, 2, 7, 12, 16, 17)
   h_res1 <- list(vl=c(0, 2, 2, 2, 0, 6), tni=16, rotation=5)
   h_res2 <- list(vl=c(-2, 0, 0, 0, -2, 4), tni=14, rotation=5)
-  expect_equal(inter_vlsig(hexachord, index=1, type="ascending", edo=24),
+  expect_equal(inter_vlsig(hexachord, index=6, type="ascending", edo=24),
                h_res1)
-  expect_equal(inter_vlsig(hexachord, index=1, type="commontone", edo=24),
+  expect_equal(inter_vlsig(hexachord, index=6, type="commontone", edo=24),
                h_res2)  
+
+  expect_error(inter_vlsig(c(0,2,7), c(0,1,5,7)))
+
+  must_be_matrix <- matrix(c(2, 0, 1, 0, 3, 0), nrow=2, byrow=TRUE)
+  expect_equal(inter_vlsig(c(0, 3, 7), c(0, 1, 6), index=1), 
+               must_be_matrix)
 })

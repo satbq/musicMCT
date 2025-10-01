@@ -41,12 +41,13 @@ contextual inversions)? Defaults to "ascending".}
 \value{
 List with three elements:
 \itemize{
-\item "vl" which shows the distance (in \code{edo} steps) that each voice moves
-\item "tn" which indicates the (chromatic) transposition achieved by the voice leading
-\item "rotation" which indicates the scalar transposition caused by the voice leading
+\item "vl" which shows the distance (in \code{edo} steps) that each voice moves,
+\item "tn" which indicates the (chromatic) transposition achieved by the voice leading,
+\item "rotation" which indicates the scalar transposition caused by the voice leading.
+}
+
 If \code{index=NULL}, returns instead a matrix whose rows are
 all the elementary voice leadings.
-}
 }
 \description{
 Calculate elementary voice leadings which represent motion by a single
@@ -69,8 +70,15 @@ is n, the voice leading takes \code{set} to the nth mode of \code{set}. For \cod
 is no canonical correspondence between modes of \code{set} and \code{goal}, except to assume that
 the input modes are the 1st mode of each scale. If \code{goal} is \code{NULL}, finding contextual
 inversions of \code{set}, the first mode of the inversion is taken to be the one that holds the
-first and last pitches of \code{set} in common. These "rotation" values do not necessarily
-correspond to the values of \code{inter_vlsig()}'s index parameter.
+first and last pitches of \code{set} in common. These "rotation" values do not have a transparent
+relationship to the values of \code{inter_vlsig()}'s index parameter.
+
+For \code{inter_vlsig()} results are not as symmetric between \code{set} and \code{goal} as you might
+expect. Since these voice-leading functions study ascending arrows on a brightness graph
+the possibilities for \emph{ascending from X to Y} are in principle somewhat different from
+the possibilities for \emph{ascending from Y to X}. See the examples for the "Tristan genus."
+Note that this is still true when \code{type="commontone"}, which might lead to counterintuitive
+results.
 }
 \examples{
 # Hook's elementary signature transformation
@@ -86,7 +94,10 @@ vlsig(odd_pentachord, index=2, edo=15)
 vl_rolodex(odd_pentachord, edo=15)$"8" 
 
 # Contextual inversions for Tristan genus:
-inter_vlsig(c(0, 4, 7, 10))
+dom7 <- c(0, 4, 7, 10)
+halfdim7 <- c(0, 3, 6, 10)
+inter_vlsig(dom7, halfdim7)
+inter_vlsig(halfdim7, dom7)
 
 # Elementary voice leadings between unrelated sets:
 maj7 <- c(0, 4, 7, 11)
@@ -97,4 +108,7 @@ brightnessgraph(min7, maj7)
 # Elementary inversional VL for just diatonic which is NOT a Q-relation:
 inter_vlsig(j(dia), index=2)
 
+}
+\seealso{
+\code{\link[=vl_generators]{vl_generators()}} and \code{\link[=brightnessgraph]{brightnessgraph()}}
 }

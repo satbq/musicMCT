@@ -80,8 +80,15 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #' is no canonical correspondence between modes of `set` and `goal`, except to assume that
 #' the input modes are the 1st mode of each scale. If `goal` is `NULL`, finding contextual
 #' inversions of `set`, the first mode of the inversion is taken to be the one that holds the 
-#' first and last pitches of `set` in common. These "rotation" values do not necessarily 
-#' correspond to the values of `inter_vlsig()`'s index parameter.
+#' first and last pitches of `set` in common. These "rotation" values do not have a transparent 
+#' relationship to the values of `inter_vlsig()`'s index parameter.
+#'
+#' For `inter_vlsig()` results are not as symmetric between `set` and `goal` as you might
+#' expect. Since these voice-leading functions study ascending arrows on a brightness graph
+#' the possibilities for *ascending from X to Y* are in principle somewhat different from
+#' the possibilities for *ascending from Y to X*. See the examples for the "Tristan genus."
+#' Note that this is still true when `type="commontone"`, which might lead to counterintuitive
+#' results.
 #' 
 #'
 #' @inheritParams vl_generators
@@ -95,12 +102,15 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'   contextual inversions)? Defaults to "ascending".
 #'
 #' @returns List with three elements:
-#'   * "vl" which shows the distance (in `edo` steps) that each voice moves
-#'   * "tn" which indicates the (chromatic) transposition achieved by the voice leading
-#'   * "rotation" which indicates the scalar transposition caused by the voice leading
+#'   * "vl" which shows the distance (in `edo` steps) that each voice moves,
+#'   * "tn" which indicates the (chromatic) transposition achieved by the voice leading,
+#'   * "rotation" which indicates the scalar transposition caused by the voice leading.
+#'  
 #'  If `index=NULL`, returns instead a matrix whose rows are
 #'  all the elementary voice leadings.
 #'
+#' @seealso [vl_generators()] and [brightnessgraph()]
+#"
 #' @examples
 #' # Hook's elementary signature transformation
 #' major_scale <- c(0, 2, 4, 5, 7, 9, 11)
@@ -115,7 +125,10 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #' vl_rolodex(odd_pentachord, edo=15)$"8" 
 #'
 #' # Contextual inversions for Tristan genus:
-#' inter_vlsig(c(0, 4, 7, 10))
+#' dom7 <- c(0, 4, 7, 10)
+#' halfdim7 <- c(0, 3, 6, 10)
+#' inter_vlsig(dom7, halfdim7)
+#' inter_vlsig(halfdim7, dom7)
 #'
 #' # Elementary voice leadings between unrelated sets:
 #' maj7 <- c(0, 4, 7, 11)
@@ -200,7 +213,16 @@ inter_vlsig <- function(set,
   vls <- apply(arrow_indices, 1, vl_from_arrow)
 
   rounded_vls <- t(round(vls, digits=rounder))
+
+  all_rotations <- (arrow_indices[, 1] - arrow_indices[, 2]) %% card
+  rounded_vls <- rounded_vls[order(all_rotations), ]
+
   vls <- t(fpunique(vls, MARGIN=2))
+
+  unique_rotations <- unique(all_rotations)
+  vls <- vls[order(unique_rotations), ]
+
+  unique_vls <- which(duplicated(rounded_vls, MARGIN=1)==FALSE)
 
   if (use_commontone) {
     tiny <- 10^(-1 * rounder)
@@ -230,10 +252,11 @@ inter_vlsig <- function(set,
   sum_spread <- abs(apply(goal_sums, 2, max) - apply(goal_sums, 2, min))
   tni_index <- goal_sums[1, which.min(sum_spread)]
 
-  unique_vls <- which(duplicated(rounded_vls, MARGIN=1)==FALSE)
-  rotation_index <- arrow_indices[unique_vls[index], ]
-  rotation_index <- (rotation_index[1] - rotation_index[2]) %% card
-  names(rotation_index) <- NULL
+  #rotation_index <- arrow_indices[unique_vls[index], ]
+  #rotation_index <- (rotation_index[1] - rotation_index[2]) %% card
+  #names(rotation_index) <- NULL
+
+  rotation_index <- sort(unique_rotations)[index]
 
   rounded_vl <- round(vls[index, ], display_digits)
   res <- list(vl=rounded_vl, tni=tni_index, rotation=rotation_index)
