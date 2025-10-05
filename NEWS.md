@@ -8,6 +8,8 @@
 * New `clampitt_q()` finds the sets that are "Q-related" to an input (Clampitt 1997, 2007).
 * `vlsig()` parameter `index` now defaults to `NULL`, returning a matrix of all elementary voice-leadings.
 * New `inter_vlsig()` finds elementary voice leadings between sets of different Tn-types.
+* Parameter `n` for `tni()` gains a default value of `NULL`, in which case the index `n` is chosen to 
+  create the contextual inversion which keeps the first and last entries of `set` fixed.
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the

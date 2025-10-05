@@ -19,7 +19,7 @@ tn(
 
 tni(
   set,
-  n,
+  n = NULL,
   sorted = TRUE,
   octave_equivalence = TRUE,
   optic = NULL,
@@ -41,8 +41,10 @@ charm(set, edo = 12, rounder = 10)
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{n}{Numeric value (not necessarily an integer!) representing the
-index of transposition or inversion.}
+\item{n}{Numeric value (not necessarily an integer) representing the
+index of transposition or inversion. For \code{tni()} only, defaults to
+\code{NULL}, in which case \code{n} is chosen automatically to fix the first
+and last entries of \code{set} as common tones.}
 
 \item{sorted}{Do you want the result to be in ascending order? Boolean,
 defaults to \code{TRUE}.}
@@ -90,8 +92,11 @@ c_major <- c(0, 4, 7)
 tn(c_major, 2)
 tn(c_major, -10)
 tn(c_major, -10, optic="p") # Equivalent to tn(c_major, -10, octave_equivalence=FALSE)
-tni(c_major, 7)
-tni(c_major, 7, sorted=FALSE)
+tni(c_major, 4)
+tni(c_major, 4, sorted=FALSE)
+# If no index is supplied for tni, n is chosen to fix the first and last entries of the set:
+tni(c_major)
+
 tn(c(0, 1, 6, 7), 6)
 tn(c(0, 1, 6, 7), 6, sorted=FALSE)
 

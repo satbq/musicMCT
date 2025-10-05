@@ -147,8 +147,10 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' but NB also vice versa.)
 #' 
 #' @inheritParams tnprime
-#' @param n Numeric value (not necessarily an integer!) representing the 
-#'   index of transposition or inversion.
+#' @param n Numeric value (not necessarily an integer) representing the 
+#'   index of transposition or inversion. For `tni()` only, defaults to
+#'   `NULL`, in which case `n` is chosen automatically to fix the first
+#'   and last entries of `set` as common tones.
 #' @param sorted Do you want the result to be in ascending order? Boolean,
 #'   defaults to `TRUE`.
 #' @param octave_equivalence Do you want to normalize the result so that all values are
@@ -162,8 +164,11 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' tn(c_major, 2)
 #' tn(c_major, -10)
 #' tn(c_major, -10, optic="p") # Equivalent to tn(c_major, -10, octave_equivalence=FALSE)
-#' tni(c_major, 7)
-#' tni(c_major, 7, sorted=FALSE)
+#' tni(c_major, 4)
+#' tni(c_major, 4, sorted=FALSE)
+#' # If no index is supplied for tni, n is chosen to fix the first and last entries of the set:
+#' tni(c_major)
+#'
 #' tn(c(0, 1, 6, 7), 6)
 #' tn(c(0, 1, 6, 7), 6, sorted=FALSE)
 #'
@@ -206,13 +211,16 @@ tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12,
 #' @rdname tn
 #' @export
 tni <- function(set, 
-                n, 
+                n=NULL, 
                 sorted=TRUE, 
                 octave_equivalence=TRUE, 
                 optic=NULL, 
                 edo=12, 
                 rounder=10) {
   tiny <- 10^(-1 * rounder)
+  card <- length(set)
+
+  if (is.null(n)) n <- set[1] + set[card]
 
   if (is.null(optic)) {
     symmetries <- c(o = octave_equivalence, p = sorted, t = FALSE, i = FALSE, c = FALSE)

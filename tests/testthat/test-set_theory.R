@@ -88,6 +88,14 @@ test_that("tni works", {
   expect_equal(tni(test_multiset, 0, optic="", edo=53), c(0, -1, 0)) 
   expect_equal(tni(test_multiset, 0, optic="o", edo=53), c(0, 52, 0)) 
   expect_equal(tni(test_multiset, 0, optic="opc", edo=53), c(0, 52)) 
+
+  expect_equal(tni(c(0, 4, 7)), c(0, 3, 7))
+  expect_equal(tni(c(0, 3, 7)), c(0, 4, 7))
+  expect_equal(tni(c(1, 5, 8)), c(1, 4, 8))
+  expect_equal(tni(c(0, 11, 7)), c(0, 7, 8))
+  expect_equal(tni(c(0, 11, 7), optic="p"), c(-4, 0, 7))
+  expect_equal(tni(c(0, 11, 7), optic="c"), c(7, -4, 0))
+  expect_equal(tni(c(0, 11, 7), optic="o"), c(7, 8, 0))
 })
 
 test_that("startzero works", {
