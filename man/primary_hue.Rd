@@ -15,7 +15,7 @@ primary_hue(
   rounder = 10
 )
 
-primary_colornum(set, type = "all", ...)
+primary_colornum(set, type = "all", signvector_list = NULL, ...)
 
 primary_signvector(set, type = "all", ...)
 
@@ -43,6 +43,11 @@ arrangements, the desired inequality matrix can be entered directly.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
+
+\item{signvector_list}{A list of signvectors to use as the reference by
+which \code{colornum} assigns a value. Defaults to \code{NULL} and will attempt to
+use \code{representative_signvectors}, which needs to be downloaded and assigned
+separately from the package musicMCT.}
 
 \item{...}{Arguments to be passed to \code{primary_hue()}}
 

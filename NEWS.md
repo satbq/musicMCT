@@ -10,6 +10,8 @@
 * New `inter_vlsig()` finds elementary voice leadings between sets of different Tn-types.
 * Parameter `n` for `tni()` gains a default value of `NULL`, in which case the index `n` is chosen to 
   create the contextual inversion which keeps the first and last entries of `set` fixed.
+* `primary_colornum()` gains a `signvector_list` parameter to pass to `colornum()`, allowing it to work
+  properly for hyperplane arrangements other than the "modal color theory" arrangement.
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the

@@ -79,6 +79,7 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
 #'   * "half_palette" uses [scale_palette()] with `include_involution=FALSE`
 #'   * "modes" uses only the n modes of `set`
 #' @inheritParams quantize_color
+#' @inheritParams colornum
 #' @param ... Arguments to be passed to `primary_hue()`
 #' 
 #' @returns A numeric vector representing a scale for `primary_hue()`; a
@@ -114,7 +115,7 @@ primary_hue <- function(set,
 
   type <- match.arg(type)
   colors_to_try <- switch(type,
-                          modes = sim(set, edo=edo),
+                          modes = sim(set, edo=edo, rounder=rounder),
                           half_palette = scale_palette(set, 
                                                        include_involution=FALSE, 
                                                        edo=edo,
@@ -133,7 +134,9 @@ primary_hue <- function(set,
 
 #' @rdname primary_hue
 #' @export
-primary_colornum <- function(set, type="all", ...) colornum(primary_hue(set, type=type, ...), ...)
+primary_colornum <- function(set, type="all", signvector_list=NULL, ...) {
+  colornum(primary_hue(set, type=type, ...), signvector_list=signvector_list, ...)
+}
 
 #' @rdname primary_hue
 #' @export
