@@ -96,7 +96,7 @@ representative of each color.</p>
 <span>  rounder <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">primary_colornum</span><span class="op">(</span><span class="va">set</span>, type <span class="op">=</span> <span class="st">"all"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">primary_colornum</span><span class="op">(</span><span class="va">set</span>, type <span class="op">=</span> <span class="st">"all"</span>, signvector_list <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">primary_signvector</span><span class="op">(</span><span class="va">set</span>, type <span class="op">=</span> <span class="st">"all"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -135,6 +135,13 @@ arrangements, the desired inequality matrix can be entered directly.</p></dd>
 <dt id="arg-rounder">rounder<a class="anchor" aria-label="anchor" href="#arg-rounder"></a></dt>
 <dd><p>Numeric (expected integer), defaults to <code>10</code>:
 number of decimal places to round to when testing for equality.</p></dd>
+
+
+<dt id="arg-signvector-list">signvector_list<a class="anchor" aria-label="anchor" href="#arg-signvector-list"></a></dt>
+<dd><p>A list of signvectors to use as the reference by
+which <code>colornum</code> assigns a value. Defaults to <code>NULL</code> and will attempt to
+use <code>representative_signvectors</code>, which needs to be downloaded and assigned
+separately from the package musicMCT.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

@@ -115,7 +115,7 @@ but NB also vice versa.)</p>
 <span></span>
 <span><span class="fu">tni</span><span class="op">(</span></span>
 <span>  <span class="va">set</span>,</span>
-<span>  <span class="va">n</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sorted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  octave_equivalence <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  optic <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -144,8 +144,10 @@ but NB also vice versa.)</p>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Numeric value (not necessarily an integer!) representing the
-index of transposition or inversion.</p></dd>
+<dd><p>Numeric value (not necessarily an integer) representing the
+index of transposition or inversion. For <code>tni()</code> only, defaults to
+<code>NULL</code>, in which case <code>n</code> is chosen automatically to fix the first
+and last entries of <code>set</code> as common tones.</p></dd>
 
 
 <dt id="arg-sorted">sorted<a class="anchor" aria-label="anchor" href="#arg-sorted"></a></dt>
@@ -187,10 +189,14 @@ number of decimal places to round to when testing for equality.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 6 9</span>
 <span class="r-in"><span><span class="fu">tn</span><span class="op">(</span><span class="va">c_major</span>, <span class="op">-</span><span class="fl">10</span>, optic<span class="op">=</span><span class="st">"p"</span><span class="op">)</span> <span class="co"># Equivalent to tn(c_major, -10, octave_equivalence=FALSE)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -10  -6  -3</span>
-<span class="r-in"><span><span class="fu">tni</span><span class="op">(</span><span class="va">c_major</span>, <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">tni</span><span class="op">(</span><span class="va">c_major</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 4 9</span>
+<span class="r-in"><span><span class="fu">tni</span><span class="op">(</span><span class="va">c_major</span>, <span class="fl">4</span>, sorted<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 0 9</span>
+<span class="r-in"><span><span class="co"># If no index is supplied for tni, n is chosen to fix the first and last entries of the set:</span></span></span>
+<span class="r-in"><span><span class="fu">tni</span><span class="op">(</span><span class="va">c_major</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 3 7</span>
-<span class="r-in"><span><span class="fu">tni</span><span class="op">(</span><span class="va">c_major</span>, <span class="fl">7</span>, sorted<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7 3 0</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">tn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span>, <span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0 1 6 7</span>
 <span class="r-in"><span><span class="fu">tn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span>, <span class="fl">6</span>, sorted<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>

@@ -56,6 +56,9 @@
 <li>
 <code><a href="../reference/vlsig.html">vlsig()</a></code> parameter <code>index</code> now defaults to <code>NULL</code>, returning a matrix of all elementary voice-leadings.</li>
 <li>New <code><a href="../reference/vlsig.html">inter_vlsig()</a></code> finds elementary voice leadings between sets of different Tn-types.</li>
+<li>Parameter <code>n</code> for <code><a href="../reference/tn.html">tni()</a></code> gains a default value of <code>NULL</code>, in which case the index <code>n</code> is chosen to create the contextual inversion which keeps the first and last entries of <code>set</code> fixed.</li>
+<li>
+<code><a href="../reference/primary_hue.html">primary_colornum()</a></code> gains a <code>signvector_list</code> parameter to pass to <code><a href="../reference/colornum.html">colornum()</a></code>, allowing it to work properly for hyperplane arrangements other than the “modal color theory” arrangement.</li>
 </ul><div class="section level3">
 <h3 id="more-flexible-handling-of-optic-symmetries-development-version">More flexible handling of OPTIC symmetries<a class="anchor" aria-label="anchor" href="#more-flexible-handling-of-optic-symmetries-development-version"></a></h3>
 <ul><li>Set theory functions including <code><a href="../reference/tn.html">tn()</a></code>, <code><a href="../reference/tn.html">tni()</a></code>, <code><a href="../reference/tn.html">startzero()</a></code>, and so on gain an <code>optic</code> parameter, which allows the user to specify the OPTIC symmetries to consider.</li>
