@@ -187,6 +187,8 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' row <- c(9, 10, 6, 8, 5, 7, 1, 2, 3, 11, 0, 4)
 #' matrix_from_0 <- sapply(row, tni, set=row, optic="o")
 #' matrix_from_9 <- tn(matrix_from_0, 9, optic="o")
+#' print(matrix_from_0)
+#' print(matrix_from_9)
 #'
 #' @export
 tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12, rounder=10) {
