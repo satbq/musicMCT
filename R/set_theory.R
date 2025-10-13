@@ -182,6 +182,12 @@ tnprime <- function(set, edo=12, rounder=10) {
 #' ionian <- c(0, 2, 4, 5, 7, 9, 11)
 #' lydian <- rotate(tn(ionian, 7, sorted=FALSE), 3)
 #' lydian - ionian
+#'
+#' ##### Easy to create a 12-tone matrix
+#' row <- c(9, 10, 6, 8, 5, 7, 1, 2, 3, 11, 0, 4)
+#' matrix_from_0 <- sapply(row, tni, set=row, optic="o")
+#' matrix_from_9 <- tn(matrix_from_0, 9, optic="o")
+#'
 #' @export
 tn <- function(set, n, sorted=TRUE, octave_equivalence=TRUE, optic=NULL, edo=12, rounder=10) {
   tiny <- 10^(-1 * rounder)
