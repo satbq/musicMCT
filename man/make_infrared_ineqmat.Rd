@@ -48,7 +48,7 @@ make_infrared_ineqmat(3, include_wraparound=TRUE)
 
 # In general, infrared arrangments are more complicated than pastel:
 make_pastel_ineqmat(4)
-make_infrared_ineqmat(4)
+make_infrared_ineqmat(4, include_wraparound=TRUE)
 
 }
 \seealso{
