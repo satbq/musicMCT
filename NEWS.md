@@ -12,6 +12,7 @@
   create the contextual inversion which keeps the first and last entries of `set` fixed.
 * `primary_colornum()` gains a `signvector_list` parameter to pass to `colornum()`, allowing it to work
   properly for hyperplane arrangements other than the "modal color theory" arrangement.
+* New `make_infrared_ineqmat()` adds a new family of hyperplane arrangements for studying voice leading.
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the

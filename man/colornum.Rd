@@ -11,9 +11,10 @@ colornum(set, ineqmat = NULL, signvector_list = NULL, edo = 12, rounder = 10)
 
 \item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
-of \code{\link[=getineqmat]{getineqmat()}}, but can be set to "white," "black", "gray", "roth", "pastel," or "rosy",
-giving the \code{ineqmat}s of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}}, \code{\link[=make_black_ineqmat]{make_black_ineqmat()}}, \code{\link[=make_gray_ineqmat]{make_gray_ineqmat()}},
-\code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}}, \code{\link[=make_pastel_ineqmat]{make_pastel_ineqmat()}}, and \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}}. For other
+of \code{\link[=getineqmat]{getineqmat()}}, but can be set to strings "white," "black", "gray", "roth", "infrared",
+"pastel," or "rosy", giving the \code{ineqmat}s of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}},
+\code{\link[=make_black_ineqmat]{make_black_ineqmat()}}, \code{\link[=make_gray_ineqmat]{make_gray_ineqmat()}}, \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}},
+\code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, \code{\link[=make_pastel_ineqmat]{make_pastel_ineqmat()}}, and \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}}. For other
 arrangements, the desired inequality matrix can be entered directly.}
 
 \item{signvector_list}{A list of signvectors to use as the reference by

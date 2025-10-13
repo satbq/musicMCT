@@ -87,7 +87,14 @@ units_mod <- function(edo) which(sapply(1:edo, coprime_to_edo, edo=edo)==TRUE)
 #' @returns A matrix (such as getineqmat() or make_roth_ineqmat() produce)
 #' @noRd
 choose_ineqmat <- function(set, 
-                           x=c("mct", "white", "roth", "pastel", "rosy", "black", "gray")) {
+                           x=c("mct", 
+                               "white", 
+                               "roth", 
+                               "pastel", 
+                               "rosy", 
+                               "black", 
+                               "gray",
+                               "infrared")) {
   if (inherits(x, "matrix")) {
     return(x)
   }
@@ -104,7 +111,8 @@ choose_ineqmat <- function(set,
                            pastel = make_pastel_ineqmat,
                            rosy = make_rosy_ineqmat,
                            black = make_black_ineqmat,
-                           gray = make_gray_ineqmat)
+                           gray = make_gray_ineqmat,
+                           infrared = make_infrared_ineqmat)
 
   create_ineqmat(card)
 }
