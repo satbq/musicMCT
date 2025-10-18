@@ -78,4 +78,9 @@ test_that("inter_vlsig works", {
   must_be_matrix <- matrix(c(2, 0, 1, 0, 3, 0), nrow=2, byrow=TRUE)
   expect_equal(inter_vlsig(c(0, 3, 7), c(0, 1, 6), index=1), 
                must_be_matrix)
+
+  petrushka <- c(0, 1, 3, 6, 7, 9)
+  petrushka_mat <- matrix(c(0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1), 
+                          nrow=2, byrow=TRUE)
+  expect_equal(inter_vlsig(petrushka), petrushka_mat)
 })

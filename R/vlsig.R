@@ -214,7 +214,8 @@ inter_vlsig <- function(set,
 
   rounded_vls <- t(round(vls, digits=rounder))
 
-  all_rotations <- (arrow_indices[, 1] - arrow_indices[, 2]) %% card
+  effective_card <- card / tsym_degree(set, edo=edo, rounder=rounder)
+  all_rotations <- (arrow_indices[, 1] - arrow_indices[, 2]) %% effective_card
   rounded_vls <- rounded_vls[order(all_rotations), ]
 
   vls <- t(fpunique(vls, MARGIN=2))
