@@ -113,11 +113,11 @@ brightnessgraph(min7, maj7)
 inter_vlsig(j(dia), index=3)
 
 # Obverse voice leadings:
-# First we see the **P**arallel transformation which leads from minor to major:
+# First we see the Parallel transformation which leads from minor to major:
 minor <- c(0, 3, 7)
 P <- inter_vlsig(minor, index=1)
 print(P)
-# Compare to its obverse, **S**lide, leading *to* minor from major:
+# Compare to its obverse, Slide, leading *to* minor from major:
 S <- inter_vlsig(minor, index=1, type="obverse")
 print(S)
 # A voice-leading plus its obverse is a chromatic transposition:
