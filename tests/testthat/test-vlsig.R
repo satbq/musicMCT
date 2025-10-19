@@ -86,4 +86,8 @@ test_that("inter_vlsig works", {
 
   obverse_mat <- matrix(c(0, 1, 0, 1, 0, 0, 2, 2, 0), nrow=3, byrow=TRUE)
   expect_equal(inter_vlsig(c(0, 4, 7), type="obverse"), obverse_mat)
+
+  obverse_tristan <- inter_vlsig(c(0, 4, 7, 10), index=2, type="obverse")
+  expect_equal(obverse_tristan$tni, 0)
+  expect_equal(obverse_tristan$rotation, 3)
 })
