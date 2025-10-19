@@ -83,4 +83,7 @@ test_that("inter_vlsig works", {
   petrushka_mat <- matrix(c(0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1), 
                           nrow=2, byrow=TRUE)
   expect_equal(inter_vlsig(petrushka), petrushka_mat)
+
+  obverse_mat <- matrix(c(0, 1, 0, 1, 0, 0, 2, 2, 0), nrow=3, byrow=TRUE)
+  expect_equal(inter_vlsig(c(0, 4, 7), type="obverse"), obverse_mat)
 })

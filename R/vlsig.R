@@ -97,9 +97,13 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'   displaying all voice leadings.
 #' @param goal For `inter_vlsig()` only, vector of the transposition type to voice lead to.
 #'   Defaults to `NULL`, producing voice leadings to the inversion of `set`.
-#' @param type For `inter_vlsig()` only. String: either "ascending" or "commontone". Prefer
-#'   ascending voice leadings (as for `vlsig()`) or common tones (as might be expected for 
-#'   contextual inversions)? Defaults to "ascending".
+#' @param type For `inter_vlsig()` only. String: "ascending", "commontone", or "obverse".
+#'   Defaults to "ascending", which makes the result prefer ascending voice leadings (as for `vlsig()`).
+#'   The second makes the result prefer common tones (as might be expected for 
+#'   contextual inversions). The third option, "obverse", gives the obverse of a voice-leading
+#'   in a sense that generalizes Morris (1998, \doi{doi:10.2307/746047})'s concept for 
+#'   Neo-Riemannian PLR transformations. This option returns voice leadings that lead *to* `set` rather
+#'   than away from it.
 #'
 #' @returns List with three elements:
 #'   * "vl" which shows the distance (in `edo` steps) that each voice moves,
@@ -138,6 +142,17 @@ vl_generators <- function(set, edo=12, rounder=10) {
 #'
 #' # Elementary inversional VL for just diatonic which is NOT a Q-relation:
 #' inter_vlsig(j(dia), index=3)
+#'
+#' # Obverse voice leadings:
+#' # First we see the **P**arallel transformation which leads from minor to major:
+#' minor <- c(0, 3, 7)
+#' P <- inter_vlsig(minor, index=1)
+#' print(P)
+#' # Compare to its obverse, **S**lide, leading *to* minor from major:
+#' S <- inter_vlsig(minor, index=1, type="obverse")
+#' print(S)
+#' # A voice-leading plus its obverse is a chromatic transposition:
+#' P$vl + S$vl
 #'
 #' @export
 vlsig <- function(set, index=NULL, display_digits=2, edo=12, rounder=10) {
@@ -183,12 +198,13 @@ vlsig <- function(set, index=NULL, display_digits=2, edo=12, rounder=10) {
 inter_vlsig <- function(set, 
                         goal=NULL, 
                         index=NULL, 
-                        type=c("ascending", "commontone"),
+                        type=c("ascending", "commontone", "obverse"),
                         display_digits=2, 
                         edo=12, 
                         rounder=10) {
   card <- length(set)
   use_commontone <- match.arg(type) == "commontone"
+  use_obverse <- match.arg(type) == "obverse"
 
   if (!is.null(goal) && length(goal) != card) {
     stop("Goal must have same length as set.")
@@ -241,23 +257,35 @@ inter_vlsig <- function(set,
     vls <- t(apply(vls, 1, tincture)) 
   }
 
+  if (use_obverse) {
+    make_obverse <- function(vec) {
+      largest_chroma <- max(vec)
+      res <- -1 * vec
+      res + largest_chroma
+    }
+    vls <- t(apply(vls, 1, make_obverse))
+  }
+
   if (is.null(index)) {
     return(round(vls, display_digits))
   }
 
   chosen_vl <- vls[index, ]
-  chosen_goal <- set + chosen_vl
+  if (use_obverse) {
+    chosen_goal <- set - chosen_vl
+  } else {
+    chosen_goal <- set + chosen_vl
+  }
 
   goal_modes <- sapply(0:(card-1), rotate, x=chosen_goal)
   goal_sums <- (goal_modes + rev(set)) %% edo
   sum_spread <- abs(apply(goal_sums, 2, max) - apply(goal_sums, 2, min))
   tni_index <- goal_sums[1, which.min(sum_spread)]
 
-  #rotation_index <- arrow_indices[unique_vls[index], ]
-  #rotation_index <- (rotation_index[1] - rotation_index[2]) %% card
-  #names(rotation_index) <- NULL
-
   rotation_index <- sort(unique_rotations)[index]
+  if (use_obverse) {
+    rotation_index <- (-1 * rotation_index) %% card
+  }
 
   rounded_vl <- round(vls[index, ], display_digits)
   res <- list(vl=rounded_vl, tni=tni_index, rotation=rotation_index)

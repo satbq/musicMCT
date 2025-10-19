@@ -29,7 +29,7 @@ print(c_major_value)
 # And indeed you should find information about the major scale
 # at https://ianring.com/musictheory/scales/2741
 
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 ianring(c(0, 2, 3, 7, 8))
 \dontshow{\}) # examplesIf}
 }

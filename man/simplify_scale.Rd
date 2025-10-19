@@ -133,7 +133,7 @@ assumes that, if you don't specify other data, you have those three files
 loaded into your workspace. It can't function without them.
 }
 \examples{
-\dontshow{if (exists("representative_scales") && exists("representative_signvectors") && exists("color_adjacencies")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (exists("representative_scales") && exists("representative_signvectors") && exists("color_adjacencies")) withAutoprint(\{ # examplesIf}
 # For this example to run, you need the necessary data files loaded.
 # Let's see what happens if we try to simplify the 5-limit just diatonic:
 
