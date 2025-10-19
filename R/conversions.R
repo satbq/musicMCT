@@ -44,7 +44,7 @@ convert <- function(x, edo1, edo2) x*(edo2/edo1)
 #' transposition of "white" to `set` will be the one that has the same sum
 #' class as `set`, guaranteeing that the voice leading between them is
 #' "pure contrary" (Tymoczko 2011, 81ff; explored further in Straus 2018
-#' <doi:10.1215/00222909-7127694>).
+#' \doi{doi:10.1215/00222909-7127694}).
 #' 
 #' @inheritParams tnprime
 #' @returns Numeric vector of same length as `set`. Same scale,

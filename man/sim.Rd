@@ -21,7 +21,7 @@ Numeric \code{n} by \code{n} matrix where \code{n} is the number of notes in \co
 }
 \description{
 As defined by Tymoczko 2008 ("Scale Theory, Serial Theory and Voice Leading")
-\url{https://onlinelibrary.wiley.com/doi/10.1111/j.1468-2249.2008.00257.x},
+\doi{doi:10.1111/j.1468-2249.2008.00257.x},
 the \strong{s}calar \strong{i}nterval \strong{m}atrix represents the "rotations" of a set,
 transposed to begin on 0, in its columns. Its nth row represents the
 specific intervals which represent its generic interval of size n. If changed

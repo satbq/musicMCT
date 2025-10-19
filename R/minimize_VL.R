@@ -1,6 +1,6 @@
 #' Evaluate potentially minimal voice-leading options
 #'
-#' Following Tymoczko 2008 <https://doi.org/10.1111/j.1468-2249.2008.00257.x>,
+#' Following Tymoczko (2008, \doi{doi:10.1111/j.1468-2249.2008.00257.x}),
 #' considers the strongly crossing-free voice leadings from `source` to the 
 #' modes of `goal`. 
 #'

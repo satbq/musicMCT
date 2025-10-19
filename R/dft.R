@@ -3,7 +3,7 @@
 #' For applications of the Discrete Fourier Transform to pitch-class 
 #' set theory, it's typically convenient to represent musical sets 
 #' in terms of *distributions* rather than lists of their elements.
-#' (See Chapter 1 of Amiot 2016, <doi:10.1007/978-3-319-45581-5>.)
+#' (See Chapter 1 of Amiot 2016, \doi{doi:10.1007/978-3-319-45581-5}.)
 #' These functions convert back and forth between those representations.
 #' s2d() and d2s() are shorthands for set_to_distribution() and
 #' distribution_to_set(), respectively.
@@ -99,7 +99,7 @@ d2s <- function(...) distribution_to_set(...)
 #'
 #' Computes the magnitudes and phases of the DFT components for a given (multi)set
 #' which can be input as either a vector of elements or as a distribution.
-#' (See Amiot (2016) <doi:10.1007/978-3-319-45581-5> for an overview of applications
+#' (See Amiot (2016, \doi{doi:10.1007/978-3-319-45581-5}) for an overview of applications
 #' of the DFT in this vein.) Entering a distribution takes priority over an entered `set`.
 #' 
 #' The scaling and orientation of phases corresponds to that used in Yust (2021)
@@ -108,7 +108,7 @@ d2s <- function(...) distribution_to_set(...)
 #' component of a singleton points in the direction of the singleton 
 #' (i.e. the phase of \eqn{\hat{f}_1} for
 #' pitch class 4 is 4). This differs from the phase values use in other publications,
-#' such as Yust (2015) <doi:10.1215/00222909-2863409>. Magnitudes are not squared, following
+#' such as Yust (2015, \doi{doi:10.1215/00222909-2863409}). Magnitudes are not squared, following
 #' Amiot (2016) rather than Yust (2021).
 #'
 #' @inheritParams tnprime

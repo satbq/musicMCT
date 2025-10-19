@@ -1,7 +1,7 @@
 #' Specific sizes corresponding to each generic interval
 #'
 #' As defined by Clough and Myerson 1986 
-#' (<doi:10.1080/00029890.1986.11971924>),
+#' (\doi{doi:10.1080/00029890.1986.11971924}),
 #' an "interval spectrum" is a list of all the specific (or "chromatic") 
 #' intervals that occur as instances of a single generic (or "diatonic")
 #' interval within some reference scale. For instance, in the usual diatonic

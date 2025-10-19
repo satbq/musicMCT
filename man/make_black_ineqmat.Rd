@@ -24,7 +24,7 @@ number of notes in \code{set}). This primarily has the purpose of attending
 to the overall transposition level of a set. Most applications of Modal
 Color Theory assume transpositional equivalence, but occasionally it
 is useful to relax that assumption. Sum class (Straus 2018,
-\url{doi:10.1215/00222909-7127694}) is a natural precise way to track
+\doi{doi:10.1215/00222909-7127694}) is a natural way to track
 this information, but the "black" arrangements do so qualitatively
 in the spirit of modal color theory. \code{make_black_ineqmat()} returns only
 the inequality matrix for the "black" arrangement, while \code{make_gray_ineqmat()}

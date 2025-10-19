@@ -27,7 +27,7 @@ they are scaled by edo/(2*pi) from radians.)
 \description{
 Computes the magnitudes and phases of the DFT components for a given (multi)set
 which can be input as either a vector of elements or as a distribution.
-(See Amiot (2016) \url{doi:10.1007/978-3-319-45581-5} for an overview of applications
+(See Amiot (2016, \doi{doi:10.1007/978-3-319-45581-5}) for an overview of applications
 of the DFT in this vein.) Entering a distribution takes priority over an entered \code{set}.
 }
 \details{
@@ -37,7 +37,7 @@ octave (where the set is entered in k-edo), and oriented so that the \eqn{\hat{f
 component of a singleton points in the direction of the singleton
 (i.e. the phase of \eqn{\hat{f}_1} for
 pitch class 4 is 4). This differs from the phase values use in other publications,
-such as Yust (2015) \url{doi:10.1215/00222909-2863409}. Magnitudes are not squared, following
+such as Yust (2015, \doi{doi:10.1215/00222909-2863409}). Magnitudes are not squared, following
 Amiot (2016) rather than Yust (2021).
 }
 \examples{

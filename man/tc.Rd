@@ -21,12 +21,12 @@ number of decimal places to round to when testing for equality.}
 Numeric vector of length \eqn{\leq} \code{length(set)} \eqn{\cdot} \code{length(multiplier)}
 }
 \description{
-Cohn (1988) \url{doi:10.2307/745790} defines transpositional
+Cohn (1988, \doi{doi:10.2307/745790}) defines transpositional
 combination as a procedure that generates a pc-set as the union of two
 (or more) transpositions of some smaller set. \code{tc()} takes the small set
 and a vector of transposition levels, returning the larger pc-set that
 results. (Pierre Boulez referred to this procedure as pitch "multiplication",
-which Amiot (2016) \url{doi:10.1007/978-3-319-45581-5} shows to be not at
+which Amiot (2016, \doi{doi:10.1007/978-3-319-45581-5}) shows to be not at
 all fanciful, as a convolution of two pitch-class sets.)
 }
 \examples{

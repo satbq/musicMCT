@@ -53,7 +53,7 @@ represented by listing its elements in a vector. (Non-integer weights are rounde
 For applications of the Discrete Fourier Transform to pitch-class
 set theory, it's typically convenient to represent musical sets
 in terms of \emph{distributions} rather than lists of their elements.
-(See Chapter 1 of Amiot 2016, \url{doi:10.1007/978-3-319-45581-5}.)
+(See Chapter 1 of Amiot 2016, \doi{doi:10.1007/978-3-319-45581-5}.)
 These functions convert back and forth between those representations.
 s2d() and d2s() are shorthands for set_to_distribution() and
 distribution_to_set(), respectively.

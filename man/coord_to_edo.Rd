@@ -38,7 +38,7 @@ always assumes transpositional equivalence with \eqn{x_0 = 0}. The closest
 transposition of "white" to \code{set} will be the one that has the same sum
 class as \code{set}, guaranteeing that the voice leading between them is
 "pure contrary" (Tymoczko 2011, 81ff; explored further in Straus 2018
-\url{doi:10.1215/00222909-7127694}).
+\doi{doi:10.1215/00222909-7127694}).
 }
 \examples{
 dominant_seventh_chord <- c(0, 2, 6, 9)

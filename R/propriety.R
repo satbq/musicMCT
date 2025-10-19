@@ -17,7 +17,7 @@ get_adjacent_sizes <- function(set, edo=12) {
 
 #' Rothenberg propriety
 #'
-#' Rothenberg (1978) <doi:10.1007/BF01768477> identifies a potentially 
+#' Rothenberg (1978, \doi{doi:10.1007/BF01768477}) identifies a potentially 
 #' desirable trait for scales which he calls "propriety." Loosely speaking,
 #' a scale is proper if its specific intervals are well sorted in terms of the 
 #' generic intervals they belong to. A scale is *strictly* proper if, given
