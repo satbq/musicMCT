@@ -264,6 +264,10 @@ inter_vlsig <- function(set,
       res + largest_chroma
     }
     vls <- t(apply(vls, 1, make_obverse))
+    vls <- as.list(as.data.frame(t(vls)))
+    vls <- mapply(rotate, x=vls, n=sort(unique_rotations))
+    vls <- t(vls)
+    dimnames(vls) <- NULL
   }
 
   if (is.null(index)) {
@@ -272,7 +276,7 @@ inter_vlsig <- function(set,
 
   chosen_vl <- vls[index, ]
   if (use_obverse) {
-    chosen_goal <- set - chosen_vl
+    chosen_goal <- set - rotate(chosen_vl, -1*sort(unique_rotations)[index])
   } else {
     chosen_goal <- set + chosen_vl
   }
