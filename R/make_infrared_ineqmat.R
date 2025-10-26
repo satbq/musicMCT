@@ -47,14 +47,6 @@ make_infrared_ineqmat <- function(card, include_wraparound=FALSE) {
     return(make_white_ineqmat(1+include_wraparound))
   }
 
-  quasimod <- function(x) {
-    normal_mod <- x %% card
-    if (normal_mod == 0) {
-      return(card)
-    }
-    normal_mod
-  }
-
   normalize_by_last_entry <- function(input_row) {
     last_entry <- input_row[length(input_row)]  
     -1 * (input_row / last_entry)
@@ -62,11 +54,11 @@ make_infrared_ineqmat <- function(card, include_wraparound=FALSE) {
 
   infrared_row <- function(firstroot, secondroot, g1, g2) {
     row <- rep(0, card+1)
-    firstroot <- quasimod(firstroot+1)
-    secondroot <- quasimod(secondroot+1)
+    firstroot <- quasimod(firstroot+1, card=card)
+    secondroot <- quasimod(secondroot+1, card=card)
 
-    fr_target <- quasimod(firstroot + g1)
-    sr_target <- quasimod(secondroot + g2)
+    fr_target <- quasimod(firstroot + g1, card=card)
+    sr_target <- quasimod(secondroot + g2, card=card)
 
     firstroot_indices <- c(firstroot, fr_target)
     secondroot_indices <- c(secondroot, sr_target)

@@ -200,3 +200,22 @@ multiset_diff <- function(set1, set2, rounder=10) {
   result_counts[result_counts < 0] <- 0
   unlist(mapply(rep, set1_uniques, result_counts))  
 }
+
+#' Quasi Modulo Division
+#'
+#' Like normal modulo division but returns the modulus instead of 0
+#' for use with R's 1-indexing.
+#'
+#' @param x the dividend
+#' @param card the modulus
+#'
+#' @returns the residue
+#'
+#' @noRd
+quasimod <- function(x, card) {
+  normal_mod <- x %% card
+  if (normal_mod == 0) {
+    return(card)
+  }
+  normal_mod
+}

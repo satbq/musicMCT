@@ -130,21 +130,13 @@ make_roth_ineqmat <- function(card) {
     return(integer(0))
   }
 
-  quasimod <- function(x) {
-    normal_mod <- x %% card
-    if (normal_mod == 0) {
-      return(card)
-    }
-    normal_mod
-  }
-
   roth_row <- function(firstroot, secondroot, g1, g2) {
     row <- rep(0, card+1)
-    firstroot <- quasimod(firstroot+1)
-    secondroot <- quasimod(secondroot+1)
+    firstroot <- quasimod(firstroot+1, card=card)
+    secondroot <- quasimod(secondroot+1, card=card)
 
-    fr_target <- quasimod(firstroot + g1)
-    sr_target <- quasimod(secondroot + g2)
+    fr_target <- quasimod(firstroot + g1, card=card)
+    sr_target <- quasimod(secondroot + g2, card=card)
 
     firstroot_indices <- c(firstroot, fr_target)
     secondroot_indices <- c(secondroot, sr_target)
