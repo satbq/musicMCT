@@ -238,6 +238,7 @@ inter_vlsig <- function(set,
 
   unique_rotations <- unique(all_rotations)
   vls <- vls[order(unique_rotations), ]
+  if (!inherits(vls, "matrix")) vls <- t(vls)
 
   unique_vls <- which(duplicated(rounded_vls, MARGIN=1)==FALSE)
 
@@ -263,6 +264,7 @@ inter_vlsig <- function(set,
       res <- -1 * vec
       res + largest_chroma
     }
+    
     vls <- t(apply(vls, 1, make_obverse))
     vls <- as.list(as.data.frame(t(vls)))
     vls <- mapply(rotate, x=vls, n=sort(unique_rotations))
