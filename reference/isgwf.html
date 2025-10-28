@@ -52,7 +52,7 @@ n-wise well formedness).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isgwf</span><span class="op">(</span><span class="va">set</span>, setword <span class="op">=</span> <span class="cn">NULL</span>, allow_de <span class="op">=</span> <span class="cn">FALSE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isgwf</span><span class="op">(</span><span class="va">set</span>, stepword <span class="op">=</span> <span class="cn">NULL</span>, allow_de <span class="op">=</span> <span class="cn">FALSE</span>, edo <span class="op">=</span> <span class="fl">12</span>, rounder <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,7 +63,7 @@ n-wise well formedness).</p>
 <dd><p>Numeric vector of pitch-classes in the set</p></dd>
 
 
-<dt id="arg-setword">setword<a class="anchor" aria-label="anchor" href="#arg-setword"></a></dt>
+<dt id="arg-stepword">stepword<a class="anchor" aria-label="anchor" href="#arg-stepword"></a></dt>
 <dd><p>A vector representing the ranked step sizes of a scale (e.g.
 <code>c(2, 2, 1, 2, 2, 2, 1)</code> for the diatonic). The distinct values of the <code>setword</code>
 should be consecutive integers. If you want to test a step word instead of
