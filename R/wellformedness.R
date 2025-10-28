@@ -35,7 +35,7 @@
 #'
 #' @inheritParams tnprime
 #' @inheritParams fpunique
-#' @param setword A vector representing the ranked step sizes of a scale (e.g.
+#' @param stepword A vector representing the ranked step sizes of a scale (e.g.
 #'   `c(2, 2, 1, 2, 2, 2, 1)` for the diatonic). The distinct values of the `setword`
 #'   should be consecutive integers. If you want to test a step word instead of 
 #'   a list of pitch classes, `set` must be entered as `NULL`.
@@ -49,11 +49,11 @@
 #' iswellformed(c(0, 2, 4, 6))
 #' iswellformed(c(0, 1, 6, 7))
 #' iswellformed(c(0, 1, 6, 7), allow_de=TRUE)
-#' iswellformed(NULL, setword=c(2, 2, 1, 2, 1, 2, 1))
+#' iswellformed(NULL, stepword=c(2, 2, 1, 2, 1, 2, 1))
 #' @export
-iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
+iswellformed <- function(set, stepword=NULL, allow_de=FALSE, edo=12, rounder=10) {
   if (is.null(set)) { 
-    set <- realize_setword(setword, edo) 
+    set <- realize_stepword(stepword, edo) 
   }
   if (length(set) < 2) { 
     return(as.logical(allow_de)) 
@@ -80,7 +80,7 @@ iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) 
 #' every equivalencing of two letters in the PWF word results int 
 #' a well-formed word. This function does that substitution.
 #'
-#' @param setword A numeric vector: a step word of a scale to test
+#' @param stepword A numeric vector: a step word of a scale to test
 #' @param lowerbound Integer: the smallest entry in `setword` to equivalence
 #' @param windowsize Integer: how many letters above `lowerbound`
 #'   (inclusive) are included in the equivalence?
@@ -88,12 +88,12 @@ iswellformed <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) 
 #' @returns A step word (numeric vector) with only two letters.
 #'
 #' @noRd
-equivocate <- function(setword, lowerbound, windowsize) {
-  highest <- max(setword)
+equivocate <- function(stepword, lowerbound, windowsize) {
+  highest <- max(stepword)
   toMatch <- lowerbound:(lowerbound+(windowsize-1))
   toMatch <- unique(((toMatch-1)%%highest)+1)
-  replacement_positions <- which(setword %in% toMatch)
-  result <- replace(setword, replacement_positions, 1)
+  replacement_positions <- which(stepword %in% toMatch)
+  result <- replace(stepword, replacement_positions, 1)
   result <- replace(result, -replacement_positions, 2)
   result
 }
@@ -124,22 +124,22 @@ equivocate <- function(setword, lowerbound, windowsize) {
 #' apply(example_scales, 2, isgwf)
 #'
 #' @export
-isgwf <- function(set, setword=NULL, allow_de=FALSE, edo=12, rounder=10) {
-  if (is.null(setword)) { 
-    setword <- asword(set, edo, rounder) 
+isgwf <- function(set, stepword=NULL, allow_de=FALSE, edo=12, rounder=10) {
+  if (is.null(stepword)) { 
+    stepword <- asword(set, edo, rounder) 
   }
-  if (anyNA(setword)) { 
+  if (anyNA(stepword)) { 
     return(FALSE)
   }
 
-  highest <- max(setword)
+  highest <- max(stepword)
   equiv_parameters <- expand.grid(1:highest, 1:(highest-1))
 
-  equiv_wrap <- function(params, setword) equivocate(setword, params[1], params[2])
-  reduced_words <- apply(equiv_parameters, 1, equiv_wrap, setword=setword)
+  equiv_wrap <- function(params, stepword) equivocate(stepword, params[1], params[2])
+  reduced_words <- apply(equiv_parameters, 1, equiv_wrap, stepword=stepword)
 
-  iswf_wrap <- function(setword, allow_de, edo, rounder)  {
-    iswellformed(NULL, setword, allow_de, edo, rounder)
+  iswf_wrap <- function(stepword, allow_de, edo, rounder)  {
+    iswellformed(NULL, stepword, allow_de, edo, rounder)
   }
 
   tests <- apply(reduced_words,2, iswf_wrap, allow_de=allow_de, edo=edo, rounder=rounder)

@@ -1,13 +1,13 @@
 #' Define scale by entering its relative step sizes
 #'
 #' Where [asword()] takes you from a scale to a ranked list of its step sizes,
-#' `realize_setword` does the opposite: given a list of ranked step sizes,
+#' `realize_stepword` does the opposite: given a list of ranked step sizes,
 #' it defines a scale with those steps. It does not attempt to define a scale
 #' that exists in 12-tone equal temperament or another mod k universe, though
 #' the result will have integral values in *some* mod k setting. If you
 #' want that information, set `reconvert` to `FALSE`.
 #'
-#' @param setword A numeric vector (intended to be nonnegative integers) of ranked step
+#' @param stepword A numeric vector (intended to be nonnegative integers) of ranked step
 #'   sizes; should be the same length as desired output set.
 #' @inheritParams tnprime
 #' @param reconvert Boolean. Should the result be expressed measured in
@@ -20,25 +20,25 @@
 #'   is defined in.
 #'
 #' @examples
-#' dim7 <- realize_setword(c(1,1,1,1))
-#' four_on_the_floor <- realize_setword(c(1,1,1,1), edo=16)
-#' my_luggage <- realize_setword(c(1,2,3,4,5))
-#' my_luggage_in_15edo <- realize_setword(c(1,2,3,4,5),reconvert=FALSE)
+#' dim7 <- realize_stepword(c(1, 1, 1, 1))
+#' four_on_the_floor <- realize_stepword(c(1, 1, 1, 1), edo=16)
+#' my_luggage <- realize_stepword(c(1, 2, 3, 4, 5))
+#' my_luggage_in_15edo <- realize_stepword(c(1, 2, 3, 4, 5), reconvert=FALSE)
 #' dim7
 #' four_on_the_floor
 #' my_luggage
 #' my_luggage_in_15edo
 #'
-#' pwf_scale <- realize_setword(c(3,2,1,3,2,3,1))
+#' pwf_scale <- realize_stepword(c(3, 2, 1, 3, 2, 3, 1))
 #' asword(pwf_scale)
 #' 
 #' @export
-realize_setword <- function(setword, edo=12, reconvert=TRUE) {
-  if (min(setword) <= 0) { warning("setword contains nonpositive values") }
-  if (!prod(setword == round(setword, digits=0))) {
-    warning("setword contains noninteger values: returned edo may not be an integer")
+realize_stepword <- function(stepword, edo=12, reconvert=TRUE) {
+  if (min(stepword) <= 0) { warning("stepword contains nonpositive values") }
+  if (!prod(stepword == round(stepword, digits=0))) {
+    warning("stepword contains noninteger values: returned edo may not be an integer")
   }
-  set <- cumsum(setword)
+  set <- cumsum(stepword)
   wordedo <- set[length(set)]
   if (reconvert==FALSE) {
     set <- sort(set %% wordedo)

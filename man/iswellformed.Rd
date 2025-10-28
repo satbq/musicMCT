@@ -4,12 +4,12 @@
 \alias{iswellformed}
 \title{Well-formedness, Myhill's property, and/or moment of symmetry}
 \usage{
-iswellformed(set, setword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
+iswellformed(set, stepword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{setword}{A vector representing the ranked step sizes of a scale (e.g.
+\item{stepword}{A vector representing the ranked step sizes of a scale (e.g.
 \code{c(2, 2, 1, 2, 2, 2, 1)} for the diatonic). The distinct values of the \code{setword}
 should be consecutive integers. If you want to test a step word instead of
 a list of pitch classes, \code{set} must be entered as \code{NULL}.}
@@ -67,5 +67,5 @@ iswellformed(sc(7, 35))
 iswellformed(c(0, 2, 4, 6))
 iswellformed(c(0, 1, 6, 7))
 iswellformed(c(0, 1, 6, 7), allow_de=TRUE)
-iswellformed(NULL, setword=c(2, 2, 1, 2, 1, 2, 1))
+iswellformed(NULL, stepword=c(2, 2, 1, 2, 1, 2, 1))
 }

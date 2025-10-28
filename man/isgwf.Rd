@@ -4,12 +4,12 @@
 \alias{isgwf}
 \title{Is a scale n-wise well formed?}
 \usage{
-isgwf(set, setword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
+isgwf(set, stepword = NULL, allow_de = FALSE, edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
-\item{setword}{A vector representing the ranked step sizes of a scale (e.g.
+\item{stepword}{A vector representing the ranked step sizes of a scale (e.g.
 \code{c(2, 2, 1, 2, 2, 2, 1)} for the diatonic). The distinct values of the \code{setword}
 should be consecutive integers. If you want to test a step word instead of
 a list of pitch classes, \code{set} must be entered as \code{NULL}.}

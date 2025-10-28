@@ -50,7 +50,7 @@ test_that("isgwf correctly detects n-wise WF for n > 2", {
   expect_false(isgwf(c(0, 23, 33, 42, 48, 60, 62), edo=63))
 })
 
-test_that("isgwf setword parameter behaves", {
+test_that("isgwf stepword parameter behaves", {
   expect_true(isgwf(NULL, c(2, 2, 1, 2, 2, 2, 1)))
   expect_true(isgwf(NULL, c(3, 2, 1, 3, 2, 3, 1)))
   expect_true(isgwf(NULL, c(1, 1, 3, 1, 2, 1, 3)))

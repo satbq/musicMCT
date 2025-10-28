@@ -133,7 +133,7 @@ reference:
   - clampitt_q
   - isgwf
   - iswellformed
-  - realize_setword
+  - realize_stepword
 
 - title: Input/Output
   desc: Ways to read & save data for use outside of R

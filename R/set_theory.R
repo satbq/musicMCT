@@ -583,10 +583,10 @@ isym <- function(set, return_index=FALSE, edo=12, rounder=10) {
     return(TRUE) 
   }
 
-  setword <- asword(set, edo, rounder)
-  invsetword <- rev(setword)
+  stepword <- asword(set, edo, rounder)
+  invstepword <- rev(stepword)
 
-  test_mode <- function(i) isTRUE(all.equal(rotate(invsetword, i), setword))
+  test_mode <- function(i) isTRUE(all.equal(rotate(invstepword, i), stepword))
   symmetrical_rotations <- sapply(1:card, test_mode)
 
   if (return_index) {
