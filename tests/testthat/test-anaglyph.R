@@ -1,4 +1,6 @@
 test_that("anaglyph ineqmat works", {
+  expect_equal(make_anaglyph_ineqmat(1), integer(0))
+  expect_snapshot(make_anaglyph_ineqmat(2))
   expect_snapshot(make_anaglyph_ineqmat(4))
 })
 

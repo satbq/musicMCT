@@ -31,3 +31,14 @@ test_that("colornum is OK without explicit signvector list", {
   expect_null(colornum(c(0,2,7)))
   }
 })
+
+test_that("colornum treats anaglyph card correctly", {
+  dyad_svs <- c("-1, -1, -1, -1", "-1, -1, 0, -1",  "-1, -1, 1, -1",
+                "-1, 0, -1, -1", "-1, 1, -1, -1", "-1, 1, -1, 0", 
+                "-1, 1, -1, 1", "0, -1, 1, -1", "0, 1, -1, 1", "1, -1, 1, -1",
+                "1, -1, 1, 0", "1, -1, 1, 1", "1, 0, 1, 1", "1, 1, -1, 1",
+                "1, 1, 0, 1", "1, 1, 1, 1")
+  temp_list <- list(NULL, dyad_svs)
+  expect_equal(colornum(c(0, 5, 0, 7), ineqmat="anaglyph", signvector_list=temp_list),
+               6)
+})

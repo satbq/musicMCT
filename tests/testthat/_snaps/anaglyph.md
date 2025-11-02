@@ -1,6 +1,17 @@
 # anaglyph ineqmat works
 
     Code
+      make_anaglyph_ineqmat(2)
+    Output
+           [,1] [,2] [,3] [,4] [,5]
+      [1,]   -2    2    0    0   -1
+      [2,]    0    0   -2    2   -1
+      [3,]   -1    1    1   -1    0
+      [4,]   -1    1   -1    1   -1
+
+---
+
+    Code
       make_anaglyph_ineqmat(4)
     Output
             [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
