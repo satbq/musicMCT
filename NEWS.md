@@ -13,6 +13,9 @@
 * `primary_colornum()` gains a `signvector_list` parameter to pass to `colornum()`, allowing it to work
   properly for hyperplane arrangements other than the "modal color theory" arrangement.
 * New `make_infrared_ineqmat()` adds a new family of hyperplane arrangements for studying voice leading.
+* `colornum()` now tries to automatically match a signvector list to the specified `ineqmat` when
+  the parameter `signvector_list` is `NULL`. (For instance, `colornum(set, ineqmat="pastel")` searches
+  the global environment for `pastel_signvectors`.)
 
 ## More flexible handling of OPTIC symmetries
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the

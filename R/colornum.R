@@ -25,14 +25,18 @@
 #' @param ineqmat Specifies which hyperplane arrangement to consider. By default (or by
 #'   explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements 
 #'   of [getineqmat()], but can be set to strings "white," "black", "gray", "roth", "infrared",
-#'   "pastel," or "rosy", giving the `ineqmat`s of [make_white_ineqmat()], 
+#'   "pastel", "rosy", "infrared", or "anaglyph", giving the `ineqmat`s of [make_white_ineqmat()], 
 #'   [make_black_ineqmat()], [make_gray_ineqmat()], [make_roth_ineqmat()],
-#'   [make_infrared_ineqmat()], [make_pastel_ineqmat()], and [make_rosy_ineqmat()]. For other 
-#'   arrangements, the desired inequality matrix can be entered directly.
+#'   [make_infrared_ineqmat()], [make_pastel_ineqmat()], [make_rosy_ineqmat()],
+#'   [make_infrared_ineqmat()], or [make_anaglyph_ineqmat()]. For other 
+#'   arrangements, this parameter accepts explicit matrices.
 #' @param signvector_list A list of signvectors to use as the reference by 
 #'   which `colornum` assigns a value. Defaults to `NULL` and will attempt to
 #'   use `representative_signvectors`, which needs to be downloaded and assigned
-#'   separately from the package musicMCT.
+#'   separately from the package musicMCT. (If a named `ineqmat` other than "mct"
+#'   is chosen, the function attempts to replace a `NULL` signvector list with
+#'   a corresponding object in the global environment. For instance, if `ineqmat="pastel"`
+#'   then the function tries to use `pastel_signvectors` for `signvector_list`.)
 #'
 #' @returns Single non-negative integer (the color number) if a `signvector_list`
 #'   is specified or `representative_signvectors` is loaded; otherwise `NULL`
@@ -50,8 +54,15 @@ colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10
   }
 
   if (is.null(signvector_list)) {
-    if (exists("representative_signvectors")) {
+    if (exists("representative_signvectors") && is.null(ineqmat)) {
       signvector_list <- get("representative_signvectors")
+    } else if (inherits(ineqmat, "character")) {
+      sv_list_name <- paste0(ineqmat, "_signvectors", collapse="")
+      if (sv_list_name == "mct_signvectors") sv_list_name <- "representative_signvectors"
+      if (sv_list_name == "white_signvectors") sv_list_name <- "offwhite_signvectors"
+      if (exists(sv_list_name)) {
+        signvector_list <- get(sv_list_name)
+      }
     } else {
         return(NULL)
     }
