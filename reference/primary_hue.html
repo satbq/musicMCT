@@ -123,10 +123,11 @@ be one of three options:</p><ul><li><p>"all", the default, uses the full range o
 <dd><p>Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
 of <code><a href="makeineqmat.html">getineqmat()</a></code>, but can be set to strings "white," "black", "gray", "roth", "infrared",
-"pastel," or "rosy", giving the <code>ineqmat</code>s of <code><a href="make_white_ineqmat.html">make_white_ineqmat()</a></code>,
+"pastel", "rosy", "infrared", or "anaglyph", giving the <code>ineqmat</code>s of <code><a href="make_white_ineqmat.html">make_white_ineqmat()</a></code>,
 <code><a href="make_black_ineqmat.html">make_black_ineqmat()</a></code>, <code><a href="make_black_ineqmat.html">make_gray_ineqmat()</a></code>, <code><a href="make_roth_ineqmat.html">make_roth_ineqmat()</a></code>,
-<code><a href="make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code>, <code><a href="make_white_ineqmat.html">make_pastel_ineqmat()</a></code>, and <code><a href="make_roth_ineqmat.html">make_rosy_ineqmat()</a></code>. For other
-arrangements, the desired inequality matrix can be entered directly.</p></dd>
+<code><a href="make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code>, <code><a href="make_white_ineqmat.html">make_pastel_ineqmat()</a></code>, <code><a href="make_roth_ineqmat.html">make_rosy_ineqmat()</a></code>,
+<code><a href="make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code>, or <code><a href="make_anaglyph_ineqmat.html">make_anaglyph_ineqmat()</a></code>. For other
+arrangements, this parameter accepts explicit matrices.</p></dd>
 
 
 <dt id="arg-edo">edo<a class="anchor" aria-label="anchor" href="#arg-edo"></a></dt>
@@ -142,7 +143,10 @@ number of decimal places to round to when testing for equality.</p></dd>
 <dd><p>A list of signvectors to use as the reference by
 which <code>colornum</code> assigns a value. Defaults to <code>NULL</code> and will attempt to
 use <code>representative_signvectors</code>, which needs to be downloaded and assigned
-separately from the package musicMCT.</p></dd>
+separately from the package musicMCT. (If a named <code>ineqmat</code> other than "mct"
+is chosen, the function attempts to replace a <code>NULL</code> signvector list with
+a corresponding object in the global environment. For instance, if <code>ineqmat="pastel"</code>
+then the function tries to use <code>pastel_signvectors</code> for <code>signvector_list</code>.)</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
