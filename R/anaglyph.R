@@ -25,8 +25,9 @@
 #' @param card Integer: the cardinality of the two sets to be compared.
 #'
 #' @returns A matrix with `2*card+1` columns and k rows, where
-#'  k is  either 4 times an entry of A050509 in the OEIS if `card` is even,
-#'  or an entry of A033594 if `card` is odd.
+#'  k is  either 4 times an entry of [A050509](https://oeis.org/A050509)
+#'  in the OEIS if `card` is even, or an entry of [A033594](https://oeis.org/A033594)
+#'  if `card` is odd.
 #'
 #' @examples
 #' min7 <- c(0, 3, 7, 10)
