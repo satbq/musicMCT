@@ -32,3 +32,12 @@ test_that("howfree accepts alternate ineqmats", {
   expect_equal(howfree(c(0, 2, 4, 5, 7, 9, 11), ineqmat="rosy"), 0)
   expect_equal(howfree(c(0, 4, 7), ineqmat="white"), 1)
 })
+
+test_that("howfree offset works", {
+  expect_equal(howfree(c(0, 4, 7), ineqmat="black"), 1)
+  expect_equal(howfree(c(1, 5, 8), ineqmat="black"), 2)
+  expect_equal(howfree(c(1, 5, 8), ineqmat="gray"), 1)
+
+  expect_equal(howfree(c(0, 3, 7, 10, 0, 4, 7, 11), ineqmat="anaglyph"),
+               2)
+})

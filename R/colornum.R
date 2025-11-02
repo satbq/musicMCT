@@ -58,6 +58,9 @@ colornum <- function(set, ineqmat=NULL, signvector_list=NULL, edo=12, rounder=10
   }
 
   card <- length(set)
+  if (inherits(ineqmat, "character")) {
+    if (ineqmat=="anaglyph") card <- card/2
+  }
   signvec <- toString(signvector(set, ineqmat, edo, rounder))
 
   which(signvector_list[[card]]==signvec)

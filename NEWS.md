@@ -20,6 +20,13 @@
 * New `normal_form()` calculates the normal form of a set under any combination of OPTIC symmetries, following
   the algorithm described by Hook (2023, 416-8).
 
+## Anaglyph Arrangments
+* New `make_anaglyph_ineqmat()` allows construction of a new family of hyperplane arrangements
+  (anaglyph arrangements) which study voice leadings between sets of different set classes.
+* New `anazero_fingerprint()` provides granular information about the types of hyperplanes that a 
+  pair of sets lie on in the anaglyph arrangement.
+* New behavior for `howfree()` and `colornum()` because anaglyph arrangements require special handling.
+
 # musicMCT 0.2.0
 
 ## New ineqmat features

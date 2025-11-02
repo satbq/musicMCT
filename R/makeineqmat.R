@@ -21,8 +21,8 @@
 #' @param card The cardinality of the scale(s) to be studied
 #' @returns A matrix with `card+1` columns and roughly `card^(3)/8` rows
 #' @examples
-#' makeineqmat(2) # Cute: is step 1 > step 2?
-#' makeineqmat(3) # Cute: step 1 > step 2? step 1 > step 3? step 2 > step 3?
+#' makeineqmat(2) # Simple: is step 1 > step 2?
+#' makeineqmat(3) # Simple: step 1 > step 2? step 1 > step 3? step 2 > step 3?
 #' makeineqmat(7) # Okay...
 #' ineqmat20 <- makeineqmat(20)
 #' dim(ineqmat20) # Yikes!

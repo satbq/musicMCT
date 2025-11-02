@@ -36,9 +36,21 @@ howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
     return(0) 
   }
 
+  if (!inherits(ineqmat, "character")) {
+    includes_black <- FALSE
+    includes_anaglyph <- FALSE
+  } else {
+    includes_black <- ineqmat=="black" || ineqmat=="gray"
+    includes_anaglyph <- ineqmat=="anaglyph"
+  }
   ineqmat <- choose_ineqmat(set, ineqmat)
 
   zeroesflat <- ineqmat[whichsvzeroes(set, ineqmat, edo, rounder), ]
   rank <- qr(zeroesflat)$rank
-  card - (1+rank)
+
+  offset <- 1
+  if (includes_black) offset <- offset - 1
+  if (includes_anaglyph) offset <- offset + 1
+
+  card - (offset+rank)
 }

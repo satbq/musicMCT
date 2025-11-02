@@ -34,8 +34,8 @@ distinct hyperplanes).
 cardinality. If so, it is retrieved; if not, it is created using \code{makeineqmat}.
 }
 \examples{
-makeineqmat(2) # Cute: is step 1 > step 2?
-makeineqmat(3) # Cute: step 1 > step 2? step 1 > step 3? step 2 > step 3?
+makeineqmat(2) # Simple: is step 1 > step 2?
+makeineqmat(3) # Simple: step 1 > step 2? step 1 > step 3? step 2 > step 3?
 makeineqmat(7) # Okay...
 ineqmat20 <- makeineqmat(20)
 dim(ineqmat20) # Yikes!

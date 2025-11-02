@@ -31,6 +31,7 @@ reference:
 - contents:
   - get_relevant_rows
   - ineqmats
+  - make_anaglyph_ineqmat
   - make_black_ineqmat
   - make_infrared_ineqmat
   - make_offset_ineqmat
@@ -44,6 +45,7 @@ reference:
 - subtitle: Sign vectors
   desc: Work directly with the information contained in a sign vector
 - contents:
+  - anazero_fingerprint
   - brightness_comparisons
   - comparesignvecs
   - set_from_signvector
