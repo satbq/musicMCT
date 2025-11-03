@@ -43,32 +43,31 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="musicmct-development-version">musicMCT (development version)<a class="anchor" aria-label="anchor" href="#musicmct-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="musicmct-030">musicMCT 0.3.0<a class="anchor" aria-label="anchor" href="#musicmct-030"></a></h2>
 <ul><li>
-<code><a href="../reference/vl_generators.html">vl_generators()</a></code> now gives correct results for sets which fail <code><a href="../reference/OPTC_test.html">optc_test()</a></code>
-</li>
+<code><a href="../reference/brightness_comparisons.html">brightness_comparisons()</a></code> and <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> gain a <code>goal</code> parameter that allows voice-leading brightness relationships between different sets to be studied.</li>
+<li>New <code><a href="../reference/clampitt_q.html">clampitt_q()</a></code> finds the sets that are “Q-related” to an input (Clampitt 1997, 2007).</li>
+<li>
+<code><a href="../reference/colornum.html">colornum()</a></code> now tries to automatically match a signvector list to the specified <code>ineqmat</code> when the parameter <code>signvector_list</code> is <code>NULL</code>. (For instance, <code>colornum(set, ineqmat="pastel")</code> searches the global environment for <code>pastel_signvectors</code>.)</li>
+<li>New <code><a href="../reference/fpmod.html">fpmod()</a></code> allows for safer modulo division in contexts with octave equivalence.</li>
+<li>New <code><a href="../reference/vlsig.html">inter_vlsig()</a></code> finds elementary voice leadings between sets of different Tn-types.</li>
+<li>New <code><a href="../reference/make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code> adds a new family of hyperplane arrangements for studying voice leading.</li>
 <li>
 <code><a href="../reference/minimize_vl.html">minimize_vl()</a></code> now returns better results when <code>method="hamming"</code> by allowing for voice crossings (<a href="https://github.com/satbq/musicMCT/issues/4" class="external-link">#4</a>).</li>
 <li>
-<code><a href="../reference/brightness_comparisons.html">brightness_comparisons()</a></code> and <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>gain a <code>goal</code> parameter that allows voice-leading brightness relationships between different sets to be studied.</li>
-<li>New <code><a href="../reference/fpmod.html">fpmod()</a></code> allows for safer modulo division in contexts with octave equivalence.</li>
-<li>New <code><a href="../reference/clampitt_q.html">clampitt_q()</a></code> finds the sets that are “Q-related” to an input (Clampitt 1997, 2007).</li>
-<li>
-<code><a href="../reference/vlsig.html">vlsig()</a></code> parameter <code>index</code> now defaults to <code>NULL</code>, returning a matrix of all elementary voice-leadings.</li>
-<li>New <code><a href="../reference/vlsig.html">inter_vlsig()</a></code> finds elementary voice leadings between sets of different Tn-types.</li>
+<code><a href="../reference/primary_hue.html">primary_colornum()</a></code> gains a <code>signvector_list</code> parameter to pass to <code><a href="../reference/colornum.html">colornum()</a></code>, allowing it to work properly for hyperplane arrangements other than the “modal color theory” arrangement.</li>
 <li>Parameter <code>n</code> for <code><a href="../reference/tn.html">tni()</a></code> gains a default value of <code>NULL</code>, in which case the index <code>n</code> is chosen to create the contextual inversion which keeps the first and last entries of <code>set</code> fixed.</li>
 <li>
-<code><a href="../reference/primary_hue.html">primary_colornum()</a></code> gains a <code>signvector_list</code> parameter to pass to <code><a href="../reference/colornum.html">colornum()</a></code>, allowing it to work properly for hyperplane arrangements other than the “modal color theory” arrangement.</li>
-<li>New <code><a href="../reference/make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code> adds a new family of hyperplane arrangements for studying voice leading.</li>
+<code><a href="../reference/vl_generators.html">vl_generators()</a></code> now gives correct results for sets which fail <code><a href="../reference/OPTC_test.html">optc_test()</a></code>.</li>
 <li>
-<code><a href="../reference/colornum.html">colornum()</a></code> now tries to automatically match a signvector list to the specified <code>ineqmat</code> when the parameter <code>signvector_list</code> is <code>NULL</code>. (For instance, <code>colornum(set, ineqmat="pastel")</code> searches the global environment for <code>pastel_signvectors</code>.)</li>
+<code><a href="../reference/vlsig.html">vlsig()</a></code> parameter <code>index</code> now defaults to <code>NULL</code>, returning a matrix of all elementary voice-leadings.</li>
 </ul><div class="section level3">
-<h3 id="more-flexible-handling-of-optic-symmetries-development-version">More flexible handling of OPTIC symmetries<a class="anchor" aria-label="anchor" href="#more-flexible-handling-of-optic-symmetries-development-version"></a></h3>
-<ul><li>Set theory functions including <code><a href="../reference/tn.html">tn()</a></code>, <code><a href="../reference/tn.html">tni()</a></code>, <code><a href="../reference/tn.html">startzero()</a></code>, and so on gain an <code>optic</code> parameter, which allows the user to specify the OPTIC symmetries to consider.</li>
-<li>New <code><a href="../reference/normal_form.html">normal_form()</a></code> calculates the normal form of a set under any combination of OPTIC symmetries, following the algorithm described by Hook (2023, 416-8).</li>
+<h3 id="more-flexible-handling-of-optic-symmetries-0-3-0">More flexible handling of OPTIC symmetries<a class="anchor" aria-label="anchor" href="#more-flexible-handling-of-optic-symmetries-0-3-0"></a></h3>
+<ul><li>New <code><a href="../reference/normal_form.html">normal_form()</a></code> calculates the normal form of a set under any combination of OPTIC symmetries, following the algorithm described by Hook (2023, 416-8).</li>
+<li>Set theory functions including <code><a href="../reference/tn.html">tn()</a></code>, <code><a href="../reference/tn.html">tni()</a></code>, <code><a href="../reference/tn.html">startzero()</a></code>, and so on gain an <code>optic</code> parameter, which allows the user to specify the OPTIC symmetries to consider.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="anaglyph-arrangments-development-version">Anaglyph Arrangments<a class="anchor" aria-label="anchor" href="#anaglyph-arrangments-development-version"></a></h3>
+<h3 id="anaglyph-arrangments-0-3-0">Anaglyph Arrangments<a class="anchor" aria-label="anchor" href="#anaglyph-arrangments-0-3-0"></a></h3>
 <ul><li>New <code><a href="../reference/make_anaglyph_ineqmat.html">make_anaglyph_ineqmat()</a></code> allows construction of a new family of hyperplane arrangements (anaglyph arrangements) which study voice leadings between sets of different set classes.</li>
 <li>New <code><a href="../reference/anazero_fingerprint.html">anazero_fingerprint()</a></code> provides granular information about the types of hyperplanes that a pair of sets lie on in the anaglyph arrangement.</li>
 <li>New behavior for <code><a href="../reference/howfree.html">howfree()</a></code> and <code><a href="../reference/colornum.html">colornum()</a></code> because anaglyph arrangements require special handling.</li>
