@@ -1,27 +1,26 @@
-# musicMCT (development version)
-
-* `vl_generators()` now gives correct results for sets which fail `optc_test()`
-* `minimize_vl()` now returns better results when `method="hamming"` by allowing for voice crossings (#4).
-* `brightness_comparisons()` and `brightnessgraph()`gain a `goal` parameter that allows voice-leading brightness
+# musicMCT 0.3.0
+* `brightness_comparisons()` and `brightnessgraph()` gain a `goal` parameter that allows voice-leading brightness
   relationships between different sets to be studied.
-* New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
 * New `clampitt_q()` finds the sets that are "Q-related" to an input (Clampitt 1997, 2007).
-* `vlsig()` parameter `index` now defaults to `NULL`, returning a matrix of all elementary voice-leadings.
-* New `inter_vlsig()` finds elementary voice leadings between sets of different Tn-types.
-* Parameter `n` for `tni()` gains a default value of `NULL`, in which case the index `n` is chosen to 
-  create the contextual inversion which keeps the first and last entries of `set` fixed.
-* `primary_colornum()` gains a `signvector_list` parameter to pass to `colornum()`, allowing it to work
-  properly for hyperplane arrangements other than the "modal color theory" arrangement.
-* New `make_infrared_ineqmat()` adds a new family of hyperplane arrangements for studying voice leading.
 * `colornum()` now tries to automatically match a signvector list to the specified `ineqmat` when
   the parameter `signvector_list` is `NULL`. (For instance, `colornum(set, ineqmat="pastel")` searches
   the global environment for `pastel_signvectors`.)
+* New `fpmod()` allows for safer modulo division in contexts with octave equivalence.
+* New `inter_vlsig()` finds elementary voice leadings between sets of different Tn-types.
+* New `make_infrared_ineqmat()` adds a new family of hyperplane arrangements for studying voice leading.
+* `minimize_vl()` now returns better results when `method="hamming"` by allowing for voice crossings (#4).
+* `primary_colornum()` gains a `signvector_list` parameter to pass to `colornum()`, allowing it to work
+  properly for hyperplane arrangements other than the "modal color theory" arrangement.
+* Parameter `n` for `tni()` gains a default value of `NULL`, in which case the index `n` is chosen to 
+  create the contextual inversion which keeps the first and last entries of `set` fixed.
+* `vl_generators()` now gives correct results for sets which fail `optc_test()`.
+* `vlsig()` parameter `index` now defaults to `NULL`, returning a matrix of all elementary voice-leadings.
 
 ## More flexible handling of OPTIC symmetries
-* Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the
-  user to specify the OPTIC symmetries to consider.
 * New `normal_form()` calculates the normal form of a set under any combination of OPTIC symmetries, following
   the algorithm described by Hook (2023, 416-8).
+* Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the
+  user to specify the OPTIC symmetries to consider.
 
 ## Anaglyph Arrangments
 * New `make_anaglyph_ineqmat()` allows construction of a new family of hyperplane arrangements
