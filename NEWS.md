@@ -1,3 +1,5 @@
+# musicMCT (development version)
+
 # musicMCT 0.3.0
 * `brightness_comparisons()` and `brightnessgraph()` gain a `goal` parameter that allows voice-leading brightness
   relationships between different sets to be studied.
