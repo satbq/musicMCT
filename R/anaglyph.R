@@ -121,15 +121,15 @@ make_anaglyph_ineqmat <- function(card) {
 #' sus2 <- c(0, 2, 7)
 #' anazero_fingerprint(c(maj, sus2))
 #' 
-#' # The first zero shows that the major triad has no regularities.
+#' # The first entry shows that the major triad has 0 regularities.
 #' # This is equivalent to:
 #' countsvzeroes(maj)
 #'
-#' # The second zero shows that the sus2 trichord has 1 regularity.
+#' # The second entry shows that the sus2 trichord has 1 regularity.
 #' # This is equivalent to:
 #' countsvzeroes(sus2)
 #'
-#' # The final zero shows that the major triad's perfect fifth
+#' # The final entry shows that the major triad's perfect fifth
 #' # equals the size of the *two* perfect fifths in the sus2 trichord.
 #' # We can visualize the whole set of relationships using a brightness
 #' # graph:
