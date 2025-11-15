@@ -10,6 +10,21 @@
 #' 5-limit just diatonic scale is defined by two distinct parameters: the 
 #' size of its major third and the size of its perfect fifth. See "Modal 
 #' Color Theory," pp. 26-27, for more discussion.
+#'
+#' The returned value is "essentialized," i.e. calculated by factoring out
+#' degrees of freedom that are universal to the given hyperplane arrangement.
+#' For instance, the set `(0, 4, 8)` has absolutely no room for variation in
+#' the black arrangement, as none of its pitches can move at all. Unsurprisingly,
+#' `howfree(c(0, 4, 8), ineqmat="black")` returns `0`. But if we use the 
+#' modal color theory arrangemenet, i.e. `howfree(c(0, 4, 8), ineqmat="mct")`,
+#' the result is still `0` even though for this arrangement we could transpose
+#' the augmented triad to start on any pitch without altering its scalar structure.
+#' For the MCT arrangement, chromatic transposition offers a degree of freedom
+#' that is essentially invisible to the arrangement, so `howfree()` doesn't
+#' report it in the value it returns for that arrangement. Similarly, the 
+#' anaglyph arrangements (see [make_anaglyph_ineqmat()]) factor out transposition
+#' of each set individually, so `howfree(..., inemqat="anaglyph")` ignores two
+#' degrees of freedom.
 #' 
 #' @inheritParams signvector
 #' 
@@ -36,21 +51,13 @@ howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
     return(0) 
   }
 
-  if (!inherits(ineqmat, "character")) {
-    includes_black <- FALSE
-    includes_anaglyph <- FALSE
-  } else {
-    includes_black <- ineqmat=="black" || ineqmat=="gray"
-    includes_anaglyph <- ineqmat=="anaglyph"
-  }
   ineqmat <- choose_ineqmat(set, ineqmat)
 
   zeroesflat <- ineqmat[whichsvzeroes(set, ineqmat, edo, rounder), ]
   rank <- qr(zeroesflat)$rank
 
-  offset <- 1
-  if (includes_black) offset <- offset - 1
-  if (includes_anaglyph) offset <- offset + 1
+  scale_degree_matrix <- ineqmat[, 1:card]
+  offset <- dim(scale_degree_matrix)[2] - qr(scale_degree_matrix)$rank
 
   card - (offset+rank)
 }

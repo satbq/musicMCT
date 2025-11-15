@@ -38,6 +38,22 @@ off that line it ceases to have the same structure as the diatonic scale.
 size of its major third and the size of its perfect fifth. See "Modal
 Color Theory," pp. 26-27, for more discussion.
 }
+\details{
+The returned value is "essentialized," i.e. calculated by factoring out
+degrees of freedom that are universal to the given hyperplane arrangement.
+For instance, the set \verb{(0, 4, 8)} has absolutely no room for variation in
+the black arrangement, as none of its pitches can move at all. Unsurprisingly,
+\code{howfree(c(0, 4, 8), ineqmat="black")} returns \code{0}. But if we use the
+modal color theory arrangemenet, i.e. \code{howfree(c(0, 4, 8), ineqmat="mct")},
+the result is still \code{0} even though for this arrangement we could transpose
+the augmented triad to start on any pitch without altering its scalar structure.
+For the MCT arrangement, chromatic transposition offers a degree of freedom
+that is essentially invisible to the arrangement, so \code{howfree()} doesn't
+report it in the value it returns for that arrangement. Similarly, the
+anaglyph arrangements (see \code{\link[=make_anaglyph_ineqmat]{make_anaglyph_ineqmat()}}) factor out transposition
+of each set individually, so \code{howfree(..., inemqat="anaglyph")} ignores two
+degrees of freedom.
+}
 \examples{
 c_natural_minor <- c(0, 2, 3, 5, 7, 8, 10)
 c_melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
