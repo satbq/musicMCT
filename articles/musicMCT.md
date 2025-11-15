@@ -25,10 +25,11 @@ is 2 5 4 3 6 1 as we’d expect.
 
 The main purpose of the package, however, is not to reproduce
 traditional pc-set theory but to let us explore the geometry of musical
-scales described in “Modal Color Theory” (Sherrill 2025, *Journal of
-Music Theory* 69/1: 1-49). As that article explains, seven-note scales
-live in a 6-dimensional geometry populated by 1,824,229 qualitatively
-distinct scalar structures. I’m happy to calculate an
+scales described in my article [“Modal Color
+Theory.”](https://doi.org/10.1215/00222909-11595194) As the article
+explains, seven-note scales live in a 6-dimensional geometry populated
+by 1,824,229 qualitatively distinct scalar structures. I’m happy to
+calculate an
 [`ivec()`](https://satbq.github.io/musicMCT/reference/ivec.md) by hand,
 but we’re going to need computers to explore such a complicated space!
 
@@ -324,9 +325,10 @@ same scalar structure. For instance, both start with two identical steps
 
 For heptachords, the relevant `ineqmat` has 42 rows, so the space of
 scale structures is considerably more complicated. Generally you
-wouldn’t learn a lot from trying to read sign vectors directly–musicMCT
-has more human-readable functions that will help you interpret them–but
-let’s take a gander at them for the acoustic and overtone scales:
+wouldn’t learn a lot from trying to read sign vectors directly; musicMCT
+has more human-readable functions that will help you interpret them.
+Still, in this case, let’s take a look at the sign vectors of the
+acoustic and overtone scales:
 
 ``` r
 signvector(acoustic_scale)
@@ -479,7 +481,7 @@ apply(final_quantizations, 2, howfree)
 
 All of these are much less free to vary than the `overtone_scale`! All
 but sc7-31 can only vary along their line of saturation (“Modal Color
-Theory,” 20), and sc7-31 is only a little bit more flexible. This is a
+Theory,” 20), and sc7-31 is just a little bit more flexible. This is a
 consequence of quantizing to twelve-tone equal temperament, which simply
 doesn’t have enough distinct notes to accommodate more flexible
 heptachords. We can check the degrees of freedom of all 38 heptachordal
@@ -877,9 +879,9 @@ This feels right to me. At a glance, it’s a lot like the graph for the
 now neatly lined up on a single row at the bottom. That’s the visual
 equivalent of our search for regularity and color adjacency in the
 previous section. This is something I like about brightness graphs: they
-summarize, in a picture or two, ideas that one could spend several
-thousand words developing.
+summarize, in a picture or two, ideas that take several thousand words
+to describe.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 28 May 2025
+**Last updated:** 15 November 2025

@@ -14,7 +14,7 @@ infrared arrangments are central: every hyperplane passes through the
 [`edoo()`](https://satbq.github.io/musicMCT/reference/edoo.md). It
 should be the case that every infrared hyperplane either belongs to the
 pastel arrangement or is parallel to one in a Rothenberg arrangement.
-This family of arrangements is conceieved primarily for the study of
+This family of arrangements is conceived primarily for the study of
 voice leadings rather than scales themselves.
 
 ## Usage
@@ -56,7 +56,7 @@ and
 
 ``` r
 # To see the effect of "include_wraparound" param, compare to
-# pastel arrangments:
+# pastel arrangements:
 make_pastel_ineqmat(3)
 #>      [,1] [,2] [,3] [,4]
 #> [1,] -1.0    2 -1.0    0
@@ -80,7 +80,7 @@ make_infrared_ineqmat(3, include_wraparound=TRUE)
 #> [5,] -1.5    0  1.5   -1
 #> [6,]  0.0   -3  3.0   -1
 
-# In general, infrared arrangments are more complicated than pastel:
+# In general, infrared arrangements are more complicated than pastel:
 make_pastel_ineqmat(4)
 #>            [,1] [,2] [,3]      [,4] [,5]
 #>  [1,] -1.000000    2   -1  0.000000    0

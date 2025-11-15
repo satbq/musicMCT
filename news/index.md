@@ -61,7 +61,7 @@ CRAN release: 2025-11-03
   so on gain an `optic` parameter, which allows the user to specify the
   OPTIC symmetries to consider.
 
-### Anaglyph Arrangments
+### Anaglyph Arrangements
 
 - New
   [`make_anaglyph_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_anaglyph_ineqmat.md)

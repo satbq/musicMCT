@@ -92,12 +92,12 @@ which just indicates that you’re seeing the beginning of the output. The
 ic-vector is 2 5 4 3 6 1 as we’d expect.</p>
 <p>The main purpose of the package, however, is not to reproduce
 traditional pc-set theory but to let us explore the geometry of musical
-scales described in “Modal Color Theory” (Sherrill 2025, <em>Journal of
-Music Theory</em> 69/1: 1-49). As that article explains, seven-note
-scales live in a 6-dimensional geometry populated by 1,824,229
-qualitatively distinct scalar structures. I’m happy to calculate an
-<code><a href="../reference/ivec.html">ivec()</a></code> by hand, but we’re going to need computers to
-explore such a complicated space!</p>
+scales described in my article <a href="https://doi.org/10.1215/00222909-11595194" class="external-link">“Modal Color
+Theory.”</a> As the article explains, seven-note scales live in a
+6-dimensional geometry populated by 1,824,229 qualitatively distinct
+scalar structures. I’m happy to calculate an <code><a href="../reference/ivec.html">ivec()</a></code> by
+hand, but we’re going to need computers to explore such a complicated
+space!</p>
 <p>This vignette will introduce many of the main functions of musicMCT
 that serve this purpose, especially as they relate to the concerns of
 the <em>Journal of Music Theory</em> article. The problem that we’ll
@@ -349,9 +349,9 @@ steps (0-1-2 and 0-2-4) and then have a larger leap (2-7 and 4-8).</p>
 <p>For heptachords, the relevant <code>ineqmat</code> has 42 rows, so
 the space of scale structures is considerably more complicated.
 Generally you wouldn’t learn a lot from trying to read sign vectors
-directly–musicMCT has more human-readable functions that will help you
-interpret them–but let’s take a gander at them for the acoustic and
-overtone scales:</p>
+directly; musicMCT has more human-readable functions that will help you
+interpret them. Still, in this case, let’s take a look at the sign
+vectors of the acoustic and overtone scales:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">acoustic_scale</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  0  0  0  1  1  1  0  0  0 -1  1  1  1  0  1  0  0  0 -1  0 -1  1  1  1  1</span></span>
@@ -478,7 +478,7 @@ in its sign vector, which ought to make it lose a degree of freedom.
 <span><span class="co">#&gt;    1    1    2    1    1    1    1</span></span></code></pre></div>
 <p>All of these are much less free to vary than the
 <code>overtone_scale</code>! All but sc7-31 can only vary along their
-line of saturation (“Modal Color Theory,” 20), and sc7-31 is only a
+line of saturation (“Modal Color Theory,” 20), and sc7-31 is just a
 little bit more flexible. This is a consequence of quantizing to
 twelve-tone equal temperament, which simply doesn’t have enough distinct
 notes to accommodate more flexible heptachords. We can check the degrees
@@ -831,10 +831,10 @@ the <code>overtone_scale</code> but without all the mess. All the modes
 beneath VII are now neatly lined up on a single row at the bottom.
 That’s the visual equivalent of our search for regularity and color
 adjacency in the previous section. This is something I like about
-brightness graphs: they summarize, in a picture or two, ideas that one
-could spend several thousand words developing.</p>
+brightness graphs: they summarize, in a picture or two, ideas that take
+several thousand words to describe.</p>
 <hr>
-<p><strong>Last updated:</strong> 28 May 2025</p>
+<p><strong>Last updated:</strong> 15 November 2025</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
