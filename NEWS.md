@@ -24,7 +24,7 @@
 * Set theory functions including `tn()`, `tni()`, `startzero()`, and so on gain an `optic` parameter, which allows the
   user to specify the OPTIC symmetries to consider.
 
-## Anaglyph Arrangments
+## Anaglyph Arrangements
 * New `make_anaglyph_ineqmat()` allows construction of a new family of hyperplane arrangements
   (anaglyph arrangements) which study voice leadings between sets of different set classes.
 * New `anazero_fingerprint()` provides granular information about the types of hyperplanes that a 

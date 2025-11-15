@@ -16,7 +16,7 @@
 #' For instance, the set `(0, 4, 8)` has absolutely no room for variation in
 #' the black arrangement, as none of its pitches can move at all. Unsurprisingly,
 #' `howfree(c(0, 4, 8), ineqmat="black")` returns `0`. But if we use the 
-#' modal color theory arrangemenet, i.e. `howfree(c(0, 4, 8), ineqmat="mct")`,
+#' modal color theory arrangement, i.e. `howfree(c(0, 4, 8), ineqmat="mct")`,
 #' the result is still `0` even though for this arrangement we could transpose
 #' the augmented triad to start on any pitch without altering its scalar structure.
 #' For the MCT arrangement, chromatic transposition offers a degree of freedom
