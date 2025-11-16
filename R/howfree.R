@@ -57,7 +57,7 @@ howfree <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   rank <- qr(zeroesflat)$rank
 
   scale_degree_matrix <- ineqmat[, 1:card]
-  offset <- dim(scale_degree_matrix)[2] - qr(scale_degree_matrix)$rank
+  ineqmat_rank <- qr(scale_degree_matrix)$rank
 
-  card - (offset+rank)
+  ineqmat_rank - rank
 }
