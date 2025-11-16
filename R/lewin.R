@@ -130,19 +130,19 @@ emb <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
     return(0)
   }
   if (xcard == 1) {
-    return(length(scale))
+    return(ycard)
   }
 
   canon <- match.arg(canon)
-  normalform <- function(x, edo, rounder) {
+  canon_normal <- function(x, edo, rounder) {
     switch(canon,
            tni = primeform(x, edo=edo, rounder=rounder),
            tn = tnprime(x, edo=edo, rounder=rounder))
   }
 
   if (xcard >= ycard) {
-    if (isTRUE(all.equal(normalform(subset, edo=edo, rounder=rounder), 
-                         normalform(scale, edo=edo, rounder=rounder)))) {
+    if (isTRUE(all.equal(canon_normal(subset, edo=edo, rounder=rounder), 
+                         canon_normal(scale, edo=edo, rounder=rounder)))) {
       return(1)
     } else {
       return(0)
@@ -150,8 +150,8 @@ emb <- function(subset, scale, canon=c("tni", "tn"), edo=12, rounder=10) {
   }
 
   all_subsets <- utils::combn(scale, xcard)
-  xnormal <- normalform(subset, edo=edo, rounder=rounder)
-  normalized_subsets <- apply(all_subsets, 2, normalform, edo=edo, rounder=rounder)
+  xnormal <- canon_normal(subset, edo=edo, rounder=rounder)
+  normalized_subsets <- apply(all_subsets, 2, canon_normal, edo=edo, rounder=rounder)
   match_x <- function(set) length(fpunique(cbind(set, xnormal), MARGIN=2)) == xcard
   matches_count <- apply(normalized_subsets, 2, match_x)
   sum(matches_count)
