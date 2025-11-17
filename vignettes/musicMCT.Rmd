@@ -151,7 +151,7 @@ round(overtone_scale, digits=0)
 ```
 
 Wait a second, that's not even the acoustic scale! It has two consecutive semitones (6, 7, 8) and
-actually represents sc7-33, the "whole-tone plus one" scale. What's going on here!?
+actually represents sc7-33, the "whole-tone plus one" scale. What's going on here?
 
 [Tymoczko (2013, 130)](https://doi.org/10.1080/17459737.2013.818724) explains that there's really 
 no such thing as *the* quantization of the `overtone_scale`. There are 7 different quantizations. The
@@ -515,6 +515,11 @@ which lets us visualize the voice-leading relationships between a scale's modes 
 Theory," 7-11). Using musicMCT we can make quick mock-ups of brightness graphs with `brightnessgraph()`. First let's take a look at the `acoustic_scale`:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+#| fig.alt: >
+#|   A graph repesenting relationships between modes of the acoustic scale.
+#|   Each node of the graph represents a mode of the scale. Arrows point from darker
+#|   modes to brighter modes. The graph for the acoustic scale includes many arrows,
+#|   arranged nearly symmetrically in a way that demonstrates the regularity of its construction.
 brightnessgraph(acoustic_scale)
 ```
 
@@ -536,6 +541,11 @@ at the middle, giving the graph a diamond-like shape.
 Let's now take a look at the brightness graph for the `overtone_scale`:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+#| fig.alt: >
+#|   A brightness graph for the overtone scale, which shows much less regularity
+#|   than the graph for the acoustic scale. The brightest mode is number 7, while
+#|   the other six modes are at random-seeming heights beneath it. The only arrows
+#|   in the graph are ones that point from the darker modes to mode 7.
 brightnessgraph(overtone_scale, numdigits=1, show_sums=FALSE)
 ```
 
@@ -552,6 +562,12 @@ Recall that one of the approximations we tested above was a quantization of the 
 into 30 steps. Let's see what the brightness graph of that approximation looks like:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+#| fig.alt: >
+#|   A brightness graph for the quantized version of the overtone scale.
+#|   Its geometric layout exactly matches the graph for the overtone scale.
+#|   The only difference between the two graphs is in the specific pitch values
+#|   of the scales: the current brightness graph uses only integers, as a result
+#|   of the quantization that produced the scale.
 brightnessgraph(quantized_overtone_color$set, edo=30, show_sums=FALSE)
 ```
 
@@ -569,6 +585,11 @@ considerable variety from one to the next. This gives a glimpse of the range of 
 change the number `4` in the line of code below to any value from `1` to `7` to check the different scales:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+#| fig.alt: >
+#|   A brightness graph for the scale 0 3 4 6 8 9 10.
+#|   It has more arrows than the graph for the overtone scale,
+#|   but it arranges them in a less regular pattern than the graph
+#|   for the acoustic scale.
 brightnessgraph(final_quantizations[, 4])
 ```
 
@@ -576,6 +597,11 @@ Finally, let's take a look at the brightness graph for our `best_simple_approxim
 pitch-classes in each mode, since without manual tweaking they overlap to the point of illegibility:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+#| fig.alt: >
+#|   A brightness graph for the "best simple approximation" scale.
+#|   It has the same nodes and arrows as the brightness graph for the
+#|   overtone scale, but the 6 dark modes are in a neat line rather than
+#|   being positioned in a haphazard way.
 brightnessgraph(best_simple_approximation, show_pitches=FALSE, show_sums=FALSE)
 ```
 
@@ -588,4 +614,4 @@ thousand words to describe.
 ---
 
 
-**Last updated:** 15 November 2025
+**Last updated:** 17 November 2025
