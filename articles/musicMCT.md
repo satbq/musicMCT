@@ -180,7 +180,7 @@ round(overtone_scale, digits=0)
 
 Wait a second, that’s not even the acoustic scale! It has two
 consecutive semitones (6, 7, 8) and actually represents sc7-33, the
-“whole-tone plus one” scale. What’s going on here!?
+“whole-tone plus one” scale. What’s going on here?
 
 [Tymoczko (2013, 130)](https://doi.org/10.1080/17459737.2013.818724)
 explains that there’s really no such thing as *the* quantization of the
@@ -768,7 +768,12 @@ First let’s take a look at the `acoustic_scale`:
 brightnessgraph(acoustic_scale)
 ```
 
-![](musicMCT_files/figure-html/unnamed-chunk-34-1.png)
+![A graph repesenting relationships between modes of the acoustic scale.
+Each node of the graph represents a mode of the scale. Arrows point from
+darker modes to brighter modes. The graph for the acoustic scale
+includes many arrows, arranged nearly symmetrically in a way that
+demonstrates the regularity of its
+construction.](musicMCT_files/figure-html/unnamed-chunk-34-1.png)
 
 The information in this graph is displayed in the same way as Figure 2b
 of “Modal Color Theory” (p. 8), though you’ll notice a few differences
@@ -804,7 +809,12 @@ Let’s now take a look at the brightness graph for the `overtone_scale`:
 brightnessgraph(overtone_scale, numdigits=1, show_sums=FALSE)
 ```
 
-![](musicMCT_files/figure-html/unnamed-chunk-35-1.png)
+![A brightness graph for the overtone scale, which shows much less
+regularity than the graph for the acoustic scale. The brightest mode is
+number 7, while the other six modes are at random-seeming heights
+beneath it. The only arrows in the graph are ones that point from the
+darker modes to mode
+7.](musicMCT_files/figure-html/unnamed-chunk-35-1.png)
 
 This looks pretty messy! The graph is less connected (i.e. there are
 fewer arrows) and the vertical placement of its nodes seems haphazard.
@@ -829,7 +839,12 @@ see what the brightness graph of that approximation looks like:
 brightnessgraph(quantized_overtone_color$set, edo=30, show_sums=FALSE)
 ```
 
-![](musicMCT_files/figure-html/unnamed-chunk-36-1.png)
+![A brightness graph for the quantized version of the overtone scale.
+Its geometric layout exactly matches the graph for the overtone scale.
+The only difference between the two graphs is in the specific pitch
+values of the scales: the current brightness graph uses only integers,
+as a result of the quantization that produced the
+scale.](musicMCT_files/figure-html/unnamed-chunk-36-1.png)
 
 That’s impressively close to the graph for the actual `overtone_scale`!
 (In truth, we got a little lucky here: many colors offer enough room for
@@ -861,7 +876,10 @@ different scales:
 brightnessgraph(final_quantizations[, 4])
 ```
 
-![](musicMCT_files/figure-html/unnamed-chunk-37-1.png)
+![A brightness graph for the scale 0 3 4 6 8 9 10. It has more arrows
+than the graph for the overtone scale, but it arranges them in a less
+regular pattern than the graph for the acoustic
+scale.](musicMCT_files/figure-html/unnamed-chunk-37-1.png)
 
 Finally, let’s take a look at the brightness graph for our
 `best_simple_approximation`. I’m going to suppress its listing of the
@@ -872,7 +890,12 @@ to the point of illegibility:
 brightnessgraph(best_simple_approximation, show_pitches=FALSE, show_sums=FALSE)
 ```
 
-![](musicMCT_files/figure-html/unnamed-chunk-38-1.png)
+\<img
+src=“/home/runner/work/musicMCT/musicMCT/docs/articles/musicMCT_files/figure-html/unnamed-chunk-38-1.png”
+class=“r-plt” alt=“A brightness graph for the”best simple approximation”
+scale. It has the same nodes and arrows as the brightness graph for the
+overtone scale, but the 6 dark modes are in a neat line rather than
+being positioned in a haphazard way.” width=“480” /\>
 
 This feels right to me. At a glance, it’s a lot like the graph for the
 `overtone_scale` but without all the mess. All the modes beneath VII are
@@ -884,4 +907,4 @@ to describe.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 15 November 2025
+**Last updated:** 17 November 2025
