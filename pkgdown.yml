@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   musicMCT: musicMCT.html
   visualizing_higher_dimensions: visualizing_higher_dimensions.html
-last_built: 2025-11-28T23:14Z
+last_built: 2025-11-28T23:20Z
 urls:
   reference: https://satbq.github.io/musicMCT/reference
   article: https://satbq.github.io/musicMCT/articles

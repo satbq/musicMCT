@@ -306,11 +306,9 @@ tetra_plot(demo_scales,
            pch=sapply(1:6, toString)) 
 ```
 
-\<img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png”
-class=“r-plt” alt=“A Cartesian x-y plot that reproduces Figure 2 with an
-additional point (labeled”6”) added at the coordinates (4, 4.5).”
-width=“480” /\>
+![A Cartesian x-y plot that reproduces Figure 2 with an additional point
+(labeled 6) added at the coordinates (4,
+4.5).](visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png)
 
 **Figure 3**
 
@@ -862,12 +860,10 @@ rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
 
-\<img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png”
-class=“r-plt” alt=“A version of Figure 11’s plot of a complicated shape.
-The only new detail is a set of contour lines that show where constant
-values of the plotted parameter (the”brightness ratio”) are found on the
-graph.” width=“672” /\>
+![A version of Figure 11's plot of a complicated shape. The only new
+detail is a set of contour lines that show where constant values of the
+plotted parameter (the brightness ratio) are found on the
+graph.](visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png)
 
 **Figure 12**
 

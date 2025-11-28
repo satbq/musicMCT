@@ -320,11 +320,7 @@ works and plot the new scale as point #6:</p>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">demo_scales</span>, </span>
 <span>           <span class="st">"Location of 6 Reference Scales in the tc() Plane"</span>,</span>
 <span>           pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">toString</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<p>&lt;img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png”
-class=“r-plt” alt=“A Cartesian x-y plot that reproduces Figure 2 with an
-additional point (labeled”6”) added at the coordinates (4, 4.5).”
-width=“480” /&gt;</p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="A Cartesian x-y plot that reproduces Figure 2 with an additional point (labeled 6) added at the coordinates (4, 4.5)." width="480"></p>
 <p><strong>Figure 3</strong></p>
 <p><br></p>
 <p>That definitely starts to make the symmetry of the space more
@@ -763,12 +759,7 @@ show us where specific values in the plot occur:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>&lt;img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png”
-class=“r-plt” alt=“A version of Figure 11’s plot of a complicated shape.
-The only new detail is a set of contour lines that show where constant
-values of the plotted parameter (the”brightness ratio”) are found on the
-graph.” width=“672” /&gt;</p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="A version of Figure 11's plot of a complicated shape. The  only new detail is a set of contour lines that show where constant values of the plotted parameter (the brightness ratio) are found on the graph." width="672"></p>
 <p><strong>Figure 12</strong></p>
 <p><br></p>
 <p>From this, we certainly have a much clearer picture of which scales
