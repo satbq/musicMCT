@@ -183,14 +183,7 @@ window pane that we’re looking through: each spot on the pane actually
 corresponds to a line of sight in our field of view. Figure 1 sketches
 this schematically, but remember that the actual <code><a href="../reference/tc.html">tc()</a></code> plane
 is embedded in a 6-D space rather than the normal 3-D world:</p>
-<p>&lt;img src=“img/vhd_plane_embedding.png” class=“r-plt” alt=“An
-abstract geometrical diagram, in which a flat plane in three-dimensional
-space is seen at a slight angle. Behind the plane, from the viewer’s
-perspective, is a point labeled”perfectly even hexachord.” Three arrows
-originate from that point and pass through the plane. The arrows are
-labeled “hue number 1,” “hue number 2,” and “hue number 3.” The points
-of intersection between the plane and the arrows are highlighted and
-labeled as “visible points.”” width=“75%” /&gt;</p>
+<p><img src="img/vhd_plane_embedding.png" class="r-plt" alt="An abstract geometrical diagram, in which a flat plane in three-dimensional space is seen at a slight angle. Behind the plane, from the viewer's perspective, is a point labeled perfectly even hexachord. Three arrows originate from that point and pass through the plane. The arrows are labeled hue number 1, hue number 2, and hue number 3. The points of intersection between the plane and the arrows are highlighted and labeled as visible points." width="75%"></p>
 <p><strong>Figure 1: Schematic representation of the tc() plane in
 heptachord space</strong></p>
 <p><br></p>
@@ -284,13 +277,7 @@ structure:</p>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">demo_scales</span>, </span>
 <span>           <span class="st">"Location of 5 Reference Scales in the tc() Plane"</span>,</span>
 <span>           pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">toString</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<p>&lt;img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png”
-class=“r-plt” alt=“An x-y plot of poitns on the Cartesian plane. The
-x-axis is labeled”height of scale degree 2” and the y-axis is labeled
-“height of scale degree 3.” Five specific points are plotted on the
-plane. For instance a point labeled “1” lies at the coordinates (2, 4);
-this point represents the ionian scale.” width=“480” /&gt;</p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="An x-y plot of poitns on the Cartesian plane. The x-axis is labeled height of scale degree 2 and the y-axis is labeled height of scale degree 3. Five specific points are plotted on the plane. For instance a point labeled 1 lies at the coordinates (2, 4); this point represents the ionian scale." width="480"></p>
 <p><strong>Figure 2</strong></p>
 <p><br></p>
 <p>The scales are marked by numbers in the order that we defined them:
@@ -329,13 +316,15 @@ works and plot the new scale as point #6:</p>
 <span></span>
 <span><span class="co"># Let's plot them:</span></span>
 <span><span class="va">demo_scales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">demo_scales</span>, <span class="va">inverted_enharmonic</span><span class="op">)</span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   A Cartesian x-y plot that reproduces Figure 2 with an additional point (labeled "6")</span></span>
-<span><span class="co">#|   added at the coordinates (4, 4.5).</span></span>
+<span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">demo_scales</span>, </span>
 <span>           <span class="st">"Location of 6 Reference Scales in the tc() Plane"</span>,</span>
 <span>           pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">toString</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" width="480"></p>
+<p>&lt;img
+src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-7-1.png”
+class=“r-plt” alt=“A Cartesian x-y plot that reproduces Figure 2 with an
+additional point (labeled”6”) added at the coordinates (4, 4.5).”
+width=“480” /&gt;</p>
 <p><strong>Figure 3</strong></p>
 <p><br></p>
 <p>That definitely starts to make the symmetry of the space more
@@ -389,15 +378,12 @@ points:</p>
 <span><span class="va">scalar_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">all_signvectors</span>, <span class="fl">2</span>, <span class="va">match_sv</span><span class="op">)</span></span>
 <span><span class="va">display_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">[</span><span class="va">scalar_colors</span><span class="op">]</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   An x-y plot in which several polygons (mostly in the shape of triangles and</span></span>
-<span><span class="co">#|   trapezoids) are filled in with colored points.</span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">random_scales</span>, </span>
 <span>           <span class="st">"26 Scalar Colors in the tc() Plane"</span>,</span>
 <span>           col<span class="op">=</span><span class="va">display_colors</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="An x-y plot in which several polygons (mostly in the shape of triangles and trapezoids) are filled in with colored points." width="480"></p>
 <p><strong>Figure 4</strong></p>
 <p><br></p>
 <p>Each colored polygon in this figure represents a different scale
@@ -450,16 +436,12 @@ points, in addition to the colorful points from Figure 4.</p>
 <span><span class="va">scales_for_fig5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">random_scales</span>, <span class="va">projected_scales</span><span class="op">)</span></span>
 <span><span class="va">colors_for_fig5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">display_colors</span>, <span class="va">colors_for_projected_scales</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   A copy of Figure 4, the plot filled with colorful polygons. The</span></span>
-<span><span class="co">#|   only new detail is a black line that extends from the top left corner</span></span>
-<span><span class="co">#|   of the plot toward the bottom right corner.</span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">scales_for_fig5</span>,</span>
 <span>           <span class="st">"Double Harmonic's Flat as a Line of Black Points"</span>,</span>
 <span>           col<span class="op">=</span><span class="va">colors_for_fig5</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="A copy of Figure 4, the plot filled with colorful polygons. The only new detail is a black line that extends from the top left corner of the plot toward the bottom right corner." width="480"></p>
 <p><strong>Figure 5</strong></p>
 <p><br></p>
 <p>Now that we have specific examples of scales on that flat to work
@@ -494,18 +476,13 @@ points so that more even scales are represented by larger points.</p>
 <code class="sourceCode R"><span><span class="va">evenness_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">projected_scales</span>, <span class="fl">2</span>, <span class="va">evenness</span><span class="op">)</span></span>
 <span><span class="va">sizes_for_fig6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">num_points</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">-</span><span class="va">evenness_values</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   A copy of Figure 5 in which the thickness of the</span></span>
-<span><span class="co">#|   black line varies. The line starts very thin at the</span></span>
-<span><span class="co">#|   top left corner of the plot, then grows to be thick at the middle</span></span>
-<span><span class="co">#|   before tapering off at its end.</span></span>
 <span><span class="fu">tetra_plot</span><span class="op">(</span><span class="va">scales_for_fig5</span>,</span>
 <span>           <span class="st">"Line Thickness Represents Scale Evenness"</span>,</span>
 <span>           col<span class="op">=</span><span class="va">colors_for_fig5</span>,</span>
 <span>           pch<span class="op">=</span><span class="fl">20</span>,</span>
 <span>           cex<span class="op">=</span><span class="va">sizes_for_fig6</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="A copy of Figure 5 in which the thickness of the black line varies. The line starts very thin at the top left corner of the plot, then grows to be thick at the middle before tapering off at its end." width="480"></p>
 <p><strong>Figure 6</strong></p>
 <p><br></p>
 <p>You can see that the largest points (and thus the most even scales)
@@ -547,16 +524,13 @@ to get a better view of that part of the plane:</p>
 <span><span class="va">colors_for_fig7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">zoomed_display_colors</span>, <span class="va">colors_for_projected_scales</span><span class="op">)</span></span>
 <span><span class="va">sizes_for_fig7</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">num_points</span><span class="op">)</span>, <span class="fl">3</span><span class="op">^</span><span class="op">(</span><span class="fu"><a href="../reference/evenness.html">evenness</a></span><span class="op">(</span><span class="va">double_harmonic</span><span class="op">)</span><span class="op">-</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   An enlarged copy of Figure 6, displaying the central square</span></span>
-<span><span class="co">#|   of Figure 6 in more detail.</span></span>
 <span><span class="fu">zoomed_tetra_plot</span><span class="op">(</span><span class="va">points_for_fig7</span>, </span>
 <span>                  <span class="st">"Scalar Colors in the tc() Plane's Most Interesting Zone"</span>,</span>
 <span>                  col<span class="op">=</span><span class="va">colors_for_fig7</span>,</span>
 <span>                  pch<span class="op">=</span><span class="fl">20</span>,</span>
 <span>                  cex<span class="op">=</span><span class="va">sizes_for_fig7</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="An enlarged copy of Figure 6, displaying the central square of Figure 6 in more detail." width="480"></p>
 <p><strong>Figure 7</strong></p>
 <p><br></p>
 <p>I’ve exaggerated the variation in the black line’s thickness to help
@@ -600,11 +574,7 @@ equiheptatonic scale’s step size.) Let’s plot this scale as landmark
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span>, pch<span class="op">=</span><span class="fl">19</span>, cex<span class="op">=</span><span class="fl">2.5</span>, col<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">23</span><span class="op">/</span><span class="fl">14</span>, <span class="fl">47</span><span class="op">/</span><span class="fl">14</span>, pch<span class="op">=</span><span class="st">"7"</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p>&lt;img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png”
-class=“r-plt” alt=“A copy of Figure 7 in which a point labeled”7” is
-added at approximately the coordinates (1.65, 3.3).” width=“480”
-/&gt;</p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="A copy of Figure 7 in which a point labeled 7 is added at approximately the coordinates (1.65, 3.3)." width="480"></p>
 <p><strong>Figure 8</strong></p>
 <p><br></p>
 <p>I was surprised by this when I wrote my first draft of this vignette,
@@ -665,13 +635,11 @@ reconstruct Figure 4:</p>
 <span><span class="va">color_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aliceblue"</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette.colors</a></span><span class="op">(</span><span class="fl">26</span>, palette<span class="op">=</span><span class="st">"Polychrome 36"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   A variant of Figure 4's x-y plot with sharper edges.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">scalar_colors</span>, col<span class="op">=</span><span class="va">color_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">"26 Scalar Colors in the tc() Plane"</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu">show_landmarks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" width="480"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="A variant of Figure 4's x-y plot with sharper edges." width="480"></p>
 <p><strong>Figure 9</strong></p>
 <p><br></p>
 <p>Each region in this figure is now a continuous patch of color. The
@@ -714,13 +682,9 @@ of landmark scale #7 from Figure 8.</p>
 <span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">evenness_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Evenness"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   An x-y plot in which an oval-shaped green region is centered on a </span></span>
-<span><span class="co">#|   white x shape. The color of the oval fades as distance from the x</span></span>
-<span><span class="co">#|   increases.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" alt="An x-y plot in which an oval-shaped green region is centered on a  white x shape. The color of the oval fades as distance from the x increases." width="672"></p>
 <p><strong>Figure 10</strong></p>
 <p><br></p>
 <p>The most even scales (dark green) are centered around the “x” that
@@ -756,14 +720,9 @@ function).</p>
 <span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   An x-y plot visualizing the same range of values as Figure 10.</span></span>
-<span><span class="co">#|   The shape on the plot appears to be a complicated arrangement of</span></span>
-<span><span class="co">#|   triangles and lines. The plot's shape has bilateral symmetry </span></span>
-<span><span class="co">#|   but no other obvious simple pattern.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" alt="An x-y plot visualizing the same range of values as Figure 10. The shape on the plot appears to be a complicated arrangement of triangles and lines. The plot's shape has bilateral symmetry  but no other obvious simple pattern." width="672"></p>
 <p><strong>Figure 11</strong></p>
 <p><br></p>
 <p>This is our clearest picture yet of the space’s inversional symmetry.
@@ -790,11 +749,6 @@ show us where specific values in the plot occur:</p>
 <span><span class="va">fig11_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">100</span>, palette<span class="op">=</span><span class="st">"Green-Brown"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"aliceblue"</span><span class="op">)</span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   A version of Figure 11's plot of a complicated shape. The </span></span>
-<span><span class="co">#|   only new detail is a set of contour lines that show where</span></span>
-<span><span class="co">#|   constant values of the plotted parameter (the "brightness ratio")</span></span>
-<span><span class="co">#|   are found on the grpah.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, z<span class="op">=</span><span class="va">ratio_values</span>, col<span class="op">=</span><span class="va">fig11_palette</span>,</span>
 <span>      xlab<span class="op">=</span><span class="st">"Height of Scale Degree 2"</span>, ylab<span class="op">=</span><span class="st">"Height of Scale Degree 3"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side<span class="op">=</span><span class="fl">3</span>, <span class="st">'Contour Plot of "Brightness Ratio" in the tc() Plane'</span>, font<span class="op">=</span><span class="fl">2</span>, line<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
@@ -809,7 +763,12 @@ show us where specific values in the plot occur:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" width="672"></p>
+<p>&lt;img
+src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-28-1.png”
+class=“r-plt” alt=“A version of Figure 11’s plot of a complicated shape.
+The only new detail is a set of contour lines that show where constant
+values of the plotted parameter (the”brightness ratio”) are found on the
+graph.” width=“672” /&gt;</p>
 <p><strong>Figure 12</strong></p>
 <p><br></p>
 <p>From this, we certainly have a much clearer picture of which scales
@@ -839,13 +798,9 @@ of detail at the center of the plot which is hard to make out in Figure
 <span><span class="va">ymax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ratio_values2</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ratio_values</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"n"</span>, axes<span class="op">=</span><span class="cn">FALSE</span>, xlab<span class="op">=</span><span class="st">""</span>, ylab<span class="op">=</span><span class="st">"Brightness Ratio"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#| fig.alt: &gt;</span></span>
-<span><span class="co">#|   An enlarged version of the center of the plot in Figure 12. Shapes that looked </span></span>
-<span><span class="co">#|   like triangles in Figure 12 are revealed to have slightly more complex shapes</span></span>
-<span><span class="co">#|   (such as check-mark shapes, an oblong diamond, and a star-like concave shape).</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="va">color_legend</span>, <span class="fl">0</span>, <span class="va">ymin</span>, <span class="fl">1</span>, <span class="va">ymax</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span>, length.out<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" width="672"></p>
+<p><img src="visualizing_higher_dimensions_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="An enlarged version of the center of the plot in Figure 12. Shapes that looked  like triangles in Figure 12 are revealed to have slightly more complex shapes (such as check-mark shapes, an oblong diamond, and a star-like concave shape)." width="672"></p>
 <p><strong>Figure 13</strong></p>
 <p><br></p>
 <p>We can see a lot more detail here! Some of the shapes in this picture

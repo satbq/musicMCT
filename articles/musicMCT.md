@@ -890,12 +890,10 @@ to the point of illegibility:
 brightnessgraph(best_simple_approximation, show_pitches=FALSE, show_sums=FALSE)
 ```
 
-\<img
-src=“/home/runner/work/musicMCT/musicMCT/docs/articles/musicMCT_files/figure-html/unnamed-chunk-38-1.png”
-class=“r-plt” alt=“A brightness graph for the”best simple approximation”
-scale. It has the same nodes and arrows as the brightness graph for the
-overtone scale, but the 6 dark modes are in a neat line rather than
-being positioned in a haphazard way.” width=“480” /\>
+![A brightness graph for the best simple approximation scale. It has the
+same nodes and arrows as the brightness graph for the overtone scale,
+but the 6 dark modes are in a neat line rather than being positioned in
+a haphazard way.](musicMCT_files/figure-html/unnamed-chunk-38-1.png)
 
 This feels right to me. At a glance, it’s a lot like the graph for the
 `overtone_scale` but without all the mess. All the modes beneath VII are
