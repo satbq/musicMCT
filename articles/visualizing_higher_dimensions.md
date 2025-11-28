@@ -132,7 +132,14 @@ that the actual
 [`tc()`](https://satbq.github.io/musicMCT/reference/tc.md) plane is
 embedded in a 6-D space rather than the normal 3-D world:
 
-![](img/vhd_plane_embedding.png)
+\<img src=“img/vhd_plane_embedding.png” class=“r-plt” alt=“An abstract
+geometrical diagram, in which a flat plane in three-dimensional space is
+seen at a slight angle. Behind the plane, from the viewer’s perspective,
+is a point labeled”perfectly even hexachord.” Three arrows originate
+from that point and pass through the plane. The arrows are labeled “hue
+number 1,” “hue number 2,” and “hue number 3.” The points of
+intersection between the plane and the arrows are highlighted and
+labeled as “visible points.”” width=“75%” /\>
 
 **Figure 1: Schematic representation of the tc() plane in heptachord
 space**
@@ -244,7 +251,13 @@ tetra_plot(demo_scales,
            pch=sapply(1:5, toString)) 
 ```
 
-![](visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png)
+\<img
+src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-6-1.png”
+class=“r-plt” alt=“An x-y plot of poitns on the Cartesian plane. The
+x-axis is labeled”height of scale degree 2” and the y-axis is labeled
+“height of scale degree 3.” Five specific points are plotted on the
+plane. For instance a point labeled “1” lies at the coordinates (2, 4);
+this point represents the ionian scale.” width=“480” /\>
 
 **Figure 2**
 
@@ -289,6 +302,9 @@ rbind(inverted_enharmonic, new_enharmonic)
 
 # Let's plot them:
 demo_scales <- cbind(demo_scales, inverted_enharmonic)
+#| fig.alt: >
+#|   A Cartesian x-y plot that reproduces Figure 2 with an additional point (labeled "6")
+#|   added at the coordinates (4, 4.5).
 tetra_plot(demo_scales, 
            "Location of 6 Reference Scales in the tc() Plane",
            pch=sapply(1:6, toString)) 
@@ -357,6 +373,9 @@ match_sv <- function(sv) {
 scalar_colors <- apply(all_signvectors, 2, match_sv)
 display_colors <- palette.colors(26, palette="Polychrome 36")[scalar_colors]
 
+#| fig.alt: >
+#|   An x-y plot in which several polygons (mostly in the shape of triangles and
+#|   trapezoids) are filled in with colored points.
 tetra_plot(random_scales, 
            "26 Scalar Colors in the tc() Plane",
            col=display_colors,
@@ -430,6 +449,10 @@ colors_for_projected_scales <- rep("black", num_points)
 scales_for_fig5 <- cbind(random_scales, projected_scales)
 colors_for_fig5 <- c(display_colors, colors_for_projected_scales)
 
+#| fig.alt: >
+#|   A copy of Figure 4, the plot filled with colorful polygons. The
+#|   only new detail is a black line that extends from the top left corner
+#|   of the plot toward the bottom right corner.
 tetra_plot(scales_for_fig5,
            "Double Harmonic's Flat as a Line of Black Points",
            col=colors_for_fig5,
@@ -477,6 +500,11 @@ are represented by larger points.
 evenness_values <- apply(projected_scales, 2, evenness)
 sizes_for_fig6 <- c(rep(1, num_points), max(evenness_values)-evenness_values)
 
+#| fig.alt: >
+#|   A copy of Figure 5 in which the thickness of the
+#|   black line varies. The line starts very thin at the
+#|   top left corner of the plot, then grows to be thick at the middle
+#|   before tapering off at its end.
 tetra_plot(scales_for_fig5,
            "Line Thickness Represents Scale Evenness",
            col=colors_for_fig5,
@@ -533,6 +561,9 @@ points_for_fig7 <- cbind(zoomed_sets, projected_scales)
 colors_for_fig7 <- c(zoomed_display_colors, colors_for_projected_scales)
 sizes_for_fig7 <-c(rep(1, num_points), 3^(evenness(double_harmonic)-evenness_values))
 
+#| fig.alt: >
+#|   An enlarged copy of Figure 6, displaying the central square
+#|   of Figure 6 in more detail.
 zoomed_tetra_plot(points_for_fig7, 
                   "Scalar Colors in the tc() Plane's Most Interesting Zone",
                   col=colors_for_fig7,
@@ -595,7 +626,10 @@ points(23/14, 47/14, pch=19, cex=2.5, col="white")
 points(23/14, 47/14, pch="7", font=2)
 ```
 
-![](visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png)
+\<img
+src=“/home/runner/work/musicMCT/musicMCT/docs/articles/visualizing_higher_dimensions_files/figure-html/unnamed-chunk-20-1.png”
+class=“r-plt” alt=“A copy of Figure 7 in which a point labeled”7” is
+added at approximately the coordinates (1.65, 3.3).” width=“480” /\>
 
 **Figure 8**
 
@@ -663,6 +697,9 @@ scalar_colors <- outer(x, y, Vectorize(color_from_point))
 # Create visuals
 color_palette <- c("aliceblue", palette.colors(26, palette="Polychrome 36"))
 oldpar <- par(bg="aliceblue")
+
+#| fig.alt: >
+#|   A variant of Figure 4's x-y plot with sharper edges.
 image(x, y, z=scalar_colors, col=color_palette,
       xlab="Height of Scale Degree 2", ylab="Height of Scale Degree 3")
 mtext(side=3, "26 Scalar Colors in the tc() Plane", font=2, line=1)
@@ -719,6 +756,11 @@ color_legend <- as.raster(matrix(rev(fig10_palette), ncol=1))
 ymin <- min(evenness_values[!is.na(evenness_values)])
 ymax <- max(evenness_values[!is.na(evenness_values)])
 plot(c(0, 1), c(ymin, ymax), type="n", axes=FALSE, xlab="", ylab="Evenness")
+
+#| fig.alt: >
+#|   An x-y plot in which an oval-shaped green region is centered on a 
+#|   white x shape. The color of the oval fades as distance from the x
+#|   increases.
 rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
@@ -766,6 +808,12 @@ color_legend <- as.raster(matrix(rev(fig11_palette), ncol=1))
 ymin <- min(ratio_values[!is.na(ratio_values)])
 ymax <- max(ratio_values[!is.na(ratio_values)])
 plot(c(0, 1), c(ymin, ymax), type="n", axes=FALSE, xlab="", ylab="Brightness Ratio")
+
+#| fig.alt: >
+#|   An x-y plot visualizing the same range of values as Figure 10.
+#|   The shape on the plot appears to be a complicated arrangement of
+#|   triangles and lines. The plot's shape has bilateral symmetry 
+#|   but no other obvious simple pattern.
 rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
@@ -808,6 +856,11 @@ ratio_values <- outer(x, y, Vectorize(measure_ratio))
 fig11_palette <- hcl.colors(100, palette="Green-Brown")
 
 par(bg="aliceblue")
+#| fig.alt: >
+#|   A version of Figure 11's plot of a complicated shape. The 
+#|   only new detail is a set of contour lines that show where
+#|   constant values of the plotted parameter (the "brightness ratio")
+#|   are found on the grpah.
 image(x, y, z=ratio_values, col=fig11_palette,
       xlab="Height of Scale Degree 2", ylab="Height of Scale Degree 3")
 mtext(side=3, 'Contour Plot of "Brightness Ratio" in the tc() Plane', font=2, line=1)
@@ -858,6 +911,11 @@ color_legend <- as.raster(matrix(rev(fig11_palette), ncol=1))
 ymin <- min(ratio_values2[!is.na(ratio_values)])
 ymax <- max(ratio_values2[!is.na(ratio_values)])
 plot(c(0, 1), c(ymin, ymax), type="n", axes=FALSE, xlab="", ylab="Brightness Ratio")
+
+#| fig.alt: >
+#|   An enlarged version of the center of the plot in Figure 12. Shapes that looked 
+#|   like triangles in Figure 12 are revealed to have slightly more complex shapes
+#|   (such as check-mark shapes, an oblong diamond, and a star-like concave shape).
 rasterImage(color_legend, 0, ymin, 1, ymax)
 axis(2, at = round(seq(ymin, ymax, length.out=5), 2))
 ```
@@ -956,4 +1014,4 @@ handy for projects that have more complicated plotting needs.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 22 July 2025
+**Last updated:** 28 November 2025
