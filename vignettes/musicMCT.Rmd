@@ -598,7 +598,7 @@ pitch-classes in each mode, since without manual tweaking they overlap to the po
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 #| fig.alt: >
-#|   A brightness graph for the "best simple approximation" scale.
+#|   A brightness graph for the best simple approximation scale.
 #|   It has the same nodes and arrows as the brightness graph for the
 #|   overtone scale, but the 6 dark modes are in a neat line rather than
 #|   being positioned in a haphazard way.
