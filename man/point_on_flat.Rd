@@ -57,7 +57,7 @@ point_on_flat(c(2, 3, 6), card=3, ineqmat="roth")
 point_on_flat(c(2, 4), card=4, ineqmat="black")
 
 # Not all combinations of hyperplanes admit a solution:
-try(point_on_flat(c(1, 2, 3), card=4, ineqmat="roth"))
+try(point_on_flat(c(1, 2, 3), card=3, ineqmat="roth"))
 
 }
 \seealso{
