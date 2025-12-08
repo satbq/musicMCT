@@ -20,11 +20,12 @@ RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5)
 LazyData: true
-Imports: 
+Imports:
+    graphics, 
     igraph,
-    utils,
+    pracma,
     stats,
-    graphics
+    utils,
 Suggests: 
     grDevices,
     knitr,

@@ -1,3 +1,122 @@
+#' Generate one point on arbitrary combination of hyperplanes
+#'
+#' Given a hyperplane arrangement (specified by `ineqmat`) and a subset
+#' of those hyperplanes (specified numerically as the `rows` of `ineqmat`),
+#' determine some point that lies on the intersection of those hyperplanes.
+#' If the chosen hyperplanes do not all intersect in at least one point,
+#' returns `NA`s and throws a warning. This function exists mostly for the
+#' sake of calculations about a hyperplane arrangement itself, not for
+#' musical applications: its results are often not very scale-like (e.g.,
+#' they often fail [optc_test()]).
+#'
+#' @param rows Integer vector: which rows of `ineqmat` should be taken
+#'   as hyperplanes defining the target flat?
+#' @inheritParams set_from_signvector
+#'
+#' @returns Numeric vector of length `card` which lies on the specified
+#'   hyperplanes. If the intersection of the hyperplanes is empty, 
+#'   throws a warning and returns a vector of `NA`s with length `card`.
+#'
+#' @examples
+#' # Works essentially like an inverse of whichsvzeroes():
+#' test_set <- sc(5, 32)
+#' whichsvzeroes(test_set)
+#' generated_point <- point_on_flat(c(5, 8, 10), card=5)
+#' whichsvzeroes(generated_point)
+#'
+#' # But note that the given point might lie on any face of the flat:
+#' signvector(test_set)
+#' signvector(generated_point)
+#'
+#' # Works for other hyperplane arrangements:
+#' point_on_flat(c(2, 3, 6), card=3, ineqmat="roth")
+#' point_on_flat(c(2, 4), card=4, ineqmat="black")
+#'
+#' # Not all combinations of hyperplanes admit a solution:
+#' try(point_on_flat(c(1, 2, 3), card=4, ineqmat="roth"))
+#'
+#' @seealso [match_flat()] and [populate_flat()] are intended for more 
+#'   concretely musical applications, returning a set on the chosen flat
+#'   which is similar to an input set.
+#' @export
+point_on_flat <- function(rows, card, ineqmat=NULL, edo=12, rounder=10) {
+  num_rows <- length(rows)
+  if (num_rows==0) {
+    return(stats::runif(card, 0, edo))
+  }
+  single_row <- num_rows == 1
+
+  ineqmat <- choose_ineqmat(edoo(card, edo=edo), ineqmat)
+  chosen_matrix <- ineqmat[rows, ]
+  if (single_row) chosen_matrix <- matrix(chosen_matrix, nrow=1)
+
+  flat_matrix <- chosen_matrix[, 1:card]
+  if (single_row) flat_matrix <- matrix(flat_matrix, nrow=1)
+
+  const_matrix <- edo * chosen_matrix[, card+1]
+
+  if (single_row) {
+    ech <- cbind(flat_matrix, const_matrix)
+  } else {
+    ech <- pracma::rref(cbind(flat_matrix, const_matrix))
+  }
+
+  cur_rank <- qr(ech)$rank
+  num_free_vars <- card-cur_rank
+
+  if (num_free_vars > 0) {
+    scale_degree_matrix <- ech[, 1:card]
+    if (!inherits(scale_degree_matrix, "matrix")) {
+      scale_degree_matrix <- matrix(scale_degree_matrix, nrow=1)
+    }
+    zero_columns <- which(colSums(abs(scale_degree_matrix))==0)
+    num_zero_columns <- length(zero_columns)
+
+    if (num_zero_columns==num_free_vars) {
+      free_var_index <- zero_columns
+    } else {
+      num_additional_free_vars <- num_free_vars - num_zero_columns
+      possible_free_vars <- setdiff(1:card, zero_columns)
+      len_possible <- length(possible_free_vars)
+      additional_free_vars <- possible_free_vars[(len_possible-num_additional_free_vars+1):len_possible]
+      free_var_index <- sort(c(zero_columns, additional_free_vars))
+    }
+    fixed_var_index <- setdiff(1:card, free_var_index)
+  } else {
+    free_var_index <- integer(0)
+    fixed_var_index <- 1:card
+  }
+
+  if (num_free_vars > 1) {
+    free_vars <- stats::runif(num_free_vars, 0, 1)
+    new_consts <- ech[, free_var_index] %*% free_vars
+    new_consts <- (-1 * ech[, card+1]) - new_consts
+  } else {
+    free_vars <- rep(0, num_free_vars)
+    new_consts <- -1 * ech[, card+1]
+  }
+  new_consts <- new_consts[1:cur_rank]
+
+  inverse_mat <- tryCatch(
+    solve(ech[1:cur_rank, fixed_var_index[1:cur_rank]]),
+    error = function(e) {
+      warning("Intersection of specified hyperplanes is empty.", call.=FALSE)
+      return("No solution")
+    }
+  )
+
+  res <- rep(NA, card)
+  if (!inherits(inverse_mat, "matrix") && inverse_mat == "No solution") {
+    return(res)
+  }
+
+  fixed_vars <- inverse_mat %*% new_consts
+
+  res[fixed_var_index] <- fixed_vars
+  res[free_var_index] <- free_vars
+  res
+}
+
 #' Closest point on a given flat
 #'
 #' Projects a scale onto the nearest point that lies on a target flat
