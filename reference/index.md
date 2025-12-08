@@ -69,6 +69,8 @@ Define and manipulate the arrangements which characterize the spaces
 - [`makeineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md)
   [`getineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md)
   : Define hyperplanes for the Modal Color Theory arrangements
+- [`point_on_flat()`](https://satbq.github.io/musicMCT/reference/point_on_flat.md)
+  : Generate one point on arbitrary combination of hyperplanes
 - [`populate_flat()`](https://satbq.github.io/musicMCT/reference/populate_flat.md)
   : Randomly generate scales on a flat
 - [`project_onto()`](https://satbq.github.io/musicMCT/reference/project_onto.md)

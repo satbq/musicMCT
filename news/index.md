@@ -2,6 +2,11 @@
 
 ## musicMCT (development version)
 
+- New
+  [`point_on_flat()`](https://satbq.github.io/musicMCT/reference/point_on_flat.md)
+  generates a concrete point on any given flat of a hyperplane
+  arrangement.
+
 ## musicMCT 0.3.0
 
 CRAN release: 2025-11-03
