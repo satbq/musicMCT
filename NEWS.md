@@ -1,5 +1,7 @@
 # musicMCT (development version)
 * New `point_on_flat()` generates a concrete point on any given flat of a hyperplane arrangement.
+* `ianring()` gains `is_interactive` parameter which allows explicit control over whether the function
+   opens a browser window (mainly to disable the browser during tests).
 
 # musicMCT 0.3.0
 * `brightness_comparisons()` and `brightnessgraph()` gain a `goal` parameter that allows voice-leading brightness

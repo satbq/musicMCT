@@ -9,6 +9,10 @@
 #' include pitch-class 0.
 #'
 #' @inheritParams tnprime
+#' @param is_interactive Is the function being called in an 
+#'   interactive setting where it makes sense to open a browser window?
+#'   Defaults to `NULL`, in which case [interactive()] is used to determine
+#'   the answer.
 #'
 #' @returns Invisibly, the integer which Ring's site uses to index the
 #'  input `set`. The main purpose of the function is its side effect of
@@ -25,12 +29,13 @@
 #' ianring(c(0, 2, 3, 7, 8))
 #'
 #' @export
-ianring <- function(set) {
+ianring <- function(set, is_interactive=NULL) {
   set_as_distro <- sign(set_to_distribution(set, edo=12, rounder=10))
   weights <- 2^(0:11)
   value <- as.integer(sum(set_as_distro %*% weights))
 
-  if (interactive()) {
+  if (is.null(is_interactive)) is_interactive <- interactive()
+  if (is_interactive) {
     ring_url <- paste0("https://ianring.com/musictheory/scales/", value)
     utils::browseURL(ring_url)
   }

@@ -4,10 +4,15 @@
 \alias{ianring}
 \title{Look up a scale at Ian Ring's \emph{Exciting Universe of Music Theory}}
 \usage{
-ianring(set)
+ianring(set, is_interactive = NULL)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
+
+\item{is_interactive}{Is the function being called in an
+interactive setting where it makes sense to open a browser window?
+Defaults to \code{NULL}, in which case \code{\link[=interactive]{interactive()}} is used to determine
+the answer.}
 }
 \value{
 Invisibly, the integer which Ring's site uses to index the
