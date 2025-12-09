@@ -77,6 +77,15 @@ test_that("project_onto works with custom edo", {
   expect_equal(project_onto(c(0, 2, 6, 9), c(2,3), edo=17), c(0, 3.1, 6.2, 9.3))
 })
 
+test_that("project_onto works with named ineqmats", {
+  expect_equal(suppressWarnings(project_onto(c(0, 5, 6), 
+                                             c(1, 2, 3), 
+                                             ineqmat="roth")), 
+               rep(NA, 3))
+
+  expect_equal(project_onto(j(1, 3, 5), 4, ineqmat="pastel")[2], 4)
+})
+
 test_that("match_flat works", {
   expect_equal(match_flat(c(0, 4, 7, 10), c(0, 2, 6, 8)), c(0, 3.5, 6, 9.5))
   expect_equal(match_flat(c(0, 4, 7, 10), c(0, 2, 6, 8), start_zero=FALSE),

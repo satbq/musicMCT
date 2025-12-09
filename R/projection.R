@@ -165,28 +165,35 @@ project_onto <- function(set,
                          start_zero=TRUE,
                          edo=12, 
                          rounder=10) {
-  if (length(target_rows)==0) {
-    return(set)
-  }
-  card <- length(set)
-  ineqmat <- choose_ineqmat(set, ineqmat)
+    if (length(target_rows) == 0) {
+        return(set)
+    }
+    card <- length(set)
+    ineqmat <- choose_ineqmat(set, ineqmat)
 
-  central_set <- coord_to_edo(set, edo=edo)
+    offset_vector <- point_on_flat(rows=target_rows, 
+                                   card=card, 
+                                   ineqmat=ineqmat, 
+                                   edo=edo, 
+                                   rounder=rounder)
+    if (is.na(sum(offset_vector))) {
+      return(offset_vector)
+    }
 
-  A <- t(ineqmat[target_rows, 1:card])
-  if (dim(A)[1] == 1) A <- t(A)
+    displaced_set <- set - offset_vector
 
-  projection_matrix <- solve(t(A) %*% A)
-  projection_matrix <- A %*% projection_matrix %*% t(A)
-  n <- dim(projection_matrix)[1]
-  projection_matrix <- diag(n) - projection_matrix
+    A <- t(ineqmat[target_rows, 1:card])
+    if (dim(A)[1] == 1) 
+        A <- t(A)
+    projection_matrix <- solve(t(A) %*% A)
+    projection_matrix <- A %*% projection_matrix %*% t(A)
+    n <- dim(projection_matrix)[1]
+    projection_matrix <- diag(n) - projection_matrix
+    res <- projection_matrix %*% displaced_set
+    res <- as.vector(res + offset_vector)
 
-  res <- projection_matrix %*% central_set
-  res <- as.numeric(coord_from_edo(res, edo=edo))
-
-  if (start_zero) res <- startzero(res, edo=edo, sorted=FALSE)
-
-  res
+    if (start_zero) res <- startzero(res, edo = edo, optic="")
+    res
 }
 
 #' Find a basis for a flat's orthogonal complement

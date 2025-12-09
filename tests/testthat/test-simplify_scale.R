@@ -15,6 +15,16 @@ test_that("simplify_scale works", {
                             nrow=4, byrow=TRUE)  
   rownames(simple_scales) <- c("sd 1", "sd 2", "sd 3", "sd 4")                                  
   
+  # Result is ordered by "score" row, which can have ties whose order
+  # is randomly broken. The six lines below remove this randomness to prevent
+  # flaky failures of these tests.
+  third_place <- which(simplified_0237[5, ] == 71)
+  fourth_place <- which(simplified_0237[5, ] == 54)
+  fifth_place <- which(simplified_0237[5, ] == 61)
+  sixth_place <- which(simplified_0237[5, ] == 86)
+  derandomized_positions <- c(1, 2, third_place, fourth_place, fifth_place, sixth_place, 7)
+  simplified_0237 <- simplified_0237[, derandomized_positions]
+
   expect_equal(simplified_0237[1:4, ], simple_scales)
   expect_equal(as.numeric(simplified_0237[5,] ),
                c(55, 0, 71, 54, 61, 86, 85))
@@ -47,6 +57,14 @@ test_that("simplify_scale works in other edos", {
                             45, 54, 45, 41, 49.2, 39.6, 42),
                             nrow=4, byrow=TRUE)  
   rownames(simple_scales) <- c("sd 1", "sd 2", "sd 3", "sd 4") 
+
+  third_place <- which(simplified_x[5, ] == 71)
+  fourth_place <- which(simplified_x[5, ] == 54)
+  fifth_place <- which(simplified_x[5, ] == 86)
+  sixth_place <- which(simplified_x[5, ] == 61)
+  derandomized_positions <- c(1, 2, third_place, fourth_place, fifth_place, sixth_place, 7)
+  simplified_x <- simplified_x[, derandomized_positions]
+
   expect_equal(simplified_x[1:4, ], simple_scales)
   expect_equal(as.numeric(simplified_x[5,] ),
                c(55, 0, 71, 54, 86, 61, 85))
