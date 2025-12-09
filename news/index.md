@@ -6,6 +6,16 @@
   [`point_on_flat()`](https://satbq.github.io/musicMCT/reference/point_on_flat.md)
   generates a concrete point on any given flat of a hyperplane
   arrangement.
+- [`ianring()`](https://satbq.github.io/musicMCT/reference/ianring.md)
+  gains `is_interactive` parameter which allows explicit control over
+  whether the function opens a browser window (mainly to disable the
+  browser during tests).
+- [`project_onto()`](https://satbq.github.io/musicMCT/reference/project_onto.md)
+  now works for hyperplane arrangements that are not central, such as
+  those from
+  [`make_roth_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md)
+  and
+  [`make_rosy_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md).
 
 ## musicMCT 0.3.0
 

@@ -11,7 +11,7 @@ pitch-class 0.
 ## Usage
 
 ``` r
-ianring(set)
+ianring(set, is_interactive = NULL)
 ```
 
 ## Arguments
@@ -19,6 +19,13 @@ ianring(set)
 - set:
 
   Numeric vector of pitch-classes in the set
+
+- is_interactive:
+
+  Is the function being called in an interactive setting where it makes
+  sense to open a browser window? Defaults to `NULL`, in which case
+  [`interactive()`](https://rdrr.io/r/base/interactive.html) is used to
+  determine the answer.
 
 ## Value
 

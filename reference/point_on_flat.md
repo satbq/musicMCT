@@ -95,6 +95,7 @@ point_on_flat(c(2, 4), card=4, ineqmat="black")
 #> [1] 0.02795603 3.00000000 0.46938430 9.00000000
 
 # Not all combinations of hyperplanes admit a solution:
-try(point_on_flat(c(1, 2, 3), card=4, ineqmat="roth"))
-#> [1] 0 0 0 0
+try(point_on_flat(c(1, 2, 3), card=3, ineqmat="roth"))
+#> Warning: Intersection of specified hyperplanes is empty.
+#> [1] NA NA NA
 ```
