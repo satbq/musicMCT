@@ -16,6 +16,9 @@
   [`make_roth_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md)
   and
   [`make_rosy_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md).
+- [`scale_palette()`](https://satbq.github.io/musicMCT/reference/scale_palette.md)
+  gains an `ineqmat` parameter, which improves completeness of results
+  for arrangements other than the modal color theory arrangement.
 
 ## musicMCT 0.3.0
 

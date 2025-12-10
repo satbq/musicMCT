@@ -3,11 +3,25 @@
 Given an input scale, return a "palette" of related scalar colors. All
 the returned scales are the image of the input under some
 [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md).
+The symmetry group used to define the orbit is the symmetries of the
+modal color theory arrangements given by
+[`makeineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md).
+Although `scale_palette()` gives the option of finding palettes with
+respect to other hyperplane arrangements, not that they may not all have
+the same underlying symmetries. It may not be the case that all scales
+in a palette have the same properties with respect to an arbitrary
+arrangement.
 
 ## Usage
 
 ``` r
-scale_palette(set, include_involution = TRUE, edo = 12, rounder = 10)
+scale_palette(
+  set,
+  include_involution = TRUE,
+  ineqmat = NULL,
+  edo = 12,
+  rounder = 10
+)
 ```
 
 ## Arguments
@@ -20,6 +34,27 @@ scale_palette(set, include_involution = TRUE, edo = 12, rounder = 10)
 
   Should involutional symmetry be included in the applied transformation
   group? Defaults to `TRUE`.
+
+- ineqmat:
+
+  Specifies which hyperplane arrangement to consider. By default (or by
+  explicitly entering "mct") it supplies the standard "Modal Color
+  Theory" arrangements of
+  [`getineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md),
+  but can be set to strings "white," "black", "gray", "roth",
+  "infrared", "pastel", "rosy", "infrared", or "anaglyph", giving the
+  `ineqmat`s of
+  [`make_white_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md),
+  [`make_black_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_black_ineqmat.md),
+  [`make_gray_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_black_ineqmat.md),
+  [`make_roth_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md),
+  [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md),
+  [`make_pastel_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md),
+  [`make_rosy_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md),
+  [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md),
+  or
+  [`make_anaglyph_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_anaglyph_ineqmat.md).
+  For other arrangements, this parameter accepts explicit matrices.
 
 - edo:
 
@@ -62,4 +97,12 @@ table(apply(dia_palette, 2, iswellformed))
 #> 
 #> TRUE 
 #>   42 
+
+# The Rothenberg arrangements do not have the same symmetries as the MCT arrangements,
+# so Rothenberg properties are not preserved in a palette:
+proper_trichord <- c(0, 5, 10)
+roth_palette <- suppressWarnings(scale_palette(proper_trichord, ineqmat="roth"))
+apply(roth_palette, 2, isproper)
+#> [1] TRUE TRUE TRUE TRUE
+# Not all the scales in this palette are "proper" even though the input was!
 ```
