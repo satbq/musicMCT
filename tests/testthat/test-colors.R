@@ -27,6 +27,16 @@ test_that("palette works", {
   expect_equal(scale_palette(c(0, 2, 4, 8)), tetra_palette)
 
   expect_equal(scale_palette(c(0, 4, 8)), matrix(c(0, 4, 8), ncol=1))
+
+  expect_warning(scale_palette(c(0, 1, 5), ineqmat="roth"))
+  test_ineqmat <- make_black_ineqmat(3)[c(1, 2), ]
+  expect_warning(scale_palette(c(0, 1, 5), ineqmat=test_ineqmat))
+
+  pastel_set <- c(0, 1, 4, 8, 13, 20)
+  expect_equal(dim(scale_palette(pastel_set, edo=28))[2],
+               12)
+  expect_equal(dim(scale_palette(pastel_set, edo=28, ineqmat="pastel"))[2],
+               24)
 })
 
 test_that("primary_hue works", {

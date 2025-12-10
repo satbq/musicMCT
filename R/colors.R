@@ -1,9 +1,15 @@
 #' Orbit of a scale under symmetries of hyperplane arrangement
 #'
 #' Given an input scale, return a "palette" of related scalar colors. All the returned
-#' scales are the image of the input under some [ineqsym()].
+#' scales are the image of the input under some [ineqsym()]. The symmetry group used to
+#' define the orbit is the symmetries of the modal color theory arrangements given by
+#' [makeineqmat()]. Although `scale_palette()` gives the option of finding palettes
+#' with respect to other hyperplane arrangements, not that they may not all have the same
+#' underlying symmetries. It may not be the case that all scales in a palette have the same
+#' properties with respect to an arbitrary arrangement.
 #'
 #' @inheritParams tnprime
+#' @inheritParams colornum
 #' @param include_involution Should involutional symmetry be included in the
 #'   applied transformation group? Defaults to `TRUE`.
 #'
@@ -24,8 +30,21 @@
 #' dim(dia_palette)
 #' table(apply(dia_palette, 2, iswellformed))
 #'
+#' # The Rothenberg arrangements do not have the same symmetries as the MCT arrangements,
+#' # so Rothenberg properties are not preserved in a palette:
+#' proper_trichord <- c(0, 5, 10)
+#' roth_palette <- suppressWarnings(scale_palette(proper_trichord, ineqmat="roth"))
+#' apply(roth_palette, 2, isproper)
+#' # Not all the scales in this palette are "proper" even though the input was!
+#'
 #' @export
-scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
+scale_palette <- function(set, include_involution=TRUE, ineqmat=NULL, edo=12, rounder=10) {
+  if (!is.null(ineqmat)) {
+    if (inherits(ineqmat, "matrix") || !(ineqmat %in% c("mct", "white", "pastel"))) {
+      warning("Specified hyperplane arrangement might not have the symmetries assumed by this function.")
+    }
+  }
+
   tiny <- 10^(-1 * rounder)
   if (evenness(set, edo=edo) < tiny) {
     return(matrix(set, ncol=1))
@@ -35,17 +54,17 @@ scale_palette <- function(set, include_involution=TRUE, edo=12, rounder=10) {
   units <- units_mod(card)
 
   basis_colors <- sapply(units, ineqsym, set=set, b=0, involution=FALSE, edo=edo)
-  basis_sims <- matrix(apply(basis_colors, 2, sim, edo=edo), nrow=card)
+  basis_sims <- matrix(apply(basis_colors, 2, sim, edo=edo, rounder=rounder), nrow=card)
 
   if (include_involution) {
     involutions <- apply(basis_colors, 2, saturate, r=-1, edo=edo)
-    involution_sims <- matrix(apply(involutions, 2, sim, edo=edo), nrow=card)
+    involution_sims <- matrix(apply(involutions, 2, sim, edo=edo, rounder=rounder), nrow=card)
     all_colors <- cbind(basis_sims, involution_sims)
   } else {
     all_colors <- basis_sims
   }
 
-  all_svs <- apply(all_colors, 2, signvector, edo=edo)
+  all_svs <- apply(all_colors, 2, signvector, ineqmat=ineqmat, edo=edo, rounder=rounder)
   duplicated_svs <- which(duplicated(all_svs, MARGIN=2))
 
   if (length(duplicated_svs) == 0) {

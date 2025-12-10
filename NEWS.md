@@ -4,6 +4,8 @@
    opens a browser window (mainly to disable the browser during tests).
 * `project_onto()` now works for hyperplane arrangements that are not central, such as those from
   `make_roth_ineqmat()` and `make_rosy_ineqmat()`.
+* `scale_palette()` gains an `ineqmat` parameter, which improves completeness of results for arrangements
+  other than the modal color theory arrangement.
 
 # musicMCT 0.3.0
 * `brightness_comparisons()` and `brightnessgraph()` gain a `goal` parameter that allows voice-leading brightness

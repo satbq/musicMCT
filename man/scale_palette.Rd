@@ -4,13 +4,28 @@
 \alias{scale_palette}
 \title{Orbit of a scale under symmetries of hyperplane arrangement}
 \usage{
-scale_palette(set, include_involution = TRUE, edo = 12, rounder = 10)
+scale_palette(
+  set,
+  include_involution = TRUE,
+  ineqmat = NULL,
+  edo = 12,
+  rounder = 10
+)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
 
 \item{include_involution}{Should involutional symmetry be included in the
 applied transformation group? Defaults to \code{TRUE}.}
+
+\item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
+explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
+of \code{\link[=getineqmat]{getineqmat()}}, but can be set to strings "white," "black", "gray", "roth", "infrared",
+"pastel", "rosy", "infrared", or "anaglyph", giving the \code{ineqmat}s of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}},
+\code{\link[=make_black_ineqmat]{make_black_ineqmat()}}, \code{\link[=make_gray_ineqmat]{make_gray_ineqmat()}}, \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}},
+\code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, \code{\link[=make_pastel_ineqmat]{make_pastel_ineqmat()}}, \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}},
+\code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, or \code{\link[=make_anaglyph_ineqmat]{make_anaglyph_ineqmat()}}. For other
+arrangements, this parameter accepts explicit matrices.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 
@@ -22,7 +37,12 @@ A matrix whose columns represent the colors in \code{set}'s palette.
 }
 \description{
 Given an input scale, return a "palette" of related scalar colors. All the returned
-scales are the image of the input under some \code{\link[=ineqsym]{ineqsym()}}.
+scales are the image of the input under some \code{\link[=ineqsym]{ineqsym()}}. The symmetry group used to
+define the orbit is the symmetries of the modal color theory arrangements given by
+\code{\link[=makeineqmat]{makeineqmat()}}. Although \code{scale_palette()} gives the option of finding palettes
+with respect to other hyperplane arrangements, not that they may not all have the same
+underlying symmetries. It may not be the case that all scales in a palette have the same
+properties with respect to an arbitrary arrangement.
 }
 \examples{
 # The palette of a minor triad is all inversions of major and minor:
@@ -38,5 +58,12 @@ scale_palette(just_minor)
 dia_palette <- scale_palette(sc(7, 35))
 dim(dia_palette)
 table(apply(dia_palette, 2, iswellformed))
+
+# The Rothenberg arrangements do not have the same symmetries as the MCT arrangements,
+# so Rothenberg properties are not preserved in a palette:
+proper_trichord <- c(0, 5, 10)
+roth_palette <- suppressWarnings(scale_palette(proper_trichord, ineqmat="roth"))
+apply(roth_palette, 2, isproper)
+# Not all the scales in this palette are "proper" even though the input was!
 
 }
