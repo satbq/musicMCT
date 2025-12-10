@@ -3,14 +3,14 @@
 Given an input scale, return a "palette" of related scalar colors. All
 the returned scales are the image of the input under some
 [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md).
-The symmetry group used to define the orbit is the symmetries of the
-modal color theory arrangements given by
+The symmetry group used to define the orbit comprises the symmetries of
+the MCT arrangements given by
 [`makeineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md).
 Although `scale_palette()` gives the option of finding palettes with
-respect to other hyperplane arrangements, not that they may not all have
-the same underlying symmetries. It may not be the case that all scales
-in a palette have the same properties with respect to an arbitrary
-arrangement.
+respect to other hyperplane arrangements, note that they may not all
+have the same underlying symmetries. It may not be the case that all
+scales in a palette have the same properties with respect to an
+arbitrary arrangement.
 
 ## Usage
 
@@ -100,9 +100,9 @@ table(apply(dia_palette, 2, iswellformed))
 
 # The Rothenberg arrangements do not have the same symmetries as the MCT arrangements,
 # so Rothenberg properties are not preserved in a palette:
-proper_trichord <- c(0, 5, 10)
+proper_trichord <- c(0, 5, 6)
 roth_palette <- suppressWarnings(scale_palette(proper_trichord, ineqmat="roth"))
 apply(roth_palette, 2, isproper)
-#> [1] TRUE TRUE TRUE TRUE
+#> [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
 # Not all the scales in this palette are "proper" even though the input was!
 ```
