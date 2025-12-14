@@ -35,6 +35,9 @@ test_that("point_on_flat works for other ineqmats", {
   expect_warning(point_on_flat(c(1, 2, 3), card=3, ineqmat="roth"))
   expect_equal(suppressWarnings(point_on_flat(c(1, 2, 3), card=3, ineqmat="roth")),
                rep(NA, 3))
+
+  roth4_327 <- point_on_flat(c(6, 7, 9), card=4, ineqmat="roth")
+  expect_equal(whichsvzeroes(roth4_327, ineqmat="roth"), c(6, 7, 9))
 })
 
 test_that("independent_normals works", {

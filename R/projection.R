@@ -57,6 +57,8 @@ point_on_flat <- function(rows, card, ineqmat=NULL, edo=12, rounder=10) {
 
   if (single_row) {
     ech <- cbind(flat_matrix, const_matrix)
+    first_nonzero <- which(abs(ech) > 10^(-1*rounder))[1]
+    ech <- ech/ech[first_nonzero]
   } else {
     ech <- pracma::rref(cbind(flat_matrix, const_matrix))
   }
@@ -65,23 +67,8 @@ point_on_flat <- function(rows, card, ineqmat=NULL, edo=12, rounder=10) {
   num_free_vars <- card-cur_rank
 
   if (num_free_vars > 0) {
-    scale_degree_matrix <- ech[, 1:card]
-    if (!inherits(scale_degree_matrix, "matrix")) {
-      scale_degree_matrix <- matrix(scale_degree_matrix, nrow=1)
-    }
-    zero_columns <- which(colSums(abs(scale_degree_matrix))==0)
-    num_zero_columns <- length(zero_columns)
-
-    if (num_zero_columns==num_free_vars) {
-      free_var_index <- zero_columns
-    } else {
-      num_additional_free_vars <- num_free_vars - num_zero_columns
-      possible_free_vars <- setdiff(1:card, zero_columns)
-      len_possible <- length(possible_free_vars)
-      additional_free_vars <- possible_free_vars[(len_possible-num_additional_free_vars+1):len_possible]
-      free_var_index <- sort(c(zero_columns, additional_free_vars))
-    }
-    fixed_var_index <- setdiff(1:card, free_var_index)
+    fixed_var_index <- pivot_columns(ech, rounder=rounder)
+    free_var_index <- setdiff(1:card, fixed_var_index)
   } else {
     free_var_index <- integer(0)
     fixed_var_index <- 1:card

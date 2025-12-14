@@ -223,3 +223,21 @@ quasimod <- function(x, card) {
   }
   normal_mod
 }
+
+#' Find Pivot Columns
+#'
+#' Given a matrix in reduced row echelon form
+#' (using pracma::rref()), return a vector listing the
+#' pivot columns of the matrix
+#'
+#' @param mat Matrix in reduced row echelon form
+#' @inheritParams tnprime
+#' 
+#' @returns Integer vector
+#'
+#' @noRd
+pivot_columns <- function(mat, rounder=10) {
+  rounded_matrix <- round(mat, digits=rounder)
+  res <- apply(rounded_matrix, 1, match, x=1)
+  res[!is.na(res)]
+}
