@@ -6,6 +6,7 @@
   `make_roth_ineqmat()` and `make_rosy_ineqmat()`.
 * `scale_palette()` gains an `ineqmat` parameter, which improves completeness of results for arrangements
   other than the modal color theory arrangement.
+* New `move_to_hyerplane()` finds the point where a chosen line and hyperplane intersect.
 
 # musicMCT 0.3.0
 * `brightness_comparisons()` and `brightnessgraph()` gain a `goal` parameter that allows voice-leading brightness

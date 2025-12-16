@@ -38,6 +38,7 @@ reference:
   - make_roth_ineqmat
   - make_white_ineqmat
   - makeineqmat
+  - move_to_hyperplane
   - point_on_flat
   - populate_flat
   - project_onto
