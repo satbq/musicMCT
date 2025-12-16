@@ -19,6 +19,8 @@
 - [`scale_palette()`](https://satbq.github.io/musicMCT/reference/scale_palette.md)
   gains an `ineqmat` parameter, which improves completeness of results
   for arrangements other than the modal color theory arrangement.
+- New `move_to_hyerplane()` finds the point where a chosen line and
+  hyperplane intersect.
 
 ## musicMCT 0.3.0
 
