@@ -651,7 +651,8 @@ tsym <- function(set, return_index=FALSE, edo=12, rounder=10) {
 
   levels_to_check <- edoo(card, edo=edo)
   transpositions <- sapply(levels_to_check, tn, set=set, edo=edo)
-  matches_set <- function(x) isTRUE(all.equal(round(x, rounder), set))
+  rounded_set <- round(set, rounder)
+  matches_set <- function(x) isTRUE(all.equal(round(x, rounder), rounded_set))
   symmetry_levels <- which(apply(transpositions, 2, matches_set))
   indices <- levels_to_check[symmetry_levels]
 

@@ -73,7 +73,7 @@ to the vector specified by \code{direction}.
 }
 \examples{
 major_triad <- c(0, 4, 7)
-# Let's fine the first point at which the major triad's hue intersects a Rothenberg hyperplane:
+# Let's find where the major triad's hue first intersects a Rothenberg hyperplane:
 move_to_hyperplane(3, set=major_triad, ineqmat="roth")
 same_hue(major_triad, c(0, 4, 6))
 strictly_proper(major_triad)
