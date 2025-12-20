@@ -640,6 +640,7 @@ isym_degree <- function(set, ...) tsym_degree(set, ...) * isym(set, return_index
 tsym <- function(set, return_index=FALSE, edo=12, rounder=10) {
   set <- sort(set)
   card <- length(set)
+  tiny <- 10^(-1*rounder)
 
   if (card < 2) {
     if (return_index) {
@@ -651,8 +652,8 @@ tsym <- function(set, return_index=FALSE, edo=12, rounder=10) {
 
   levels_to_check <- edoo(card, edo=edo)
   transpositions <- sapply(levels_to_check, tn, set=set, edo=edo)
-  rounded_set <- round(set, rounder)
-  matches_set <- function(x) isTRUE(all.equal(round(x, rounder), rounded_set))
+
+  matches_set <- function(x) sum(abs(x-set) < tiny) == card
   symmetry_levels <- which(apply(transpositions, 2, matches_set))
   indices <- levels_to_check[symmetry_levels]
 
