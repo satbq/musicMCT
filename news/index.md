@@ -22,6 +22,20 @@
 - New `move_to_hyerplane()` finds the point where a chosen line and
   hyperplane intersect.
 
+### Updates to function `ineqsym()`
+
+- The function can now return a permutation matrix rather than a scale,
+  which it does if `set` is `NULL`. New parameter `card` goes along with
+  this change: it is necessary to specify the size of the permutation
+  matrix if `set` is `NULL`.
+- Default value of parameter `set` is now `NULL`.
+- Change to the way `a` parameter is interpreted. It now gives the
+  results that would have come from entering the inverse of a (modulo
+  `card`). The new method enhances consistency with other standards and
+  with the permutation matrix view of the function.
+- Changes to the internal logic of the function, emphasizing the role of
+  permutation matrices in implementing the symmetries of the space.
+
 ## musicMCT 0.3.0
 
 CRAN release: 2025-11-03

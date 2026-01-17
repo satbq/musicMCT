@@ -52,7 +52,15 @@
 <li>
 <code><a href="../reference/scale_palette.html">scale_palette()</a></code> gains an <code>ineqmat</code> parameter, which improves completeness of results for arrangements other than the modal color theory arrangement.</li>
 <li>New <code>move_to_hyerplane()</code> finds the point where a chosen line and hyperplane intersect.</li>
+</ul><div class="section level3">
+<h3 id="updates-to-function-ineqsym-development-version">Updates to function <code>ineqsym()</code>
+<a class="anchor" aria-label="anchor" href="#updates-to-function-ineqsym-development-version"></a></h3>
+<ul><li>The function can now return a permutation matrix rather than a scale, which it does if <code>set</code> is <code>NULL</code>. New parameter <code>card</code> goes along with this change: it is necessary to specify the size of the permutation matrix if <code>set</code> is <code>NULL</code>.</li>
+<li>Default value of parameter <code>set</code> is now <code>NULL</code>.</li>
+<li>Change to the way <code>a</code> parameter is interpreted. It now gives the results that would have come from entering the inverse of a (modulo <code>card</code>). The new method enhances consistency with other standards and with the permutation matrix view of the function.</li>
+<li>Changes to the internal logic of the function, emphasizing the role of permutation matrices in implementing the symmetries of the space.</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="musicmct-030">musicMCT 0.3.0<a class="anchor" aria-label="anchor" href="#musicmct-030"></a></h2><p class="text-muted">CRAN release: 2025-11-03</p>
 <ul><li>

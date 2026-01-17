@@ -11,14 +11,15 @@ involved.
 ## Usage
 
 ``` r
-ineqsym(set, a = 1, b = 0, involution = FALSE, edo = 12)
+ineqsym(set = NULL, a = 1, b = 0, card = NULL, involution = FALSE, edo = 12)
 ```
 
 ## Arguments
 
 - set:
 
-  Numeric vector of pitch-classes in the set
+  Numeric vector of pitch-classes in the set. Defaults to `NULL`, in
+  which case `card` must be specified.
 
 - a:
 
@@ -28,6 +29,11 @@ ineqsym(set, a = 1, b = 0, involution = FALSE, edo = 12)
 - b:
 
   Integer: controls modal rotation. Defaults to `0`.
+
+- card:
+
+  Integer: cardinality of the set to permute. Defaults to `NULL` and
+  will only be used if `set` is not entered.
 
 - involution:
 
@@ -41,6 +47,9 @@ ineqsym(set, a = 1, b = 0, involution = FALSE, edo = 12)
 
 Numeric vector representing a scale of same length as `set`. Default
 parameters determine the identity symmetry and will return `set` itself.
+If `set` is left as its default `NULL` value, the function returns
+instead the `card`-by-`card` permutation matrix that implements the
+symmetry.
 
 ## Details
 
@@ -107,7 +116,7 @@ spectra <- apply(apply(both_scales, 2, spectrumcount), 2, toString)
 cbind(freedoms, evennesses, svzeroes, ratios, spectra)
 #>             freedoms evennesses svzeroes ratios spectra           
 #> wt_plus_1   "1"      "1.195"    "16"     "1.5"  "2, 3, 3, 3, 3, 2"
-#> equiv_scale "1"      "1.195"    "16"     "1.5"  "3, 2, 3, 3, 2, 3"
+#> equiv_scale "1"      "1.195"    "16"     "1.5"  "3, 3, 2, 2, 3, 3"
 brightnessgraph(wt_plus_1)
 
 brightnessgraph(equiv_scale)
