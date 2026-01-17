@@ -38,15 +38,21 @@
 #'   * Number and respective properties of adjacent colors
 #'   * [spectrumcount()] up to permutation of the values
 #'
-#' @inheritParams tnprime
+#' @param set Numeric vector of pitch-classes in the set. Defaults to `NULL`, in which
+#'   case `card` must be specified.
 #' @param a Integer: controls permutations of generic intervals. Must be 
 #'   coprime to the size of the set. Defaults to `1`.
 #' @param b Integer: controls modal rotation. Defaults to `0`.
+#' @param card Integer: cardinality of the set to permute. Defaults to `NULL` and will 
+#'   only be used if `set` is not entered.
 #' @param involution Boolean: controls involutional symmetry. Defaults to
 #'   `FALSE`.
+#' @inheritParams tnprime
+#'
 #' @returns Numeric vector representing a scale of same length as `set`.
 #'   Default parameters determine the identity symmetry and will return
-#'   `set` itself.
+#'   `set` itself. If `set` is left as its default `NULL` value, the function returns
+#'   instead the `card`-by-`card` permutation matrix that implements the symmetry.
 #' 
 #' @examples
 #' wt_plus_1 <- sc(7,33)
@@ -62,12 +68,21 @@
 #' brightnessgraph(equiv_scale)
 #' 
 #' @export
-ineqsym <- function(set, 
+ineqsym <- function(set=NULL, 
                     a=1,  
                     b=0, 
+                    card=NULL,
                     involution=FALSE, 
                     edo=12) {
-  card <- length(set)
+  null_set <- is.null(set)
+  if (is.null(card)) {
+    if (null_set) {
+      stop("Set or card must be specified")
+    } else {
+      card <- length(set)
+    }
+  }
+
   a <- a %% card
   bad_a <- function() {
     stop("Parameter a must be coprime to scale cardinality", call.=FALSE)
@@ -76,21 +91,25 @@ ineqsym <- function(set,
     bad_a()
   }
 
-  reset <- coord_to_edo(set, edo=edo)
+  permutation_matrix <- diag(card)
   indices <- 0:(card-1)
-  indices <- (a * indices) %% card
-  indices <- indices + 1 # Because R is 1-indexed
+  indices <- ((a*indices)+b) %% card
+  indices <- indices + 1
+  permutation_matrix <- permutation_matrix[, indices]
 
-  if (length(unique(indices)) < length(indices)) {
+  if (qr(permutation_matrix)$rank < card) {
     bad_a()
   }
-  
-  res <- reset[indices]
-  res <- rotate(res, n=-b, edo=edo)
-  if (involution==TRUE) {
-    res <- -1 * res
-  }
 
-  coord_from_edo(res, edo=edo)
+  if (null_set) {
+    permutation_matrix
+  } else {
+    reset <- coord_to_edo(set, edo=edo)
+    res <- as.vector(permutation_matrix %*% reset)
+    if (involution==TRUE) {
+      res <- -1 * res
+    }
+    coord_from_edo(res, edo=edo)
+  }
 }
 

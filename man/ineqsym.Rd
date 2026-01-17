@@ -4,15 +4,19 @@
 \alias{ineqsym}
 \title{Symmetries of hyperplane arrangements define equivalent scales}
 \usage{
-ineqsym(set, a = 1, b = 0, involution = FALSE, edo = 12)
+ineqsym(set = NULL, a = 1, b = 0, card = NULL, involution = FALSE, edo = 12)
 }
 \arguments{
-\item{set}{Numeric vector of pitch-classes in the set}
+\item{set}{Numeric vector of pitch-classes in the set. Defaults to \code{NULL}, in which
+case \code{card} must be specified.}
 
 \item{a}{Integer: controls permutations of generic intervals. Must be
 coprime to the size of the set. Defaults to \code{1}.}
 
 \item{b}{Integer: controls modal rotation. Defaults to \code{0}.}
+
+\item{card}{Integer: cardinality of the set to permute. Defaults to \code{NULL} and will
+only be used if \code{set} is not entered.}
 
 \item{involution}{Boolean: controls involutional symmetry. Defaults to
 \code{FALSE}.}
@@ -22,7 +26,8 @@ coprime to the size of the set. Defaults to \code{1}.}
 \value{
 Numeric vector representing a scale of same length as \code{set}.
 Default parameters determine the identity symmetry and will return
-\code{set} itself.
+\code{set} itself. If \code{set} is left as its default \code{NULL} value, the function returns
+instead the \code{card}-by-\code{card} permutation matrix that implements the symmetry.
 }
 \description{
 Produces scales of different colors which have equivalent scalar properties.
