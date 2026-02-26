@@ -178,7 +178,7 @@ isgwf <- function(set, stepword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' @seealso [isgwf()], [minimize_vl()], [normal_form()]
 #'
 #' @returns A list with two entries, `"sets"` and `"vls"`. The former is a matrix whose columns are
-#'   the sets which are Q-related to the input `set`, in OPC-normal form. The latter is a matrix
+#'   the sets which are Q-related to the input `set`, in OP-normal form. The latter is a matrix
 #'   whose rows represent the voice-leading motions which transform `set` into its goals.
 #'   (This follows the general practice of musicMCT of representing scales as columns and
 #'   voice leadings as rows.) The rows
@@ -221,7 +221,14 @@ clampitt_q <- function(set,
 
   subsets <- utils::combn(set, card-1)
   symmetry_index <- apply(subsets, 2, isym_index, edo=edo, rounder=rounder)
-  symmetry_index <- symmetry_index[!is.na(symmetry_index)]
+  has_isym <- !is.na(symmetry_index)
+
+  tsym_index <- unlist(apply(subsets, 2, tsym_index, edo=edo, rounder=rounder))
+  tsym_index <- fpunique(tsym_index, MARGIN=0, rounder=rounder)
+
+  symmetry_index <- symmetry_index[has_isym]
+  symmetry_index <- fpmod(as.vector(outer(symmetry_index, tsym_index, "-")), edo=edo, rounder=rounder)
+  symmetry_index <- fpunique(symmetry_index, rounder=rounder)
 
   if (length(symmetry_index) == 0) {
     return(list(sets=matrix(nrow=card, ncol=0),
@@ -256,7 +263,7 @@ clampitt_q <- function(set,
   vls[does_move] <- diffs[does_move]
   if (length(vls)==0) vls <- matrix(nrow=card, ncol=0)
 
-  if (dim(goals)[2] > 0) goals <- apply(goals, 2, normal_form, optic="opc", edo=edo, rounder=rounder)
+  if (dim(goals)[2] > 0) goals <- apply(goals, 2, normal_form, optic="op", edo=edo, rounder=rounder)
 
   if (!is.null(index)) {
     goals <- goals[, index]

@@ -28,7 +28,7 @@ number of decimal places to round to when testing for equality.}
 }
 \value{
 A list with two entries, \code{"sets"} and \code{"vls"}. The former is a matrix whose columns are
-the sets which are Q-related to the input \code{set}, in OPC-normal form. The latter is a matrix
+the sets which are Q-related to the input \code{set}, in OP-normal form. The latter is a matrix
 whose rows represent the voice-leading motions which transform \code{set} into its goals.
 (This follows the general practice of musicMCT of representing scales as columns and
 voice leadings as rows.) The rows

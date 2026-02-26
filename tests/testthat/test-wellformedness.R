@@ -116,4 +116,10 @@ test_that("clampitt_q works", {
 
   utremi <- lapply(clampitt_q(c(0, 2, 4)), dim)
   expect_equal(utremi, list(sets=c(3, 2), vls=c(2, 3)))
+
+  expect_equal(dim(clampitt_q(sc(6,44))$vls), c(2,6))
+  expect_equal(clampitt_q(c(0,6,9,12))$sets, matrix(c(6,6,9,0)))
+  expect_equal(clampitt_q(c(0,1,3,4,7,8,11))$vls, t(c(0,1,0,0,0,0,0)))
+  expect_equal(dim(clampitt_q(c(0,2,3,5,7,10,12), edo=14)$sets), c(7,2))
+  
 })

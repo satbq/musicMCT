@@ -7,6 +7,8 @@
 * `scale_palette()` gains an `ineqmat` parameter, which improves completeness of results for arrangements
   other than the modal color theory arrangement.
 * New `move_to_hyerplane()` finds the point where a chosen line and hyperplane intersect.
+* Bug fixes for `clampitt_q()`, so that it gives correct results when `set` includes transpositionally symmetrical
+  subsets or doubled notes.
 
 ## Updates to function `ineqsym()`
 * The function can now return a permutation matrix rather than a scale, which it does if `set` is `NULL`. 
