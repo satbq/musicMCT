@@ -77,7 +77,7 @@ clampitt_q(
 
 A list with two entries, `"sets"` and `"vls"`. The former is a matrix
 whose columns are the sets which are Q-related to the input `set`, in
-OPC-normal form. The latter is a matrix whose rows represent the
+OP-normal form. The latter is a matrix whose rows represent the
 voice-leading motions which transform `set` into its goals. (This
 follows the general practice of musicMCT of representing scales as
 columns and voice leadings as rows.) The rows of `"vls"` correspond to

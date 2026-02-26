@@ -21,6 +21,10 @@
   for arrangements other than the modal color theory arrangement.
 - New `move_to_hyerplane()` finds the point where a chosen line and
   hyperplane intersect.
+- Bug fixes for
+  [`clampitt_q()`](https://satbq.github.io/musicMCT/reference/clampitt_q.md),
+  so that it gives correct results when `set` includes transpositionally
+  symmetrical subsets or doubled notes.
 
 ### Updates to function `ineqsym()`
 
