@@ -1,3 +1,5 @@
+# musicMCT (development version)
+
 # musicMCT 0.4.0
 ## New functions
 * New `move_to_hyperplane()` finds the point where a chosen line and hyperplane intersect.
