@@ -78,7 +78,7 @@ step pattern repeats every third of an octave).
 The term "moment of symmetry" refers to the non-degenerate well-formed
 scales and was coined by Erv Wilson 1975 (cited in Clough, Engebretsen,
 and Kochavi). It tends to be more widely used in microtonal music
-theory, e.g. <https://en.xen.wiki/w/MOS_scale>.
+theory.
 
 Scales with this property have considerably interesting voice-leading
 properties and are some of the most important landmarks in the geometry

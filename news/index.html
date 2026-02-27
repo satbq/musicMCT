@@ -43,23 +43,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="musicmct-development-version">musicMCT (development version)<a class="anchor" aria-label="anchor" href="#musicmct-development-version"></a></h2>
-<ul><li>New <code><a href="../reference/point_on_flat.html">point_on_flat()</a></code> generates a concrete point on any given flat of a hyperplane arrangement.</li>
+<h2 class="pkg-version" data-toc-text="0.4.0" id="musicmct-040">musicMCT 0.4.0<a class="anchor" aria-label="anchor" href="#musicmct-040"></a></h2>
+<div class="section level3">
+<h3 id="new-functions-0-4-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-4-0"></a></h3>
+<ul><li>New <code><a href="../reference/move_to_hyperplane.html">move_to_hyperplane()</a></code> finds the point where a chosen line and hyperplane intersect.</li>
+<li>New <code><a href="../reference/point_on_flat.html">point_on_flat()</a></code> generates a concrete point on any given flat of a hyperplane arrangement.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="updates-to-function-ineqsym-0-4-0">Updates to function <code>ineqsym()</code>
+<a class="anchor" aria-label="anchor" href="#updates-to-function-ineqsym-0-4-0"></a></h3>
+<ul><li>The function can now return a permutation matrix rather than a scale, which it does if <code>set</code> is <code>NULL</code>. New parameter <code>card</code> goes along with this change: it is necessary to specify the size of the permutation matrix if <code>set</code> is <code>NULL</code>.</li>
+<li>Default value of parameter <code>set</code> is now <code>NULL</code>.</li>
+<li>Change to the way the parameter <code>a</code> is interpreted. Essentially it is now the inverse (mod <code>card</code>) of the previous implementation of <code>a</code>. The new method enhances consistency with other standards and with the permutation-matrix view of the function.</li>
+<li>Changes to the internal logic of the function, emphasizing the role of permutation matrices in implementing the symmetries of the space.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-and-minor-functionality-updates-0-4-0">Bug fixes and minor functionality updates<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-functionality-updates-0-4-0"></a></h3>
+<ul><li>Fixes for <code><a href="../reference/clampitt_q.html">clampitt_q()</a></code>, so that it gives correct results when <code>set</code> includes transpositionally symmetrical subsets or doubled notes.</li>
 <li>
 <code><a href="../reference/ianring.html">ianring()</a></code> gains <code>is_interactive</code> parameter which allows explicit control over whether the function opens a browser window (mainly to disable the browser during tests).</li>
 <li>
 <code><a href="../reference/project_onto.html">project_onto()</a></code> now works for hyperplane arrangements that are not central, such as those from <code><a href="../reference/make_roth_ineqmat.html">make_roth_ineqmat()</a></code> and <code><a href="../reference/make_roth_ineqmat.html">make_rosy_ineqmat()</a></code>.</li>
 <li>
 <code><a href="../reference/scale_palette.html">scale_palette()</a></code> gains an <code>ineqmat</code> parameter, which improves completeness of results for arrangements other than the modal color theory arrangement.</li>
-<li>New <code>move_to_hyerplane()</code> finds the point where a chosen line and hyperplane intersect.</li>
-<li>Bug fixes for <code><a href="../reference/clampitt_q.html">clampitt_q()</a></code>, so that it gives correct results when <code>set</code> includes transpositionally symmetrical subsets or doubled notes.</li>
-</ul><div class="section level3">
-<h3 id="updates-to-function-ineqsym-development-version">Updates to function <code>ineqsym()</code>
-<a class="anchor" aria-label="anchor" href="#updates-to-function-ineqsym-development-version"></a></h3>
-<ul><li>The function can now return a permutation matrix rather than a scale, which it does if <code>set</code> is <code>NULL</code>. New parameter <code>card</code> goes along with this change: it is necessary to specify the size of the permutation matrix if <code>set</code> is <code>NULL</code>.</li>
-<li>Default value of parameter <code>set</code> is now <code>NULL</code>.</li>
-<li>Change to the way <code>a</code> parameter is interpreted. It now gives the results that would have come from entering the inverse of a (modulo <code>card</code>). The new method enhances consistency with other standards and with the permutation matrix view of the function.</li>
-<li>Changes to the internal logic of the function, emphasizing the role of permutation matrices in implementing the symmetries of the space.</li>
 </ul></div>
 </div>
     <div class="section level2">

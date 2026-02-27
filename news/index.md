@@ -1,11 +1,37 @@
 # Changelog
 
-## musicMCT (development version)
+## musicMCT 0.4.0
 
+### New functions
+
+- New
+  [`move_to_hyperplane()`](https://satbq.github.io/musicMCT/reference/move_to_hyperplane.md)
+  finds the point where a chosen line and hyperplane intersect.
 - New
   [`point_on_flat()`](https://satbq.github.io/musicMCT/reference/point_on_flat.md)
   generates a concrete point on any given flat of a hyperplane
   arrangement.
+
+### Updates to function `ineqsym()`
+
+- The function can now return a permutation matrix rather than a scale,
+  which it does if `set` is `NULL`. New parameter `card` goes along with
+  this change: it is necessary to specify the size of the permutation
+  matrix if `set` is `NULL`.
+- Default value of parameter `set` is now `NULL`.
+- Change to the way the parameter `a` is interpreted. Essentially it is
+  now the inverse (mod `card`) of the previous implementation of `a`.
+  The new method enhances consistency with other standards and with the
+  permutation-matrix view of the function.
+- Changes to the internal logic of the function, emphasizing the role of
+  permutation matrices in implementing the symmetries of the space.
+
+### Bug fixes and minor functionality updates
+
+- Fixes for
+  [`clampitt_q()`](https://satbq.github.io/musicMCT/reference/clampitt_q.md),
+  so that it gives correct results when `set` includes transpositionally
+  symmetrical subsets or doubled notes.
 - [`ianring()`](https://satbq.github.io/musicMCT/reference/ianring.md)
   gains `is_interactive` parameter which allows explicit control over
   whether the function opens a browser window (mainly to disable the
@@ -19,26 +45,6 @@
 - [`scale_palette()`](https://satbq.github.io/musicMCT/reference/scale_palette.md)
   gains an `ineqmat` parameter, which improves completeness of results
   for arrangements other than the modal color theory arrangement.
-- New `move_to_hyerplane()` finds the point where a chosen line and
-  hyperplane intersect.
-- Bug fixes for
-  [`clampitt_q()`](https://satbq.github.io/musicMCT/reference/clampitt_q.md),
-  so that it gives correct results when `set` includes transpositionally
-  symmetrical subsets or doubled notes.
-
-### Updates to function `ineqsym()`
-
-- The function can now return a permutation matrix rather than a scale,
-  which it does if `set` is `NULL`. New parameter `card` goes along with
-  this change: it is necessary to specify the size of the permutation
-  matrix if `set` is `NULL`.
-- Default value of parameter `set` is now `NULL`.
-- Change to the way `a` parameter is interpreted. It now gives the
-  results that would have come from entering the inverse of a (modulo
-  `card`). The new method enhances consistency with other standards and
-  with the permutation matrix view of the function.
-- Changes to the internal logic of the function, emphasizing the role of
-  permutation matrices in implementing the symmetries of the space.
 
 ## musicMCT 0.3.0
 
