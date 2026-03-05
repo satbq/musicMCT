@@ -96,6 +96,7 @@ ineqsym <- function(set=NULL,
   indices <- ((a*indices)+b) %% card
   indices <- indices + 1
   permutation_matrix <- permutation_matrix[, indices]
+  if (involution) permutation_matrix <- -1 * permutation_matrix
 
   if (qr(permutation_matrix)$rank < card) {
     bad_a()
@@ -106,9 +107,6 @@ ineqsym <- function(set=NULL,
   } else {
     reset <- coord_to_edo(set, edo=edo)
     res <- as.vector(permutation_matrix %*% reset)
-    if (involution==TRUE) {
-      res <- -1 * res
-    }
     coord_from_edo(res, edo=edo)
   }
 }

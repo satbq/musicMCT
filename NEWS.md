@@ -1,4 +1,6 @@
 # musicMCT (development version)
+* `ineqsym()` now returns the correct permutation matrix when `involution=TRUE`. Previously, the
+  `involution` parameter affected returned sets but not returned permutation matrices.
 
 # musicMCT 0.4.0
 ## New functions
