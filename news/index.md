@@ -2,7 +2,14 @@
 
 ## musicMCT (development version)
 
+- [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  now returns the correct permutation matrix when `involution=TRUE`.
+  Previously, the `involution` parameter affected returned sets but not
+  returned permutation matrices.
+
 ## musicMCT 0.4.0
+
+CRAN release: 2026-02-27
 
 ### New functions
 
