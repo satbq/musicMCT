@@ -20,13 +20,15 @@
 #'
 #' @examples
 #' c_major <- c(0, 2, 4, 5, 7, 9, 11)
-#' c_major_value <- ianring(c_major)
+#' c_major_value <- ianring(c_major, is_interactive=FALSE)
 #' print(c_major_value)
 #' # And indeed you should find information about the major scale
 #' # at https://ianring.com/musictheory/scales/2741
 #'
 #' @examplesIf interactive()
-#' ianring(c(0, 2, 3, 7, 8))
+#' # Set is_interactive to TRUE below to open the website in a
+#' # browser window.
+#' ianring(c(0, 2, 3, 7, 8), is_interactive=FALSE)
 #'
 #' @export
 ianring <- function(set, is_interactive=NULL) {
