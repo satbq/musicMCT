@@ -64,7 +64,7 @@ num_symmetries <- sample(0:5, 1)
 random_symmetries <- sample(c("o", "p", "t", "i", "c"), num_symmetries)
 random_symmetries <- paste(random_symmetries, collapse="")
 print(random_symmetries)
-#> [1] ""
+#> [1] "itop"
 normal_form(alpha, optic=random_symmetries)
-#> [1]  -5 -11  14   9  14  14   2
+#> [1] 0 0 0 0 1 5 7
 ```

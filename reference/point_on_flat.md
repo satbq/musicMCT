@@ -86,13 +86,13 @@ whichsvzeroes(generated_point)
 signvector(test_set)
 #>  [1] -1 -1  1 -1  0 -1 -1  0 -1  0 -1 -1 -1  1  1
 signvector(generated_point)
-#>  [1]  1  1 -1  1  0  1  1  0  1  0  1  1  1 -1 -1
+#>  [1]  1  1  1  1  0 -1  1  0 -1  0  1  1 -1 -1 -1
 
 # Works for other hyperplane arrangements:
 point_on_flat(c(2, 3, 6), card=3, ineqmat="roth")
 #> [1] -6 -6  0
 point_on_flat(c(2, 4), card=4, ineqmat="black")
-#> [1] 0.02795603 3.00000000 0.46938430 9.00000000
+#> [1] 0.7725215 3.0000000 0.8746007 9.0000000
 
 # Not all combinations of hyperplanes admit a solution:
 try(point_on_flat(c(1, 2, 3), card=3, ineqmat="roth"))

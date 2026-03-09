@@ -36,6 +36,10 @@ by setting `method="hamming"`. (All other methods provided by
 [`vl_dist()`](https://satbq.github.io/musicMCT/reference/vl_dist.md)
 give equivalent results in this context.)
 
+When `method` is not "hamming", a synonym for "Q relation" is "Cohn
+flip" (Lewin 1996, [doi:10.2307/843888](https://doi.org/10.2307/843888)
+).
+
 ## Usage
 
 ``` r
