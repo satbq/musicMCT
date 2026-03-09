@@ -56,6 +56,9 @@ If the third part of the definition is relaxed, allowing the voice leading to in
 Clampitt (1997, 121) identifies this as the Q*-relation. The Q*-relation can be computed
 with this function by setting \code{method="hamming"}. (All other methods provided by \code{\link[=vl_dist]{vl_dist()}} give
 equivalent results in this context.)
+
+When \code{method} is not "hamming", a synonym for "Q relation" is "Cohn flip" (Lewin 1996,
+\doi{doi:10.2307/843888}).
 }
 \examples{
 # The Neo-Riemannian P, L, and R transformations on triads are all Q-relations:

@@ -170,6 +170,9 @@ isgwf <- function(set, stepword=NULL, allow_de=FALSE, edo=12, rounder=10) {
 #' with this function by setting `method="hamming"`. (All other methods provided by [vl_dist()] give
 #' equivalent results in this context.)
 #'
+#' When `method` is not "hamming", a synonym for "Q relation" is "Cohn flip" (Lewin 1996, 
+#' \doi{doi:10.2307/843888}).
+#'
 #' @inheritParams tnprime
 #' @param index Integer: which Q-related set and voice leading should be returned? Defaults to `NULL`,
 #'   in which case all options are returned.
