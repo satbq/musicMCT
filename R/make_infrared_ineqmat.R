@@ -22,7 +22,7 @@
 #'
 #' @inheritParams makeineqmat
 #' @param include_wraparound Boolean: should hyperplanes that involve
-#'   intervals that wrap around the octave be included? Defaults to `FALSE`.
+#'   intervals that wrap around the octave be included? Defaults to `TRUE`.
 #'
 #' @returns A matrix with `card+1` columns and `k` rows (where `k` is the
 #'   number of hyperplanes in the arrangement). When `include_wraparound=TRUE`,
@@ -42,7 +42,7 @@
 #' @seealso [make_pastel_ineqmat()] and [make_roth_ineqmat()]
 #'
 #' @export
-make_infrared_ineqmat <- function(card, include_wraparound=FALSE) {
+make_infrared_ineqmat <- function(card, include_wraparound=TRUE) {
   if (card < 3) {
     return(make_white_ineqmat(1+include_wraparound))
   }

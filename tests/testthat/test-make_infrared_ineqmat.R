@@ -7,5 +7,5 @@ test_that("make_infrared_ineqmat works", {
   expect_equal(make_infrared_ineqmat(3, include_wraparound=FALSE), 
                trichord_with_false_mat)
   expect_snapshot(make_infrared_ineqmat(5, include_wraparound=TRUE))
-  expect_snapshot(make_infrared_ineqmat(6))
+  expect_snapshot(make_infrared_ineqmat(6, include_wraparound=FALSE))
 })

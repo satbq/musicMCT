@@ -63,7 +63,7 @@
 ---
 
     Code
-      make_infrared_ineqmat(6)
+      make_infrared_ineqmat(6, include_wraparound = FALSE)
     Output
             [,1]  [,2]  [,3]  [,4] [,5] [,6] [,7]
        [1,] -1.0   2.0  -1.0   0.0  0.0  0.0    0

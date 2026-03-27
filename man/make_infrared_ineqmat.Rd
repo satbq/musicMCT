@@ -4,13 +4,13 @@
 \alias{make_infrared_ineqmat}
 \title{Define hyperplanes for infrared arrangements}
 \usage{
-make_infrared_ineqmat(card, include_wraparound = FALSE)
+make_infrared_ineqmat(card, include_wraparound = TRUE)
 }
 \arguments{
 \item{card}{The cardinality of the scale(s) to be studied}
 
 \item{include_wraparound}{Boolean: should hyperplanes that involve
-intervals that wrap around the octave be included? Defaults to \code{FALSE}.}
+intervals that wrap around the octave be included? Defaults to \code{TRUE}.}
 }
 \value{
 A matrix with \code{card+1} columns and \code{k} rows (where \code{k} is the

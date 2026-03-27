@@ -1,6 +1,8 @@
 # musicMCT (development version)
 * `ineqsym()` now returns the correct permutation matrix when `involution=TRUE`. Previously, the
   `involution` parameter affected returned sets but not returned permutation matrices.
+* `make_infrared_ineqmat()` now defaults to `TRUE` rather than `FALSE` for its `include_wraparound`
+   argument.
 
 # musicMCT 0.4.0
 ## New functions
