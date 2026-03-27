@@ -20,7 +20,7 @@ voice leadings rather than scales themselves.
 ## Usage
 
 ``` r
-make_infrared_ineqmat(card, include_wraparound = FALSE)
+make_infrared_ineqmat(card, include_wraparound = TRUE)
 ```
 
 ## Arguments
@@ -32,7 +32,7 @@ make_infrared_ineqmat(card, include_wraparound = FALSE)
 - include_wraparound:
 
   Boolean: should hyperplanes that involve intervals that wrap around
-  the octave be included? Defaults to `FALSE`.
+  the octave be included? Defaults to `TRUE`.
 
 ## Value
 
@@ -68,9 +68,11 @@ make_pastel_ineqmat(3)
 make_infrared_ineqmat(3)
 #>      [,1] [,2] [,3] [,4]
 #> [1,] -1.0    2 -1.0    0
-#> [2,] -3.0    3  0.0   -1
-#> [3,] -1.5    0  1.5   -1
-#> [4,]  0.0   -3  3.0   -1
+#> [2,] -2.0    1  1.0   -1
+#> [3,] -1.0   -1  2.0   -1
+#> [4,] -3.0    3  0.0   -1
+#> [5,] -1.5    0  1.5   -1
+#> [6,]  0.0   -3  3.0   -1
 make_infrared_ineqmat(3, include_wraparound=TRUE)
 #>      [,1] [,2] [,3] [,4]
 #> [1,] -1.0    2 -1.0    0

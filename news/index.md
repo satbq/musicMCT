@@ -6,6 +6,9 @@
   now returns the correct permutation matrix when `involution=TRUE`.
   Previously, the `involution` parameter affected returned sets but not
   returned permutation matrices.
+- [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md)
+  now defaults to `TRUE` rather than `FALSE` for its
+  `include_wraparound` argument.
 
 ## musicMCT 0.4.0
 
