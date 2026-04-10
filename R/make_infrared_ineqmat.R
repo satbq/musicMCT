@@ -33,7 +33,7 @@
 #' # pastel arrangements:
 #' make_pastel_ineqmat(3)
 #' make_infrared_ineqmat(3)
-#' make_infrared_ineqmat(3, include_wraparound=TRUE)
+#' make_infrared_ineqmat(3, include_wraparound=FALSE)
 #'
 #' # In general, infrared arrangements are more complicated than pastel:
 #' make_pastel_ineqmat(4)
