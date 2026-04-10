@@ -60,9 +60,11 @@ just_dia <- j(dia)
 isTRUE( all.equal( signvector(dia_12edo), signvector(just_dia) ) )
 
 # For voice leadings, consider the opening of *Tristan und Isolde*:
-trist <- c(-1, -3, -1, 3)
-vl_signvector(trist)
+tristan_chord <- c(5, 11, 3, 8)
+v7_of_a <- c(4, 8, 2, 11)
+tristan_vl <- v7_of_a - tristan_chord
+vl_signvector(tristan_vl)
 # which is identical to
-signvector(coord_from_edo(trist), ineqmat="infrared")
+signvector(coord_from_edo(tristan_vl), ineqmat="infrared")
 
 }
