@@ -73,14 +73,12 @@ make_infrared_ineqmat(3)
 #> [4,] -3.0    3  0.0   -1
 #> [5,] -1.5    0  1.5   -1
 #> [6,]  0.0   -3  3.0   -1
-make_infrared_ineqmat(3, include_wraparound=TRUE)
+make_infrared_ineqmat(3, include_wraparound=FALSE)
 #>      [,1] [,2] [,3] [,4]
 #> [1,] -1.0    2 -1.0    0
-#> [2,] -2.0    1  1.0   -1
-#> [3,] -1.0   -1  2.0   -1
-#> [4,] -3.0    3  0.0   -1
-#> [5,] -1.5    0  1.5   -1
-#> [6,]  0.0   -3  3.0   -1
+#> [2,] -3.0    3  0.0   -1
+#> [3,] -1.5    0  1.5   -1
+#> [4,]  0.0   -3  3.0   -1
 
 # In general, infrared arrangements are more complicated than pastel:
 make_pastel_ineqmat(4)
