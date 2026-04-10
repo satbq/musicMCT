@@ -3,6 +3,8 @@
   `involution` parameter affected returned sets but not returned permutation matrices.
 * `make_infrared_ineqmat()` now defaults to `TRUE` rather than `FALSE` for its `include_wraparound`
    argument.
+* New `vl_signvector()` is a wrapper for `signvector()` that interprets inputs as voice leadings
+  rather than scales.
 
 # musicMCT 0.4.0
 ## New functions

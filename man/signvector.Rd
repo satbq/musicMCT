@@ -2,9 +2,12 @@
 % Please edit documentation in R/signvector.R
 \name{signvector}
 \alias{signvector}
+\alias{vl_signvector}
 \title{Detect a scale's location relative to a hyperplane arrangement}
 \usage{
 signvector(set, ineqmat = NULL, edo = 12, rounder = 10)
+
+vl_signvector(vl, ineqmat = "infrared", edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -22,6 +25,11 @@ arrangements, this parameter accepts explicit matrices.}
 
 \item{rounder}{Numeric (expected integer), defaults to \code{10}:
 number of decimal places to round to when testing for equality.}
+
+\item{vl}{Numeric vector representing a voice leading, whose entries should represent the motions
+of voices in registral order from low to high. (That is, the first entry should represent the motion
+of the lowest voice, and the last entry should represent the motion of the highest voice.) Only used
+by \code{vl_signvector()}, where it substitutes for \code{signvector()}'s \code{set} argument.}
 }
 \value{
 A vector whose entries are \code{0}, \code{-1}, or \code{1}. Length of vector equals the
@@ -35,6 +43,10 @@ a vector summarizing the results. If the scale lies on hyperplane 1, then the fi
 entry of its sign vector is \code{0}. If it lies below hyperplane 2, then the second entry
 of its sign vector is \code{-1}. If it lies above hyperplane 3, then the third entry of its
 sign vector is \code{1}. Two scales with identical sign vectors belong to the same "color".
+
+\code{vl_signvector()} is a convenience wrapper that computes the sign vector of a voice leading
+rather than a set. It applies \code{\link[=coord_from_edo]{coord_from_edo()}} to its first argument and defaults to
+"infrared" for its \code{ineqmat} argument.
 }
 \examples{
 # 037 and 016 have identical sign vectors because they belong to the same trichordal color

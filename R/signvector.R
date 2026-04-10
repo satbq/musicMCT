@@ -1,5 +1,6 @@
 #' Detect a scale's location relative to a hyperplane arrangement
 #'
+#' @description
 #' As "Modal Color Theory" describes (pp. 25-26), each distinct scalar "color" is determined
 #' by its relationships to the hyperplanes that define the space. For any scale, this
 #' function calculates a sign vector that compares the scale to each hyperplane and returns
@@ -8,7 +9,15 @@
 #' of its sign vector is `-1`. If it lies above hyperplane 3, then the third entry of its
 #' sign vector is `1`. Two scales with identical sign vectors belong to the same "color".
 #'
+#' `vl_signvector()` is a convenience wrapper that computes the sign vector of a voice leading
+#' rather than a set. It applies [coord_from_edo()] to its first argument and defaults to
+#' "infrared" for its `ineqmat` argument.
+#'
 #' @inheritParams colornum
+#' @param vl Numeric vector representing a voice leading, whose entries should represent the motions
+#'   of voices in registral order from low to high. (That is, the first entry should represent the motion
+#'   of the lowest voice, and the last entry should represent the motion of the highest voice.) Only used
+#'   by `vl_signvector()`, where it substitutes for `signvector()`'s `set` argument.
 #' @returns A vector whose entries are `0`, `-1`, or `1`. Length of vector equals the
 #'   number of hyperplanes in `ineqmat`.
 #' @examples
@@ -33,6 +42,12 @@ signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   res <- ineqmat %*% set
   res <- sign(round(res, digits=rounder))
   as.vector(res)
+}
+
+#' @rdname signvector
+#' @export
+vl_signvector <- function(vl, ineqmat="infrared", edo=12, rounder=10) {
+  signvector(coord_from_edo(vl, edo=edo), ineqmat=ineqmat, edo=edo, rounder=rounder)
 }
 
 #' Which interval-comparison equalities does a scale satisfy?

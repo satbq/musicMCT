@@ -55,3 +55,10 @@ test_that("svzero_fingerprint accepts non-default ineqmats", {
   expect_equal(svzero_fingerprint(c(0, 3, 4, 7), ineqmat=novel_ineqmat),
                c(2, 0 ,0))
 })
+
+test_that("vl_signvector works", {
+  tristan_result <- c(-1, -1, -1, 1, 1, 1, 0, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1)
+  expect_equal(vl_signvector(c(-1, -3, -1, 3)), tristan_result)
+  expect_equal(vl_signvector(c(0, -2, 1), ineqmat="black"),
+               c(0, -1, 1))
+})
