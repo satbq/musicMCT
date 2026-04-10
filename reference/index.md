@@ -94,6 +94,7 @@ Work directly with the information contained in a sign vector
 - [`set_from_signvector()`](https://satbq.github.io/musicMCT/reference/set_from_signvector.md)
   : Create a scale from a sign vector
 - [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+  [`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
   : Detect a scale's location relative to a hyperplane arrangement
 - [`step_signvector()`](https://satbq.github.io/musicMCT/reference/step_signvector.md)
   : Specify a scale's step pattern with a sign vector

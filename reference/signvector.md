@@ -10,10 +10,18 @@ then the second entry of its sign vector is `-1`. If it lies above
 hyperplane 3, then the third entry of its sign vector is `1`. Two scales
 with identical sign vectors belong to the same "color".
 
+`vl_signvector()` is a convenience wrapper that computes the sign vector
+of a voice leading rather than a set. It applies
+[`coord_from_edo()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md)
+to its first argument and defaults to "infrared" for its `ineqmat`
+argument.
+
 ## Usage
 
 ``` r
 signvector(set, ineqmat = NULL, edo = 12, rounder = 10)
+
+vl_signvector(vl, ineqmat = "infrared", edo = 12, rounder = 10)
 ```
 
 ## Arguments
@@ -51,6 +59,15 @@ signvector(set, ineqmat = NULL, edo = 12, rounder = 10)
 
   Numeric (expected integer), defaults to `10`: number of decimal places
   to round to when testing for equality.
+
+- vl:
+
+  Numeric vector representing a voice leading, whose entries should
+  represent the motions of voices in registral order from low to high.
+  (That is, the first entry should represent the motion of the lowest
+  voice, and the last entry should represent the motion of the highest
+  voice.) Only used by `vl_signvector()`, where it substitutes for
+  `signvector()`'s `set` argument.
 
 ## Value
 

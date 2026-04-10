@@ -9,6 +9,11 @@
 - [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md)
   now defaults to `TRUE` rather than `FALSE` for its
   `include_wraparound` argument.
+- New
+  [`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+  is a wrapper for
+  [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+  that interprets inputs as voice leadings rather than scales.
 
 ## musicMCT 0.4.0
 
