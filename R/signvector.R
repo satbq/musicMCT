@@ -31,6 +31,12 @@
 #' just_dia <- j(dia)
 #' isTRUE( all.equal( signvector(dia_12edo), signvector(just_dia) ) )
 #'
+#' # For voice leadings, consider the opening of *Tristan und Isolde*:
+#' trist <- c(-1, -3, -1, 3)
+#' vl_signvector(trist)
+#' # which is identical to
+#' signvector(coord_from_edo(trist), ineqmat="infrared")
+#'
 #' @export
 signvector <- function(set, ineqmat=NULL, edo=12, rounder=10) {
   if (is.null(ineqmat) && length(set) < 2) {
