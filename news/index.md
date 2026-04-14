@@ -14,6 +14,11 @@
   is a wrapper for
   [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
   that interprets inputs as voice leadings rather than scales.
+- New
+  [`monochrome_vl()`](https://satbq.github.io/musicMCT/reference/monochrome_vl.md)
+  detects instances where the voice leading between two modes of a scale
+  cannot be decomposed by passing through some mode of a given
+  contrasting scale.
 
 ## musicMCT 0.4.0
 

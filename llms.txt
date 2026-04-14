@@ -357,6 +357,8 @@ Tools for studying how sets are connected by voice leadings
   : Voice-leading inflection points
 - [`minimize_vl()`](https://satbq.github.io/musicMCT/reference/minimize_vl.md)
   : Smallest voice leading between two sets
+- [`monochrome_vl()`](https://satbq.github.io/musicMCT/reference/monochrome_vl.md)
+  : Which voice leadings are irreducible?
 - [`tndists()`](https://satbq.github.io/musicMCT/reference/tndists.md) :
   Distances between continuous transpositions of a set
 - [`vl_dist()`](https://satbq.github.io/musicMCT/reference/vl_dist.md) :
