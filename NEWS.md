@@ -5,6 +5,8 @@
    argument.
 * New `vl_signvector()` is a wrapper for `signvector()` that interprets inputs as voice leadings
   rather than scales.
+* New `monochrome_vl()` detects instances where the voice leading between two modes of a scale cannot be decomposed
+  by passing through some mode of a given contrasting scale.
 
 # musicMCT 0.4.0
 ## New functions

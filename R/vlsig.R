@@ -299,3 +299,92 @@ inter_vlsig <- function(set,
 }
 
 
+#' Which voice leadings are irreducible?
+#'
+#' Often, the elementary voice leadings of a set (given by [vlsig()]) can be broken
+#' into two intermediate voice leadings through a different set (i.e. ones given by
+#' [inter_vlsig()] with some suitable choice of `goal`). A classic exmaple is the voice
+#' leading (0, 1, 2) that takes C major (C, E, G) to F major (C, F, A). This voice leading
+#' is elementary for major triads, but it can be decomposed into the succession of Neo-Riemannian
+#' voice leadings R-then-L by passing through a minor triad. Such decompositions are not always
+#' possible, though: given a choice of `set` and `goal` classes, sometimes the elementary path
+#' from one mode of `set` to another does not pass through any mode of `goal`. Such a voice 
+#' leading is "monochrome" in the sense that it uses the restricted palette of the modes of a single
+#' `set`.
+#'
+#' @inheritParams inter_vlsig
+#' @param bool Should the result be a Boolean `TRUE`/`FALSE` value? Defaults to `FALSE`.
+#'
+#' @returns If `bool=FALSE`, a voice-leading matrix formatted after `inter_vlsig()`. If `bool=TRUE`,
+#'   a single Boolean value indicating whether any monochrome voice leadings exist for `set` and 
+#'   `goal`.
+#'
+#' @examples
+#' maj7 <- c(0, 4, 7, 11)
+#' mM7 <- c(0, 3, 7, 11)
+#'
+#' # Just a few basic transformations lead between these seventh chords:
+#' inter_vlsig(maj7, mM7)
+#' inter_vlsig(mM7, maj7)
+#'
+#' # But we can see from their brightness graph that modes III and I of maj7
+#' # have no intermediate voice leading that involves the minor-major seventh:
+#' brightnessgraph(maj7, mM7)
+#'
+#' # monochrome_vl detects this voice leading:
+#' monochrome_vl(maj7, mM7)
+#'
+#' # Note that the equivalent does not apply to minor-major seventh, which always
+#' # has some mode of the major 7th chord decomposing its elementary voice leadings:
+#' monochrome_vl(mM7, maj7)
+#'
+#' # Finally, note that the presence of monochrome voice leadings is dependent on 
+#' # the pair of chord types you choose, not simply the "set." For instance, we can define
+#' # a chord that will decompose the voice leading from mode III to mode I of the major 7th:
+#' dom7 <- c(0, 4, 7, 10)
+#' monochrome_vl(maj7, dom7)
+#' brightnessgraph(maj7, dom7)
+#' 
+#' @export
+monochrome_vl <- function(set, goal=NULL, bool=FALSE, display_digits=2, edo=12, rounder=10) {
+  card <- length(set)
+
+  if (!is.null(goal) && length(goal) != card) {
+    stop("Goal must have same length as set.")
+  }
+
+  if (is.null(goal)) {
+    goal <- tni(set, set[card], edo=edo, rounder=rounder)
+  }
+
+  modes <- sim(set, edo=edo, rounder=rounder)
+  arrows <- bg_reduction(set=set, goal=goal, edo=edo, rounder=rounder)
+  upper_left_quadrant <- arrows[1:card, 1:card]
+
+  monochrome_index <- which(upper_left_quadrant != 0, arr.ind=TRUE)
+
+  if (length(monochrome_index) == 0) {
+    vls <- matrix(integer(0), nrow=0, ncol=card)
+  } else {
+
+    vl_from_arrow <- function(vec) rotate(modes[, vec[2]] - modes[, vec[1]], 1-vec[1])
+    vls <- apply(monochrome_index, 1, vl_from_arrow)
+
+    rounded_vls <- t(round(vls, digits=rounder))
+    effective_card <- card / tsym_degree(set, edo=edo, rounder=rounder)
+    all_rotations <- (monochrome_index[, 1] - monochrome_index[, 2]) %% effective_card
+    rounded_vls <- rounded_vls[order(all_rotations), ]
+    unique_rotations <- unique(all_rotations)
+
+    vls <- t(fpunique(vls, MARGIN=2))
+    vls <- vls[order(unique_rotations), ]
+    if (!inherits(vls, "matrix")) vls <- t(vls)
+  }
+
+  if (bool) {
+    as.logical(length(vls))
+  } else {
+    round(vls, display_digits)
+  }
+}
+

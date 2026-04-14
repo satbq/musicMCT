@@ -123,6 +123,7 @@ reference:
 - contents:
   - flex_points
   - minimize_vl
+  - monochrome_vl
   - tndists
   - vl_dist
   - vl_generators

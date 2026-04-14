@@ -97,3 +97,21 @@ test_that("inter_vlsig obverse works", {
   expect_equal(inter_vlsig(sc(7,22), sc(7, 35), type="obverse"),
                dblhm_res)
 })
+
+test_that("monochrome_vl works", {
+  penta_23 <- c(0, 4, 7, 14,15)
+  p23_vl <- matrix(c(0, 3, 1, 2, 5), nrow=1)
+  expect_equal(monochrome_vl(penta_23, edo=23),
+               p23_vl)
+  expect_equal(monochrome_vl(penta_23, edo=23, bool=TRUE),
+               TRUE)
+
+  maj7 <- c(0, 4, 7, 11)
+  mM7 <- c(0, 3, 7, 11)
+  maj7_res <- matrix(c(2, 2, 0, 0), nrow=1)
+  expect_equal(monochrome_vl(maj7, mM7),
+               maj7_res)
+  expect_equal(monochrome_vl(maj7, mM7, bool=TRUE), TRUE)
+  expect_equal(monochrome_vl(mM7, maj7, bool=TRUE), FALSE)
+  expect_equal(monochrome_vl(mM7, maj7), matrix(integer(0), nrow=0, ncol=4))
+})
