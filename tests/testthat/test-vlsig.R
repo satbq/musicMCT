@@ -114,4 +114,6 @@ test_that("monochrome_vl works", {
   expect_equal(monochrome_vl(maj7, mM7, bool=TRUE), TRUE)
   expect_equal(monochrome_vl(mM7, maj7, bool=TRUE), FALSE)
   expect_equal(monochrome_vl(mM7, maj7), matrix(integer(0), nrow=0, ncol=4))
+
+  expect_error(monochrome_vl(penta_23, maj7))
 })
