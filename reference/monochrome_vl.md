@@ -5,7 +5,7 @@ Often, the elementary voice leadings of a set (given by
 broken into two intermediate voice leadings through a different set
 (i.e. ones given by
 [`inter_vlsig()`](https://satbq.github.io/musicMCT/reference/vlsig.md)
-with some suitable choice of `goal`). A classic exmaple is the voice
+with some suitable choice of `goal`). A classic example is the voice
 leading (0, 1, 2) that takes C major (C, E, G) to F major (C, F, A).
 This voice leading is elementary for major triads, but it can be
 decomposed into the succession of Neo-Riemannian voice leadings R-then-L
@@ -37,10 +37,8 @@ monochrome_vl(
 
 - goal:
 
-  For
-  [`inter_vlsig()`](https://satbq.github.io/musicMCT/reference/vlsig.md)
-  only, vector of the transposition type to voice lead to. Defaults to
-  `NULL`, producing voice leadings to the inversion of `set`.
+  Vector of the transposition type to voice lead to. Defaults to `NULL`,
+  producing voice leadings to the inversion of `set`.
 
 - bool:
 
@@ -93,14 +91,15 @@ monochrome_vl(maj7, mM7)
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    2    2    0    0
 
-# Note that the equivalent does not apply to minor-major seventh, which always
+# Note that the equivalent does not apply to the minor-major seventh, which always
 # has some mode of the major 7th chord decomposing its elementary voice leadings:
 monochrome_vl(mM7, maj7)
 #>      [,1] [,2] [,3] [,4]
 
 # Finally, note that the presence of monochrome voice leadings is dependent on 
-# the pair of chord types you choose, not simply the "set." For instance, we can define
-# a chord that will decompose the voice leading from mode III to mode I of the major 7th:
+# the pair of chord types you choose, not simply the "set." For instance, we can 
+# define a chord that will decompose the voice leading from mode III to mode I 
+# of the major 7th:
 dom7 <- c(0, 4, 7, 10)
 monochrome_vl(maj7, dom7)
 #>      [,1] [,2] [,3] [,4]

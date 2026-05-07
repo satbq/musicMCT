@@ -19,6 +19,9 @@
   detects instances where the voice leading between two modes of a scale
   cannot be decomposed by passing through some mode of a given
   contrasting scale.
+- New vignette (mct_symmetries.Rmd) explains the use of
+  [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  and related functions.
 
 ## musicMCT 0.4.0
 

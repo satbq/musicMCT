@@ -27,6 +27,7 @@ You can install the latest released version of musicMCT from
 [CRAN](https://cran.r-project.org/package=musicMCT) with:
 
 ``` r
+
 install.packages("musicMCT")
 ```
 
@@ -34,6 +35,7 @@ Alternatively, you can install the development version of musicMCT from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("satbq/musicMCT")
 ```
@@ -54,6 +56,7 @@ Download these files, save them to your working directory, and load them
 with:
 
 ``` r
+
 representative_scales <- readRDS("representative_scales.rds")
 representative_signvectors <- readRDS("representative_signvectords.rds")
 color_adjacencies <- readRDS("color_adjacencies.rds")
@@ -69,6 +72,7 @@ As a very quick example, let’s define the most common “just intonation”
 version of the major scale and run a few tests on it:
 
 ``` r
+
 library(musicMCT)
 just_dia_frequency_ratios <- c(1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8)
 just_dia <- 12 * log2(just_dia_frequency_ratios)

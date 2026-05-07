@@ -1,6 +1,7 @@
 # Introduction to musicMCT
 
 ``` r
+
 library(musicMCT)
 ```
 
@@ -14,6 +15,7 @@ the **i**nterval-class **vec**tor of the diatonic scale (Forte’s **s**et
 **c**lass 7-35) as follows:
 
 ``` r
+
 ivec(sc(7,35))
 #> [1] 2 5 4 3 6 1
 ```
@@ -52,6 +54,7 @@ then calling
 package’s function for finding the modes of a scale:
 
 ``` r
+
 melodic_minor <- c(0, 2, 3, 5, 7, 9, 11)
 sim(melodic_minor)
 #>      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
@@ -84,6 +87,7 @@ pitch-class space. For instance, here’s a common just tuning of the
 major scale (Ptolemy’s “intense” or “syntonic” diatonic):
 
 ``` r
+
 j(dia)
 #> [1]  0.000000  2.039100  3.863137  4.980450  7.019550  8.843587 10.882687
 ```
@@ -97,6 +101,7 @@ Our input, the melodic minor scale, is in the first column, and the
 scale we want to study can be read from the fourth column of the SIM:
 
 ``` r
+
 sim(melodic_minor)[, 4]
 #> [1]  0  2  4  6  7  9 10
 ```
@@ -108,6 +113,7 @@ B-flat). We’ll do that by checking the **v**oice **l**eading from C
 major to this scale:
 
 ``` r
+
 c_major <- c(0, 2, 4, 5, 7, 9, 11)
 minimize_vl(c_major, sim(melodic_minor)[, 4])
 #> [1]  0  0  0  1  0  0 -1
@@ -133,6 +139,7 @@ octave above the 7th). We’ll convert that into semitone measurements as
 follows:
 
 ``` r
+
 overtones <- 7:13
 frequency_ratios <- overtones / 7
 semitone_values <- 12 * log2(frequency_ratios)
@@ -147,6 +154,7 @@ musical similarity (as [Callender, Quinn, and Tymoczko
 2008](https://doi.org/10.1126/science.1153021) argue):
 
 ``` r
+
 acoustic_scale <- sim(melodic_minor)[, 4]
 minimize_vl(overtone_scale, acoustic_scale)
 #> [1]  0.00000000 -0.03910002  0.13686286  0.48682058 -0.01955001  0.59472338
@@ -174,6 +182,7 @@ that it’s what you get if you simply round the values of the
 `overtone_scale` to the nearest integer (in 12edo):
 
 ``` r
+
 round(overtone_scale, digits=0)
 #> [1]  0  2  4  6  7  8 10
 ```
@@ -196,6 +205,7 @@ expect to get essentially the same quantization, just with 1 added to
 every value:
 
 ``` r
+
 round(overtone_scale, digits=0)
 #> [1]  0  2  4  6  7  8 10
 round(tn(overtone_scale, 1), digits=0)
@@ -209,6 +219,7 @@ hundredth of a semitone) in that range, that should be a fine enough
 sampling to encounter every quantization:
 
 ``` r
+
 amounts_to_transpose <- (0:99)/100
 transposed_scales <- sapply(amounts_to_transpose, tn, set=overtone_scale)
 quantized_scales <- apply(transposed_scales, 2, round, digits=0)
@@ -229,6 +240,7 @@ eighth column is just \\{T_1}\\ of the first. So let’s make them all
 start on zero to double-check that they’re truly unique:
 
 ``` r
+
 unique_quantizations_from_0 <- apply(unique_quantizations, 2, startzero)
 final_quantizations <- unique(unique_quantizations_from_0, MARGIN=2)
 colnames(final_quantizations) <- apply(final_quantizations, 2, fortenum)
@@ -290,6 +302,7 @@ called an `ineqmat` (for “inequality matrix”). The relevant matrix for
 four-note scales looks like this:
 
 ``` r
+
 getineqmat(4)
 #>      [,1] [,2] [,3] [,4] [,5]
 #> [1,]   -1    2   -1    0    0
@@ -313,6 +326,7 @@ For instance, let’s consider set classes 4-6 (prime form 0127) and 4-24
 (prime form 0248). Here are their sign vectors:
 
 ``` r
+
 signvector(sc(4, 6))
 #> [1]  0 -1 -1 -1 -1  0 -1  0
 signvector(sc(4, 24))
@@ -331,6 +345,7 @@ Still, in this case, let’s take a look at the sign vectors of the
 acoustic and overtone scales:
 
 ``` r
+
 signvector(acoustic_scale)
 #>  [1]  0  0  0  1  1  1  0  0  0 -1  1  1  1  0  1  0  0  0 -1  0 -1  1  1  1  1
 #> [26]  1  0  1  1  0  0  0 -1 -1 -1  1  1  0  0  0 -1 -1
@@ -373,6 +388,7 @@ could manually count which entry of the sign vector is a 0, but musicMCT
 also has a function for that:
 
 ``` r
+
 whichsvzeroes(overtone_scale)
 #> [1] 38
 ```
@@ -381,6 +397,7 @@ We can now look at the row of the heptachordal `ineqmat` to see what
 interval comparison it defines:
 
 ``` r
+
 getineqmat(7)[whichsvzeroes(overtone_scale),]
 #> [1] -1 -1  0  0  2  0  0 -1
 ```
@@ -391,6 +408,7 @@ discussion of how to read the rows of an `ineqmat` like this.) And, sure
 enough, this is true:
 
 ``` r
+
 signed_interval_class(overtone_scale[5]-overtone_scale[1])
 #> [1] -4.98045
 signed_interval_class(overtone_scale[5]-overtone_scale[2])
@@ -404,6 +422,7 @@ from G to C. We could also verify that by checking that the 38th entry
 of its sign vector is also 0:
 
 ``` r
+
 signvector(acoustic_scale)[38]
 #> [1] 0
 ```
@@ -412,6 +431,7 @@ In fact, why don’t we consider all seven of the distinct quantizations
 from the previous section?
 
 ``` r
+
 all_signvectors <- apply(final_quantizations, 2, signvector)
 all_signvectors[38, ]
 #> 7-33 7-34 7-31 7-28 7-29 7-27 7-34 
@@ -431,6 +451,7 @@ the sign vectors as if they were real vectors in a 42-dimensional space
 and compute their distances:
 
 ``` r
+
 signvectors_with_overtone_scale <- rbind(signvector(overtone_scale), t(all_signvectors))
 rownames(signvectors_with_overtone_scale)[1] <- "o.s."
 dist(signvectors_with_overtone_scale)
@@ -472,6 +493,7 @@ goes.) Let’s compare the `overtone_scale`’s freedom to its seven
 quantizations:
 
 ``` r
+
 howfree(overtone_scale)
 #> [1] 5
 apply(final_quantizations, 2, howfree)
@@ -488,6 +510,7 @@ heptachords. We can check the degrees of freedom of all 38 heptachordal
 set classes in 12edo:
 
 ``` r
+
 all_12edo_heptachords <- sapply(1:38, sc, card=7)
 heptachord_freedoms <- apply(all_12edo_heptachords, 2, howfree)
 table(heptachord_freedoms)
@@ -512,6 +535,7 @@ color, in the lowest n-note equal division of the octave where such a
 quantization exists.
 
 ``` r
+
 quantized_overtone_color <- quantize_color(overtone_scale)
 print(quantized_overtone_color)
 #> $set
@@ -537,6 +561,7 @@ same “color” as the `overtone_scale` by verifying that it has the same
 sign vector as the scale it approximates:
 
 ``` r
+
 round(overtone_scale, digits=2)
 #> [1] 0.00 2.04 3.86 5.51 7.02 8.41 9.69
 convert(quantized_overtone_color$set, 30, 12)
@@ -585,6 +610,7 @@ two sign vectors are identical, and `-1` if the colors are neither the
 same nor adjacent.
 
 ``` r
+
 overtone_sv <- signvector(overtone_scale)
 apply(all_signvectors, 2, comparesignvecs, signvecY=overtone_sv)
 #> 7-33 7-34 7-31 7-28 7-29 7-27 7-34 
@@ -624,6 +650,7 @@ working directory, which you can find by calling
 files into your R session with the following commands:
 
 ``` r
+
 representative_scales <- readRDS("representative_scales.rds")
 representative_signvectors <- readRDS("representative_signvectords.rds")
 color_adjacencies <- readRDS("color_adjacencies.rds")
@@ -636,6 +663,7 @@ try to look up a scale’s color number without the
 `representative_signvectors` saved, you’ll probably get a `NULL` result:
 
 ``` r
+
 colornum(overtone_scale)
 #> NULL
 ```
@@ -653,6 +681,7 @@ into R, but its objective is to find the most regular scale that the
 `overtone_scale` is structurally adjacent to:
 
 ``` r
+
 os_adjacent_colors <- color_adjacencies[[7]][[colornum(overtone_scale)]]
 os_adjacent_scales <- representative_scales[[7]][, os_adjacent_colors]
 regularity <- apply(os_adjacent_scales, 2, countsvzeroes)
@@ -669,6 +698,7 @@ semitone measurements, this is the scale (0.00, 1.71, 3.43, 5.14, 6.86,
 step sizes:
 
 ``` r
+
 asword(overtone_scale)
 #> [1] 6 5 4 3 2 1 7
 best_simple_approximation <- convert(c(0, 2, 4, 6, 8, 10, 11), 14, 12)
@@ -699,6 +729,7 @@ that contradiction by comparing the 10th place of their respective sign
 vectors:
 
 ``` r
+
 signvector(overtone_scale)[10]
 #> [1] 1
 signvector(best_simple_approximation)[10]
@@ -712,6 +743,7 @@ voice-leading distance, not clearly closer to the `overtone_scale` than
 our `best_simple_approximation` is:
 
 ``` r
+
 round(minimize_vl(overtone_scale, acoustic_scale), 3)
 #> [1]  0.000 -0.039  0.137  0.487 -0.020  0.595  0.312
 round(minimize_vl(overtone_scale, best_simple_approximation), 3)
@@ -765,6 +797,7 @@ graphs with
 First let’s take a look at the `acoustic_scale`:
 
 ``` r
+
 brightnessgraph(acoustic_scale)
 ```
 
@@ -806,6 +839,7 @@ giving the graph a diamond-like shape.
 Let’s now take a look at the brightness graph for the `overtone_scale`:
 
 ``` r
+
 brightnessgraph(overtone_scale, numdigits=1, show_sums=FALSE)
 ```
 
@@ -836,6 +870,7 @@ of the `overtone_scale` to a division of the octave into 30 steps. Let’s
 see what the brightness graph of that approximation looks like:
 
 ``` r
+
 brightnessgraph(quantized_overtone_color$set, edo=30, show_sums=FALSE)
 ```
 
@@ -873,6 +908,7 @@ in the line of code below to any value from `1` to `7` to check the
 different scales:
 
 ``` r
+
 brightnessgraph(final_quantizations[, 4])
 ```
 
@@ -887,6 +923,7 @@ pitch-classes in each mode, since without manual tweaking they overlap
 to the point of illegibility:
 
 ``` r
+
 brightnessgraph(best_simple_approximation, show_pitches=FALSE, show_sums=FALSE)
 ```
 

@@ -1,6 +1,7 @@
 # Visualizing Higher Dimensions
 
 ``` r
+
 library(musicMCT)
 ```
 
@@ -80,6 +81,7 @@ transpositional combination of an (0, 2, 4, 5) tetrachord at a perfect
 fifth:
 
 ``` r
+
 tc(c(0, 2, 4, 5), c(0, 7))
 #> [1]  0  2  4  5  7  9 11
 ```
@@ -97,6 +99,7 @@ degrees (i.e. a “genus” in Ancient Greek theory) and returns an entire
 scale:
 
 ``` r
+
 scale_from_genus <- function(genus) {
  sd2 <- genus[1]
  sd3 <- genus[2]
@@ -220,6 +223,7 @@ in Western music theory, there are several that have the desired
 tetrachordal structure:
 
 ``` r
+
 ionian <- scale_from_genus(c(2, 4)) #1
 dorian <- scale_from_genus(c(2, 3)) #2
 phrygian <- scale_from_genus(c(1, 3)) #3
@@ -233,6 +237,7 @@ To see these scales on the plane, we define the function `tetra_plot()`
 and feed our scales into it.
 
 ``` r
+
 tetra_plot <- function(scales, title, ...) {
   oldpar <- par(bg='aliceblue')
   on.exit(par(oldpar))
@@ -286,6 +291,7 @@ with quarter-tone steps clustered toward the top of its tetrachords.
 Let’s verify that this works and plot the new scale as point \#6:
 
 ``` r
+
 # Invert the original enharmonic scale:
 inverted_enharmonic <- tni(enharmonic, 0)
 
@@ -320,6 +326,7 @@ new function, `show_landmarks()`, which lets us add reminders of these
 six scales to any new plots we create:
 
 ``` r
+
 show_landmarks <- function() {
   points(demo_scales[2, ], demo_scales[3, ], pch=19, cex=2.5, col="white")
   points(demo_scales[2, ], demo_scales[3, ], pch=sapply(1:6, toString), font=2)
@@ -338,6 +345,7 @@ vectors result. First we’ll do that only as a numeric computation,
 sampling 4000 points in the plane:
 
 ``` r
+
 num_points <- 4000
 parhypatai <- runif(num_points, 0, 5)
 lichanoi <- runif(num_points, 0, 5)
@@ -360,6 +368,7 @@ about one scale structure than another.) Let’s also include the six
 points:
 
 ``` r
+
 match_sv <- function(sv) {
   res <- which(unique_signvectors == toString(sv))
   if (length(res)==0) {
@@ -404,6 +413,7 @@ lies directly on the line segment that separates the reddish purple and
 yellow-green triangles:
 
 ``` r
+
 howfree(double_harmonic)
 #> [1] 2
 ```
@@ -415,6 +425,7 @@ can visualize (landmarks \#1, \#2, and \#3) are at such intersections,
 and (like all well-formed scales) that have only one degree of freedom:
 
 ``` r
+
 howfree(ionian)
 #> [1] 1
 howfree(dorian)
@@ -441,6 +452,7 @@ as double harmonic itself. I’ll plot the new projected scales as black
 points, in addition to the colorful points from Figure 4.
 
 ``` r
+
 projected_scales <- apply(random_scales, 2, match_flat, target_scale=double_harmonic)
 colors_for_projected_scales <- rep("black", num_points)
 scales_for_fig5 <- cbind(random_scales, projected_scales)
@@ -470,6 +482,7 @@ it’s an example of the unusual class of *singular* pairwise-well formed
 scales.) Do all the scales that lie on its flat have that property, too?
 
 ``` r
+
 test_for_pwf <- apply(projected_scales, 2, isgwf)
 table(test_for_pwf)
 #> test_for_pwf
@@ -493,6 +506,7 @@ scale that lies on the flat and plot the points so that more even scales
 are represented by larger points.
 
 ``` r
+
 evenness_values <- apply(projected_scales, 2, evenness)
 sizes_for_fig6 <- c(rep(1, num_points), max(evenness_values)-evenness_values)
 
@@ -531,6 +545,7 @@ exactly where the thickest point on the diagonal black line is. We can
 zoom in to get a better view of that part of the plane:
 
 ``` r
+
 zoomed_tetra_plot <- function(scales, title, ...) {
   oldpar <- par(bg='aliceblue')
   on.exit(par(oldpar))
@@ -578,6 +593,7 @@ don’t have to eyeball this, since we can just check the evenness values
 directly:
 
 ``` r
+
 which_most_even <- which.min(evenness_values)
 projected_scales[, which_most_even]
 #> [1]  0.000000  1.642429  3.357571  5.000000  7.000000  8.642429 10.357571
@@ -588,6 +604,7 @@ of \\1 \frac{2}{3}\\ and \\3 \frac{1}{3}\\, but the real answer is is
 somewhat more surprising:
 
 ``` r
+
 naive_guess <- scale_from_genus(c(1+(2/3), 3+(1/3)))
 actual_optimum <- scale_from_genus(c(23/14, 47/14))
 
@@ -609,6 +626,7 @@ come out of nowhere when we notice that their difference is
 Let’s plot this scale as landmark 7:
 
 ``` r
+
 zoomed_tetra_plot(points_for_fig7, 
                   "Most Even Scale at the Point Labeled #7",
                   col=colors_for_fig7,
@@ -634,6 +652,7 @@ just down and right of landmark 7: it’s thus one-dimensional and, as it
 turns out, well-formed:
 
 ``` r
+
 howfree(naive_guess)
 #> [1] 1
 iswellformed(naive_guess)
@@ -676,6 +695,7 @@ To see how it works, let’s first use
 4:
 
 ``` r
+
 # Define a grid that covers the tc() plane evenly.
 # x and y both range from 0 to 5 but with slight offsets so that we only see 3-D scales:
 grid_subdivisions <- 100
@@ -727,6 +747,7 @@ also add a white “x” to show the location of landmark scale \#7 from
 Figure 8.
 
 ``` r
+
 # Position plot and legend
 oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
@@ -779,6 +800,7 @@ that can be calculated with musicMCT’s
 function).
 
 ``` r
+
 oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
@@ -835,6 +857,7 @@ works nicely in tandem with
 lines that show us where specific values in the plot occur:
 
 ``` r
+
 oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
@@ -876,6 +899,7 @@ plot which is hard to make out in Figure 12, so let’s zoom in to the
 central square like we did in Figure 7.
 
 ``` r
+
 oldpar <- par(no.readonly=TRUE)
 layout(matrix(c(1, 2), ncol=2), widths=c(5, 2))
 
@@ -928,6 +952,7 @@ of 4 distinct lines as you can check by going back to Figure 9. These
 For instance:
 
 ``` r
+
 ratio(scale_from_genus(c(1.5, 3.5)))
 #> [1] 0
 ```
