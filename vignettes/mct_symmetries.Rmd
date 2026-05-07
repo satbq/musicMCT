@@ -485,15 +485,17 @@ inversion %*% coord_to_edo(phrygian) |> coord_from_edo() |> t() |> as.numeric()
 Note that these examples both use `coord_to_edo()` and `coord_from_edo()` to switch between coordinate systems. Another option, which avoids changing coordinates, is to use `ineqsym()` and `saturate()` directly on a set. For instance, we can invert the `blues` scale (which is not inversionally symmetrical) as follows:
 
 ```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
-inverted_blues <- ineqsym(blues, a=5, b=0) |> saturate(r=-1)
-print(inverted_blues)
-
 #| fig.alt: >
 #|   A so-called clockface diagram for the blues scale. A circle is labeled with
 #|   twelve numbers, from 0 to 11, along its rim like an analog clock. The numbers that
 #|   correspond to notes in the blues scale are circled.
-clockface(blues)
+inverted_blues <- ineqsym(blues, a=5, b=0) |> saturate(r=-1)
+print(inverted_blues)
 
+clockface(blues)
+```
+
+```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
 #| fig.alt: >
 #|   A clockface diagram for the inversion of the blues scale.
 clockface(inverted_blues)
