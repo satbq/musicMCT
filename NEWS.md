@@ -7,6 +7,7 @@
   rather than scales.
 * New `monochrome_vl()` detects instances where the voice leading between two modes of a scale cannot be decomposed
   by passing through some mode of a given contrasting scale.
+* New vignette (mct_symmetries.Rmd) explains the use of `ineqsym()` and related functions.
 
 # musicMCT 0.4.0
 ## New functions
