@@ -910,24 +910,21 @@ inverted_blues <- ineqsym(blues, a=5, b=0) |> saturate(r=-1)
 print(inverted_blues)
 #> [1] 0 2 5 6 7 9
 
-#| fig.alt: >
-#|   A so-called clockface diagram for the blues scale. A circle is labeled with
-#|   twelve numbers, from 0 to 11, along its rim like an analog clock. The numbers that
-#|   correspond to notes in the blues scale are circled.
 clockface(blues)
 ```
 
-![](mct_symmetries_files/figure-html/unnamed-chunk-46-1.png)
+![A so-called clockface diagram for the blues scale. A circle is labeled
+with twelve numbers, from 0 to 11, along its rim like an analog clock.
+The numbers that correspond to notes in the blues scale are
+circled.](mct_symmetries_files/figure-html/unnamed-chunk-46-1.png)
 
 ``` r
 
-
-#| fig.alt: >
-#|   A clockface diagram for the inversion of the blues scale.
 clockface(inverted_blues)
 ```
 
-![](mct_symmetries_files/figure-html/unnamed-chunk-46-2.png)
+![A clockface diagram for the inversion of the blues
+scale.](mct_symmetries_files/figure-html/unnamed-chunk-47-1.png)
 
 Of course, the point of this exercise is to prove that \\T_nI\\
 transformations belong to a larger family of scalar transformations. If
