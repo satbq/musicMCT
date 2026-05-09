@@ -46,10 +46,10 @@ study might get into.
 
 ### 1. Introducing the main characters
 
-A familiar object from the theory of 20th-century music is the scale (C,
-D, E, F-sharp, G, A, B-flat). This is the fourth mode of melodic minor.
-We can verify that fact by defining the melodic minor scale for R and
-then calling
+A familiar object from the theory of 20th-century music is the scale
+\\(C, D, E, F \sharp, G, A, B \flat)\\. This is the fourth mode of
+melodic minor. We can verify that fact by defining the melodic minor
+scale for R and then calling
 [`sim()`](https://satbq.github.io/musicMCT/reference/sim.md), the
 package’s function for finding the modes of a scale:
 
@@ -108,8 +108,8 @@ sim(melodic_minor)[, 4]
 
 Just to practice using R, let’s pretend that we’ve forgotten how to
 interpret pitch-class integers and that we therefore need to verify that
-those numbers do correspond to the notes (C, D, E, F-sharp, G, A,
-B-flat). We’ll do that by checking the **v**oice **l**eading from C
+those numbers do correspond to the notes \\(C, D, E, F \sharp, G, A, B
+\flat)\\. We’ll do that by checking the **v**oice **l**eading from C
 major to this scale:
 
 ``` r
@@ -125,7 +125,7 @@ points out, key signatures are essentially just voice leadings from the
 C major scale to another heptachord, and here we’ve found a voice
 leading that raises the fourth step (F) a semitone while lowering the
 seventh step (B). So the numbers (0, 2, 4, 6, 7, 9, 10) do indeed
-correspond to the scale (C, D, E, F-sharp, G, A, B-flat).
+correspond to the scale \\(C, D, E, F \sharp, G, A, B \flat)\\.
 
 Now, this scale is sometimes called the “acoustic” scale because in some
 sense it is close to a seven-note chunk of the overtone series. Our task
@@ -142,7 +142,7 @@ follows:
 
 overtones <- 7:13
 frequency_ratios <- overtones / 7
-semitone_values <- 12 * log2(frequency_ratios)
+semitone_values <- z(frequency_ratios)
 overtone_scale <- sim(semitone_values)[, 2]
 print(overtone_scale)
 #> [1] 0.000000 2.039100 3.863137 5.513179 7.019550 8.405277 9.688259
@@ -213,10 +213,10 @@ round(tn(overtone_scale, 1), digits=0)
 ```
 
 To find the other possible quantizations, we need to explore the range
-of transpositions where the scale’s tonic is some value `0 < x < 1`. If
-we transpose the `overtone_scale` so that it starts on every cent (i.e.
-hundredth of a semitone) in that range, that should be a fine enough
-sampling to encounter every quantization:
+of transpositions where the scale’s tonic is some value \\0 \< x \< 1\\.
+If we transpose the `overtone_scale` so that it starts on every cent
+(i.e. hundredth of a semitone) in that range, that should be a fine
+enough sampling to encounter every quantization:
 
 ``` r
 
@@ -942,4 +942,4 @@ to describe.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 17 November 2025
+**Last updated:** 9 May 2026

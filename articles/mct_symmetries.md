@@ -10,12 +10,13 @@ library(musicMCT)
 This vignette shows how to use musicMCT to work with the concepts
 introduced in the paper “Symmetries of the Modal Color Theory Hyperplane
 Arrangements.” It will introduce relevant tools in an order that roughly
-corresponds to the paper’s organization. I’ve tried to write it to be
-accessible for readers coming to musicMCT from “Symmetries,” so it
+corresponds to the paper’s organization. (Sections are numbered to
+correspond with the sections of the paper, too.) I’ve tried to write it
+to be accessible for readers coming to musicMCT from “Symmetries,” so it
 introduces some basic aspects of R syntax that might be useful for
 applications of the paper.
 
-### \\\S 1.2\\ Scales, intervals, etc.
+### 1.2: Scales, intervals, etc.
 
 R is a 1-indexed language, so the “tonic” of a scale is denoted by
 \\\hat{1}\\ rather than by \\\hat{0}\\ as in Definition 1 of
@@ -42,11 +43,14 @@ cardinality:
 
 double_harmonic <- realize_stepword(c(1, 3, 1, 2, 1, 3, 1))
 blackkey_pentatonic <- maxeven(5, 12)
+all_interval_tetrachord <- sc(4, 29)
 
 print(double_harmonic)
 #> [1]  0  1  4  5  7  8 11
 print(blackkey_pentatonic)
 #> [1] 0 2 4 7 9
+print(all_interval_tetrachord)
+#> [1] 0 1 3 7
 ```
 
 We can access an individual scale degree of a scale as follows:
@@ -124,7 +128,7 @@ degree \\\hat{4}\\ in the `blues` scale is 4 semitones large. (Remember
 that, in R, scale degrees start from \\\hat{1}\\ rather than
 \\\hat{0}\\.)
 
-### \\\S 1.3\\ Hyperplane arrangements
+### 1.3: Hyperplane arrangements
 
 For a given \\n\\, the hyperplane arrangement \\\mathcal{M}\_n\\
 described by Definition 6 can be accessed in R via the function
@@ -157,9 +161,8 @@ Excluding the last column, each row of the matrix contains the normal
 vector for some hyperplane \\H^g\_{i, j}\\. The final column contains
 constants that translate the hyperplanes so that they intersect at the
 equal division of the octave. (The package musicMCT is designed to take
-inputs represented as pitch sets, not using the coordinate system of
-\\\Phi_n\\ where the origin is the equal division of the octave. The
-matrix needs its last column to make this work.)
+inputs represented as pitch sets, not using \\\Phi_n\\’s coordinate
+system. The matrix needs its last column to make this work.)
 
 Here is Example 5 realized in musicMCT:
 
@@ -188,9 +191,9 @@ that performs calculations like Example 5, comparing an input set to all
 the hyperplanes in \\\mathcal{M}\_n\\. This function,
 [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
 returns only signs (`-1`, `0`, and `1`) rather than specific values
-(like the value 2 in Example 2). This is because, generally, we only
-care about the relative position of a set to a hyperplane, not its
-absolute distance. The sign vector for the chord in Example 5 is:
+(like the value 2 in Example 2). This is because we generally only care
+about the relative position of a set to a hyperplane, not its absolute
+distance. The sign vector for the chord in Example 5 is:
 
 ``` r
 
@@ -215,7 +218,7 @@ signvector(c_major)[23]
 #> [1] 0
 ```
 
-## \\\S 2\\ Symmetries of MCT Arrangements
+## 2: Symmetries of MCT Arrangements
 
 The symmetries of \\\mathcal{M}\_n\\ described in this section are
 realized by the function
@@ -423,9 +426,9 @@ the same set class, 6-27, as the `image_of_blues` under
 OPTC-normal forms (after Hook 2023, 416–18), so they must be related by
 some \\T_nI\\ inversion.
 
-## \\\S 3\\ Orbits as equivalence classes of scale structure
+## 3: Orbits as equivalence classes of scale structure
 
-### \\\S 3.1\\ Brightness Graphs
+### 3.1: Brightness Graphs
 
 The brightness graph of a scale can be sketched in musicMCT using the
 function
@@ -524,7 +527,7 @@ vlsig(tetrachord_G, index=1)
 #> [1] 1
 ```
 
-### \\\S 3.2\\ Well-Formedness
+\##3.2: Well-Formedness
 
 We can begin by testing Proposition 5 for the pentatonic scale and its
 images, from Example 5 above:
@@ -768,7 +771,7 @@ print(more_blues)
 #> [6,]    10     9     9    11     9    10     9    11    11    10
 ```
 
-## \\\S 4\\ Symmetrical Scales
+## 4: Symmetrical Scales
 
 We start by defining the scale from Example 9 and testing that it is
 fixed by \\\sigma\_{4, 3}\\.
@@ -829,8 +832,8 @@ so any scale which is some linear combination of them will be fixed by
 \\P\_{\pi}\\.
 
 Similarly, the last two column vectors correspond to the eigenvalue
-`-1`. Thus we can define a scale that is sent to its opposite by this
-transformation with any linear combination of them:
+`-1`. Thus we can define a scale that is sent to its scalar involution
+by this transformation with any linear combination of them:
 
 ``` r
 
@@ -838,26 +841,26 @@ eigenvector_y <- c(0, -1, 1, 0, 0)
 eigenvector_z <- c(1, 0, 0, -1, 0)
 
 eigenscale <- coord_from_edo(eigenvector_y + eigenvector_z)
-eigenscale_opposite <- coord_from_edo(-1 * (eigenvector_y + eigenvector_z))
+eigenscale_involution <- coord_from_edo(-1 * (eigenvector_y + eigenvector_z))
 
 print(eigenscale)
 #> [1] 1.0 1.4 5.8 6.2 9.6
-print(eigenscale_opposite)
+print(eigenscale_involution)
 #> [1] -1.0  3.4  3.8  8.2  9.6
 
 ineqsym(eigenscale, a=4, b=3)
 #> [1] -1.0  3.4  3.8  8.2  9.6
 ```
 
-Above, the `eigenscale_opposite` was defined by multiplying
+Above, the `eigenscale_involution` was defined by multiplying
 `eigenscale`’s coordinate vector (from the \\\Phi_5\\ origin) by `-1`.
-The opposite of a scale can also be derived using the
+The involution of a scale can also be derived using the
 [`saturate()`](https://satbq.github.io/musicMCT/reference/saturate.md)
 function, on which see “Modal Color Theory,” pp. 20–1.
 
 ``` r
 
-eigenscale_opposite
+eigenscale_involution
 #> [1] -1.0  3.4  3.8  8.2  9.6
 
 saturate(-1, eigenscale)
@@ -1056,12 +1059,12 @@ This is a different kind of symmetry from that of `forza`: recall that
 This discussion may lead you to wonder whether our exploration of
 \\\mathcal{P}\_n\\ hasn’t simply been a roundabout rediscovery of the
 pitch-class multiplication operators \\M_5\\ and \\M_7\\. In a sense,
-those transformations are of interest here, because they belong to the
+those transformations *are* of interest here, because they belong to the
 symmetry group \\\mathcal{P}\_{12}\\ of the hyperplane arrangement for
 12-note scales. Typically, their use in music theory has been as
 operations that trivially fix the equally tempered chromatic scale (as
-the perfectly even center \\C\_{\mathcal{A}}\\ of \\\mathcal{M\_{12}}\\)
-then paying attention to what happens to its subsets.
+“center” of \\\mathcal{M\_{12}}\\), letting us pay attention to what
+happens to its subsets.
 
 The perspective offered by the symmetry groups \\\mathcal{P}\_n\\ is
 broader, since it applies directly to scale without treating it as a
@@ -1151,8 +1154,10 @@ continuous pitch-class space directly (or a special subset of it), like
 transpositions \\T_n\\ are. Instead, they act on the *scale degrees* of
 the chromatic scale. That is, if we represent a set as \\(x_0, x_1,
 \ldots, x_n)\\, the \\M\\ operations act not on the values \\x_i\\ but
-on the indices \\i\\.
+on the indices \\i\\. It has been easy to confuse the two because, for
+the chromatic scale, \\x_i = i\\ given the way we measure specific
+intervals in terms of semitones.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 7 May 2026
+**Last updated:** 9 May 2026

@@ -80,14 +80,13 @@
 <p>This vignette shows how to use musicMCT to work with the concepts
 introduced in the paper “Symmetries of the Modal Color Theory Hyperplane
 Arrangements.” It will introduce relevant tools in an order that roughly
-corresponds to the paper’s organization. I’ve tried to write it to be
-accessible for readers coming to musicMCT from “Symmetries,” so it
+corresponds to the paper’s organization. (Sections are numbered to
+correspond with the sections of the paper, too.) I’ve tried to write it
+to be accessible for readers coming to musicMCT from “Symmetries,” so it
 introduces some basic aspects of R syntax that might be useful for
 applications of the paper.</p>
 <div class="section level3">
-<h3 id="s-1-2-scales-intervals-etc-">
-<span class="math inline">\(\S 1.2\)</span> Scales, intervals,
-etc.<a class="anchor" aria-label="anchor" href="#s-1-2-scales-intervals-etc-"></a>
+<h3 id="scales-intervals-etc-">1.2: Scales, intervals, etc.<a class="anchor" aria-label="anchor" href="#scales-intervals-etc-"></a>
 </h3>
 <p>R is a 1-indexed language, so the “tonic” of a scale is denoted by
 <span class="math inline">\(\hat{1}\)</span> rather than by <span class="math inline">\(\hat{0}\)</span> as in Definition 1 of
@@ -106,11 +105,14 @@ step sizes or as a maximally even scale in some cardinality:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">double_harmonic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/realize_stepword.html">realize_stepword</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">blackkey_pentatonic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/maxeven.html">maxeven</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">all_interval_tetrachord</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sc.html">sc</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">29</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">double_harmonic</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0  1  4  5  7  8 11</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">blackkey_pentatonic</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0 2 4 7 9</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0 2 4 7 9</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">all_interval_tetrachord</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0 1 3 7</span></span></code></pre></div>
 <p>We can access an individual scale degree of a scale as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blackkey_pentatonic</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
@@ -165,9 +167,7 @@ scale degrees start from <span class="math inline">\(\hat{1}\)</span>
 rather than <span class="math inline">\(\hat{0}\)</span>.)</p>
 </div>
 <div class="section level3">
-<h3 id="s-1-3-hyperplane-arrangements">
-<span class="math inline">\(\S 1.3\)</span> Hyperplane
-arrangements<a class="anchor" aria-label="anchor" href="#s-1-3-hyperplane-arrangements"></a>
+<h3 id="hyperplane-arrangements">1.3: Hyperplane arrangements<a class="anchor" aria-label="anchor" href="#hyperplane-arrangements"></a>
 </h3>
 <p>For a given <span class="math inline">\(n\)</span>, the hyperplane
 arrangement <span class="math inline">\(\mathcal{M}_n\)</span> described
@@ -197,9 +197,8 @@ vector for some hyperplane <span class="math inline">\(H^g_{i,
 j}\)</span>. The final column contains constants that translate the
 hyperplanes so that they intersect at the equal division of the octave.
 (The package musicMCT is designed to take inputs represented as pitch
-sets, not using the coordinate system of <span class="math inline">\(\Phi_n\)</span> where the origin is the equal
-division of the octave. The matrix needs its last column to make this
-work.)</p>
+sets, not using <span class="math inline">\(\Phi_n\)</span>’s coordinate
+system. The matrix needs its last column to make this work.)</p>
 <p>Here is Example 5 realized in musicMCT:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dom7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -223,8 +222,8 @@ function that performs calculations like Example 5, comparing an input
 set to all the hyperplanes in <span class="math inline">\(\mathcal{M}_n\)</span>. This function,
 <code><a href="../reference/signvector.html">signvector()</a></code> returns only signs (<code>-1</code>,
 <code>0</code>, and <code>1</code>) rather than specific values (like
-the value 2 in Example 2). This is because, generally, we only care
-about the relative position of a set to a hyperplane, not its absolute
+the value 2 in Example 2). This is because we generally only care about
+the relative position of a set to a hyperplane, not its absolute
 distance. The sign vector for the chord in Example 5 is:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/signvector.html">signvector</a></span><span class="op">(</span><span class="va">dom7</span><span class="op">)</span></span>
@@ -245,9 +244,7 @@ from Example 4 for the major scale by:</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="s-2-symmetries-of-mct-arrangements">
-<span class="math inline">\(\S 2\)</span> Symmetries of MCT
-Arrangements<a class="anchor" aria-label="anchor" href="#s-2-symmetries-of-mct-arrangements"></a>
+<h2 id="symmetries-of-mct-arrangements">2: Symmetries of MCT Arrangements<a class="anchor" aria-label="anchor" href="#symmetries-of-mct-arrangements"></a>
 </h2>
 <p>The symmetries of <span class="math inline">\(\mathcal{M}_n\)</span>
 described in this section are realized by the function
@@ -408,13 +405,10 @@ However, the two have different OPTC-normal forms (after Hook 2023,
 416–18), so they must be related by some <span class="math inline">\(T_nI\)</span> inversion.</p>
 </div>
 <div class="section level2">
-<h2 id="s-3-orbits-as-equivalence-classes-of-scale-structure">
-<span class="math inline">\(\S 3\)</span> Orbits as equivalence
-classes of scale structure<a class="anchor" aria-label="anchor" href="#s-3-orbits-as-equivalence-classes-of-scale-structure"></a>
+<h2 id="orbits-as-equivalence-classes-of-scale-structure">3: Orbits as equivalence classes of scale structure<a class="anchor" aria-label="anchor" href="#orbits-as-equivalence-classes-of-scale-structure"></a>
 </h2>
 <div class="section level3">
-<h3 id="s-3-1-brightness-graphs">
-<span class="math inline">\(\S 3.1\)</span> Brightness Graphs<a class="anchor" aria-label="anchor" href="#s-3-1-brightness-graphs"></a>
+<h3 id="brightness-graphs">3.1: Brightness Graphs<a class="anchor" aria-label="anchor" href="#brightness-graphs"></a>
 </h3>
 <p>The brightness graph of a scale can be sketched in musicMCT using the
 function <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>. The diagram produced by this
@@ -471,11 +465,7 @@ computed in musicMCT as well:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $rotation</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="s-3-2-well-formedness">
-<span class="math inline">\(\S 3.2\)</span> Well-Formedness<a class="anchor" aria-label="anchor" href="#s-3-2-well-formedness"></a>
-</h3>
+<p>##3.2: Well-Formedness</p>
 <p>We can begin by testing Proposition 5 for the pentatonic scale and
 its images, from Example 5 above:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -645,8 +635,7 @@ involution:</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="s-4-symmetrical-scales">
-<span class="math inline">\(\S 4\)</span> Symmetrical Scales<a class="anchor" aria-label="anchor" href="#s-4-symmetrical-scales"></a>
+<h2 id="symmetrical-scales">4: Symmetrical Scales<a class="anchor" aria-label="anchor" href="#symmetrical-scales"></a>
 </h2>
 <p>We start by defining the scale from Example 9 and testing that it is
 fixed by <span class="math inline">\(\sigma_{4, 3}\)</span>.</p>
@@ -698,29 +687,30 @@ of the linear map. R makes this easy. We will call the matrix <span class="math 
 <code>1</code>, so any scale which is some linear combination of them
 will be fixed by <span class="math inline">\(P_{\pi}\)</span>.</p>
 <p>Similarly, the last two column vectors correspond to the eigenvalue
-<code>-1</code>. Thus we can define a scale that is sent to its opposite
-by this transformation with any linear combination of them:</p>
+<code>-1</code>. Thus we can define a scale that is sent to its scalar
+involution by this transformation with any linear combination of
+them:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">eigenvector_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">eigenvector_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">eigenscale</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coord_to_edo.html">coord_from_edo</a></span><span class="op">(</span><span class="va">eigenvector_y</span> <span class="op">+</span> <span class="va">eigenvector_z</span><span class="op">)</span></span>
-<span><span class="va">eigenscale_opposite</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coord_to_edo.html">coord_from_edo</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="op">(</span><span class="va">eigenvector_y</span> <span class="op">+</span> <span class="va">eigenvector_z</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">eigenscale_involution</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coord_to_edo.html">coord_from_edo</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="op">(</span><span class="va">eigenvector_y</span> <span class="op">+</span> <span class="va">eigenvector_z</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">eigenscale</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.0 1.4 5.8 6.2 9.6</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">eigenscale_opposite</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">eigenscale_involution</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -1.0  3.4  3.8  8.2  9.6</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ineqsym.html">ineqsym</a></span><span class="op">(</span><span class="va">eigenscale</span>, a<span class="op">=</span><span class="fl">4</span>, b<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -1.0  3.4  3.8  8.2  9.6</span></span></code></pre></div>
-<p>Above, the <code>eigenscale_opposite</code> was defined by
+<p>Above, the <code>eigenscale_involution</code> was defined by
 multiplying <code>eigenscale</code>’s coordinate vector (from the <span class="math inline">\(\Phi_5\)</span> origin) by <code>-1</code>. The
-opposite of a scale can also be derived using the
+involution of a scale can also be derived using the
 <code><a href="../reference/saturate.html">saturate()</a></code> function, on which see “Modal Color Theory,”
 pp. 20–1.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eigenscale_opposite</span></span>
+<code class="sourceCode R"><span><span class="va">eigenscale_involution</span></span>
 <span><span class="co">#&gt; [1] -1.0  3.4  3.8  8.2  9.6</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/saturate.html">saturate</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="va">eigenscale</span><span class="op">)</span></span>
@@ -867,11 +857,12 @@ recall that <code>forza</code> was fixed by involution, whereas
 <p>This discussion may lead you to wonder whether our exploration of
 <span class="math inline">\(\mathcal{P}_n\)</span> hasn’t simply been a
 roundabout rediscovery of the pitch-class multiplication operators <span class="math inline">\(M_5\)</span> and <span class="math inline">\(M_7\)</span>. In a sense, those transformations
-are of interest here, because they belong to the symmetry group <span class="math inline">\(\mathcal{P}_{12}\)</span> of the hyperplane
+<em>are</em> of interest here, because they belong to the symmetry group
+<span class="math inline">\(\mathcal{P}_{12}\)</span> of the hyperplane
 arrangement for 12-note scales. Typically, their use in music theory has
 been as operations that trivially fix the equally tempered chromatic
-scale (as the perfectly even center <span class="math inline">\(C_{\mathcal{A}}\)</span> of <span class="math inline">\(\mathcal{M_{12}}\)</span>) then paying attention
-to what happens to its subsets.</p>
+scale (as “center” of <span class="math inline">\(\mathcal{M_{12}}\)</span>), letting us pay
+attention to what happens to its subsets.</p>
 <p>The perspective offered by the symmetry groups <span class="math inline">\(\mathcal{P}_n\)</span> is broader, since it
 applies directly to scale without treating it as a subset of a larger
 collection. For instance, the <span class="math inline">\(T_nI\)</span>
@@ -944,9 +935,11 @@ they act on the <em>scale degrees</em> of the chromatic scale. That is,
 if we represent a set as <span class="math inline">\((x_0, x_1, \ldots,
 x_n)\)</span>, the <span class="math inline">\(M\)</span> operations act
 not on the values <span class="math inline">\(x_i\)</span> but on the
-indices <span class="math inline">\(i\)</span>.</p>
+indices <span class="math inline">\(i\)</span>. It has been easy to
+confuse the two because, for the chromatic scale, <span class="math inline">\(x_i = i\)</span> given the way we measure specific
+intervals in terms of semitones.</p>
 <hr>
-<p><strong>Last updated:</strong> 7 May 2026</p>
+<p><strong>Last updated:</strong> 9 May 2026</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
