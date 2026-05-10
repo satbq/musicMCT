@@ -7,7 +7,7 @@
 z(..., edo = 12)
 }
 \arguments{
-\item{...}{One or more numerics values which represent frequency ratios.}
+\item{...}{One or more numerics values that represent frequency ratios.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
 }

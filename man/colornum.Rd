@@ -38,8 +38,8 @@ is specified or \code{representative_signvectors} is loaded; otherwise \code{NUL
 \description{
 As described on p. 28 of "Modal Color Theory," it's convenient to have a
 systematic labeling system ("color numbers") to refer to the distinct colors
-in the hyperplane arrangements. This serves a similar function as Forte's
-set class numbers do in traditional pitch-class set theory. Color numbers
+in the hyperplane arrangements. This serves a similar function to Forte's
+set-class numbers in traditional pitch-class set theory. Color numbers
 are defined with reference to a complete list of the possible sign vectors
 for each cardinality, so they depend on the extensive prior computation
 that is stored in the object \code{representative_signvectors}. (This is a large

@@ -100,7 +100,3 @@ print(quantized_just_dia)
 # necessary information, but musicMCT doesn't yet make the graphs pretty.)
 brightnessgraph(quantized_just_dia$set, edo=quantized_just_dia$edo)
 ```
-
-## Acknowledgments
-
-Thanks to [Nate Mitchell](https://www.natethetheorist.com/graphic-design) for designing the package's hex sticker logo.

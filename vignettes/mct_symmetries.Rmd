@@ -571,7 +571,7 @@ This is a different kind of symmetry from that of `forza`: recall that `forza` w
 
 # Postscript on $M_5$ and $M_7$
 
-This discussion may lead you to wonder whether our exploration of $\mathcal{P}_n$ hasn't simply been a roundabout rediscovery of the pitch-class multiplication operators $M_5$ and $M_7$. In a sense, those transformations *are* of interest here, because they belong to the symmetry group $\mathcal{P}_{12}$ of the hyperplane arrangement for 12-note scales. Typically, their use in music theory has been as operations that trivially fix the equally tempered chromatic scale (as "center" of $\mathcal{M_{12}}$), letting us pay attention to what happens to its subsets. 
+This discussion may lead you to wonder whether our exploration of $\mathcal{P}_n$ hasn't simply been a roundabout rediscovery of the pitch-class multiplication operators $M_5$ and $M_7$. In a sense, those transformations *are* of interest here, because they belong to the symmetry group $\mathcal{P}_{12}$ of the hyperplane arrangement for 12-note scales. Typically, their use in music theory has been as operations that trivially fix the equally tempered chromatic scale (as the "center" of $\mathcal{M_{12}}$), letting us pay attention to what happens to its subsets. 
 
 The perspective offered by the symmetry groups $\mathcal{P}_n$ is broader, since it applies directly to scale without treating it as a subset of a larger collection. For instance, the $T_nI$ equivalence class of $(0, 1, 4, 8)$ is fixed under $M_5$ and $M_7$, but transformations in $\mathcal{P}_4$ can turn it into a completely different set class:
 
@@ -623,4 +623,4 @@ Subsuming the $M$ transformations under $\mathcal{P}_{12}$ suggests that it's wr
 
 ---
 
-**Last updated:** 9 May 2026
+**Last updated:** 10 May 2026

@@ -32,7 +32,7 @@ glasses, the anaglyph arrangements "see" two scalar colors at once.)
 Note that, unlike for most other hyperplane arrangements, for
 anaglyph arrangements \code{card} is only half the size of the data you're
 working with, since anaglyph arrangements compare \emph{two} sets of size
-\code{card}. In general, when useing anaglyph ineqmats with other functions,
+\code{card}. In general, when using anaglyph ineqmats with other functions,
 such as \code{\link[=signvector]{signvector()}} or \code{\link[=howfree]{howfree()}}, you should enter the two sets
 to be compared as a single vector, i.e. \code{c(set, goal)}. See the use of
 \code{\link[=howfree]{howfree()}} in the example.

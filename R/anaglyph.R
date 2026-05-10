@@ -17,7 +17,7 @@
 #' Note that, unlike for most other hyperplane arrangements, for
 #' anaglyph arrangements `card` is only half the size of the data you're
 #' working with, since anaglyph arrangements compare *two* sets of size 
-#' `card`. In general, when useing anaglyph ineqmats with other functions,
+#' `card`. In general, when using anaglyph ineqmats with other functions,
 #' such as [signvector()] or [howfree()], you should enter the two sets
 #' to be compared as a single vector, i.e. `c(set, goal)`. See the use of
 #' [howfree()] in the example.

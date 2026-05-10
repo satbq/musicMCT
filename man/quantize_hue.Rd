@@ -39,7 +39,7 @@ to the unit step size input as \code{edo}: these generally will not be integers.
 suitable quantization was found beneath the limit given by nmax or in target_edo (if specified).
 }
 \description{
-Given any scale, attempts to find a scale defined as integers mod k
+Given any scale, this function attempts to find a scale defined as integers mod k
 which belongs to the same hue as the input (i.e. would return \code{TRUE}
 when \code{\link[=same_hue]{same_hue()}} is applied). This function thus is similar in spirit to
 \code{\link[=quantize_color]{quantize_color()}} but seeks a more precise structural match between

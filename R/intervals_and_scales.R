@@ -239,7 +239,7 @@ j <- function(..., edo=12) {
 #' the rationals) were both avoided because they're already used for other
 #' functions.
 #'
-#' @param ... One or more numerics values which represent frequency ratios.
+#' @param ... One or more numerics values that represent frequency ratios.
 #' @inheritParams tnprime
 #'
 #' @returns Numeric vector representing the input ratios converted to

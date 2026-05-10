@@ -124,9 +124,3 @@ brightnessgraph(quantized_just_dia$set, edo=quantized_just_dia$edo)
 ```
 
 <img src="man/figures/README-example-1.png" width="75%" />
-
-## Acknowledgments
-
-Thanks to [Nate
-Mitchell](https://www.natethetheorist.com/graphic-design) for designing
-the package’s hex sticker logo.

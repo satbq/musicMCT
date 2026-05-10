@@ -73,7 +73,7 @@ Pitch-classes are represented by numbers: C=0, C-sharp = 1, and so on. For famil
 (12 **e**qual **d**ivisions of the **o**ctave), these are all integers. Later
 we'll see that it's easy to work with integers in any k edo. But the values that define
 our scales don't have to be integers at all: Modal Color Theory works in continuous 
-pitch-class space. For instance, here's a common just tuning of the major scale (Ptolemy's
+pitch space. For instance, here's a common just tuning of the major scale (Ptolemy's
 "intense" or "syntonic" diatonic):
 
 ```{r}
@@ -530,7 +530,7 @@ as mode I whereas we've asked for the modes of the `acoustic_scale`. (If you rep
 above, you should get an identical graph with the roman numeral labels shifted around.) Either way, the precise pitch values for
 all the nodes are the same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8, 10).
 
-The less trivial difference between the article and graph vignettes is their overall shape. The function `brightnessgraph()` determines
+The less trivial difference between the article's and vignette's graphs is their overall shape. The function `brightnessgraph()` determines
 the vertical position of graph nodes exactly as "Modal Color Theory" describes, but it has less guidance for how to make decisions about
 left-right placement of nodes. It produces graphs that are usually legible but which may not clarify the underlying structure: I tend
 to use the function as a first draft and then construct my own (ideally more revealing) graphs by hand. For instance, the Figure 2b
@@ -590,7 +590,7 @@ change the number `4` in the line of code below to any value from `1` to `7` to 
 #|   It has more arrows than the graph for the overtone scale,
 #|   but it arranges them in a less regular pattern than the graph
 #|   for the acoustic scale.
-brightnessgraph(final_quantizations[, 4])
+brightnessgraph(final_quantizations[, 4], show_sums=FALSE)
 ```
 
 Finally, let's take a look at the brightness graph for our `best_simple_approximation`. I'm going to suppress its listing of the 
@@ -614,4 +614,4 @@ thousand words to describe.
 ---
 
 
-**Last updated:** 9 May 2026
+**Last updated:** 10 May 2026
