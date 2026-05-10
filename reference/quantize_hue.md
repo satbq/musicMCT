@@ -1,8 +1,8 @@
 # Find a scale mod k that matches a given hue
 
-Given any scale, attempts to find a scale defined as integers mod k
-which belongs to the same hue as the input (i.e. would return `TRUE`
-when
+Given any scale, this function attempts to find a scale defined as
+integers mod k which belongs to the same hue as the input (i.e. would
+return `TRUE` when
 [`same_hue()`](https://satbq.github.io/musicMCT/reference/same_hue.md)
 is applied). This function thus is similar in spirit to
 [`quantize_color()`](https://satbq.github.io/musicMCT/reference/quantize_color.md)

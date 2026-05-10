@@ -1,11 +1,10 @@
 # Find a scale mod k that matches a given color
 
-Modal Color Theory is useful for analyzing scales in continuous
-pitch-class space with irrational values, but sometimes those irrational
-values can be inconvenient to work with. Therefore it's often quite
-useful to find a scale that has the same color as the one you're
-studying, but which can be represented by integers in some mod k
-universe. See "Modal Color Theory," 27.
+Modal Color Theory is able to analyze scales in continuous pitch-class
+space, but sometimes irrational values can be inconvenient to work with.
+Therefore it's often quite useful to find a scale that has the same
+color as the one you're studying, but which can be represented by
+integers in some mod k universe. See "Modal Color Theory," 27.
 
 ## Usage
 

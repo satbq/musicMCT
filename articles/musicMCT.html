@@ -143,9 +143,9 @@ on. For familiar sets in 12edo (12 <strong>e</strong>qual
 <strong>d</strong>ivisions of the <strong>o</strong>ctave), these are
 all integers. Later we’ll see that it’s easy to work with integers in
 any k edo. But the values that define our scales don’t have to be
-integers at all: Modal Color Theory works in continuous pitch-class
-space. For instance, here’s a common just tuning of the major scale
-(Ptolemy’s “intense” or “syntonic” diatonic):</p>
+integers at all: Modal Color Theory works in continuous pitch space. For
+instance, here’s a common just tuning of the major scale (Ptolemy’s
+“intense” or “syntonic” diatonic):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/j.html">j</a></span><span class="op">(</span><span class="va">dia</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0.000000  2.039100  3.863137  4.980450  7.019550  8.843587 10.882687</span></span></code></pre></div>
@@ -757,20 +757,19 @@ command above, you should get an identical graph with the roman numeral
 labels shifted around.) Either way, the precise pitch values for all the
 nodes are the same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8,
 10).</p>
-<p>The less trivial difference between the article and graph vignettes
-is their overall shape. The function <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code>
-determines the vertical position of graph nodes exactly as “Modal Color
-Theory” describes, but it has less guidance for how to make decisions
-about left-right placement of nodes. It produces graphs that are usually
-legible but which may not clarify the underlying structure: I tend to
-use the function as a first draft and then construct my own (ideally
-more revealing) graphs by hand. For instance, the Figure 2b of “Modal
-Color Theory” represents all <span class="math inline">\(T_2\)</span>
-relationships as vertical arrows, resulting in a graph whose overall
-shape is a trapezoid. <code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> obscures the
-predominance of <span class="math inline">\(T_2\)</span> in the
-structure of the scale by making the chain of whole steps bow out to the
-left at the middle, giving the graph a diamond-like shape.</p>
+<p>The less trivial difference between the article’s and vignette’s
+graphs is their overall shape. The function
+<code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> determines the vertical position of graph
+nodes exactly as “Modal Color Theory” describes, but it has less
+guidance for how to make decisions about left-right placement of nodes.
+It produces graphs that are usually legible but which may not clarify
+the underlying structure: I tend to use the function as a first draft
+and then construct my own (ideally more revealing) graphs by hand. For
+instance, the Figure 2b of “Modal Color Theory” represents all <span class="math inline">\(T_2\)</span> relationships as vertical arrows,
+resulting in a graph whose overall shape is a trapezoid.
+<code><a href="../reference/brightnessgraph.html">brightnessgraph()</a></code> obscures the predominance of <span class="math inline">\(T_2\)</span> in the structure of the scale by
+making the chain of whole steps bow out to the left at the middle,
+giving the graph a diamond-like shape.</p>
 <p>Let’s now take a look at the brightness graph for the
 <code>overtone_scale</code>:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
@@ -820,7 +819,7 @@ range of possible structures for seven note scales. Simply change the
 number <code>4</code> in the line of code below to any value from
 <code>1</code> to <code>7</code> to check the different scales:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/brightnessgraph.html">brightnessgraph</a></span><span class="op">(</span><span class="va">final_quantizations</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span>, show_sums<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="musicMCT_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="A brightness graph for the scale 0 3 4 6 8 9 10. It has more arrows than the graph for the overtone scale, but it arranges them in a less regular pattern than the graph for the acoustic scale." width="480"></p>
 <p>Finally, let’s take a look at the brightness graph for our
 <code>best_simple_approximation</code>. I’m going to suppress its
@@ -837,7 +836,7 @@ adjacency in the previous section. This is something I like about
 brightness graphs: they summarize, in a picture or two, ideas that take
 several thousand words to describe.</p>
 <hr>
-<p><strong>Last updated:</strong> 9 May 2026</p>
+<p><strong>Last updated:</strong> 10 May 2026</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

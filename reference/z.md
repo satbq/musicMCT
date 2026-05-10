@@ -17,7 +17,7 @@ z(..., edo = 12)
 
 - ...:
 
-  One or more numerics values which represent frequency ratios.
+  One or more numerics values that represent frequency ratios.
 
 - edo:
 

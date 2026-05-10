@@ -1063,7 +1063,7 @@ those transformations *are* of interest here, because they belong to the
 symmetry group \\\mathcal{P}\_{12}\\ of the hyperplane arrangement for
 12-note scales. Typically, their use in music theory has been as
 operations that trivially fix the equally tempered chromatic scale (as
-“center” of \\\mathcal{M\_{12}}\\), letting us pay attention to what
+the “center” of \\\mathcal{M\_{12}}\\), letting us pay attention to what
 happens to its subsets.
 
 The perspective offered by the symmetry groups \\\mathcal{P}\_n\\ is
@@ -1160,4 +1160,4 @@ intervals in terms of semitones.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 9 May 2026
+**Last updated:** 10 May 2026

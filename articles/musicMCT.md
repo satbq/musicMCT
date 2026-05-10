@@ -83,8 +83,8 @@ For familiar sets in 12edo (12 **e**qual **d**ivisions of the
 **o**ctave), these are all integers. Later we’ll see that it’s easy to
 work with integers in any k edo. But the values that define our scales
 don’t have to be integers at all: Modal Color Theory works in continuous
-pitch-class space. For instance, here’s a common just tuning of the
-major scale (Ptolemy’s “intense” or “syntonic” diatonic):
+pitch space. For instance, here’s a common just tuning of the major
+scale (Ptolemy’s “intense” or “syntonic” diatonic):
 
 ``` r
 
@@ -820,8 +820,8 @@ should get an identical graph with the roman numeral labels shifted
 around.) Either way, the precise pitch values for all the nodes are the
 same: the bottom mode in both graphs is (0, 1, 3, 4, 6, 8, 10).
 
-The less trivial difference between the article and graph vignettes is
-their overall shape. The function
+The less trivial difference between the article’s and vignette’s graphs
+is their overall shape. The function
 [`brightnessgraph()`](https://satbq.github.io/musicMCT/reference/brightnessgraph.md)
 determines the vertical position of graph nodes exactly as “Modal Color
 Theory” describes, but it has less guidance for how to make decisions
@@ -909,7 +909,7 @@ different scales:
 
 ``` r
 
-brightnessgraph(final_quantizations[, 4])
+brightnessgraph(final_quantizations[, 4], show_sums=FALSE)
 ```
 
 ![A brightness graph for the scale 0 3 4 6 8 9 10. It has more arrows
@@ -942,4 +942,4 @@ to describe.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 9 May 2026
+**Last updated:** 10 May 2026

@@ -2,10 +2,10 @@
 
 The "infrared" hyperplane arrangements are in some sense an extension of
 the "pastel" arrangements to be more like the Rothenberg arrangements.
-(This is the sense of the color-conceit name for the arrangments: they
+(This is the sense of the color-conceit name for the arrangements: they
 contain red-like colors that we don't see in ordinary use of modal color
-theory.) That is, the infrared arrangment for a given color contains all
-the pastel hyperplanes (except those filtered out when
+theory.) That is, the infrared arrangement for a given color contains
+all the pastel hyperplanes (except those filtered out when
 `include_wraparound=FALSE`), plus additional ones that make comparisons
 between generic intervals of different sizes (as the Rothenberg
 arrangements do). Unlike the Rothenberg arrangements, however, the

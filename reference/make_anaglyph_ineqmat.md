@@ -38,7 +38,7 @@ odd.
 Note that, unlike for most other hyperplane arrangements, for anaglyph
 arrangements `card` is only half the size of the data you're working
 with, since anaglyph arrangements compare *two* sets of size `card`. In
-general, when useing anaglyph ineqmats with other functions, such as
+general, when using anaglyph ineqmats with other functions, such as
 [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
 or [`howfree()`](https://satbq.github.io/musicMCT/reference/howfree.md),
 you should enter the two sets to be compared as a single vector, i.e.
