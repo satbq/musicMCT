@@ -1,5 +1,7 @@
 # Changelog
 
+## musicMCT (development version)
+
 ## musicMCT 0.5.0
 
 CRAN release: 2026-06-21
