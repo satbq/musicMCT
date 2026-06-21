@@ -2,6 +2,8 @@
 
 ## musicMCT 0.5.0
 
+CRAN release: 2026-06-21
+
 - New vignette (mct_symmetries.Rmd) explains the use of
   [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
   and related functions.
