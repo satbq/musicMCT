@@ -8,13 +8,14 @@ library(musicMCT)
 ## Introduction
 
 This vignette shows how to use musicMCT to work with the concepts
-introduced in the paper “Symmetries of the Modal Color Theory Hyperplane
-Arrangements.” It will introduce relevant tools in an order that roughly
-corresponds to the paper’s organization. (Sections are numbered to
-correspond with the sections of the paper, too.) I’ve tried to write it
-to be accessible for readers coming to musicMCT from “Symmetries,” so it
-introduces some basic aspects of R syntax that might be useful for
-applications of the paper.
+introduced in the paper [“Symmetries of the Modal Color Theory
+Hyperplane Arrangements.”](https://doi.org/10.1007/978-3-032-27827-2_5)
+It will introduce relevant tools in an order that roughly corresponds to
+the paper’s organization. (Sections are numbered to correspond with the
+sections of the paper, too.) I’ve tried to write it to be accessible for
+readers coming to musicMCT from “Symmetries,” so it introduces some
+basic aspects of R syntax that might be useful for applications of the
+paper.
 
 ### 1.2: Scales, intervals, etc.
 

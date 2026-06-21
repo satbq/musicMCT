@@ -1,7 +1,10 @@
 # Changelog
 
-## musicMCT (development version)
+## musicMCT 0.5.0
 
+- New vignette (mct_symmetries.Rmd) explains the use of
+  [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  and related functions.
 - [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
   now returns the correct permutation matrix when `involution=TRUE`.
   Previously, the `involution` parameter affected returned sets but not
@@ -10,18 +13,15 @@
   now defaults to `TRUE` rather than `FALSE` for its
   `include_wraparound` argument.
 - New
-  [`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
-  is a wrapper for
-  [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
-  that interprets inputs as voice leadings rather than scales.
-- New
   [`monochrome_vl()`](https://satbq.github.io/musicMCT/reference/monochrome_vl.md)
   detects instances where the voice leading between two modes of a scale
   cannot be decomposed by passing through some mode of a given
   contrasting scale.
-- New vignette (mct_symmetries.Rmd) explains the use of
-  [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
-  and related functions.
+- New
+  [`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+  is a wrapper for
+  [`signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+  that interprets inputs as voice leadings rather than scales.
 
 ## musicMCT 0.4.0
 

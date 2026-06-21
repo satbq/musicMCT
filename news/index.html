@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -44,14 +44,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="musicmct-development-version">musicMCT (development version)<a class="anchor" aria-label="anchor" href="#musicmct-development-version"></a></h2>
-<ul><li>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="musicmct-050">musicMCT 0.5.0<a class="anchor" aria-label="anchor" href="#musicmct-050"></a></h2>
+<ul><li>New vignette (mct_symmetries.Rmd) explains the use of <code><a href="../reference/ineqsym.html">ineqsym()</a></code> and related functions.</li>
+<li>
 <code><a href="../reference/ineqsym.html">ineqsym()</a></code> now returns the correct permutation matrix when <code>involution=TRUE</code>. Previously, the <code>involution</code> parameter affected returned sets but not returned permutation matrices.</li>
 <li>
 <code><a href="../reference/make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code> now defaults to <code>TRUE</code> rather than <code>FALSE</code> for its <code>include_wraparound</code> argument.</li>
-<li>New <code><a href="../reference/signvector.html">vl_signvector()</a></code> is a wrapper for <code><a href="../reference/signvector.html">signvector()</a></code> that interprets inputs as voice leadings rather than scales.</li>
 <li>New <code><a href="../reference/monochrome_vl.html">monochrome_vl()</a></code> detects instances where the voice leading between two modes of a scale cannot be decomposed by passing through some mode of a given contrasting scale.</li>
-<li>New vignette (mct_symmetries.Rmd) explains the use of <code><a href="../reference/ineqsym.html">ineqsym()</a></code> and related functions.</li>
+<li>New <code><a href="../reference/signvector.html">vl_signvector()</a></code> is a wrapper for <code><a href="../reference/signvector.html">signvector()</a></code> that interprets inputs as voice leadings rather than scales.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="musicmct-040">musicMCT 0.4.0<a class="anchor" aria-label="anchor" href="#musicmct-040"></a></h2><p class="text-muted">CRAN release: 2026-02-27</p>
