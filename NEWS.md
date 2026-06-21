@@ -1,3 +1,5 @@
+# musicMCT (development version)
+
 # musicMCT 0.5.0
 * New vignette (mct_symmetries.Rmd) explains the use of `ineqsym()` and related functions.
 * `ineqsym()` now returns the correct permutation matrix when `involution=TRUE`. Previously, the
