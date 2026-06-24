@@ -528,7 +528,7 @@ vlsig(tetrachord_G, index=1)
 #> [1] 1
 ```
 
-\##3.2: Well-Formedness
+### 3.2: Well-Formedness
 
 We can begin by testing Proposition 5 for the pentatonic scale and its
 images, from Example 5 above:
@@ -1161,4 +1161,4 @@ intervals in terms of semitones.
 
 ------------------------------------------------------------------------
 
-**Last updated:** 10 May 2026
+**Last updated:** 23 May 2026
