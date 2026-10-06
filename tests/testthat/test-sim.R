@@ -37,3 +37,13 @@ test_that("sim interscalar functionality works", {
   expect_equal(sim(minor, major_64), goal_2)
   expect_equal(sim(minor, major_open), goal_3)
 })
+
+test_that("sum brightness works", {
+  cmmin <- c(0, 2, 3, 5, 7, 9, 11)
+  expect_equal(sum_brightness(cmmin), 37)
+  expect_equal(sum_brightness(cmmin, 2), 40)
+  expect_equal(sum_brightness(j(dia)), sum(j(dia)))
+
+  mos19 <- maxeven(8, 19)
+  expect_equal(sum_brightness(mos19, mode=4, edo=19), 67)
+})

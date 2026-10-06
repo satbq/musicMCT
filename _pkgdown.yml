@@ -25,6 +25,7 @@ reference:
   - scale_palette
   - sim
   - simplify_scale
+  - sum_brightness
 
 - subtitle: Hyperplane Arrangements
   desc: Define and manipulate the arrangements which characterize the spaces

@@ -1,4 +1,5 @@
 # musicMCT (development version)
+* New `sum_brightness()` is convenience for computing total pitch height of scale degrees above tonic.
 
 # musicMCT 0.5.0
 * New vignette (mct_symmetries.Rmd) explains the use of `ineqsym()` and related functions.
