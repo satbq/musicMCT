@@ -3,11 +3,14 @@
 \name{coord_to_edo}
 \alias{coord_to_edo}
 \alias{coord_from_edo}
+\alias{phi}
 \title{Coordinate systems for scale representation}
 \usage{
 coord_to_edo(set, edo = 12)
 
 coord_from_edo(set, edo = 12)
+
+phi(set, edo = 12)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set}
@@ -27,7 +30,9 @@ origin (because this is the point where all of the hyperplanes
 in the arrangement defining scalar "colors" intersect). Therefore, these
 two functions convert between the two coordinate systems: \code{coord_to_edo}
 takes in a scale represented by its pitch classes and returns its
-displacement vector from "white" and \code{coord_from_edo} does the reverse.
+displacement vector from "white" and \code{coord_from_edo} does the reverse. \code{phi}
+is simply another name for \code{coord_to_edo}, emphasizing the function's role
+in calculating an individual scale degree's brightness.
 }
 \details{
 It should be noted that the representative "white" scale used is not

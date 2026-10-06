@@ -34,7 +34,9 @@ convert <- function(x, edo1, edo2) x*(edo2/edo1)
 #' in the arrangement defining scalar "colors" intersect). Therefore, these
 #' two functions convert between the two coordinate systems: `coord_to_edo`
 #' takes in a scale represented by its pitch classes and returns its 
-#' displacement vector from "white" and `coord_from_edo` does the reverse.
+#' displacement vector from "white" and `coord_from_edo` does the reverse. `phi`
+#' is simply another name for `coord_to_edo`, emphasizing the function's role
+#' in calculating an individual scale degree's brightness.
 #'
 #' It should be noted that the representative "white" scale used is not
 #' necessarily the *closest* one to the scale in question. Instead, it is
@@ -75,3 +77,8 @@ coord_from_edo <- function(set, edo=12) {
   new_origin <- edoo(card, edo=edo)
   return(set+new_origin)
 }
+
+#' @rdname coord_to_edo
+#' @export
+phi <- function(set, edo=12) coord_to_edo(set, edo)
+

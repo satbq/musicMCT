@@ -7,4 +7,7 @@ test_that("coord-edo conversions work", {
   expect_equal(coord_to_edo(c(0, 1, 3, 5, 6, 8, 10)), 
                c(0, -5, -3, -1, -6, -4, -2)/7)
   expect_equal(coord_from_edo(c(0,0,1,1)), c(0,3,7,10))
+
+  just_m7 <- j(1, m3, 5, m7)
+  expect_equal(coord_to_edo(just_m7), phi(just_m7))
 })
