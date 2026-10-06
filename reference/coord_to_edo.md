@@ -9,6 +9,8 @@ arrangement defining scalar "colors" intersect). Therefore, these two
 functions convert between the two coordinate systems: `coord_to_edo`
 takes in a scale represented by its pitch classes and returns its
 displacement vector from "white" and `coord_from_edo` does the reverse.
+`phi` is simply another name for `coord_to_edo`, emphasizing the
+function's role in calculating an individual scale degree's brightness.
 
 ## Usage
 
@@ -16,6 +18,8 @@ displacement vector from "white" and `coord_from_edo` does the reverse.
 coord_to_edo(set, edo = 12)
 
 coord_from_edo(set, edo = 12)
+
+phi(set, edo = 12)
 ```
 
 ## Arguments

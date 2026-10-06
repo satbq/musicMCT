@@ -5,23 +5,27 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Coordinate systems for scale representation — coord_to_edo"><meta name="description" content='Usually, it is most intuitive to music theorists to represent
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Coordinate systems for scale representation — coord_to_edo"><meta name="description" content="Usually, it is most intuitive to music theorists to represent
 a scale as a vector of the pitch-classes it contains. However, for certain
 computations in the setting of Modal Color Theory, it is more convenient
-to use a coordinate system with the "white" perfectly even scale as the
+to use a coordinate system with the &quot;white&quot; perfectly even scale as the
 origin (because this is the point where all of the hyperplanes
-in the arrangement defining scalar "colors" intersect). Therefore, these
+in the arrangement defining scalar &quot;colors&quot; intersect). Therefore, these
 two functions convert between the two coordinate systems: coord_to_edo
 takes in a scale represented by its pitch classes and returns its
-displacement vector from "white" and coord_from_edo does the reverse.'><meta property="og:description" content='Usually, it is most intuitive to music theorists to represent
+displacement vector from &quot;white&quot; and coord_from_edo does the reverse. phi
+is simply another name for coord_to_edo, emphasizing the function's role
+in calculating an individual scale degree's brightness."><meta property="og:description" content="Usually, it is most intuitive to music theorists to represent
 a scale as a vector of the pitch-classes it contains. However, for certain
 computations in the setting of Modal Color Theory, it is more convenient
-to use a coordinate system with the "white" perfectly even scale as the
+to use a coordinate system with the &quot;white&quot; perfectly even scale as the
 origin (because this is the point where all of the hyperplanes
-in the arrangement defining scalar "colors" intersect). Therefore, these
+in the arrangement defining scalar &quot;colors&quot; intersect). Therefore, these
 two functions convert between the two coordinate systems: coord_to_edo
 takes in a scale represented by its pitch classes and returns its
-displacement vector from "white" and coord_from_edo does the reverse.'><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
+displacement vector from &quot;white&quot; and coord_from_edo does the reverse. phi
+is simply another name for coord_to_edo, emphasizing the function's role
+in calculating an individual scale degree's brightness."><meta property="og:image" content="https://satbq.github.io/musicMCT/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -42,6 +46,7 @@ displacement vector from "white" and coord_from_edo does the reverse.'><meta pro
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/mct_symmetries.html">Symmetries of Hyperplane Arrangements and ineqsym()</a></li>
+    <li><a class="dropdown-item" href="../articles/note_brightness.html">Bright notes, dark scales, and musicMCT</a></li>
     <li><a class="dropdown-item" href="../articles/visualizing_higher_dimensions.html">Visualizing Higher Dimensions</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -69,14 +74,18 @@ origin (because this is the point where all of the hyperplanes
 in the arrangement defining scalar "colors" intersect). Therefore, these
 two functions convert between the two coordinate systems: <code>coord_to_edo</code>
 takes in a scale represented by its pitch classes and returns its
-displacement vector from "white" and <code>coord_from_edo</code> does the reverse.</p>
+displacement vector from "white" and <code>coord_from_edo</code> does the reverse. <code>phi</code>
+is simply another name for <code>coord_to_edo</code>, emphasizing the function's role
+in calculating an individual scale degree's brightness.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">coord_to_edo</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">coord_from_edo</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">coord_from_edo</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">phi</span><span class="op">(</span><span class="va">set</span>, edo <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -139,7 +148,7 @@ class as <code>set</code>, guaranteeing that the voice leading between them is
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

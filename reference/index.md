@@ -41,6 +41,8 @@ Gather information about individual scales
 - [`simplify_scale()`](https://satbq.github.io/musicMCT/reference/simplify_scale.md)
   [`best_simplification()`](https://satbq.github.io/musicMCT/reference/simplify_scale.md)
   : Best ways to regularize a scale
+- [`sum_brightness()`](https://satbq.github.io/musicMCT/reference/sum_brightness.md)
+  : Sum brightness
 
 ### Hyperplane Arrangements
 
@@ -129,6 +131,7 @@ Basic tools for defining musical objects
   Convert between octave measurements
 - [`coord_to_edo()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md)
   [`coord_from_edo()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md)
+  [`phi()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md)
   : Coordinate systems for scale representation
 - [`edoo()`](https://satbq.github.io/musicMCT/reference/edoo.md) :
   Perfectly even scales (the color white)
