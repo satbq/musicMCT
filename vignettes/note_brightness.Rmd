@@ -30,7 +30,7 @@ Throughout the article and this vignette, the familiar major scale will be a use
 c_maj <- c(0, 2, 4, 5, 7, 9, 11)
 ```
 
-Note R's syntax for entering an ordered tuple, `c()`, which is always necessary when manually defining a musical set.
+Note R's way of entering an ordered tuple, `c()`, which is always necessary when manually defining a musical set.
 
 Another important scale is the perfectly even division of the octave, represented in the article as $\mathcal{E}_n$. This can be
 found using the function `edoo()`:
@@ -102,7 +102,7 @@ Example 3.10:
 H <- c(0, 1, 3, 4, 6, 7, 8, 10)
 phi(H)
 sum_brightness(H)
-sum_brightness(H, mode=7)
+sum_brightness(H, mode=6)
 subset_varieties(c(0, 2, 4, 6), H, unique=FALSE)
 ```
 
@@ -117,7 +117,7 @@ brightness graph, the vertical positioning of a mode corresponds to its sum brig
 seen from a brightness graph when multiple nodes in the graph are on a horizontal line. This lets us visualize the many brightness
 ties of Example 3.11, for instance:
 
-```{r, fig.width=5, fig.height=5, fig.fullwidth=TRUE}
+```{r, fig.width=7, fig.height=7, fig.fullwidth=TRUE}
 #| fig.alt: >
 #|   A brightness graph for the Guidonian hexachord.
 #|   Three equally bright modes (the fourth, fifth, and sixth) are
@@ -169,7 +169,7 @@ signvector(A, ineqmat="white")
 signvector(B, ineqmat="white")
 signvector(B_prime, ineqmat="white")
 
-signvector(A) # or signvector(A, ineqmat="mct") if we want to specify the MCT arrangement explicitly
+signvector(A) # equivalent to signvector(A, ineqmat="mct")
 signvector(B)
 signvector(B_prime)
 ```
@@ -195,3 +195,8 @@ phi(pentachord_P_prime)
 phi(hexachord_G)
 phi(heptachord_D)
 ```
+
+---
+
+
+**Last updated:** 6 October 2026
