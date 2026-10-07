@@ -21,7 +21,7 @@ be a useful test case:
 c_maj <- c(0, 2, 4, 5, 7, 9, 11)
 ```
 
-Note R’s syntax for entering an ordered tuple,
+Note R’s way of entering an ordered tuple,
 [`c()`](https://rdrr.io/r/base/c.html), which is always necessary when
 manually defining a musical set.
 
@@ -140,8 +140,8 @@ phi(H)
 #> [1]  0.0 -0.5  0.0 -0.5  0.0 -0.5 -1.0 -0.5
 sum_brightness(H)
 #> [1] 39
-sum_brightness(H, mode=7)
-#> [1] 43
+sum_brightness(H, mode=6)
+#> [1] 47
 subset_varieties(c(0, 2, 4, 6), H, unique=FALSE)
 #>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
 #> [1,]    0    0    0    0    0    0    0    0
@@ -247,7 +247,7 @@ signvector(B, ineqmat="white")
 signvector(B_prime, ineqmat="white")
 #> [1] -1 -1  1
 
-signvector(A) # or signvector(A, ineqmat="mct") if we want to specify the MCT arrangement explicitly
+signvector(A) # equivalent to signvector(A, ineqmat="mct")
 #> [1] -1 -1 -1
 signvector(B)
 #> [1] -1 -1 -1
@@ -285,3 +285,7 @@ phi(hexachord_G)
 phi(heptachord_D)
 #> [1]  0.0000000  0.2857143  0.5714286 -0.1428571  0.1428571  0.4285714  0.7142857
 ```
+
+------------------------------------------------------------------------
+
+**Last updated:** 6 October 2026
