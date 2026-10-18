@@ -68,7 +68,7 @@ sim <- function(set, goal=NULL, edo=12, rounder=10) {
 #' @returns Single numeric value: the sum brightness of the specified mode.
 #' @examples
 #' c_major <- c(0, 2, 4, 5, 7, 9, 11)
-#' d_major <- tn(c_major, 2, optic="p") # NB octave equivalent must NOT be used
+#' d_major <- tn(c_major, 2, optic="p") # NB octave equivalence must NOT be used
 #' c_dorian <- c(0, 2, 3, 5, 7, 9, 10)
 #'
 #' sum_brightness(c_major)
