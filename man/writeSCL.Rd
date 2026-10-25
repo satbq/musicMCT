@@ -38,7 +38,11 @@ Invisible \code{NULL}
 You mean you don't want to play around in R forever?
 This function lets you export any scale you've defined in R
 as a .scl tuning file for use in Scala or by any synth that can read
-.scl files. Will write to your working directory.
+.scl files.
+
+A path for the location where you want to save the file must be specified.
+If you want to save in your current working directory, include \code{path=getwd()}
+in your function call.
 
 In addition to saving the necessary tuning data, the function
 will attempt to add as comments extra information that can be derived

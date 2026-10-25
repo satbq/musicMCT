@@ -47,12 +47,20 @@
 #'   only be used if `set` is not entered.
 #' @param involution Boolean: controls involutional symmetry. Defaults to
 #'   `FALSE`.
+#' @param type For `ineqsym_index()` and `ineqsym_degree()`, whether the symmetry
+#'   needs to preserve the precise intervallic structure of a set itself 
+#'   (up to transposition) or merely its color. Should be a string, `"set"` or
+#'   `"color"`; defaults to `"set"`.
 #' @inheritParams tnprime
 #'
-#' @returns Numeric vector representing a scale of same length as `set`.
+#' @returns For `ineqsym()`, a numeric vector representing a scale of same length as `set`.
 #'   Default parameters determine the identity symmetry and will return
 #'   `set` itself. If `set` is left as its default `NULL` value, the function returns
 #'   instead the `card`-by-`card` permutation matrix that implements the symmetry.
+#'   For `ineqsym_index()`, a data frame representing the symmetries that fix the input. Each row
+#'   corresponds to one symmetry; columns indicate the settings of the parameters `a`, `b`, and
+#'   `involution`. For `ineqsym_degree()`, a single numeric value that counts how many distinct
+#'   symmetries the input has.
 #' 
 #' @examples
 #' wt_plus_1 <- sc(7,33)
@@ -67,6 +75,20 @@
 #' brightnessgraph(wt_plus_1)
 #' brightnessgraph(equiv_scale)
 #' 
+#'
+#' # The twelve-equal major triad is fairly symmetrical:
+#' ineqsym_index(c(0, 4, 7))
+#'
+#' # But its just equivalent lacks these symmetries as a set:
+#' just_major <- j(1, 3, 5)
+#' ineqsym_index(just_major)
+#' just_major
+#' ineqsym(just_major, a=2, b=0) # This was a symmetry of equal-tempered major
+#'
+#' # It nonetheless still has the same symmetries as (0, 4, 7) as a color:
+#' ineqsym_index(just_major, type="color")
+#' ineqsym_degree(just_major, type="color") 
+#'
 #' @export
 ineqsym <- function(set=NULL, 
                     a=1,  
@@ -111,3 +133,42 @@ ineqsym <- function(set=NULL,
   }
 }
 
+#' @rdname ineqsym
+#' @export
+ineqsym_index <- function(set, type=c("set", "color"), edo=12, rounder=10) {
+  type <- match.arg(type)
+  tiny <- 10^(-rounder)
+  card <- length(set)
+  units <- units_mod(card)
+  rotations <- 0:(card-1)
+  invo_settings <- c(FALSE, TRUE)
+  param_settings <- expand.grid(units, rotations, invo_settings)
+  param_settings <- param_settings[order(param_settings[, 1]), ]
+  colnames(param_settings) <- c("a", "b", "inv")
+
+  palette <- mapply(ineqsym, param_settings[, 1], param_settings[, 2], param_settings[, 3], MoreArgs=list(set=set, card=NULL, edo=edo))
+
+  if (type=="set") {
+    palette <- apply(palette, 2, startzero, optic="")
+    dists <- apply(palette, 2, vl_dist, set_2=set, method="euclidean")
+    stabilizers <- which(dists < tiny)
+  }
+
+  if (type=="color") { 
+    set_sv <- toString(signvector(set, ineqmat="mct", edo=edo, rounder=rounder))
+    palette_svs <- apply(palette, 2, signvector, ineqmat="mct", edo=edo, rounder=rounder)
+    palette_svs <- apply(palette_svs, 2, toString)
+    stabilizers <- which(palette_svs == set_sv)
+  }
+
+  res <- param_settings[stabilizers, ]
+  rownames(res) <- NULL
+  res
+}
+
+
+#' @rdname ineqsym
+#' @export
+ineqsym_degree <- function(set, type=c("set", "color"), edo=12, rounder=10) {
+  dim(ineqsym_index(set=set, type=type, edo=edo, rounder=rounder))[1]
+}

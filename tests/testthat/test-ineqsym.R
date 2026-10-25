@@ -41,3 +41,20 @@ test_that("ineqsym generates good permutation matrices", {
   expect_equal(ineqsym(a=2, b=0, card=5), p_theta)
   expect_equal(ineqsym(a=2, b=1, card=5), p_psi)
 })
+
+test_that("ineqsym_index and _degree work", {
+  jm <- j(1,3,5)
+  cmaj <- c(0, 2, 4, 5, 7, 9, 11)
+  golomb <- c(0, 1, 4, 9, 11)
+
+  expect_equal(ineqsym_degree(jm), 1)
+  expect_equal(ineqsym_degree(jm, type="color"), 2)
+  
+  cmaj_symmetries <- ineqsym_index(cmaj)
+  expect_equal(cmaj_symmetries[2, 1], 6)
+  expect_equal(cmaj_symmetries[2, 2], 2)
+  expect_equal(cmaj_symmetries[2, 3], TRUE)
+  expect_equal(ineqsym_index(sc(7,35))$'b', c(0, 4))
+
+  expect_equal(ineqsym_degree(golomb, edo=15), 4)
+})

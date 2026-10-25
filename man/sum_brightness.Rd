@@ -28,7 +28,7 @@ scale degrees above the tonic. See also Section 3.2 of "Bright notes, dark scale
 }
 \examples{
 c_major <- c(0, 2, 4, 5, 7, 9, 11)
-d_major <- tn(c_major, 2, optic="p") # NB octave equivalent must NOT be used
+d_major <- tn(c_major, 2, optic="p") # NB octave equivalence must NOT be used
 c_dorian <- c(0, 2, 3, 5, 7, 9, 10)
 
 sum_brightness(c_major)

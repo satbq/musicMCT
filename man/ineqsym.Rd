@@ -2,9 +2,15 @@
 % Please edit documentation in R/ineqsym.R
 \name{ineqsym}
 \alias{ineqsym}
+\alias{ineqsym_index}
+\alias{ineqsym_degree}
 \title{Symmetries of hyperplane arrangements define equivalent scales}
 \usage{
 ineqsym(set = NULL, a = 1, b = 0, card = NULL, involution = FALSE, edo = 12)
+
+ineqsym_index(set, type = c("set", "color"), edo = 12, rounder = 10)
+
+ineqsym_degree(set, type = c("set", "color"), edo = 12, rounder = 10)
 }
 \arguments{
 \item{set}{Numeric vector of pitch-classes in the set. Defaults to \code{NULL}, in which
@@ -22,12 +28,24 @@ only be used if \code{set} is not entered.}
 \code{FALSE}.}
 
 \item{edo}{Number of unit steps in an octave. Defaults to \code{12}.}
+
+\item{type}{For \code{ineqsym_index()} and \code{ineqsym_degree()}, whether the symmetry
+needs to preserve the precise intervallic structure of a set itself
+(up to transposition) or merely its color. Should be a string, \code{"set"} or
+\code{"color"}; defaults to \code{"set"}.}
+
+\item{rounder}{Numeric (expected integer), defaults to \code{10}:
+number of decimal places to round to when testing for equality.}
 }
 \value{
-Numeric vector representing a scale of same length as \code{set}.
+For \code{ineqsym()}, a numeric vector representing a scale of same length as \code{set}.
 Default parameters determine the identity symmetry and will return
 \code{set} itself. If \code{set} is left as its default \code{NULL} value, the function returns
 instead the \code{card}-by-\code{card} permutation matrix that implements the symmetry.
+For \code{ineqsym_index()}, a data frame representing the symmetries that fix the input. Each row
+corresponds to one symmetry; columns indicate the settings of the parameters \code{a}, \code{b}, and
+\code{involution}. For \code{ineqsym_degree()}, a single numeric value that counts how many distinct
+symmetries the input has.
 }
 \description{
 Produces scales of different colors which have equivalent scalar properties.
@@ -83,5 +101,19 @@ spectra <- apply(apply(both_scales, 2, spectrumcount), 2, toString)
 cbind(freedoms, evennesses, svzeroes, ratios, spectra)
 brightnessgraph(wt_plus_1)
 brightnessgraph(equiv_scale)
+
+
+# The twelve-equal major triad is fairly symmetrical:
+ineqsym_index(c(0, 4, 7))
+
+# But its just equivalent lacks these symmetries as a set:
+just_major <- j(1, 3, 5)
+ineqsym_index(just_major)
+just_major
+ineqsym(just_major, a=2, b=0) # This was a symmetry of equal-tempered major
+
+# It nonetheless still has the same symmetries as (0, 4, 7) as a color:
+ineqsym_index(just_major, type="color")
+ineqsym_degree(just_major, type="color") 
 
 }
