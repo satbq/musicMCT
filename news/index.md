@@ -13,6 +13,13 @@
 - New vignette (note_brightness.Rmd) explains how to use musicMCT
   functions to explore the concepts of the article “Dark notes, bright
   scales, and Debussy’s *La fille aux cheveux de lin*.”
+- New
+  [`ineqsym_index()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  and
+  [`ineqsym_degree()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  find which (or how many) symmetries a scale or color has under the
+  action of
+  [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md).
 
 ## musicMCT 0.5.0
 

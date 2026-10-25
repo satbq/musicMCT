@@ -138,8 +138,10 @@ Gather information about individual scales
   brightness ratio
 - [`howfree()`](https://satbq.github.io/musicMCT/reference/howfree.md) :
   Count a scale's degrees of freedom
-- [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md) :
-  Symmetries of hyperplane arrangements define equivalent scales
+- [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  [`ineqsym_index()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  [`ineqsym_degree()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
+  : Symmetries of hyperplane arrangements define equivalent scales
 - [`primary_hue()`](https://satbq.github.io/musicMCT/reference/primary_hue.md)
   [`primary_colornum()`](https://satbq.github.io/musicMCT/reference/primary_hue.md)
   [`primary_signvector()`](https://satbq.github.io/musicMCT/reference/primary_hue.md)

@@ -12,6 +12,10 @@ involved.
 
 ``` r
 ineqsym(set = NULL, a = 1, b = 0, card = NULL, involution = FALSE, edo = 12)
+
+ineqsym_index(set, type = c("set", "color"), edo = 12, rounder = 10)
+
+ineqsym_degree(set, type = c("set", "color"), edo = 12, rounder = 10)
 ```
 
 ## Arguments
@@ -43,13 +47,29 @@ ineqsym(set = NULL, a = 1, b = 0, card = NULL, involution = FALSE, edo = 12)
 
   Number of unit steps in an octave. Defaults to `12`.
 
+- type:
+
+  For `ineqsym_index()` and `ineqsym_degree()`, whether the symmetry
+  needs to preserve the precise intervallic structure of a set itself
+  (up to transposition) or merely its color. Should be a string, `"set"`
+  or `"color"`; defaults to `"set"`.
+
+- rounder:
+
+  Numeric (expected integer), defaults to `10`: number of decimal places
+  to round to when testing for equality.
+
 ## Value
 
-Numeric vector representing a scale of same length as `set`. Default
-parameters determine the identity symmetry and will return `set` itself.
-If `set` is left as its default `NULL` value, the function returns
-instead the `card`-by-`card` permutation matrix that implements the
-symmetry.
+For `ineqsym()`, a numeric vector representing a scale of same length as
+`set`. Default parameters determine the identity symmetry and will
+return `set` itself. If `set` is left as its default `NULL` value, the
+function returns instead the `card`-by-`card` permutation matrix that
+implements the symmetry. For `ineqsym_index()`, a data frame
+representing the symmetries that fix the input. Each row corresponds to
+one symmetry; columns indicate the settings of the parameters `a`, `b`,
+and `involution`. For `ineqsym_degree()`, a single numeric value that
+counts how many distinct symmetries the input has.
 
 ## Details
 
@@ -121,4 +141,29 @@ brightnessgraph(wt_plus_1)
 
 brightnessgraph(equiv_scale)
 
+
+
+# The twelve-equal major triad is fairly symmetrical:
+ineqsym_index(c(0, 4, 7))
+#>   a b   inv
+#> 1 1 0 FALSE
+#> 2 2 1 FALSE
+
+# But its just equivalent lacks these symmetries as a set:
+just_major <- j(1, 3, 5)
+ineqsym_index(just_major)
+#>   a b   inv
+#> 1 1 0 FALSE
+just_major
+#> [1] 0.000000 3.863137 7.019550
+ineqsym(just_major, a=2, b=0) # This was a symmetry of equal-tempered major
+#> [1] 0.000000 3.019550 7.863137
+
+# It nonetheless still has the same symmetries as (0, 4, 7) as a color:
+ineqsym_index(just_major, type="color")
+#>   a b   inv
+#> 1 1 0 FALSE
+#> 2 2 1 FALSE
+ineqsym_degree(just_major, type="color") 
+#> [1] 2
 ```
