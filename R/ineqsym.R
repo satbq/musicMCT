@@ -1,11 +1,13 @@
 #' Symmetries of hyperplane arrangements define equivalent scales
 #'
-#' Produces scales of different colors which have equivalent scalar properties.
+#' The function `ineqsym()` produces scales of different colors which have equivalent scalar properties.
 #' The hyperplane arrangements of MCT have three types of symmetry, which allows
 #' us to find scales at different but equivalent points in the arrangement.
 #' Such scales will be nearly structurally identical in most senses although
-#' their specific intervals will be rather different. See details for a discussion
-#' of the symmetries involved.
+#' their specific intervals will be rather different. (See details for a discussion
+#' of the symmetries involved.) The function `ineqsym_index()` finds which
+#' symmetries of the hyperplane arrangement preserve an input scale; 
+#' `ineqsym_degree()` counts how many symmetries the scale has.
 #'
 #' Two symmetries of the MCT hyperplane arrangement are familiar. 
 #' One is modal "rotation": 
@@ -83,7 +85,7 @@
 #' just_major <- j(1, 3, 5)
 #' ineqsym_index(just_major)
 #' just_major
-#' ineqsym(just_major, a=2, b=0) # This was a symmetry of equal-tempered major
+#' ineqsym(just_major, a=2, b=2) # This was a symmetry of equal-tempered major
 #'
 #' # It nonetheless still has the same symmetries as (0, 4, 7) as a color:
 #' ineqsym_index(just_major, type="color")
