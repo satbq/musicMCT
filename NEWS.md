@@ -3,10 +3,13 @@
 * New `phi()` is a synonym for `coord_to_edo()`.
 * New vignette (note_brightness.Rmd) explains how to use musicMCT functions to explore the concepts of 
   the article "Dark notes, bright scales, and Debussy's *La fille aux cheveux de lin*."
+* New vignette (duality.Rmd) explains how to use musicMCT to implement ideas from the conference paper 
+  "Chord-Voice Leading Duality."
 * New `ineqsym_index()` and `ineqsym_degree()` find which (or how many) symmetries a scale or color has
   under the action of `ineqsym()`.
 * New `make_ultraviolet_ineqmat()` adds another family of hyperplane arrangements for studying voice leadings
-  in the spirit of `make_infrared_ineqmat()`.
+  in the spirit of `make_infrared_ineqmat()`. The `ineqmat` parameter for all other functions now accepts
+  `"ultraviolet"` as a choice.
 
 # musicMCT 0.5.0
 * New vignette (mct_symmetries.Rmd) explains the use of `ineqsym()` and related functions.
