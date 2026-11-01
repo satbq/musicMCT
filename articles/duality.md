@@ -145,7 +145,7 @@ above.
 Instead of asking about relative motions as in the white arrangements,
 you might simply want to know whether each voice moves up or down. Those
 properties are capture by the “black” arrangements
-(`make_black_arrangement()`):
+([`make_black_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_black_ineqmat.md)):
 
 ``` r
 
