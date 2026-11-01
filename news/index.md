@@ -4,8 +4,8 @@
 
 - New
   [`sum_brightness()`](https://satbq.github.io/musicMCT/reference/sum_brightness.md)
-  is convenience for computing total pitch height of scale degrees above
-  tonic.
+  is convenience function for computing total pitch height of scale
+  degrees above tonic.
 - New
   [`phi()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md)
   is a synonym for
@@ -20,6 +20,11 @@
   find which (or how many) symmetries a scale or color has under the
   action of
   [`ineqsym()`](https://satbq.github.io/musicMCT/reference/ineqsym.md).
+- New
+  [`make_ultraviolet_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_ultraviolet_ineqmat.md)
+  adds another family of hyperplane arrangements for studying voice
+  leadings in the spirit of
+  [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md).
 
 ## musicMCT 0.5.0
 

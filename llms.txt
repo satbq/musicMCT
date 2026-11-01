@@ -186,6 +186,8 @@ Define and manipulate the arrangements which characterize the spaces
   [`get_roth_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md)
   [`make_rosy_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md)
   : Define hyperplanes for Rothenberg arrangements
+- [`make_ultraviolet_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_ultraviolet_ineqmat.md)
+  : Define hyperplanes for ultraviolet arrangements
 - [`make_white_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md)
   [`make_pastel_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md)
   : Define hyperplanes for white arrangements
