@@ -13,17 +13,17 @@ coverage](https://codecov.io/gh/satbq/musicMCT/graph/badge.svg)](https://app.cod
 <!-- badges: end -->
 
 The “MCT” in musicMCT stands for **Modal Color Theory**, a theory of
-musical scale structure developed by Paul Sherrill, “Modal Color
-Theory,” *Journal of Music Theory* 69/1 (2025): 1-49. The goal of this
-package is to give musicians and music scholars computational tools that
-make it easier to work with this theory. In a nutshell, Modal Color
-Theory models musical scales as points in a geometry. The locations of
-those points relative to various hyperplane arrangements tell us a lot
-about the scales’ internal structures and mutual relationships. The
-shape of those hyperplane arrangements gets pretty complex: for the
-important case of seven-note scales, the main arrangement has 42
-hyperplanes in a 6-dimensional space. Computational tools are therefore
-very helpful.
+musical scale structure developed by Paul Sherrill, [“Modal Color
+Theory,”](https://doi.org/10.1215/00222909-11595194) *Journal of Music
+Theory* 69/1 (2025): 1-49. The goal of this package is to give musicians
+and music scholars computational tools that make it easier to work with
+this theory. In a nutshell, Modal Color Theory models musical scales as
+points in a geometry. The locations of those points relative to various
+hyperplane arrangements tell us a lot about the scales’ internal
+structures and mutual relationships. The shape of those hyperplane
+arrangements gets pretty complex: for the important case of seven-note
+scales, the main arrangement has 42 hyperplanes in a 6-dimensional
+space. Computational tools are therefore very helpful.
 
 If you’ve ever wondered why a piece of music uses one scale rather than
 another; if you want to know more about the jazz chord-scale concept of
@@ -32,6 +32,14 @@ design your own microtonal scale from scratch; if you’re a theorist who
 wants a geometrical perspective on concepts like voice leading and
 maximal evenness; if you’re an ethnomusicologist looking to interpret
 tuning data: musicMCT might be useful to you.
+
+This package includes several vignettes that complement articles and
+conferences talks that use the theory. If you have come to musicMCT to
+explore the ideas of some particular research project, be sure to check
+out the relevant vignette, which should explain how to implement the
+ideas of that paper in R. On musicMCT’s GitHub site, these vignettes can
+be found under the “Get started” and “Articles” tabs. In R itself, these
+can be viewed with the command `browseVignettes("musicMCT")`.
 
 ## Installation
 
