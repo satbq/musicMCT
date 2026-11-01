@@ -104,7 +104,7 @@ vl_signvector(beta, ineqmat="white")
 The parameter in musicMCT functions that specifies which hyperplane arrangement to use is the `ineqmat` parameter as in the code block above.
 
 Instead of asking about relative motions as in the white arrangements, you might simply want to know whether each voice moves up or down. Those
-properties are capture by the "black" arrangements (`make_black_arrangement()`):
+properties are capture by the "black" arrangements (`make_black_ineqmat()`):
 
 ```{r}
 vl_signvector(alpha, ineqmat="black")
