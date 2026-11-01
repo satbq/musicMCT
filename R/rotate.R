@@ -24,7 +24,7 @@
 rotate <- function(x, n=1, transpose_up=FALSE, edo=12) {
   len <- length(x)
   n_reduced <- n >= len || n < 0 
-  n <- n %% length(x)
+  n <- n %% len
 
   if (transpose_up==TRUE) {
     if (n != 0) { 
