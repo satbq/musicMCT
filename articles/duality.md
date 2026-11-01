@@ -1,0 +1,298 @@
+# Chord-Voice Leading Duality
+
+``` r
+
+library(musicMCT)
+```
+
+This vignette complements the conference paper “Chord-Voice Leading
+Duality,” versions of which were presented at EuroMAC 11 and the Society
+for Music Theory in 2026. It is a work in progress and will probably
+change as the ideas of that talk are developed.
+
+## Calculating Sign Vectors
+
+The main tool introduced in this paper is the sign vector for voice
+leadings, which is calculated in musicMCT by the function
+[`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md).
+Following the talk’s focus on Wagner’s *Tristan und Isolde*, let us
+study the voice leadings that resolve the Tristan chord in the
+Vorspiel’s first and third phrases (mm. 1-3 and 8-11). As in the paper,
+we’ll call those voice leadings \\\alpha\\ and \\\beta\\:
+
+``` r
+
+alpha <- c(-1, -3, -1, 3)
+beta <- c(-1, -2, 1, 4)
+```
+
+In this model, voice leadings should be entered in ascending registral
+order. The first entry of a voice leading represents that bass’s motion;
+the last entry represents the highest voice’s motion.
+
+We now can calculate the sign vectors for these two motions:
+
+``` r
+
+vl_signvector(alpha)
+#>  [1] -1 -1 -1  1  1  1  0  1 -1  1  1  1 -1  1  1  1 -1  1  1  1  1
+vl_signvector(beta)
+#>  [1] -1 -1  0  1  1  1  1  1 -1  1  1  1 -1  1  1  1  1  1  1  1  1
+```
+
+Although it’s possible to inspect the sign vectors by hand, it’s more
+convenient to let R do calculations with them. For instance, one of the
+measures of similarity proposed in the paper involves counting how many
+positions in the sign vectors are different.
+
+``` r
+
+alpha_sv <- vl_signvector(alpha)
+beta_sv <- vl_signvector(beta)
+ab_difference <- alpha_sv - beta_sv
+
+which(ab_difference != 0)
+#> [1]  3  7 17
+```
+
+This shows that the two sign vectors differ in only three positions: the
+3rd, 7th, and 17th entries of the sign vector.
+
+We might then want to know what specific contrapuntal behaviors those
+differences correspond to. For this, we need to know what hyperplane
+arrangement was used to compute the sign vectors. Musically, this is
+equivalent to knowing what specific questions we asked about the voice
+leadings. The default hyperplane arrangement, for voice leadings, is
+what I call the “infrared” hyperplane arrangement (see
+[`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md)).
+We can get information about the specific hyperplanes where \\\alpha\\
+and \\\beta\\ differ with the following.
+
+``` r
+
+tetrachord_arrangement <- make_infrared_ineqmat(4)
+tetrachord_arrangement[c(3, 7, 17), ]
+#>           [,1]      [,2]     [,3] [,4] [,5]
+#> [1,]  0.000000 -1.000000 2.000000   -1    0
+#> [2,] -2.000000  0.000000 2.000000    0   -1
+#> [3,] -2.666667  1.333333 1.333333    0   -1
+```
+
+Each row of the matrix above corresponds to one hyperplane in the
+arrangement, reflecting some musical quality on which the voice leadings
+differ. The columns (except for the last column) correspond to the
+voices in the progression, so that the first column corresponds to the
+bass, the second column to the tenor, and so on.
+
+Thus, the first row of the matrix above shows that one hyperplane where
+\\\alpha\\ and \\\beta\\ differ has to do with the relative motions of
+tenor, alto, and soprano. This row has a 0 in the first column,
+indicating that the motion of the bass doesn’t affect this musical
+quality at all. The third column has a 2, which indicates that the
+behavior of the alto is especially important for this property.
+Ultimately, this hyperplane asks whether the tenor or soprano bunches up
+with the alto more. In \\\alpha\\, the alto ends up moving closer to the
+tenor, whereas in \\\beta\\, the soprano and tenor move away from the
+alto by equal amounts.
+
+The second row of the matrix only has entries for the first and third
+columns, so this hyperplane only cares about the relative motion of the
+bass and alto. Do the voices get farther apart? In \\\alpha\\ the answer
+is “no,” so the sign vector for \\\alpha\\ has a \\0\\ in the
+corresponding position for the sign vector. In \\\beta\\, the bass and
+alto do get rather apart, so the sign vector for \\\beta\\ has a \\1\\
+here:
+
+``` r
+
+vl_signvector(alpha)[7]
+#> [1] 0
+vl_signvector(beta)[7]
+#> [1] 1
+```
+
+## Which hyperplane arrangement to choose?
+
+The voice-leading properties discussed in the “Duality” paper are the
+ones captured by the “infrared” hyperplane arrangement. These have to do
+with (1) how voices move relative to each other, and (2) how pairs of
+duets compare to each other, measuring how much voices “bunch up” with
+one another. However, you might not necessarily always want to ask
+exactly those questions.
+
+For instance, you might not be interested in the “bunching up” behavior
+described by questions of type (2). If you only want to know about the
+two-voice contrapuntal motions of (1), these are described by what I
+call the “white” hyperplane arrangement. The white arrangements
+themselves are created by the function
+[`make_white_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md),
+but they can be specified in calls to other functions directly. For
+instance, we can compute the sign vectors for \\\alpha\\ and \\\beta\\
+using *only* the white hyperplanes as follows:
+
+``` r
+
+vl_signvector(alpha, ineqmat="white")
+#> [1] -1  0  1  1  1  1
+vl_signvector(beta, ineqmat="white")
+#> [1] -1  1  1  1  1  1
+```
+
+The parameter in musicMCT functions that specifies which hyperplane
+arrangement to use is the `ineqmat` parameter as in the code block
+above.
+
+Instead of asking about relative motions as in the white arrangements,
+you might simply want to know whether each voice moves up or down. Those
+properties are capture by the “black” arrangements
+(`make_black_arrangement()`):
+
+``` r
+
+vl_signvector(alpha, ineqmat="black")
+#> [1] -1 -1 -1  1
+vl_signvector(beta, ineqmat="black")
+#> [1] -1 -1  1  1
+```
+
+The black signvector for \\\alpha\\ starts with three \\-1\\s because
+the bass, tenor, and alto all descend. The soprano ascends, so the last
+entry of \\\alpha\\’s sign vector is a positive 1. (If a voice doesn’t
+move, its corresponding entry in the black signvector would be \\0\\.)
+Since the alto voice in \\\beta\\ does ascend, the third entry of
+\\\beta\\’s black sign vector is \\1\\.
+
+Another hyperplane arrangement that might be useful for exploring voice
+leadings is the “ultraviolet” arrangement, which is interested in
+perfectly balanced contrary motion. For instance, one hyperplane of the
+ultraviolet arrangement reads out a \\0\\ if the bass and soprano move
+in opposite directions by the same amount. Let’s look at \\\alpha\\ and
+\\\beta\\ through this lens:
+
+``` r
+
+vl_signvector(alpha, ineqmat="ultraviolet")
+#> [1] -1 -1  1 -1  0  1
+vl_signvector(beta, ineqmat="ultraviolet")
+#> [1] -1  0  1 -1  1  1
+```
+
+Each has one zero in its sign vector, which means that each has exactly
+one pair of voices moving in balanced contrary motion. In \\\alpha\\,
+that pair is the tenor and soprano, whose voice exchange makes each line
+move by 3 semitones in opposite directions. In \\\beta\\, that pair is
+the bass and alto, which wedge apart semitonally.
+
+It’s possible to mix and match hyperplane arrangements, if you are
+interested in multiple sets of questions. For instance, you might want
+to know about the absolute motions of individual voices (the black
+hyperplanes) as well as the relative motions of voice pairs (the white
+hyperplanes). For some combinations of hyperplane arrangements, musicMCT
+has pre-defined names for them. For instance, the combination of black
+and white arrangements is called the gray arrangement:
+
+``` r
+
+vl_signvector(alpha, ineqmat="gray")
+#>  [1] -1  0  1  1  1  1 -1 -1 -1  1
+vl_signvector(beta, ineqmat="gray")
+#>  [1] -1  1  1  1  1  1 -1 -1  1  1
+```
+
+In other cases, the specific combination you want may not be
+pre-programmed. In this case, you can define your own arrangement by
+manually creating its matrix. Here, for instance, is how you could find
+the sign vector for infrared and ultraviolet arrangements at the same
+time:
+
+``` r
+
+tetrachord_infrared <- make_infrared_ineqmat(4)
+tetrachord_ultraviolet <- make_ultraviolet_ineqmat(4)
+ir_uv_spectrum <- rbind(tetrachord_infrared, tetrachord_ultraviolet)
+
+vl_signvector(alpha, ineqmat=ir_uv_spectrum)
+#>  [1] -1 -1 -1  1  1  1  0  1 -1  1  1  1 -1  1  1  1 -1  1  1  1  1 -1 -1  1 -1
+#> [26]  0  1
+vl_signvector(beta, ineqmat=ir_uv_spectrum)
+#>  [1] -1 -1  0  1  1  1  1  1 -1  1  1  1 -1  1  1  1  1  1  1  1  1 -1  0  1 -1
+#> [26]  1  1
+```
+
+Notice that, in this case where I have defined a hyperplane arrangement
+manually with a matrix, the `ineqmat` parameter takes a variable name
+without quotation marks (`ir_uv_spectrum`) unlike in the earlier
+examples, which named a general category of arrangements (such as
+`"white"` or `"black"`) as a string in quotation marks.
+
+## Other structural properties
+
+The central claim of “Chord-Voice Leading Duality” is that the tools
+musicMCT offers for chords and scales are also useful for voice
+leadings. It’s therefore very much worth trying to use other functions,
+like
+[`howfree()`](https://satbq.github.io/musicMCT/reference/howfree.md) and
+[`whichsvzeroes()`](https://satbq.github.io/musicMCT/reference/whichsvzeroes.md).
+
+In this case, it’s important to know that musicMCT defaults to a
+scale-oriented coordinate system, and that to get correct results from
+functions other than
+[`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+we need to convert voice leadings into the right coordinates.
+
+That is, musicMCT is designed to accept scales defined as pitch numbers.
+For instance, a C major triad would be represented as \\(0, 4, 7)\\. As
+“Duality” describes, the right coordinate system for treating chords and
+voice leadings as dual is the one in which perfectly even scales and
+voice leadings are represented as the origin. In this coordinate system,
+the C major triad should be represented as \\(0, 0, -1)\\, since it
+differs from the perfectly even trichord \\(0, 4, 8)\\ by just a
+semitone in the top voice.
+
+The package has functions that convert between these coordinate systems:
+
+``` r
+
+c_major <- c(0, 4, 7)
+cmaj_displacement <- c(0, 0, -1)
+
+coord_to_edo(c_major)
+#> [1]  0  0 -1
+coord_from_edo(cmaj_displacement)
+#> [1] 0 4 7
+```
+
+Because most functions in musicMCT expect inputs in the pitch-centric
+coordinate system, voice leadings need to be converted to those
+coordinates with
+[`coord_from_edo()`](https://satbq.github.io/musicMCT/reference/coord_to_edo.md).
+For instance, we might be interested in how many independent ways
+\\\beta\\ can vary without losing its qualitative identity. The right
+answer here is \\2\\, but we won’t get that if we forget to use the
+right coordinate system:
+
+``` r
+
+howfree(beta, ineqmat="infrared")
+#> [1] 1
+howfree(coord_from_edo(beta), ineqmat="infrared")
+#> [1] 2
+```
+
+In the above example, not too that we had to explicitly specify that
+[`howfree()`](https://satbq.github.io/musicMCT/reference/howfree.md)
+should use the infrared hyperplane arrangement. Each function has an
+arrangement type that it defaults to; while
+[`vl_signvector()`](https://satbq.github.io/musicMCT/reference/signvector.md)
+defaults to the infrared arrangements, most other functions default to
+the “Modal Color Theory” arrangements introduced in the *Journal of
+Music Theory* article of the same name. (The MCT arrangements are
+essentially a subset of the full infrared arrangements.)
+
+For an introduction to other functions that might be useful for
+exploring voice leadings, I encourage you to explore the package’s other
+vignettes, as well as its documentation for individual functions.
+
+------------------------------------------------------------------------
+
+**Last updated:** 1 November 2026

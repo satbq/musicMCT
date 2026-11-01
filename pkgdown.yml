@@ -2,11 +2,12 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  duality: duality.html
   mct_symmetries: mct_symmetries.html
   musicMCT: musicMCT.html
   note_brightness: note_brightness.html
   visualizing_higher_dimensions: visualizing_higher_dimensions.html
-last_built: 2026-11-01T06:30Z
+last_built: 2026-11-01T21:17Z
 urls:
   reference: https://satbq.github.io/musicMCT/reference
   article: https://satbq.github.io/musicMCT/articles

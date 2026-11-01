@@ -25,7 +25,8 @@
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/mct_symmetries.html">Symmetries of Hyperplane Arrangements and ineqsym()</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/duality.html">Chord-Voice Leading Duality</a></li>
+    <li><a class="dropdown-item" href="../articles/mct_symmetries.html">Symmetries of Hyperplane Arrangements and ineqsym()</a></li>
     <li><a class="dropdown-item" href="../articles/note_brightness.html">Bright notes, dark scales, and musicMCT</a></li>
     <li><a class="dropdown-item" href="../articles/visualizing_higher_dimensions.html">Visualizing Higher Dimensions</a></li>
   </ul></li>
@@ -49,8 +50,9 @@
 <ul><li>New <code><a href="../reference/sum_brightness.html">sum_brightness()</a></code> is convenience function for computing total pitch height of scale degrees above tonic.</li>
 <li>New <code><a href="../reference/coord_to_edo.html">phi()</a></code> is a synonym for <code><a href="../reference/coord_to_edo.html">coord_to_edo()</a></code>.</li>
 <li>New vignette (note_brightness.Rmd) explains how to use musicMCT functions to explore the concepts of the article “Dark notes, bright scales, and Debussy’s <em>La fille aux cheveux de lin</em>.”</li>
+<li>New vignette (duality.Rmd) explains how to use musicMCT to implement ideas from the conference paper “Chord-Voice Leading Duality.”</li>
 <li>New <code><a href="../reference/ineqsym.html">ineqsym_index()</a></code> and <code><a href="../reference/ineqsym.html">ineqsym_degree()</a></code> find which (or how many) symmetries a scale or color has under the action of <code><a href="../reference/ineqsym.html">ineqsym()</a></code>.</li>
-<li>New <code><a href="../reference/make_ultraviolet_ineqmat.html">make_ultraviolet_ineqmat()</a></code> adds another family of hyperplane arrangements for studying voice leadings in the spirit of <code><a href="../reference/make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code>.</li>
+<li>New <code><a href="../reference/make_ultraviolet_ineqmat.html">make_ultraviolet_ineqmat()</a></code> adds another family of hyperplane arrangements for studying voice leadings in the spirit of <code><a href="../reference/make_infrared_ineqmat.html">make_infrared_ineqmat()</a></code>. The <code>ineqmat</code> parameter for all other functions now accepts <code>"ultraviolet"</code> as a choice.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="musicmct-050">musicMCT 0.5.0<a class="anchor" aria-label="anchor" href="#musicmct-050"></a></h2><p class="text-muted">CRAN release: 2026-06-21</p>

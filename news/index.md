@@ -13,6 +13,8 @@
 - New vignette (note_brightness.Rmd) explains how to use musicMCT
   functions to explore the concepts of the article “Dark notes, bright
   scales, and Debussy’s *La fille aux cheveux de lin*.”
+- New vignette (duality.Rmd) explains how to use musicMCT to implement
+  ideas from the conference paper “Chord-Voice Leading Duality.”
 - New
   [`ineqsym_index()`](https://satbq.github.io/musicMCT/reference/ineqsym.md)
   and
@@ -25,6 +27,8 @@
   adds another family of hyperplane arrangements for studying voice
   leadings in the spirit of
   [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md).
+  The `ineqmat` parameter for all other functions now accepts
+  `"ultraviolet"` as a choice.
 
 ## musicMCT 0.5.0
 

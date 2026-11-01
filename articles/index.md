@@ -2,6 +2,8 @@
 
 ### All vignettes
 
+- [Chord-Voice Leading
+  Duality](https://satbq.github.io/musicMCT/articles/duality.md):
 - [Symmetries of Hyperplane Arrangements and
   ineqsym()](https://satbq.github.io/musicMCT/articles/mct_symmetries.md):
 - [Introduction to
