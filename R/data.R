@@ -73,7 +73,11 @@
 #' A list with 24 entries. The nth entry of the list gives the inequality
 #' matrix for n-note scales. Each inequality matrix itself is an m by (n+1)
 #' matrix, where m is the number of hyperplanes in the relevant Rothenberg arrangement.
-#' (The values m are currently only empirical: so far, no principled enumeration exists.)
+#' (The value of m is given by the expression 
+#' \eqn{\frac{1}{6}n^4 - \frac{5}{8}n^3 + \frac{11}{6}n^2 - \frac{5}{2}n}
+#' when n is even and by
+#' \eqn{\frac{1}{6}n^4 - \frac{5}{8}n^3 + \frac{11}{6}n^2 - \frac{19}{8}n}
+#' when n is odd.)
 #' The last column of the matrix contains constants that translate the hyperplane away
 #' from the origin.
 #'

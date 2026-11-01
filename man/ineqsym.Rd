@@ -52,8 +52,8 @@ The function \code{ineqsym()} produces scales of different colors which have equ
 The hyperplane arrangements of MCT have three types of symmetry, which allows
 us to find scales at different but equivalent points in the arrangement.
 Such scales will be nearly structurally identical in most senses although
-their specific intervals will be rather different. (See details for a discussion
-of the symmetries involved.) The function \code{ineqsym_index()} finds which
+their specific intervals will be rather different. (See Sherrill 2026, "Symmetries,"
+\doi{doi:10.1007/978-3-032-27827-2_5}, for more information.) The function \code{ineqsym_index()} finds which
 symmetries of the hyperplane arrangement preserve an input scale;
 \code{ineqsym_degree()} counts how many symmetries the scale has.
 }

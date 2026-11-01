@@ -1,5 +1,5 @@
 # musicMCT (development version)
-* New `sum_brightness()` is convenience for computing total pitch height of scale degrees above tonic.
+* New `sum_brightness()` is convenience function for computing total pitch height of scale degrees above tonic.
 * New `phi()` is a synonym for `coord_to_edo()`.
 * New vignette (note_brightness.Rmd) explains how to use musicMCT functions to explore the concepts of 
   the article "Dark notes, bright scales, and Debussy's *La fille aux cheveux de lin*."
