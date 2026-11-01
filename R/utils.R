@@ -95,7 +95,8 @@ choose_ineqmat <- function(set,
                                "black", 
                                "gray",
                                "infrared",
-                               "anaglyph")) {
+                               "anaglyph",
+                               "ultraviolet")) {
   if (inherits(x, "matrix")) {
     return(x)
   }
@@ -116,7 +117,8 @@ choose_ineqmat <- function(set,
                            black = make_black_ineqmat,
                            gray = make_gray_ineqmat,
                            infrared = make_infrared_ineqmat,
-                           anaglyph = make_anaglyph_ineqmat)
+                           anaglyph = make_anaglyph_ineqmat,
+                           ultraviolet = make_ultraviolet_ineqmat)
 
   create_ineqmat(card)
 }

@@ -5,6 +5,8 @@
   the article "Dark notes, bright scales, and Debussy's *La fille aux cheveux de lin*."
 * New `ineqsym_index()` and `ineqsym_degree()` find which (or how many) symmetries a scale or color has
   under the action of `ineqsym()`.
+* New `make_ultraviolet_ineqmat()` adds another family of hyperplane arrangements for studying voice leadings
+  in the spirit of `make_infrared_ineqmat()`.
 
 # musicMCT 0.5.0
 * New vignette (mct_symmetries.Rmd) explains the use of `ineqsym()` and related functions.
