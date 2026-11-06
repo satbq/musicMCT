@@ -29,10 +29,12 @@ initial is zero? Defaults to \code{TRUE}.}
 \item{ineqmat}{Specifies which hyperplane arrangement to consider. By default (or by
 explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements
 of \code{\link[=getineqmat]{getineqmat()}}, but can be set to strings "white," "black", "gray", "roth", "infrared",
-"pastel", "rosy", "infrared", or "anaglyph", giving the \code{ineqmat}s of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}},
+"pastel", "rosy", "infrared", "ultraviolet," or "anaglyph",
+giving the \code{ineqmat}s of \code{\link[=make_white_ineqmat]{make_white_ineqmat()}},
 \code{\link[=make_black_ineqmat]{make_black_ineqmat()}}, \code{\link[=make_gray_ineqmat]{make_gray_ineqmat()}}, \code{\link[=make_roth_ineqmat]{make_roth_ineqmat()}},
 \code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, \code{\link[=make_pastel_ineqmat]{make_pastel_ineqmat()}}, \code{\link[=make_rosy_ineqmat]{make_rosy_ineqmat()}},
-\code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, or \code{\link[=make_anaglyph_ineqmat]{make_anaglyph_ineqmat()}}. For other
+\code{\link[=make_infrared_ineqmat]{make_infrared_ineqmat()}}, \code{\link[=make_ultraviolet_ineqmat]{make_ultraviolet_ineqmat()}},
+or \code{\link[=make_anaglyph_ineqmat]{make_anaglyph_ineqmat()}}. For other
 arrangements, this parameter accepts explicit matrices.}
 
 \item{scales}{List of scales representing the faces of your hyperplane

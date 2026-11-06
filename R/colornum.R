@@ -25,10 +25,12 @@
 #' @param ineqmat Specifies which hyperplane arrangement to consider. By default (or by
 #'   explicitly entering "mct") it supplies the standard "Modal Color Theory" arrangements 
 #'   of [getineqmat()], but can be set to strings "white," "black", "gray", "roth", "infrared",
-#'   "pastel", "rosy", "infrared", or "anaglyph", giving the `ineqmat`s of [make_white_ineqmat()], 
+#'   "pastel", "rosy", "infrared", "ultraviolet," or "anaglyph", 
+#'   giving the `ineqmat`s of [make_white_ineqmat()], 
 #'   [make_black_ineqmat()], [make_gray_ineqmat()], [make_roth_ineqmat()],
 #'   [make_infrared_ineqmat()], [make_pastel_ineqmat()], [make_rosy_ineqmat()],
-#'   [make_infrared_ineqmat()], or [make_anaglyph_ineqmat()]. For other 
+#'   [make_infrared_ineqmat()], [make_ultraviolet_ineqmat()],
+#'   or [make_anaglyph_ineqmat()]. For other 
 #'   arrangements, this parameter accepts explicit matrices.
 #' @param signvector_list A list of signvectors to use as the reference by 
 #'   which `colornum` assigns a value. Defaults to `NULL` and will attempt to
