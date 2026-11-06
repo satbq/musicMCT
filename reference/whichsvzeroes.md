@@ -44,8 +44,8 @@ countsvzeroes(set, ineqmat = NULL, edo = 12, rounder = 10)
   Theory" arrangements of
   [`getineqmat()`](https://satbq.github.io/musicMCT/reference/makeineqmat.md),
   but can be set to strings "white," "black", "gray", "roth",
-  "infrared", "pastel", "rosy", "infrared", or "anaglyph", giving the
-  `ineqmat`s of
+  "infrared", "pastel", "rosy", "infrared", "ultraviolet," or
+  "anaglyph", giving the `ineqmat`s of
   [`make_white_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md),
   [`make_black_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_black_ineqmat.md),
   [`make_gray_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_black_ineqmat.md),
@@ -54,6 +54,7 @@ countsvzeroes(set, ineqmat = NULL, edo = 12, rounder = 10)
   [`make_pastel_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_white_ineqmat.md),
   [`make_rosy_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_roth_ineqmat.md),
   [`make_infrared_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_infrared_ineqmat.md),
+  [`make_ultraviolet_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_ultraviolet_ineqmat.md),
   or
   [`make_anaglyph_ineqmat()`](https://satbq.github.io/musicMCT/reference/make_anaglyph_ineqmat.md).
   For other arrangements, this parameter accepts explicit matrices.
